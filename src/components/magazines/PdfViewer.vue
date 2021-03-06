@@ -1,0 +1,186 @@
+<template>
+    <div id="container">
+        <div class="summary">
+            <div class="scroll"></div>
+        </div>
+        <div class="content">
+            <button id="summary-trigger"></button>
+            <div id="prev"></div>
+            <div id="next"></div>
+            <div class="pagination">
+                <progress id="pdf-progress" max="100" value=""></progress>
+                <span id="page_num"></span>/<span id="page_count"></span>
+            </div>
+            <canvas id="pdf-btm"></canvas>
+            <canvas id="pdf-top"></canvas>
+        </div>
+    </div>
+</template>
+
+<style scoped>
+body {
+    margin: 0;
+    font-family: 'Roboto';
+}
+#landing canvas {
+    width: 200px;
+    height: 360px;
+}
+#container {
+    background: #000;
+    display: none;
+}
+#container .summary {
+    height: 125px;
+    margin-top: -125px;
+    opacity: 0;
+    background: #fff;
+    transition: margin 350ms ease, opacity 350ms ease;
+}
+#container .summary.open {
+    margin-top: 0;
+    opacity: 1;
+}
+#container .summary.open ~ .content {
+    height: calc(100vh - 125px);
+}
+#container .summary.open ~ .content #summary-trigger::before {
+    transform: rotate(-180deg);
+}
+#container .summary .scroll {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+#container .summary .scroll canvas {
+    display: inline-block;
+    height: 96px;
+    margin: 3px 8px;
+    border: 1px solid #bbb;
+    cursor: pointer;
+}
+#container .content {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: height 350ms ease;
+}
+#container .content #summary-trigger {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    height: 48px;
+    width: 48px;
+    padding: 0;
+    background: #000;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    z-index: 9;
+}
+#container .content #summary-trigger::before {
+    content: 'expand_more';
+    display: inline-block;
+    color: #fff;
+    font-family: 'Material Icons';
+    font-size: 48px;
+    transition: transform 250ms ease 350ms;
+}
+#container .content #pdf-btm {
+    max-width: 100%;
+    width: auto;
+    max-height: 100%;
+}
+#container .content #pdf-top {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    width: auto;
+    max-height: 100%;
+    display: none;
+    transform-origin: -40% 50%;
+}
+#container .content #pdf-top.out {
+    animation: out 350ms forwards cubic-bezier(0.72, 0.18, 0.87, 0.64);
+}
+#container .content #pdf-top.in {
+    animation: in 350ms forwards cubic-bezier(0, 0.01, 0, 0.99);
+}
+#container .content .pagination {
+    position: absolute;
+    top: -15px;
+    width: 100%;
+    z-index: 999;
+}
+#container .content .pagination progress {
+    width: 100%;
+    height: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+#container .content .pagination progress::-webkit-progress-bar {
+    background: transparent;
+}
+#container .content .pagination progress::-webkit-progress-value {
+    background-color: teal;
+}
+#container .content #prev {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 10%;
+    cursor: pointer;
+    z-index: 8;
+}
+#container .content #next {
+    height: 100%;
+    right: 0;
+    position: absolute;
+    width: 10%;
+    cursor: pointer;
+    z-index: 8;
+}
+@keyframes in {
+	0% {
+		opacity: 0;
+		box-shadow: 30px 30px 30px rgb(0 0 0 / 80%);
+		transform: translateY(-50%) scaleX(0.2) rotate3D(0, 1, 0, -90deg);
+	}
+
+	20% {
+		opacity: 1;
+	}
+
+	100% {
+		box-shadow: 30px 30px 30px rgb(0 0 0 / 0%);
+	}
+}
+
+@keyframes out {
+	0% {
+		box-shadow: 30px 30px 30px rgb(0 0 0 / 0%);
+	}
+
+	80% {
+		opacity: 1;
+	}
+
+	100% {
+		box-shadow: 30px 30px 30px rgb(0 0 0 / 80%);
+		opacity: 0;
+		transform: translateY(-50%) scaleX(0.2) rotate3D(0, 1, 0, -90deg);
+	}
+}
+</style>
+
+<script>
+export default {
+    
+}
+</script>

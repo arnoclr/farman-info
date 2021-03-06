@@ -6,16 +6,16 @@
                 <h4>Retrouvez-nous sur <i class="material-icons">arrow_forward</i></h4>
                 <p>Toute l'actualité aérienne française <br>à découvrir sur vos réseaux sociaux.</p>
                 <a href="https://www.facebook.com/Farman-104565121316470">
-                    <img src="assets/Farman_Facebook.png" alt="facebook icon" height="24">
+                    <img src="/assets/Farman_Facebook.png" alt="facebook icon" height="24">
                 </a>
                 <a href="https://twitter.com/ActualitsArona1">
-                    <img src="assets/Farman_Twitter.png" alt="twitter icon" height="24">
+                    <img src="/assets/Farman_Twitter.png" alt="twitter icon" height="24">
                 </a>
                 <a href="https://www.instagram.com/farman.media/">
-                    <img src="assets/Farman_Instagram.png" alt="instagram icon" height="24">
+                    <img src="/assets/Farman_Instagram.png" alt="instagram icon" height="24">
                 </a>
                 <a href="https://www.youtube.com/channel/UC9oYwEaRK3Bv68G-bKe-l_Q">
-                    <img src="assets/Farman_YouTube.png" alt="youtube icon" height="24">
+                    <img src="/assets/Farman_YouTube.png" alt="youtube icon" height="24">
                 </a>
             </div>
             <div style="text-align:center;background-color:#ccc;padding:8px 16px;color:#444">

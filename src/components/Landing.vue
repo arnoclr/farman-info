@@ -23,7 +23,7 @@
             <input  type="email" id="mail-input" placeholder="Votre adresse email"
                     style="padding:8px">
             <br>
-            <button style="background-color:#17969C;padding:12px;color:#fff;border:none;font-weight:100;">Me tenir informé</button>
+            <button>Me tenir informé</button>
         </form>
 
         <app-footer></app-footer>
@@ -58,32 +58,32 @@
 </style>
 
 <script>
-    const {db} = require('../firebaseConfig.js')
-    import AppFooter from '../components/Footer.vue'
+const {db} = require('../firebaseConfig.js')
+import AppFooter from '../components/Footer.vue'
 
-    export default {
-        components: {
-            AppFooter
-        },
-        mounted() {
-            const mailForm = document.querySelector('#mail-form')
-            const mailInput = document.querySelector('#mail-input')
+export default {
+    components: {
+        AppFooter
+    },
+    mounted() {
+        const mailForm = document.querySelector('#mail-form')
+        const mailInput = document.querySelector('#mail-input')
 
-            mailForm.addEventListener('submit', (e) => {
-                e.preventDefault()
-                db.collection('mails').add({
-                    mail: mailInput.value
-                })
-                .then(function (docRef) {
-                    console.log('Document written with ID: ', docRef.id)
-                    mailInput.value = ''
-                    alert('Merci ! Vous serez informé lorsque le site sera disponible.')
-                })
-                .catch(function (error) {
-                    console.error('Error adding document: ', error)
-                    alert('Oops, une erreur est survenue.')
-                })
+        mailForm.addEventListener('submit', (e) => {
+            e.preventDefault()
+            db.collection('mails').add({
+                mail: mailInput.value
             })
-        }
+            .then(function (docRef) {
+                console.log('Document written with ID: ', docRef.id)
+                mailInput.value = ''
+                alert('Merci ! Vous serez informé lorsque le site sera disponible.')
+            })
+            .catch(function (error) {
+                console.error('Error adding document: ', error)
+                alert('Oops, une erreur est survenue.')
+            })
+        })
     }
+}
 </script>

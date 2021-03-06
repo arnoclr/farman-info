@@ -5,3 +5,27 @@
 body {
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
+
+// buttons
+button {
+    background-color: #17969C;
+    padding: 12px;
+    color: #fff;
+    border: none;
+    font-weight: 100;
+}
+
+.icon-button {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    display: flex;
+    text-decoration: none;
+    color: #000;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background-color: rgba(150, 150, 150, 0.2);
+    }
+}
