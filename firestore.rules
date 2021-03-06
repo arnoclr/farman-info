@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /mails/{mail} {
+      allow read: if false
+
+      allow write: if 
+          request.resource.data.mail.matches('.+@.+\\.[a-z]+')
+    }
+    
+    match /magazines/{magazine} {
+      allow read: if true
+
+      allow write: if false
+    }
+  }
+}
