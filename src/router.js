@@ -5,6 +5,7 @@ import firebase from 'firebase'
 import Login from '@/components/Login'
 import Landing from '@/components/Landing'
 import Magazine from '@/components/magazines/Magazine'
+import Magazines from '@/components/magazines/List'
 import NotFound from '@/components/NotFound'
 
 Vue.use(Router)
@@ -22,6 +23,11 @@ const router = new Router({
 			path: '/login',
 			name: 'Login',
 			component: Login
+		},
+    {
+			path: '/magazines',
+			name: 'Magazines',
+			component: Magazines
 		},
     {
       path: '/magazine/:ref',

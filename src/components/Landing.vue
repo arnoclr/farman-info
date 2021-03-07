@@ -1,69 +1,64 @@
 <template>
     <div>
-        <div style="position:relative;">
+        <app-header></app-header>
 
-            <img  style="width:100%;height:80vh;object-fit:cover;"
-                src="assets/Farman_Photo_Fond_Prochainement.webp" 
-                alt="Farman photo fond prochainement">
+        <div class="work-zone">
+            <svg viewBox="0 0 24 24">
+                <path fill="" d="M17 15L18 19H21V22H3V19H6L7 15H17M15 8L16 12H8L9 8H15M13 1L14 5H10L11 1H13Z" />
+            </svg>
+            <h1>Site en cours de développement</h1>
+            <p>Ce site web n'est pas encore disponible au public.</p>
+            <p>Seule la partie Magazine peut être consultée en cliquant ci-dessous</p>
+            <router-link class="btn" to="/magazines">Consulter les magazines</router-link>
 
-            <div style="position:absolute;top:0;color:#fff;padding:32px;">
-                <img  style="height:75px;width:auto" id="logo-header"
-                        src="assets/Logo_Blanc_PNG.png" alt="logo header">
-                <p style="font-size:1.5rem;margin-top:0" id="first-p">Le média aéronautique<br>des voyageurs francophones</p>
-            </div>
-
-            <div style="position:absolute;top:50vh;text-align:center;width:100%;color:#fff;">
-                <h1 style="margin-bottom:0;font-size:3rem;font-weight:400;">Prochainement</h1>
-                <h4 style="margin-top:0;font-weight:300;">SITE INTERNET D'INFORMATION</h4>
-            </div>
-
+            <form id="mail-form">
+                <p>Soyez informé quand le site sera entierement disponible, et recevez des informations sur son dévelopement par mail.</p>
+                <input type="email" id="mail-input" placeholder="Votre adresse email">
+                <button>Me tenir informé</button>
+            </form>
         </div>
-
-        <form id="mail-form" style="position:absolute;top:30vh;padding:32px;">
-            <input  type="email" id="mail-input" placeholder="Votre adresse email"
-                    style="padding:8px">
-            <br>
-            <button>Me tenir informé</button>
-        </form>
 
         <app-footer></app-footer>
     </div>
 </template>
 
 <style scoped>
-    body {
-        font-family: 'Roboto', sans-serif;
-    }
-    @media (min-width: 992px) {
-        input {
-            width: 300px;
-        }
-        button {
-            padding: 16px !important;
-        }
-        #logo-header {
-            height: 125px !important;
-        }
-        form {
-            margin-top: 50px;
-        }
-        h1 {
-            font-size: 5rem !important;
-        }
-        #first-p {
-            font-size: 2rem !important;
-            font-weight: 500 !important;
-        }
-    }
+.work-zone {
+    padding: 16px;
+    color: #555;
+}
+
+svg {
+    width: 56px;
+    height: 56px;
+    fill: #555;
+}
+
+#mail-form {
+    background: #ddd;
+    padding: 32px 16px;
+    margin-top: 32px;
+}
+
+#mail-form p {
+    margin-top: 0;
+}
+
+input {
+    width: 250px;
+    height: 40px;
+    max-width: 100%;
+    padding-left: 8px;
+}
 </style>
 
 <script>
 const {db} = require('../firebaseConfig.js')
-import AppFooter from '../components/Footer.vue'
 
 export default {
     components: {
-        AppFooter
+        AppFooter: () => import('./Footer.vue'),
+        AppHeader: () => import('./Navigation.vue')
     },
     mounted() {
         const mailForm = document.querySelector('#mail-form')

@@ -1,51 +1,19 @@
 <template>
-    <div id="login">
-        <section>
-            <div class="col1">
-                <div class="centered">
-                    <h1>Farman</h1>
-                    <p>Votre média d'informations sur l'aviation. Connectez pour contribuer ou pour commenter les articles.</p>
-                    <router-link to="/">Revenir a l'accueil</router-link>
-                </div>
-            </div>
-            <div class="col2">
-                <div class="centered">
-                    <h2>Bonjour !</h2>
-                    <div id="firebaseui-auth-container"></div>
-                </div>
-            </div>
-        </section>
+    <div>
+        <app-header></app-header>
+
+        <div id="login">
+            <h1>Bonjour !</h1>
+            <div id="firebaseui-auth-container"></div>
+        </div>
+
+        <app-footer></app-footer>
     </div>
 </template>
 
 <style scoped>
 #login {
-    height: 100vh;
-}
-
-section {
-    display: flex;
-    height: 100%;
-}
-
-.col1 {
-    width: 50%;
-    display: block;
-    color: #fff;
-    background: teal;
-}
-
-.col2 {
-    width: 50%;
-    text-align: center;
-}
-
-.centered {
-    position: absolute;
-    width: inherit;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 0 16px;
+    padding: 16px;
 }
 </style>
 
@@ -56,6 +24,10 @@ section {
 
     export default {
         name: 'login',
+        components: {
+            AppFooter: () => import('./Footer.vue'),
+            AppHeader: () => import('./Navigation.vue')
+        },
         mounted() {
             if(firebase.auth().currentUser) {
                 this.$router.push('')
