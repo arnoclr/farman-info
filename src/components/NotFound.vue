@@ -1,13 +1,15 @@
 <template>
-    <div id="message">
-        <h2>404</h2>
-        <h1>Page non trouvée</h1>
-        <p>Le fichier spécifié n'a pas été trouvé, verifiez les erreurs dans l'url et réessayez.</p>
+    <div class="body">
+        <div id="message">
+            <h2>404</h2>
+            <h1>Page non trouvée</h1>
+            <p>Le fichier spécifié n'a pas été trouvé, verifiez les erreurs dans l'url et réessayez.</p>
+        </div>
     </div>
 </template>
 
-<style>
-    body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+<style scoped>
+    .body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; height: 100vh; width: 100vw; position: absolute; top: 0; }
     #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px 16px; border-radius: 3px; }
     #message h3 { color: #888; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
     #message h2 { color: #17969C; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
@@ -17,8 +19,8 @@
     #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
     #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
     @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #17969C; }
+        .body, #message { margin-top: 0; background: white; box-shadow: none; }
+        .body { border-top: 16px solid #17969C; }
     }
 </style>
 
