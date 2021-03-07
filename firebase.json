@@ -12,7 +12,11 @@
         "dynamicLinks": true
       },
       {
-        "source": "!/s/**",
+        "source": "/mag/**",
+        "dynamicLinks": true
+      },
+      {
+        "source": "**",
         "destination": "/index.html"
       }
     ]

@@ -19,7 +19,7 @@
                 </a>
             </div>
             <div style="text-align:center;background-color:#ccc;padding:8px 16px;color:#444">
-                <p>©2020 Farman &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-decoration:none;color:#444" href="/assets/Farman_Informations_Juridiques_13-12-2020.pdf">Informations juridiques</a></p>
+                <p>©2020 Farman &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-decoration:none;color:#444" href="https://farman.ga/s/cgu">Informations juridiques</a></p>
             </div>
         </footer>
     </div>

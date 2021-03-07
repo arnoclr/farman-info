@@ -67,9 +67,9 @@ section {
                         firebase.auth.EmailAuthProvider.PROVIDER_ID
                     ],
                     // Terms of service url.
-                    tosUrl: 'https://farman.info/assets/Farman_Informations_Juridiques_13-12-2020.pdf',
+                    tosUrl: 'https://farman.ga/s/cgu',
                     // Privacy policy url.
-                    privacyPolicyUrl: 'https://farman.info/assets/Farman_Informations_Juridiques_13-12-2020.pdf'
+                    privacyPolicyUrl: 'https://farman.ga/s/cgu'
                 }
                 fb.ui.start('#firebaseui-auth-container', uiConfig)
             }
