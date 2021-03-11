@@ -6,6 +6,7 @@ import Login from '@/components/Login'
 import Landing from '@/components/Landing'
 import Magazine from '@/components/magazines/Magazine'
 import Magazines from '@/components/magazines/List'
+import PdfViewer from '@/components/magazines/PdfViewer'
 import NotFound from '@/components/NotFound'
 
 Vue.use(Router)
@@ -33,6 +34,12 @@ const router = new Router({
       path: '/magazine/:ref',
       name: 'Magazine',
       component: Magazine,
+      params: true
+    },
+    {
+      path: '/magazine/:ref/view',
+      name: 'PdfViewer',
+      component: PdfViewer,
       params: true
     },
     {

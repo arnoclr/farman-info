@@ -7,11 +7,12 @@ body {
 }
 
 // buttons
-button {
+button, .button {
     background-color: #17969C;
     color: #fff;
     font-weight: 100;
     border: none;
+    text-decoration: none;
 
     &[disabled] {
         background-color: #ddd;
@@ -33,7 +34,7 @@ button {
     }
 }
 
-.btn {
+.button-outlined {
     text-decoration: none;
     box-shadow: 0 0 0 1px inset grey;
     color: grey;
@@ -46,7 +47,7 @@ button {
     }
 }
 
-button, .btn {
+button, .button, .button-outlined {
     box-sizing: border-box;
     font-size: 1.2rem;
     padding: 8px 12px;
@@ -55,4 +56,36 @@ button, .btn {
 
 h1, h2, h3, h4, h5, h6, p {
     color: #555;
+}
+
+// loaders
+.center {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader ellipse {
+    stroke-dasharray: 10, 9999;
+    animation: load 2s cubic-bezier(0.8,0.25,0.25,0.9) infinite, spin 2s linear infinite;
+    transform-origin: center;
+}
+
+@keyframes load {
+	50% {
+		stroke-dasharray: 140;
+		stroke-dashoffset: 0;
+		transform: rotateZ(0deg);
+	}
+	100% {
+		stroke-dasharray: 146;
+		stroke-dashoffset: -156;
+	}
+}
+
+@keyframes spin {
+	to {
+		-webkit-transform:rotateZ(360deg);
+	}
 }

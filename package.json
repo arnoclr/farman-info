@@ -1,5 +1,5 @@
 {
-  "name": "trackomad",
+  "name": "farman",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,14 +8,15 @@
     "deploy": "vue-cli-service build && firebase deploy"
   },
   "dependencies": {
-    "firebase": "^6.6.0",
+    "firebase": "^8.3.0",
     "firebaseui": "^4.2.0",
     "vue": "^2.6.10",
+    "vue-pdf": "^4.2.0",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-service": "^3.11.0",
+    "@vue/cli-service": "^4.5.11",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10"

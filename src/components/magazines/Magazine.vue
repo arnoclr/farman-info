@@ -5,12 +5,19 @@
         <div class="content">
             <a @click="back" class="icon-button"><i class="material-icons">arrow_back</i></a>
 
-            <div id="landing" v-if="magazine">
+            <template id="landing" v-if="magazine">
                 <img :src="magazine.image" alt="">
                 <h1>{{ magazine.title }}</h1>
                 <p>{{ magazine.summary }}</p>
-                <button @click="startReading" id="start-reading" disabled>Ouvrir le lecteur</button>
-                <a class="btn" :href="magazine.url">Télécharger le pdf</a>
+                <router-link :to="{ name: 'PdfViewer', params: { ref: magazine.ref } }" class="button" id="start-reading">Ouvrir le lecteur</router-link>
+                <a class="button-outlined" :href="magazine.url">Télécharger le pdf</a>
+            </template>
+            <div class="center" style="height: 80vh" v-else>
+                <svg class="loader" width="60" height="60" xmlns="http://www.w3.org/2000/svg" >
+                    <g>
+                        <ellipse ry="25" rx="25" cy="30" cx="30" stroke-width="5" stroke="teal" fill="none"/>
+                    </g>
+                </svg>
             </div>
 
             <div class="error" v-if="error">
@@ -50,8 +57,7 @@ let magazine = {}
 export default {
     components: {
         AppFooter: () => import('../Footer.vue'),
-        AppHeader: () => import('../Navigation.vue'),
-        PdfViewer: () => import('../magazines/PdfViewer.vue')
+        AppHeader: () => import('../Navigation.vue')
     },
     data() {
         return {
@@ -74,14 +80,11 @@ export default {
                 this.loading = false
                 if(snapshot.data()) {
                     this.magazine = snapshot.data()
+                    this.magazine.ref = ref
                 } else {
                     this.error = true
                 }
             })
-        },
-        startReading() {
-            this.viewer = true
-            document.querySelector('.fullscreen-viewer').requestFullscreen()
         },
         back() {
             this.$router.go(-1)

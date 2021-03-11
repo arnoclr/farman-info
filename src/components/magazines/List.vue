@@ -14,10 +14,10 @@
                     <img :src="item.image" alt="">
                     <h3>{{ item.title }}</h3>
                     <p>{{ item.summary }}</p>
-                    <router-link :to="'/magazine/' + item.id" class="btn">Lire</router-link>
+                    <router-link :to="{ name: 'Magazine', params: { ref: item.id } }" class="button-outlined">Lire</router-link>
                 </div>
                 <div class="magazine-box" v-else>
-                    <router-link :to="'/magazine/' + item.id">
+                    <router-link :to="{ name: 'Magazine', params: { ref: item.id } }">
                         <img :src="item.image" alt="">
                     </router-link>
                     <h3>{{ item.title }}</h3>
