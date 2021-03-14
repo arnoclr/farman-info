@@ -12,7 +12,7 @@
                     <a href="https://twitter.com/ActualitsArona1">
                         <img src="/assets/Farman_Twitter.png" alt="twitter icon" height="24">
                     </a>
-                    <a href="https://www.instagram.com/farman.media/">
+                    <a href="https://www.instagram.com/farman.info/">
                         <img src="/assets/Farman_Instagram.png" alt="instagram icon" height="24">
                     </a>
                     <a href="https://www.youtube.com/channel/UC9oYwEaRK3Bv68G-bKe-l_Q">
