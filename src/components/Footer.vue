@@ -20,8 +20,11 @@
                     </a>
                 </div>
             </div>
-            <div style="text-align:center;background-color:#ccc;padding:8px 16px;color:#444">
-                <p>©2020 Farman &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-decoration:none;color:#444" href="https://farman.ga/s/cgu">Informations juridiques</a></p>
+            <div class="links">
+                <p></p>
+                <p>©2020 Farman</p>
+                <p><a style="text-decoration:none;color:#444" href="https://farman.ga/s/cgu">Informations juridiques</a></p>
+                <p></p>
             </div>
         </footer>
     </div>
@@ -39,6 +42,14 @@
     footer img {
         height: 36px;
         margin-right: 8px;
+    }
+
+    .links {
+        display: flex;
+        justify-content: space-evenly;
+        background-color: #ccc;
+        padding: 8px 16px;
+        color: #444;
     }
 
     @media (min-width: 600px) {

@@ -3,7 +3,7 @@
 }
 
 body {
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
 }
 
 // buttons
@@ -54,6 +54,10 @@ button, .button, .button-outlined {
     margin-right: 4px;
 }
 
+button, .button, .button-outlined, .icon-button {
+    cursor: pointer;
+}
+
 h1, h2, h3, h4, h5, h6, p {
     color: #555;
 }
@@ -88,4 +92,23 @@ h1, h2, h3, h4, h5, h6, p {
 	to {
 		-webkit-transform:rotateZ(360deg);
 	}
+}
+
+// boxes
+.error {
+    padding: 16px;
+    background: #fce8e6;
+
+    p, a {
+        color: #c5221f;
+    }
+}
+
+.info {
+    padding: 16px;
+    background: #fef7e0;
+
+    p, a {
+        color: #b05a00;
+    }
 }

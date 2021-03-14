@@ -13,7 +13,7 @@
 
             <form id="mail-form">
                 <p>Soyez informé quand le site sera entierement disponible, et recevez des informations sur son dévelopement par mail.</p>
-                <input type="email" id="mail-input" placeholder="Votre adresse email">
+                <input type="email" id="mail-input" placeholder="Votre adresse email" required>
                 <button>Me tenir informé</button>
             </form>
         </div>

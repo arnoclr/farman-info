@@ -5,10 +5,17 @@
         <div class="content">
             <a @click="back" class="icon-button"><i class="material-icons">arrow_back</i></a>
 
-            <template id="landing" v-if="magazine">
+            <div class="error" v-if="error">
+                <h1>Une erreur s'est produite</h1>
+            </div>
+
+            <template id="landing" v-if="magazine && !error">
                 <img :src="magazine.image" alt="">
                 <h1>{{ magazine.title }}</h1>
-                <p>{{ magazine.summary }}</p>
+                <p v-if="magazine.summary">{{ magazine.summary }}</p>
+                <div class="info" v-else>
+                    <p>Description non disponible.</p>
+                </div>
                 <router-link :to="{ name: 'PdfViewer', params: { ref: magazine.ref } }" class="button" id="start-reading">Ouvrir le lecteur</router-link>
                 <a class="button-outlined" :href="magazine.url">Télécharger le pdf</a>
             </template>
@@ -18,10 +25,6 @@
                         <ellipse ry="25" rx="25" cy="30" cx="30" stroke-width="5" stroke="teal" fill="none"/>
                     </g>
                 </svg>
-            </div>
-
-            <div class="error" v-if="error">
-                <h1>Une erreur s'est produite</h1>
             </div>
         </div>
 
@@ -81,6 +84,7 @@ export default {
                 if(snapshot.data()) {
                     this.magazine = snapshot.data()
                     this.magazine.ref = ref
+                    this.error = false
                 } else {
                     this.error = true
                 }
