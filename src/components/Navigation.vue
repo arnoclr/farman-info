@@ -4,7 +4,8 @@
             <img src="/assets/header_logo.png" alt="navbar logo">
         </router-link>
         <section class="right">
-            <router-link title="connexion" to="/login" class="button">Connexion</router-link>
+            <router-link title="connexion" to="/login" class="button" v-if="!isLogged">Connexion</router-link>
+            <a href="" class="button-outlined" v-else>déconnexion</a>
         </section>
     </header>
 </template>
@@ -46,6 +47,11 @@ img {
     import firebase from 'firebase'
 
     export default {
+        data() {
+            return {
+                isLogged: firebase.auth().currentUser
+            }
+        },
         methods: {
             logout() {
                 firebase.auth().signOut().then(() =>{
