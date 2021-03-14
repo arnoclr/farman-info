@@ -8,6 +8,8 @@
         </div>
 
         <app-footer></app-footer>
+
+        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
     </div>
 </template>
 

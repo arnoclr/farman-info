@@ -3,7 +3,7 @@
         <app-header></app-header>
 
         <div class="content">
-            <a @click="back" class="icon-button"><i class="material-icons">arrow_back</i></a>
+            <a @click="back" title="page précédente" class="icon-button"><i class="material-icons">arrow_back</i></a>
 
             <div class="error" v-if="error">
                 <h1>Une erreur s'est produite</h1>
@@ -36,8 +36,14 @@
 </template>
 
 <style scoped>
-a {
-    cursor: pointer;
+.content {
+    position: relative;
+}
+
+.icon-button {
+    position: absolute;
+    top: 16px;
+    left: 16px;
 }
 
 .content {

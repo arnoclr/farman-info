@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="!error">
+        <div v-if="!error" class="no-padding">
             <div class="summary" :class="summaryOpen ? 'open' : ''">
                 <div class="scroll">
                     <a @click="$router.go(-1)" class="icon-button"><i class="material-icons">arrow_back</i></a>
@@ -139,6 +139,7 @@
             font-family: 'Material Icons';
             font-size: 48px;
             transition: transform 250ms ease 350ms;
+            margin-top: 12px;
         }
     }
 

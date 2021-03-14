@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="no-padding">
         <footer>
             <div style="padding:16px;color:#444">
                 <hr>

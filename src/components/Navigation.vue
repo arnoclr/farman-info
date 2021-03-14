@@ -4,18 +4,19 @@
             <img src="/assets/header_logo.png" alt="navbar logo">
         </router-link>
         <section class="right">
-            <router-link title="connexion" to="/login" class="icon-button"><i class="material-icons">login</i></router-link>
+            <router-link title="connexion" to="/login" class="button">Connexion</router-link>
         </section>
     </header>
 </template>
 
 <style scoped>
 header {
-    height: 64px;
+    height: 72px;
     box-shadow: 0 8px 6px -6px rgb(60 64 67 / 15%);
     position: sticky;
     top: 0;
     background: #fff;
+    z-index: 2;
 }
 
 section.right {
@@ -23,16 +24,21 @@ section.right {
     position: absolute;
     top: 0;
     right: 0;
+    height: 72px;
+    display: flex;
+    align-items: center;
 }
 
-.icon-button {
+.button {
     margin: 8px;
     color: grey;
+    font-size: 12px;
 }
 
 img {
-    height: 48px;
-    margin: 8px 12px;
+    height: 42px;
+    margin-left: 32px;
+    margin-top: 15px;
 }
 </style>
 

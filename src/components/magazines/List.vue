@@ -44,17 +44,8 @@
 </template>
 
 <style scoped>
-.box {
-    padding: 16px;
-}
-
-.magazine-last {
-    margin: 16px;
-}
-
 .magazine-box {
     width: 50%;
-    margin: 16px;
 }
 
 img {

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 965 522" style="enable-background:new 0 0 965 522;" xml:space="preserve">
+<style type="text/css">
+	.st0{font-family:'Inter-SemiBold';}
+	.st1{font-size:102.6562px;}
+	.st2{letter-spacing:-1;}
+	.st3{fill:#9CD7DB;}
+	.st4{fill:#17969C;}
+</style>
+<text transform="matrix(1 0 0 1 369.2188 298.7188)" class="st0 st1 st2">FARMAN</text>
+<g>
+	<g>
+		<path class="st3" d="M345.19,174c-46.5,0-84.19,37.69-84.19,84.19V261h2.81c46.5,0,84.19-37.69,84.19-84.19V174H345.19z"/>
+		<path class="st3" d="M174,345.19V348h2.81c46.5,0,84.19-37.69,84.19-84.19V261h-2.81C211.69,261,174,298.69,174,345.19z"/>
+	</g>
+	<g>
+		<path class="st4" d="M174,176.81c0,46.5,37.69,84.19,84.19,84.19H261v-87h-87V176.81z"/>
+		<path class="st4" d="M263.81,261H261v87h87v-2.81C348,298.69,310.31,261,263.81,261z"/>
+	</g>
+</g>
+</svg>
