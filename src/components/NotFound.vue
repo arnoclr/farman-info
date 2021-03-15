@@ -1,6 +1,6 @@
 <template>
     <div class="body">
-        <div id="message">
+        <div id="message" class="no-padding">
             <h2>404</h2>
             <h1>Page non trouvée</h1>
             <p>Le fichier spécifié n'a pas été trouvé, verifiez les erreurs dans l'url et réessayez.</p>
