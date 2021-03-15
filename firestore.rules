@@ -4,6 +4,7 @@ service cloud.firestore {
     match /mails/{mail} {
       allow read: if false
 
+      // Only valid emails
       allow write: if 
           request.resource.data.mail.matches('.+@.+\\.[a-z]+')
     }

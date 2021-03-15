@@ -7,10 +7,15 @@ import './assets/scss/app.scss'
 
 Vue.config.productionTip = false
 
-
-let app = new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App)
+let app
+fb.auth.onAuthStateChanged(user => {
+  store.commit('updateUser',{ user })
+  if (!app) {
+    app = new Vue({
+      el: '#app',
+      router,
+      store,
+      render: h => h(App)
+    })
+  }
 })

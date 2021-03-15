@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Navigation v-if="user"></Navigation>
         <router-view/>
     </div>
 </template>

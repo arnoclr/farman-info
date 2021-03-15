@@ -1,11 +1,14 @@
 <template>
     <header>
         <router-link to="/">
-            <img src="/assets/header_logo.png" alt="navbar logo">
+            <img src="/assets/header_logo.png" alt="navbar logo" header>
         </router-link>
         <section class="right">
-            <router-link title="connexion" to="/login" class="button" v-if="!isLogged">Connexion</router-link>
-            <a href="" class="button-outlined" v-else>déconnexion</a>
+            <router-link title="connexion" to="/login" class="button" v-if="!user">Connexion</router-link>
+            <div v-else>
+                <img :src="user.photoURL ? user.photoURL : 'https://i.stack.imgur.com/34AD2.jpg'" :title="'connecté en tant que : ' + user.displayName" alt="photo de profil" pp>
+                <a @click="logout" class="button-outlined">déconnexion</a>
+            </div>
         </section>
     </header>
 </template>
@@ -36,10 +39,18 @@ section.right {
     font-size: 12px;
 }
 
-img {
+[header] {
     height: 42px;
     margin-left: 32px;
     margin-top: 15px;
+}
+
+[pp] {
+    width: 42px;
+    margin-right: 16px;
+    margin-top: -4px;
+    border-radius: 50%;
+    vertical-align: middle;
 }
 </style>
 
@@ -49,7 +60,7 @@ img {
     export default {
         data() {
             return {
-                isLogged: firebase.auth().currentUser
+                user: firebase.auth().currentUser
             }
         },
         methods: {

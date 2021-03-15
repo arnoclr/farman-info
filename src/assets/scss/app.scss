@@ -147,3 +147,8 @@ body>div>div>div:not(.no-padding) {
         padding: 16px 10vw !important;
     }
 }
+
+// images
+a img:hover {
+    filter: brightness(0.8);
+}
