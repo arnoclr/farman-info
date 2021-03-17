@@ -14,7 +14,7 @@
             <form id="mail-form">
                 <p>Soyez informé quand le site sera entierement disponible, et recevez des informations sur son dévelopement par mail.</p>
                 <input type="email" id="mail-input" placeholder="Votre adresse email" required>
-                <button>Me tenir informé</button>
+                <button class="button">Me tenir informé</button>
             </form>
         </div>
 
@@ -46,9 +46,10 @@ svg {
 
 input {
     width: 250px;
-    height: 40px;
+    height: 42px;
     max-width: 100%;
     padding-left: 8px;
+    margin-right: 4px;
 }
 </style>
 

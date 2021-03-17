@@ -139,7 +139,7 @@
             font-family: 'Material Icons';
             font-size: 48px;
             transition: transform 250ms ease 350ms;
-            margin-top: 12px;
+            // margin-top: 12px;
         }
     }
 
