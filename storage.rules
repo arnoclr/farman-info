@@ -1,7 +1,7 @@
 rules_version = '2';
-service cloud.firestore {
-    match /databases/{database}/documents {
-        
+service firebase.storage {
+    match /b/{bucket}/o {
+
         function isAuth() {
             return request.auth != null
         }
@@ -12,20 +12,14 @@ service cloud.firestore {
             || request.auth.uid == 'pUWeCV6FFFfikjLyo6KTuxayrzZ2')
         }
 
-        // lock access for all documents
-        match /{document=**} {
+        // lock all access
+        match /{allPaths=**} {
             allow read, write: if false;
         }
 
-        match /mails/{mail} {
-            allow read: if isAdmin()
-
-            // Only valid emails
-            allow write: if 
-                request.resource.data.mail.matches('.+@.+\\.[a-z]+')
-        }
-        
-        match /magazines/{magazine} {
+        // allow read magazine
+        // allow write only for admin
+        match /magazines/{pdf} {
             allow read: if true
             allow write: if isAdmin()
         }

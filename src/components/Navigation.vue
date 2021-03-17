@@ -11,7 +11,9 @@
             </div>
         </section>
 
-        <cookie-law button-text="Accepter" button-class="button" :button-decline="true" button-decline-text="Tout refuser" button-decline-class="button-outlined">
+        <cookie-law
+            button-text="Accepter" button-class="button" 
+            :button-decline="true" button-decline-text="Tout refuser" button-decline-class="button-outlined">
             <div slot="message">
                 Ce site web utilise des cookies <a href="https://farman.ga/s/cgu">Informations complémentaires</a>
             </div>
@@ -47,7 +49,7 @@ section.right {
 
 [header] {
     height: 42px;
-    margin-left: 32px;
+    margin-left: 16px;
     margin-top: 15px;
 }
 
