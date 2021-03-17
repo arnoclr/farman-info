@@ -1,18 +1,35 @@
 rules_version = '2';
 service cloud.firestore {
-  match /databases/{database}/documents {
-    match /mails/{mail} {
-      allow read: if false
+    match /databases/{database}/documents {
+        
+        function isAuth() {
+            return request.auth.uid != null
+        }
 
-      // Only valid emails
-      allow write: if 
-          request.resource.data.mail.matches('.+@.+\\.[a-z]+')
-    }
-    
-    match /magazines/{magazine} {
-      allow read: if true
+        function levelHigherThan(lvl) {
+            return isAuth()
+            && exists( /databases/$(database)/documents/users/$(request.auth.uid) )
+            && get( /databases/$(database)/documents/users/$(request.auth.uid) ).data.roleValue >= lvl
+        }
 
-      allow write: if false
+        // lock access for all documents
+        match /{document=**} {
+            allow read, write: if false;
+        }
+
+        match /mails/{mail} {
+            allow read: if
+                levelHigherThan(99)
+
+            // Only valid emails
+            allow write: if 
+                request.resource.data.mail.matches('.+@.+\\.[a-z]+')
+        }
+        
+        match /magazines/{magazine} {
+            allow read: if true
+
+            allow write: if false
+        }
     }
-  }
 }
