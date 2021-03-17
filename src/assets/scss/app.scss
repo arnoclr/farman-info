@@ -8,15 +8,27 @@ body {
 }
 
 // buttons
-button, .button {
+button, .button, .button-outlined {
+    box-sizing: border-box;
+    font-size: 1.2rem;
+    padding: 8px 12px;
+    margin-right: 4px;
+}
+
+button, .button, .button-outlined, .icon-button {
+    cursor: pointer;
+    border-radius: 4px;
+    border: none;
+    text-decoration: none;
+}
+
+.button {
     background-color: #17969C;
     color: #fff !important;
     font-size: 16px;
     line-height: 24px;
     letter-spacing: 0px;
     font-weight: 500;
-    border: none;
-    text-decoration: none;
 
     &[disabled] {
         background-color: #ddd;
@@ -42,25 +54,13 @@ button, .button {
     text-decoration: none;
     box-shadow: 0 0 0 1px inset grey;
     color: grey;
-    margin: 8px 0;
     display: inline-block;
+    background: transparent;
 
     &:hover {
         box-shadow: 0 0 0 1px inset black;
         color: black;
     }
-}
-
-button, .button, .button-outlined {
-    box-sizing: border-box;
-    font-size: 1.2rem;
-    padding: 8px 12px;
-    margin-right: 4px;
-}
-
-button, .button, .button-outlined, .icon-button {
-    cursor: pointer;
-    border-radius: 4px;
 }
 
 // typography

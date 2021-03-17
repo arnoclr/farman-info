@@ -5,6 +5,7 @@
         <div id="login">
             <h1>Bonjour !</h1>
             <div id="firebaseui-auth-container"></div>
+            <small>Vous serez redirigé vers {{ loginFromUrl }}</small>
         </div>
 
         <app-footer></app-footer>
@@ -24,16 +25,25 @@
 
     export default {
         name: 'login',
+        data() {
+            return {
+                loginFromUrl: null
+            }
+        },
         components: {
             AppFooter: () => import('./Footer.vue'),
             AppHeader: () => import('./Navigation.vue')
         },
         mounted() {
+            if(localStorage) {
+                this.loginFromUrl = localStorage.getItem('login-from-url')
+            }
             if(firebase.auth().currentUser) {
                 this.$router.push('/')
             } else {
                 var uiConfig = {
-                    signInSuccessUrl: '/',
+                    signInSuccessUrl: this.loginFromUrl,
+                    signInFlow: 'popup',
                     signInOptions: [
                         {
                             // Google provider must be enabled in Firebase Console to support one-tap

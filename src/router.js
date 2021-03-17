@@ -43,6 +43,14 @@ const router = new Router({
       params: true
     },
     {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('@/components/admin/Main'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '*',
       name: 'NotFound',
       component: NotFound
@@ -55,11 +63,12 @@ router.beforeEach((to, from, next) => {
   const currentUser = firebase.auth().currentUser
 
   if (requiresAuth && !currentUser) {
-      next('/login')
+    localStorage.setItem('login-from-url', to.fullPath)
+    next('/login')
   } else if (requiresAuth && currentUser) {
-      next()
+    next()
   } else {
-      next()
+    next()
   }
 })
 
