@@ -6,10 +6,19 @@ service cloud.firestore {
             return request.auth.uid != null
         }
 
+        // setup min level to authorize request
         function levelHigherThan(lvl) {
             return isAuth()
             && exists( /databases/$(database)/documents/users/$(request.auth.uid) )
             && get( /databases/$(database)/documents/users/$(request.auth.uid) ).data.roleValue >= lvl
+        }
+
+        // user can't edit his profile
+        // authorize editing if user has higher role than edited user
+        function canWriteOnUser(uid) {
+            return request.auth.uid != uid
+            && exists( /databases/$(database)/documents/users/$(uid) )
+            && levelHigherThan(get( /databases/$(database)/documents/users/$(uid) ).data.roleValue)
         }
 
         // lock access for all documents
@@ -30,6 +39,16 @@ service cloud.firestore {
             allow read: if true
 
             allow write: if false
+        }
+
+        match /users/{userid} {
+            allow read: if true
+
+            allow create: if
+                levelHigherThan(99)
+            allow update: if
+                canWriteOnUser(userid)
+            allow delete: if false
         }
     }
 }
