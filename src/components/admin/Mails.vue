@@ -7,6 +7,7 @@
             <ul v-for="(mail, index) in mails" v-bind:key="index">
                 <li>{{ mail.mail }}</li>
             </ul>
+            <a class="button-outlined" :href="mailLink" v-if="mailLink">Envoyer un mail</a>
         </div>
     </div>
 </template>
@@ -20,7 +21,8 @@ export default {
         return {
             mails: null,
             loading: null,
-            error: null
+            error: null,
+            mailLink: 'mailto:farman.bonjour@outlook.com?subject=Farman - '
         }
     },
     created() {
@@ -35,6 +37,7 @@ export default {
                 this.mails = []
                 snapshot.forEach(doc => {
                     this.mails.push(doc.data())
+                    this.mailLink += `&bcc=${doc.data().mail}`
                 })
             })
             .catch(err => {
