@@ -10,14 +10,6 @@
                 <a @click="logout" class="button-outlined">déconnexion</a>
             </div>
         </section>
-
-        <cookie-law
-            button-text="Accepter" button-class="button" 
-            :button-decline="true" button-decline-text="Tout refuser" button-decline-class="button-outlined">
-            <div slot="message">
-                Ce site web utilise des cookies <a href="https://farman.ga/s/cgu">Informations complémentaires</a>
-            </div>
-        </cookie-law>
     </header>
 </template>
 
@@ -60,24 +52,12 @@ section.right {
     border-radius: 50%;
     vertical-align: middle;
 }
-
-.Cookie {
-    background: #fff;
-}
-
-.Cookie .button-outlined {
-    margin: 0 !important;
-}
 </style>
 
 <script>
     import firebase from 'firebase'
-    import CookieLaw from 'vue-cookie-law'
 
     export default {
-        components: {
-            CookieLaw
-        },
         data() {
             return {
                 user: firebase.auth().currentUser
