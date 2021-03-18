@@ -6,7 +6,7 @@
             <a @click="back" title="page précédente" class="icon-button"><i class="material-icons">arrow_back</i></a>
 
             <div class="error" v-if="error">
-                <h1>Une erreur s'est produite</h1>
+                <p>Une erreur est survenue : <ins>{{ error }}</ins></p>
             </div>
 
             <template id="landing" v-if="magazine && !error">
@@ -92,8 +92,10 @@ export default {
                     this.magazine.ref = ref
                     this.error = false
                 } else {
-                    this.error = true
+                    this.error = 'Aucun résultat correspondant'
                 }
+            }).catch(err => {
+                this.error = err
             })
         },
         back() {
