@@ -15,6 +15,21 @@
     </div>
 </template>
 
+<style>
+[header] {
+    display: none;
+}
+</style>
+
+<style scoped>
+select {
+    position: fixed;
+    top: 12px;
+    left: 8px;
+    z-index: 2;
+}
+</style>
+
 <script>
 export default {
     data() {

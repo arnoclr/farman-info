@@ -3,18 +3,21 @@
         <div v-if="loading">
             <p>Chargement ...</p>
         </div>
-        <div wrapper v-else>
+        <div v-else>
             <a class="button-outlined" :href="mailLink" v-if="mailLink">Envoyer un mail</a>
-            <ul v-for="(mail, index) in mails" v-bind:key="index">
-                <li>{{ mail.mail }}</li>
+            <ul wrapper>
+                <li v-for="(mail, index) in mails" v-bind:key="index">{{ mail.mail }}</li>
             </ul>
         </div>
     </div>
 </template>
 
 <style scoped>
-[wrapper] {
+div {
     margin-top: 16px;
+}
+
+[wrapper] {
     max-height: 80vh;
     overflow-y: scroll;
 }
