@@ -3,14 +3,22 @@
         <div v-if="loading">
             <p>Chargement ...</p>
         </div>
-        <div v-else>
+        <div wrapper v-else>
+            <a class="button-outlined" :href="mailLink" v-if="mailLink">Envoyer un mail</a>
             <ul v-for="(mail, index) in mails" v-bind:key="index">
                 <li>{{ mail.mail }}</li>
             </ul>
-            <a class="button-outlined" :href="mailLink" v-if="mailLink">Envoyer un mail</a>
         </div>
     </div>
 </template>
+
+<style scoped>
+[wrapper] {
+    margin-top: 16px;
+    max-height: 80vh;
+    overflow-y: scroll;
+}
+</style>
 
 <script>
 const {db} = require('../../firebaseConfig.js')
