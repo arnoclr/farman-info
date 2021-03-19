@@ -38,8 +38,8 @@
 }
 
 .icon-button {
-    position: absolute;
-    top: 16px;
+    position: fixed;
+    top: 86px;
     left: 16px;
 }
 
@@ -52,7 +52,7 @@ img {
 }
 
 .button, .button-outlined {
-    height: 40px;
+    vertical-align: bottom;
 }
 </style>
 

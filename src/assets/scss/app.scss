@@ -14,7 +14,7 @@ button, .button, .button-outlined {
     padding: 8px 12px;
     margin-right: 4px;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: baseline;
 }
 
 button, .button, .button-outlined, .icon-button {
@@ -150,6 +150,7 @@ p {
 
 .material-icons {
     user-select: none;
+    vertical-align: -25%;
 }
 
 // loaders

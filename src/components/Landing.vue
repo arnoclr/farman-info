@@ -11,7 +11,7 @@
             <p>Seule la partie Magazine peut être consultée en cliquant ci-dessous</p>
             <router-link class="button-outlined" to="/magazines">Consulter les magazines</router-link>
 
-            <form id="mail-form">
+            <form id="mail-form" class="form-group">
                 <p>Soyez informé quand le site sera entierement disponible, et recevez des informations sur son dévelopement par mail.</p>
                 <input type="email" id="mail-input" placeholder="Votre adresse email" required>
                 <button class="button">Me tenir informé</button>
@@ -48,18 +48,22 @@ svg {
     background: #ddd;
     padding: 32px 16px;
     margin-top: 32px;
-}
 
-#mail-form p {
-    margin-top: 0;
-}
+    p {
+        margin-top: 0;
+    }
 
-input {
-    width: 250px;
-    height: 42px;
-    max-width: 100%;
-    padding-left: 8px;
-    margin-right: 4px;
+    input {
+        width: 250px;
+        height: 42px;
+        max-width: 100%;
+        padding-left: 8px;
+        margin-right: 4px;
+    }
+
+    button {
+        height: 42px;
+    }
 }
 </style>
 

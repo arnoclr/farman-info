@@ -19,6 +19,7 @@
                             <p>Description non disponible.</p>
                         </div>
                         <router-link :to="{ name: 'Magazine', params: { ref: item.id } }" class="button-outlined">Lire</router-link>
+                        <a class="button-outlined" target="_blank" :href="'https://api.whatsapp.com/send?text=https://farman.info/magazines?utm_source=share'">Partager <i class="material-icons">ios_share</i></a>
                     </div>
                     <div class="magazine-box" v-else>
                         <router-link :to="{ name: 'Magazine', params: { ref: item.id } }">
@@ -60,6 +61,10 @@ img {
 .magazine-last img {
     width: 50%;
     display: block;
+}
+
+a {
+    height: 42px;
 }
 </style>
 
