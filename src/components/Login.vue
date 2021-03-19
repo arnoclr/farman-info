@@ -2,11 +2,13 @@
     <div>
         <app-header></app-header>
 
-        <div id="login">
-            <h1>Bonjour !</h1>
-            <div id="firebaseui-auth-container"></div>
-            <small>Vous serez redirigé vers {{ loginFromUrl }}</small>
-        </div>
+        <main>
+            <div id="login">
+                <h1>Bonjour !</h1>
+                <p>Connectez-vous sur Farman pour écrire ou commenter des articles. <ins>Vous serez redirigé vers {{ loginFromUrl }}</ins></p>
+                <div id="firebaseui-auth-container"></div>
+            </div>
+        </main>
 
         <app-footer></app-footer>
     </div>
@@ -15,6 +17,12 @@
 <style scoped>
 #login {
     padding: 16px;
+}
+
+#firebaseui-auth-container {
+    padding: 8px 0;
+    background: #fff;
+    border-radius: 4px;
 }
 </style>
 
