@@ -69,11 +69,13 @@ section.right {
                 this.$router.push('/login')
             },
             logout() {
-                firebase.auth().signOut().then(() =>{
-                    this.$router.go()
-                }).catch(err => {
-                    console.log(err)
-                })
+                if(confirm('Se déconnecter ?')) {
+                    firebase.auth().signOut().then(() =>{
+                        this.$router.go()
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                }
             }
         }
     }
