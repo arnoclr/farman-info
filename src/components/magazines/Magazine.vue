@@ -50,6 +50,10 @@ img {
     object-fit: cover;
     display: block;
 }
+
+.button, .button-outlined {
+    height: 40px;
+}
 </style>
 
 <script>
