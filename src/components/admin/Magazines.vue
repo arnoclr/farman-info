@@ -13,7 +13,7 @@
                 <p>Fichiers pdf</p>
                 <li v-for="(pdf, i) in pdfs" v-bind:key="i">{{ pdf.name }} 
                     <i @click="download(pdf)" title="télécharger" class="material-icons">download</i>
-                    <i @click="insertFileIntoEdition(pdf)" title="intégrer le pdf dans la zone d'édition" class="material-icons">insert_drive_file</i>
+                    <i @click="insertFileIntoEdition(pdf)" title="intégrer le pdf dans la zone d'édition" class="material-icons" :disabled="!currentEdit">shortcut</i>
                     <i @click="open(pdf)" title="ouvrir dans un nouvel onglet" class="material-icons">open_in_new</i>
                     <i @click="remove(pdf)" title="supprimer" class="material-icons">delete</i>
                 </li>
@@ -63,6 +63,11 @@
 
 i {
     vertical-align: -25%;
+
+    &[disabled] {
+        opacity: 0.5;
+        pointer-events: none;
+    }
 }
 
 #pdf-input {
@@ -147,6 +152,9 @@ export default {
                 xhr.onload = (event) => {
                     var blob = xhr.response;
                 };
+                xhr.onerror = (err) => {
+                    this.error = "Impossible de télécharger le document"
+                }
                 xhr.open('GET', url);
                 xhr.send();
             })
