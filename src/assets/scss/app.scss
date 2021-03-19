@@ -205,13 +205,36 @@ p {
 
 // responsive
 main {
-    padding: 16px !important;
+    margin: 16px !important;
     min-height: 50vh;
+}
+
+main.divided {
+    aside {
+        display: none;
+    }
 }
 
 @media screen and(min-width: 600px) {
     main {
-        padding: 16px 10vw !important;
+        margin: 16px 10vw !important;
+    }
+}
+
+@media screen and(min-width: 900px) {
+    main {
+        padding-right: 280px;
+        position: relative;
+    }
+
+    main.divided {
+        aside {
+            display: block;
+            width: 268px;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
     }
 }
 
