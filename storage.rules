@@ -20,8 +20,11 @@ service firebase.storage {
         // allow read magazine
         // allow write only for admin
         match /magazines/{pdf} {
-            allow read: if true
-            allow write: if isAdmin()
+            allow get: if true
+            allow list, delete: if isAdmin()
+            allow create, update: if isAdmin()
+                && request.resource.size < 125 * 1024 * 1024
+                && request.resource.contentType.matches('application/pdf')
         }
     }
 }

@@ -2,13 +2,14 @@
     <div>
         <app-header></app-header>
 
-        <div>
+        <main>
             <select v-model="section">
-                <option>principale</option>
+                <option>magazines</option>
                 <option>mails</option>
             </select>
             <admin-mails v-if="section == 'mails'"></admin-mails>
-        </div>
+            <admin-magazines v-if="section == 'magazines'"></admin-magazines>
+        </main>
 
         <app-footer></app-footer>
     </div>
@@ -18,13 +19,14 @@
 export default {
     data() {
         return {
-            section: 'principale'
+            section: 'magazines'
         }
     },
     components: {
         AppFooter: () => import('../Footer.vue'),
         AppHeader: () => import('../Navigation.vue'),
-        AdminMails: () => import('./Mails.vue')
+        AdminMails: () => import('./Mails.vue'),
+        AdminMagazines: () => import('./Magazines.vue')
     }
 }
 </script>

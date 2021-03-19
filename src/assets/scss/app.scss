@@ -33,6 +33,10 @@ button, .button, .button-outlined, .icon-button {
     &[disabled] {
         background-color: #ddd;
     }
+
+    &:hover {
+        box-shadow: 2px 2px 5px 0px rgba(150, 150, 150, 0.6);
+    }
 }
 
 .icon-button {
@@ -161,12 +165,13 @@ p {
 }
 
 // responsive
-body>div>div>div:not(.no-padding) {
+main {
     padding: 16px !important;
+    min-height: 50vh;
 }
 
 @media screen and(min-width: 600px) {
-    body>div>div>div:not(.no-padding) {
+    main {
         padding: 16px 10vw !important;
     }
 }

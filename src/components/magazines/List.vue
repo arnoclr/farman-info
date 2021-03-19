@@ -2,42 +2,44 @@
     <div>
         <app-header></app-header>
 
-        <div class="box">
-            <h1>Farman Magazine</h1>
-            <p>Votre rendez-vous lifestyle culture et voyage bimestriel par Farman disponible gratuitement en 100% numérique depuis notre site internet.</p>
-        </div>
+        <main>
+            <div class="box">
+                <h1>Farman Magazine</h1>
+                <p>Votre rendez-vous lifestyle culture et voyage bimestriel par Farman disponible gratuitement en 100% numérique depuis notre site internet.</p>
+            </div>
 
-        <div class="list" v-if="magazines">
-            <div v-for="(item, index) in magazines" v-bind:key="index">
-                <div class="magazine-last" v-if="index === 0">
-                    <h2>Dernier numéro</h2>
-                    <img :src="item.image" alt="">
-                    <h3>{{ item.title }}</h3>
-                    <p v-if="item.summary">{{ item.summary }}</p>
-                    <div class="info" v-else>
-                        <p>Description non disponible.</p>
-                    </div>
-                    <router-link :to="{ name: 'Magazine', params: { ref: item.id } }" class="button-outlined">Lire</router-link>
-                </div>
-                <div class="magazine-box" v-else>
-                    <router-link :to="{ name: 'Magazine', params: { ref: item.id } }">
+            <div class="list" v-if="magazines">
+                <div v-for="(item, index) in magazines" v-bind:key="index">
+                    <div class="magazine-last" v-if="index === 0">
+                        <h2>Dernier numéro</h2>
                         <img :src="item.image" alt="">
-                    </router-link>
-                    <h3>{{ item.title }}</h3>
-                    <p v-if="item.summary">{{ item.summary }}</p>
-                    <div class="info" v-else>
-                        <p>Description non disponible.</p>
+                        <h3>{{ item.title }}</h3>
+                        <p v-if="item.summary">{{ item.summary }}</p>
+                        <div class="info" v-else>
+                            <p>Description non disponible.</p>
+                        </div>
+                        <router-link :to="{ name: 'Magazine', params: { ref: item.id } }" class="button-outlined">Lire</router-link>
+                    </div>
+                    <div class="magazine-box" v-else>
+                        <router-link :to="{ name: 'Magazine', params: { ref: item.id } }">
+                            <img :src="item.image" alt="">
+                        </router-link>
+                        <h3>{{ item.title }}</h3>
+                        <p v-if="item.summary">{{ item.summary }}</p>
+                        <div class="info" v-else>
+                            <p>Description non disponible.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="center" style="height: 80vh" v-else>
-            <svg class="loader" width="60" height="60" xmlns="http://www.w3.org/2000/svg" >
-                <g>
-                    <ellipse ry="25" rx="25" cy="30" cx="30" stroke-width="5" stroke="teal" fill="none"/>
-                </g>
-            </svg>
-        </div>
+            <div class="center" style="height: 80vh" v-else>
+                <svg class="loader" width="60" height="60" xmlns="http://www.w3.org/2000/svg" >
+                    <g>
+                        <ellipse ry="25" rx="25" cy="30" cx="30" stroke-width="5" stroke="teal" fill="none"/>
+                    </g>
+                </svg>
+            </div>
+        </main>
 
         <app-footer></app-footer>
     </div>

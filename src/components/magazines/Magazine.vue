@@ -2,7 +2,7 @@
     <div>
         <app-header></app-header>
 
-        <div class="content">
+        <main class="content">
             <a @click="back" title="page précédente" class="icon-button"><i class="material-icons">arrow_back</i></a>
 
             <div class="error" v-if="error">
@@ -26,11 +26,8 @@
                     </g>
                 </svg>
             </div>
-        </div>
+        </main>
 
-        <div class="fullscreen-viewer">
-            <pdf-viewer v-if="viewer"></pdf-viewer>
-        </div>
         <app-footer></app-footer>
     </div>
 </template>
@@ -44,10 +41,6 @@
     position: absolute;
     top: 16px;
     left: 16px;
-}
-
-.content {
-    padding: 16px;
 }
 
 img {

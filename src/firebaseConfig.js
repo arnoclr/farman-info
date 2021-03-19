@@ -2,6 +2,7 @@ import firebase from 'firebase'
 import * as firebaseui from '../src/assets/js/npm__fr';
 import "firebaseui/dist/firebaseui.css";
 import 'firebase/firestore'
+import 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBzk6MWgJJcmZNP4oKhp_xCfI8PhTdqRGE",
@@ -27,6 +28,7 @@ firebase.initializeApp(firebaseConfig)
 const db = firebase.firestore()
 const auth = firebase.auth()
 const ui = new firebaseui.auth.AuthUI(auth);
+const storage = firebase.storage()
 
 // firebase collections
 const magazines = db.collection('magazines')
@@ -35,5 +37,6 @@ export {
     db,
     ui,
     auth,
+    storage,
     magazines
 }
