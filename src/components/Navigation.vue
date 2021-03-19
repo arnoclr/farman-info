@@ -1,7 +1,7 @@
 <template>
     <header>
         <router-link to="/">
-            <img src="/assets/header_logo.png" alt="navbar logo" header>
+            <img src="/assets/logos/header_logo.png" alt="navbar logo" header>
         </router-link>
         <section class="right">
             <a title="connexion" @click="login" class="button" v-if="!user">Connexion</a>
