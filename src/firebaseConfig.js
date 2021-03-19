@@ -38,5 +38,6 @@ export {
     ui,
     auth,
     storage,
-    magazines
+    magazines,
+    firebase
 }

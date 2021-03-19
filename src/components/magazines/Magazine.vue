@@ -83,6 +83,7 @@ export default {
                 if(snapshot.data()) {
                     this.magazine = snapshot.data()
                     this.magazine.ref = ref
+                    document.title = this.magazine.title
                     this.error = false
                 } else {
                     this.error = 'Aucun résultat correspondant'

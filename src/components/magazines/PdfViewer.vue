@@ -251,6 +251,7 @@ export default {
                 if (this.$route.params.ref !== ref) return
                 if(snapshot.data()) {
                     this.src = pdf.createLoadingTask(snapshot.data().url);
+                    document.title = snapshot.data().title
                     this.src.promise.then(pdf => {
                         this.numPages = pdf.numPages
                         this.loading = false
