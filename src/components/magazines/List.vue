@@ -12,17 +12,19 @@
                 <div v-for="(item, index) in magazines" v-bind:key="index">
                     <div class="magazine-last" v-if="index === 0">
                         <h2>Dernier numéro</h2>
-                        <img :src="item.image" alt="">
+                        <router-link :to="'/magazine/' + item.id + '?ref=thumb'">
+                            <img :src="item.image" alt="">
+                        </router-link>
                         <h3>{{ item.title }}</h3>
                         <p v-if="item.summary">{{ item.summary }}</p>
                         <div class="info" v-else>
                             <p>Description non disponible.</p>
                         </div>
-                        <router-link :to="{ name: 'Magazine', params: { ref: item.id } }" class="button-outlined">Lire</router-link>
+                        <router-link :to="'/magazine/' + item.id + '?ref=cta'" class="button-outlined">Lire</router-link>
                         <a class="button-outlined" target="_blank" :href="'https://api.whatsapp.com/send?text=https://farman.info/magazines?utm_source=share'">Partager <i class="material-icons">ios_share</i></a>
                     </div>
                     <div class="magazine-box" v-else>
-                        <router-link :to="{ name: 'Magazine', params: { ref: item.id } }">
+                        <router-link :to="'/magazine/' + item.id + '?ref=cta'">
                             <img :src="item.image" alt="">
                         </router-link>
                         <h3>{{ item.title }}</h3>

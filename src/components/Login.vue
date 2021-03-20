@@ -2,12 +2,18 @@
     <div>
         <app-header></app-header>
 
-        <main>
+        <main class="divided">
             <div id="login">
                 <h1>Bonjour !</h1>
                 <p>Connectez-vous sur Farman pour écrire ou commenter des articles. <ins>Vous serez redirigé vers {{ loginFromUrl }}</ins></p>
                 <div id="firebaseui-auth-container"></div>
             </div>
+
+            <aside>
+                <router-link to="/magazines?ref=landing_banner">
+                    <img src="/assets/banners/magazine_vertical.jpeg" alt="magazine publicité">
+                </router-link>
+            </aside>
         </main>
 
         <app-footer></app-footer>
@@ -15,6 +21,11 @@
 </template>
 
 <style scoped>
+aside img {
+    width: 100%;
+    height: auto;
+}
+
 #login {
     padding: 16px;
 }
