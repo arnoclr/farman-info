@@ -3,7 +3,7 @@
         <app-header></app-header>
 
         <main class="content">
-            <a @click="back" title="page précédente" class="icon-button"><i class="material-icons">arrow_back</i></a>
+            <a @click="back" title="page précédente" class="icon-button fab"><i class="material-icons">arrow_back</i></a>
 
             <div class="error" v-if="error">
                 <p>Une erreur est survenue : <ins>{{ error }}</ins></p>

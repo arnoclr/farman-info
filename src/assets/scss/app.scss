@@ -54,6 +54,16 @@ button, .button, .button-outlined, .icon-button {
     &:hover {
         background-color: rgba(150, 150, 150, 0.2);
     }
+
+    &.fab {
+        box-shadow: 5px 5px 10px 0 rgba(150, 150, 150, 0.2);
+        background: #fff;
+        z-index: 2;
+
+        &:hover {
+            background: #eee;
+        }
+    }
 }
 
 .button-outlined {

@@ -22,24 +22,23 @@
             </div>
             <div class="links">
                 <p></p>
-                <p>©2020 Farman</p>
-                <p><a style="text-decoration:none;color:#444" href="https://farman.ga/s/cgu">Informations juridiques</a></p>
+                <p><router-link to="/?ref=footer_copyright">©{{ new Date().getFullYear() }} Farman</router-link></p>
+                <p><a href="https://farman.ga/s/cgu">Informations juridiques</a></p>
                 <p></p>
             </div>
         </footer>
     </div>
 </template>
 
-<style scoped>
-    footer {
-        position: relative;
-    }
+<style lang="scss" scoped>
+footer {
+    position: relative;
 
-    footer i.material-icons {
+    i {
         vertical-align: -25%;
     }
 
-    footer img {
+    img {
         height: 36px;
         margin-right: 8px;
     }
@@ -49,16 +48,21 @@
         justify-content: space-evenly;
         background-color: #ccc;
         padding: 8px 16px;
-        color: #444;
-    }
-
-    @media (min-width: 600px) {
-        .social-links {
-            position: absolute;
-            right: 16px;
-            top: 92px;
+        
+        a {
+            text-decoration: none;
+            color: #444;
         }
     }
+}
+
+@media (min-width: 600px) {
+    .social-links {
+        position: absolute;
+        right: 16px;
+        top: 92px;
+    }
+}
 </style>
 
 <script>

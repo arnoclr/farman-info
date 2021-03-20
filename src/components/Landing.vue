@@ -9,7 +9,7 @@
             <h1>Site en cours de développement</h1>
             <p>Ce site web n'est pas encore disponible au public.</p>
             <p>Seule la partie Magazine peut être consultée en cliquant ci-dessous</p>
-            <router-link class="button-outlined" to="/magazines">Consulter les magazines</router-link>
+            <router-link class="button-outlined" to="/magazines?ref=cta">Consulter les magazines</router-link>
 
             <form id="mail-form" class="form-group">
                 <p>Soyez informé quand le site sera entierement disponible, et recevez des informations sur son dévelopement par mail.</p>
@@ -18,7 +18,7 @@
             </form>
 
             <aside>
-                <router-link to="/magazines?utm_source=landing_banner">
+                <router-link to="/magazines?ref=landing_banner">
                     <img src="/assets/banners/magazine_vertical.jpeg" alt="magazine publicité">
                 </router-link>
             </aside>

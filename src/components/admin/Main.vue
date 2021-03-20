@@ -25,7 +25,7 @@
 select {
     position: fixed;
     top: 12px;
-    left: 8px;
+    right: 8px;
     z-index: 2;
 }
 </style>
