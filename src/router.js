@@ -58,6 +58,15 @@ const router = new Router({
       }
     },
     {
+      path: '/articles/submit',
+      name: 'articleSubmit',
+      component: () => import('@/components/articles/Submit'),
+      meta: {
+        requiresAuth: true,
+        title: 'Proposer un article'
+      }
+    },
+    {
       path: '/admin',
       name: 'admin',
       component: () => import('@/components/admin/Main'),

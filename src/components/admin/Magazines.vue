@@ -71,6 +71,10 @@ i {
         opacity: 0.5;
         pointer-events: none;
     }
+
+    &:hover {
+        color: teal;
+    }
 }
 
 #pdf-input {
