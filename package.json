@@ -8,8 +8,10 @@
     "deploy": "vue-cli-service build && firebase deploy"
   },
   "dependencies": {
+    "browser-image-compression": "^1.0.14",
     "firebase": "^8.3.0",
     "firebaseui": "^4.2.0",
+    "uuid": "^8.3.2",
     "vue": "^2.6.10",
     "vue-cookie-law": "^1.13.3",
     "vue-pdf": "^4.2.0",

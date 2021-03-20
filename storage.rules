@@ -26,5 +26,14 @@ service firebase.storage {
                 && request.resource.size < 125 * 1024 * 1024
                 && request.resource.contentType.matches('application/pdf')
         }
+
+        // allow write images
+        match /images/{image} {
+            allow get: if true
+            allow list, update, delete: if false
+            allow write: if isAuth()
+                && request.resource.size < 2 * 1024 * 1024
+                && request.resource.contentType.matches('image/.*')
+        }
     }
 }
