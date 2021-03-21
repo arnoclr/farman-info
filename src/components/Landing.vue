@@ -17,11 +17,7 @@
                 <button class="button">Me tenir informé</button>
             </form>
 
-            <aside>
-                <router-link to="/magazines?ref=landing_banner">
-                    <img src="/assets/banners/magazine_vertical.jpeg" alt="magazine publicité">
-                </router-link>
-            </aside>
+            <app-sidebar></app-sidebar>
         </main>
 
         <app-footer></app-footer>
@@ -31,11 +27,6 @@
 <style lang="scss" scoped>
 main {
     color: #555;
-
-    aside img {
-        width: 100%;
-        height: auto;
-    }
 }
 
 svg {
@@ -52,6 +43,7 @@ svg {
     background: #ddd;
     padding: 32px 16px;
     margin-top: 32px;
+    border-radius: 8px;
 
     p {
         margin-top: 0;
@@ -78,7 +70,8 @@ const {db} = require('../firebaseConfig.js')
 export default {
     components: {
         AppFooter: () => import('./Footer.vue'),
-        AppHeader: () => import('./Navigation.vue')
+        AppHeader: () => import('./Navigation.vue'),
+        AppSidebar: () => import('./utils/Sidebar.vue')
     },
     mounted() {
         const mailForm = document.querySelector('#mail-form')
