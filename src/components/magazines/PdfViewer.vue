@@ -78,8 +78,12 @@
                 filter: brightness(50%);
             }
             
-            #summary-trigger::before {
-                transform: rotate(-180deg);
+            #summary-trigger {
+                margin-top: 125px;
+
+                &::before {
+                    transform: rotate(-180deg);
+                }
             }
         }
     }
@@ -118,8 +122,12 @@
     display: -webkit-box;
     transition: height 350ms ease;
 
+    ::-webkit-scrollbar {
+        width: 0;
+    }
+
     #summary-trigger {
-        position: sticky;
+        position: fixed;
         top: 16px;
         left: 16px;
         height: 48px;
@@ -130,7 +138,7 @@
         outline: none;
         cursor: pointer;
         z-index: 9;
-        transition: height 350ms ease;
+        transition: height 350ms ease-out, margin-top 350ms ease;
         
         &::before {
             content: 'expand_more';

@@ -2,7 +2,7 @@
 
 @include md-register-theme("default", (
   primary: md-get-palette-color(teal, 500), // The primary color of your application
-  accent: md-get-palette-color(red, A200), // The accent or secondary color
+  accent: md-get-palette-color(grey, 500), // The accent or secondary color
   theme: light // This can be dark or light
 ));
 

@@ -65,6 +65,7 @@ header {
         height: 16px;
         vertical-align: -15%;
         margin: 0 8px;
+        border-radius: 2px;
     }
 }
 
