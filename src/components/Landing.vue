@@ -67,6 +67,7 @@ svg {
 
     button {
         height: 42px;
+        vertical-align: baseline;
     }
 }
 </style>
