@@ -13,11 +13,13 @@ body {
 // buttons
 button, .button, .button-outlined {
     box-sizing: border-box;
-    font-size: 1.2rem;
+    letter-spacing: -0.5px;
+    font-size: 13px;
     padding: 8px 12px;
     margin-right: 4px;
+    height: 40px;
     display: inline-block;
-    vertical-align: baseline;
+    vertical-align: bottom;
 }
 
 button, .button, .button-outlined, .icon-button {

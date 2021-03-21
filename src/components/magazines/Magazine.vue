@@ -53,6 +53,7 @@ img {
 
 .button, .button-outlined {
     vertical-align: bottom;
+    height: 40px;
 }
 </style>
 

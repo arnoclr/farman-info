@@ -9,7 +9,7 @@
             <h1>Site en cours de développement</h1>
             <p>Ce site web n'est pas encore disponible au public.</p>
             <p>Seule la partie Magazine peut être consultée en cliquant ci-dessous</p>
-            <router-link class="button-outlined" to="/magazines?ref=cta">Consulter les magazines</router-link>
+            <router-link class="button-outlined" to="/magazines?ref=cta">Lire le magazine</router-link>
 
             <form id="mail-form" class="form-group">
                 <p>Soyez informé quand le site sera entierement disponible, et recevez des informations sur son dévelopement par mail.</p>
@@ -41,7 +41,11 @@ main {
 svg {
     width: 56px;
     height: 56px;
-    fill: #555;
+    fill: #333;
+
+    &+h1 {
+        margin-top: 12px;
+    }
 }
 
 #mail-form {

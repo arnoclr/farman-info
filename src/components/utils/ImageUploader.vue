@@ -15,7 +15,7 @@
 
                 <md-tab md-label="à partie d'une url">
                     <md-field>
-                        <label>Initial Value</label>
+                        <label>Lien vers l'image</label>
                         <md-input v-model="fromUrl"></md-input>
                     </md-field>
                     <md-button @click="uploadImage(fromUrl)" class="md-raised md-primary">importer</md-button>

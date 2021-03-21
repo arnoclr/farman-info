@@ -67,6 +67,7 @@ img {
 
 a {
     height: 42px;
+    vertical-align: bottom;
 }
 </style>
 
