@@ -22,8 +22,12 @@ service cloud.firestore {
             allow read: if isAdmin()
 
             // Only valid emails
-            allow write: if 
+            allow create: if 
                 request.resource.data.mail.matches('.+@.+\\.[a-z]+')
+
+            // unsubscribe
+            allow delete: if isAuth()
+                && resource.data.mail == request.auth.token.email
         }
         
         match /magazines/{magazine} {
