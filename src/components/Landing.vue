@@ -12,7 +12,8 @@
             <router-link class="button-outlined" to="/magazines?ref=cta">Lire le magazine</router-link>
 
             <form id="mail-form" class="form-group">
-                <p>Soyez informé quand le site sera entierement disponible, et recevez des informations sur son dévelopement par mail.</p>
+                <h2>Lettre d'informations</h2>
+                <p>Inscrivez-vous à la lettre d'informations pour recevoir les nouveautés concernant le site.</p>
                 <input type="email" id="mail-input" placeholder="Votre adresse email" required>
                 <button class="button">Me tenir informé</button>
             </form>
@@ -40,10 +41,14 @@ svg {
 }
 
 #mail-form {
-    background: #ddd;
+    background: #e6e6e6;
     padding: 32px 16px;
     margin-top: 32px;
     border-radius: 8px;
+
+    h2 {
+        margin-top: 8px;
+    }
 
     p {
         margin-top: 0;
