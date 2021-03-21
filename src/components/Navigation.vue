@@ -7,6 +7,9 @@
                 <span>{{ user.displayName }}</span>
                 <img :src="user.photoURL ? user.photoURL : 'https://i.stack.imgur.com/34AD2.jpg'" :title="'connecté en tant que : ' + user.displayName" alt="photo de profil" pp>
             </div>
+            <div r>
+                <span>Site web d'actualités aéronautiques</span>
+            </div>
         </section>
         <section bottom>
             <router-link to="/?ref=header_logo">
@@ -51,6 +54,15 @@ header {
         &:hover {
             color: #eee;
             text-decoration: underline;
+        }
+    }
+
+    [r] {
+        float: right;
+        margin-right: 32px;
+        
+        span {
+            padding-top: 6px;
         }
     }
 
@@ -153,7 +165,7 @@ header {
 }
 
 @media screen and(max-width: 450px) {
-    ul {
+    ul, [r] {
         display: none !important;
     }
 }
