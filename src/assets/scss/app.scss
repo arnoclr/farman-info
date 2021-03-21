@@ -234,9 +234,9 @@ main {
     min-height: 50vh;
 }
 
-main.divided {
-    &+aside {
-        display: none;
+.divided {
+    aside {
+        margin: 0 16px;
     }
 }
 
@@ -247,12 +247,19 @@ main.divided {
 }
 
 @media screen and(min-width: 900px) {
-    main.divided {
-        width: calc(100% - 280px);
-        position: relative;
-        
-        &+aside {
-            display: block;
+    .divided {
+        display: flex;
+
+        main {
+            width: calc(100% - 280px);
+            position: relative;
+            
+            &+aside {
+                display: block;
+                width: 268px;
+                margin: 16px 32px;
+                margin-left: 0;
+            }
         }
     }
 }

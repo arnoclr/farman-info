@@ -10,10 +10,7 @@
 
 <style lang="scss" scoped>
 aside {
-    width: 268px;
     position: relative;
-    margin: 16px 32px;
-    margin-left: 0;
 
     [a] {
         position: sticky;

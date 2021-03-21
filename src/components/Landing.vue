@@ -2,8 +2,8 @@
     <div>
         <app-header></app-header>
 
-        <div a>
-            <main class="divided">
+        <div class="divided">
+            <main>
                 <span>Information</span>
                 <br>
                 <svg viewBox="0 0 24 24">
