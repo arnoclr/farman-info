@@ -3,9 +3,20 @@ import App from './App.vue'
 import router from './router'
 import store from './store.js'
 const fb = require('./firebaseConfig.js')
-import './assets/scss/app.scss'
 
 Vue.config.productionTip = false
+
+// Vue Material
+import { MdDialog, MdTabs, MdButton, MdField } from 'vue-material/dist/components'
+import 'vue-material/dist/vue-material.min.css'
+// import 'vue-material/dist/theme/default.css'
+
+Vue.use(MdDialog)
+Vue.use(MdTabs)
+Vue.use(MdButton)
+Vue.use(MdField)
+
+import './assets/scss/app.scss'
 
 // console disclaimers
 console.log('%cAtttention !', 'color: #f00; background: #ff0; font-size: 24px')

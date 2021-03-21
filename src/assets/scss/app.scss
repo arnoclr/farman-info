@@ -1,3 +1,6 @@
+// Vue Material
+@import 'vue-material.scss';
+
 * {
     box-sizing: border-box;
 }
@@ -67,15 +70,15 @@ button, .button, .button-outlined, .icon-button {
 }
 
 .button-outlined {
-    text-decoration: none;
+    text-decoration: none !important;
     box-shadow: 0 0 0 1px inset grey;
-    color: grey;
+    color: grey !important;
     display: inline-block;
     background: transparent;
 
     &:hover {
         box-shadow: 0 0 0 1px inset black;
-        color: black;
+        color: black !important;
     }
 }
 

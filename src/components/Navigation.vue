@@ -71,6 +71,7 @@ header {
 
     ul {
         position: absolute;
+        right: 0;
         list-style: none;
         display: inline-block;
         margin: 6px;
@@ -120,6 +121,12 @@ header {
 @media screen and(max-width: 450px) {
     ul {
         display: none !important;
+    }
+}
+
+@media screen and(min-width: 600px) {
+    [bottom] {
+        padding: 0 16px;
     }
 }
 </style>

@@ -42,8 +42,11 @@
                 <textarea cols="30" placeholder="Extrait" rows="10" v-model="currentEdit.summary"></textarea>
                 <input type="text" placeholder="Lien du pdf" v-model="currentEdit.url">
                 <input type="url" placeholder="Lien de l'image" v-model="currentEdit.image">
-                <input type="file" accept="image/*" id="img-input" @change="uploadImage">
+                
+                <image-uploader :callback="appendImageUrl" :open="imageUploaderOpen" :close="imageUploaderClose"></image-uploader>
+                <button class="button-outlined" @click="imageUploaderOpen = true">{{ currentEdit.image ? "Modifier l'image" : "Insérer une image" }}</button>
                 <img height="128" :src="currentEdit.image">
+
                 <br>
                 <button @click="saveEdit(currentEdit.id)" class="button">{{ currentEdit.id ? 'Enregistrer' : 'Publier' }}</button>
                 <button @click="undoEdit" class="button-outlined">Annuler</button>
@@ -114,12 +117,12 @@ ul {
 
 <script>
 const {storage, magazines, firebase} = require('../../firebaseConfig.js')
-import { v4 as uuidv4 } from 'uuid'
-import imageCompression from 'browser-image-compression'
 const files = storage.ref('magazines')
-const images = storage.ref('images')
 
 export default {
+    components: {
+        imageUploader: () => import('../utils/ImageUploader')
+    },
     data() {
         return {
             error: null,
@@ -127,10 +130,19 @@ export default {
             magazinesLoading: null,
             pdfs: null,
             pdfsLoading: null,
-            currentEdit: null
+            currentEdit: null,
+            imageUploaderOpen: false
         }
     },
     methods: {
+        // image upload
+        appendImageUrl(url) {
+            this.currentEdit.image = url
+        },
+        imageUploaderClose() {
+            this.imageUploaderOpen = false
+        },
+        // pdf data
         getFiles() {
             this.pdfs = this.error = null
             this.pdfsLoading = true
@@ -199,36 +211,7 @@ export default {
                 }
             );
         },
-        uploadImage() {
-            let img = document.getElementById('img-input').files[0]
-            imageCompression(img, {
-                maxSizeMB: 2,
-                maxWidthOrHeight: 1920,
-                useWebWorker: true
-            }).then(img => {
-                let ref = images.child(uuidv4())
-                let uploadTask = ref.put(img)
-
-                // Listen for state changes, errors, and completion of the upload.
-                uploadTask.on('state_changed',
-                    (snapshot) => {
-                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                        let progress = (snapshot.bytesTransferred / snapshot.totalBytes);
-                        document.getElementById('pdf-progress').value = progress
-                    }, 
-                    (error) => {
-                        this.error = error
-                    }, 
-                    () => {
-                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                            this.currentEdit.image = downloadURL
-                        });
-                    }
-                );
-            }).catch(err => {
-                console.log(err)
-            })
-        },
+        // magazines data
         getMagazines() {
             this.error = null
             this.magazinesLoading = true
