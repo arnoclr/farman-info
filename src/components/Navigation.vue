@@ -10,7 +10,7 @@
         </section>
         <section bottom>
             <router-link to="/?ref=header_logo">
-                <img src="/assets/logos/header_logo.png" alt="navbar logo" header>
+                <img :src="$route.name == 'admin' ? '/assets/logos/header_logo_admin.png' : '/assets/logos/header_logo.png'" alt="navbar logo" header>
             </router-link>
             <ul>
                 <li>
