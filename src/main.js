@@ -7,7 +7,7 @@ const fb = require('./firebaseConfig.js')
 Vue.config.productionTip = false
 
 // Vue Material
-import { MdDialog, MdTabs, MdButton, MdField } from 'vue-material/dist/components'
+import { MdDialog, MdTabs, MdButton, MdField, MdTable, MdCard, MdContent, MdRipple, MdEmptyState } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
 // import 'vue-material/dist/theme/default.css'
 
@@ -15,6 +15,11 @@ Vue.use(MdDialog)
 Vue.use(MdTabs)
 Vue.use(MdButton)
 Vue.use(MdField)
+Vue.use(MdTable)
+Vue.use(MdCard)
+Vue.use(MdContent)
+Vue.use(MdRipple)
+Vue.use(MdEmptyState)
 
 import './assets/scss/app.scss'
 

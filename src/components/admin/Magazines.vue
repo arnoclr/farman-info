@@ -1,72 +1,120 @@
 <template>
-    <div class="grid">
-        <div class="col">
-            <div class="error" v-if="error">
-                <p>Une erreur est survenue : <ins>{{ error }}</ins></p>
-            </div>
-
-            <input id="pdf-input" type="file" @change="upload" accept="application/pdf" />
-            <button class="button">téléverser un pdf <i class="material-icons">publish</i></button>
-            <progress id="pdf-progress" max="1" value="0"></progress>
-
-            <ul v-if="pdfs">
-                <p>Fichiers pdf</p>
-                <li v-for="(pdf, i) in pdfs" v-bind:key="i">{{ pdf.name }} 
-                    <i @click="download(pdf)" title="télécharger" class="material-icons">download</i>
-                    <i @click="insertFileIntoEdition(pdf)" title="intégrer le pdf dans la zone d'édition" class="material-icons" :disabled="!currentEdit">shortcut</i>
-                    <i @click="open(pdf)" title="ouvrir dans un nouvel onglet" class="material-icons">open_in_new</i>
-                    <i @click="remove(pdf)" title="supprimer" class="material-icons">delete</i>
-                </li>
-            </ul>
-            <ul v-if="pdfsLoading">
-                <p>Chargement ...</p>
-            </ul>
-
-            <ul v-if="magazines">
-                <p>Informations sur les magazines</p>
-                <li v-for="(item, i) in magazines" v-bind:key="i">{{ item.title }}
-                    <router-link :to="{ name: 'Magazine', params: { ref: item.id } }"><i title="visionner" class="material-icons">visibility</i></router-link>
-                    <i @click="edit(item)" title="Modifier les informations" class="material-icons">edit</i>
-                    <i @click="remove_db(item.id)" title="supprimer" class="material-icons">delete</i>
-                </li>
-                <button @click="currentEdit = {url: null, image: null}" class="button" publish>Publier un magazine <i class="material-icons">edit</i></button>
-            </ul>
-            <ul v-else>
-                <p v-if="magazinesLoading">Chargement ...</p>
-            </ul>
+    <div>
+        <div class="error" v-if="error">
+            <p>Une erreur est survenue : <ins>{{ error }}</ins></p>
         </div>
 
-        <div v-if="currentEdit" class="col">
-            <div class="form-group">
-                <input type="text" placeholder="Titre" v-model="currentEdit.title">
-                <textarea cols="30" placeholder="Extrait" rows="10" v-model="currentEdit.summary"></textarea>
-                <input type="text" placeholder="Lien du pdf" v-model="currentEdit.url">
-                <input type="url" placeholder="Lien de l'image" v-model="currentEdit.image">
-                
-                <image-uploader :callback="appendImageUrl" :open="imageUploaderOpen" :close="imageUploaderClose"></image-uploader>
-                <button class="button-outlined" @click="imageUploaderOpen = true">{{ currentEdit.image ? "Modifier l'image" : "Insérer une image" }}</button>
-                <img height="128" :src="currentEdit.image">
+        <div v-if="pdfs" p>
+            <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
+                <md-table-toolbar>
+                    <div class="md-toolbar-section-start">
+                        <input id="pdf-input" type="file" @change="upload" accept="application/pdf" />
+                        <button class="button">Importer <i class="material-icons">publish</i></button>
+                        <progress id="pdf-progress" max="1" value="0"></progress>
+                    </div>
 
-                <br>
-                <button @click="saveEdit(currentEdit.id)" class="button">{{ currentEdit.id ? 'Enregistrer' : 'Publier' }}</button>
-                <button @click="undoEdit" class="button-outlined">Annuler</button>
-            </div>
+                    <md-field md-clearable class="md-toolbar-section-end">
+                        <md-input placeholder="Rechercher ou ajouter" v-model="search" @input="searchOnTable" />
+                    </md-field>
+                </md-table-toolbar>
+
+                <md-table-empty-state
+                    md-label="Aucun pdf trouvé"
+                    :md-description="`Aucun résultat pour la recherche '${search}'. Essayez avec un terme différent ou importez un nouveau pdf.`">
+                </md-table-empty-state>
+
+                <md-table-row slot="md-table-row" slot-scope="{ item }">
+                    <md-table-cell md-label="Name" md-sort-by="name">
+                        {{ item.name }}
+                        <div class="right">
+                            <md-button @click="download(item)" title="télécharger" class="md-icon-button">
+                                <md-icon>download</md-icon>
+                            </md-button>
+                            <md-button @click="open(item)" title="ouvrir dans un nouvel onglet" class="md-icon-button">
+                                <md-icon>launch</md-icon>
+                            </md-button>
+                            <md-button @click="remove(item)" title="supprimer" class="md-icon-button">
+                                <md-icon>delete</md-icon>
+                            </md-button>
+                        </div>
+                    </md-table-cell>
+                </md-table-row>
+            </md-table>
+        </div>
+        <ul v-if="pdfsLoading">
+            <p>Chargement ...</p>
+        </ul>
+
+        <div v-if="magazines">
+            <md-table v-model="magazines" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
+                <md-table-toolbar>
+                    <div class="md-toolbar-section-start">
+                        <button @click="currentEditDialog = true; currentEdit = {url: null, image: null}" class="button" publish>Publier un magazine <i class="material-icons">edit</i></button>
+                    </div>
+                </md-table-toolbar>
+
+                <md-table-row slot="md-table-row" slot-scope="{ item }">
+                    <md-table-cell md-label="Name" md-sort-by="name">
+                        {{ item.title }}
+                        <div class="right">
+                            <router-link class="md-button md-icon-button" :to="{ name: 'Magazine', params: { ref: item.id } }">
+                                <i title="visionner" class="material-icons">visibility</i>
+                            </router-link>
+                            <md-button @click="edit(item)" title="Modifier les informations" class="md-icon-button">
+                                <md-icon>edit</md-icon>
+                            </md-button>
+                            <md-button @click="remove_db(item.id)" title="supprimer" class="md-icon-button">
+                                <md-icon>delete</md-icon>
+                            </md-button>
+                        </div>
+                    </md-table-cell>
+                </md-table-row>
+            </md-table>
+        </div>
+        <ul v-else>
+            <p v-if="magazinesLoading">Chargement ...</p>
+        </ul>
+
+        <div v-if="currentEdit">
+            <md-dialog :md-active.sync="currentEditDialog" md-fullscreen>
+                <md-dialog-title>Edition</md-dialog-title>
+                <md-dialog-content c>
+                    <md-field>
+                        <label>Titre</label>
+                        <md-input v-model="currentEdit.title"></md-input>
+                    </md-field>
+
+                    <md-field>
+                        <label>Extrait</label>
+                        <md-textarea v-model="currentEdit.summary"></md-textarea>
+                    </md-field>
+
+                    <md-field>
+                        <label>pdf</label>
+                        <md-input v-model="currentEdit.url"></md-input>
+                    </md-field>
+
+                    <md-field>
+                        <label>Image</label>
+                        <md-input v-model="currentEdit.image"></md-input>
+                    </md-field>
+                    
+                    <button class="button-outlined" @click="imageUploaderOpen = true">{{ currentEdit.image ? "Modifier l'image" : "Insérer une image" }}</button>
+                    <img height="128" :src="currentEdit.image">
+                </md-dialog-content>
+
+                <md-dialog-actions>
+                    <md-button class="md-primary" @click="undoEdit">annuler</md-button>
+                    <md-button class="md-primary" @click="saveEdit(currentEdit.id)">{{ currentEdit.id ? 'Enregistrer' : 'Publier' }}</md-button>
+                </md-dialog-actions>
+            </md-dialog>
+
+            <image-uploader :callback="appendImageUrl" :open="imageUploaderOpen" :close="imageUploaderClose"></image-uploader>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-.grid {
-    display: grid;
-    margin-top: 16px;
-    grid-gap: 16px;
-
-    .col {
-        grid-row: 1;
-        min-width: 480px;
-    }
-}
-
 i {
     vertical-align: -25%;
 
@@ -80,6 +128,10 @@ i {
     }
 }
 
+button {
+    display: flex;
+}
+
 #pdf-input {
     height: 42px;
     opacity: 0;
@@ -91,26 +143,23 @@ i {
     margin: 8px 0;
 }
 
-ul {
-    list-style: none;
-    margin: 16px 0;
-    padding-left: 0;
-    max-height: 50vh;
-    overflow-y: scroll;
+[c] {
+    min-width: 580px;
 
-    li {
-        padding: 16px;
-        cursor: pointer;
-        border-bottom: 1px solid #ddd;
+    img {
+        height: 128px;
+    }
+}
 
-        &:hover {
-            background: rgba(150, 150, 150, 0.2);
-        }
+[p] {
+    margin-bottom: 16px;
+}
 
-        i {
-            float: right;
-            margin-left: 16px;
-        }
+.right {
+    float: right;
+
+    .md-icon-button {
+        display: inline-flex;
     }
 }
 </style>
@@ -118,6 +167,18 @@ ul {
 <script>
 const {storage, magazines, firebase} = require('../../firebaseConfig.js')
 const files = storage.ref('magazines')
+
+const toLower = text => {
+    return text.toString().toLowerCase()
+}
+
+const searchByName = (items, term) => {
+    if (term) {
+        return items.filter(item => toLower(item.name).includes(toLower(term)))
+    }
+
+    return items
+}
 
 export default {
     components: {
@@ -131,10 +192,20 @@ export default {
             pdfs: null,
             pdfsLoading: null,
             currentEdit: null,
-            imageUploaderOpen: false
+            currentEditDialog: false,
+            imageUploaderOpen: false,
+            search: null,
+            searched: []
         }
     },
     methods: {
+        // table
+        newUser () {
+            window.alert('Noop')
+        },
+        searchOnTable () {
+            this.searched = searchByName(this.pdfs, this.search)
+        },
         // image upload
         appendImageUrl(url) {
             this.currentEdit.image = url
@@ -152,6 +223,7 @@ export default {
                 res.items.forEach(pdf => {
                     this.pdfs.push(pdf)
                 })
+                this.searched = this.pdfs
             }).catch(err => {
                 this.pdfsLoading = false
                 this.error = err
@@ -249,6 +321,7 @@ export default {
         },
         edit(item) {
             this.currentEdit = item
+            this.currentEditDialog = true
         },
         saveEdit(id = null) {
             if(id != null) {
@@ -263,6 +336,7 @@ export default {
         },
         undoEdit() {
             this.currentEdit = null
+            this.currentEditDialog = false
             this.getMagazines()
         }
     },

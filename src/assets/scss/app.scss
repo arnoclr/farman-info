@@ -246,12 +246,10 @@ main.divided {
 }
 
 @media screen and(min-width: 900px) {
-    main {
+    main.divided {
         padding-right: 280px;
         position: relative;
-    }
-
-    main.divided {
+        
         aside {
             display: block;
             width: 268px;
