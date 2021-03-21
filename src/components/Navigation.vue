@@ -10,7 +10,7 @@
         </section>
         <section bottom>
             <router-link to="/?ref=header_logo">
-                <img :src="$route.name == 'admin' ? '/assets/logos/header_logo_admin.png' : '/assets/logos/header_logo.png'" alt="navbar logo" header>
+                <img :src="'/assets/logos/' + ($route.name == 'admin' ? 'header_logo_admin.png' : transparent ? 'header_logo_blanc.png' : 'header_logo.png')" alt="navbar logo" header>
             </router-link>
             <ul>
                 <li>
@@ -140,6 +140,18 @@ header {
     }
 }
 
+.transparent {
+    [bottom] {
+        background: transparent;
+        box-shadow: none;
+        border-bottom: 1px solid #fff;
+
+        a {
+            color: #fff;
+        }
+    }
+}
+
 @media screen and(max-width: 450px) {
     ul {
         display: none !important;
@@ -157,6 +169,9 @@ header {
     import firebase from 'firebase'
 
     export default {
+        props: [
+            'transparent'
+        ],
         data() {
             return {
                 user: firebase.auth().currentUser

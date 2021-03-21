@@ -1,39 +1,66 @@
 <template>
     <div>
-        <app-header></app-header>
+        <div root>
+            <app-header class="transparent" transparent="true"></app-header>
 
-        <main class="divided">
-            <div id="login">
-                <h1>Bonjour !</h1>
-                <p>Connectez-vous sur Farman pour écrire ou commenter des articles. <ins>Vous serez redirigé vers {{ loginFromUrl }}</ins></p>
-                <div id="firebaseui-auth-container"></div>
-            </div>
-
-            <aside>
-                <router-link to="/magazines?ref=landing_banner">
-                    <img src="/assets/banners/magazine_vertical.jpeg" alt="magazine publicité">
-                </router-link>
-            </aside>
-        </main>
+            <main>
+                <div id="login">
+                    <div class="centered">
+                        <h1>Connexion</h1>
+                        <p>Connectez-vous à votre espace MyFarman pour commenter et poster des articles.</p>
+                    </div>
+                    <div id="firebaseui-auth-container"></div>
+                </div>
+            </main>
+        </div>
 
         <app-footer></app-footer>
     </div>
 </template>
 
-<style scoped>
-aside img {
-    width: 100%;
-    height: auto;
+<style>
+
+</style>
+
+<style lang="scss" scoped>
+[root] {
+    background: url('https://i.imgur.com/0iUBgjU.webp');
+    background-size: cover;
+    background-attachment: fixed;
+
+    #login {
+        padding: 16px;
+        min-height: calc(100vh - 120px);
+        display: grid;
+        justify-content: center;
+
+        .centered {
+            text-align: center;
+            max-width: 380px;
+
+            h1, p {
+                color: #fff;
+            }
+        }
+
+        #firebaseui-auth-container {
+            padding: 8px 0;
+        }
+    }
+}
+</style>
+
+<style lang="scss">
+.firebaseui-page-provider-sign-in {
+    background: transparent;
 }
 
-#login {
-    padding: 16px;
-}
+p.firebaseui-tospp-full-message {
+    color: #eee;
 
-#firebaseui-auth-container {
-    padding: 8px 0;
-    background: #fff;
-    border-radius: 4px;
+    a.firebaseui-link {
+        color: #eee;
+    }
 }
 </style>
 
