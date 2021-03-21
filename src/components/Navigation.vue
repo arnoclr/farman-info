@@ -125,6 +125,7 @@ header {
     }
 
     [header] {
+        display: inline-block;
         height: 42px;
         margin-left: 16px;
         margin-top: 15px;
