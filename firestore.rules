@@ -9,7 +9,8 @@ service cloud.firestore {
         function isAdmin() {
             return isAuth() && 
             (request.auth.uid == '1bOAvkBFV1St3ekuxydGxNlqIGM2'
-            || request.auth.uid == 'pUWeCV6FFFfikjLyo6KTuxayrzZ2')
+            || request.auth.uid == 'pUWeCV6FFFfikjLyo6KTuxayrzZ2'
+            || request.auth.uid == 'Pv3IEvvuYONvSjNl630Tap0ERGN2')
         }
 
         // lock access for all documents
