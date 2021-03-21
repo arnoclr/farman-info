@@ -79,11 +79,12 @@ footer {
 
         img {
             height: 28px;
+            margin-right: 16px;
         }
     }
 
     [b] {
-        margin-right: 160px;
+        margin-right: 180px;
     }
 
     footer [a] {
