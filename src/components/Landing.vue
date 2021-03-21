@@ -2,30 +2,36 @@
     <div>
         <app-header></app-header>
 
-        <main class="divided">
-            <svg viewBox="0 0 24 24">
-                <path fill="" d="M17 15L18 19H21V22H3V19H6L7 15H17M15 8L16 12H8L9 8H15M13 1L14 5H10L11 1H13Z" />
-            </svg>
-            <h1>Site en cours de développement</h1>
-            <p>Ce site web n'est pas encore disponible au public.</p>
-            <p>Seule la partie Magazine peut être consultée en cliquant ci-dessous</p>
-            <router-link class="button-outlined" to="/magazines?ref=cta">Lire le magazine</router-link>
+        <div a>
+            <main class="divided">
+                <svg viewBox="0 0 24 24">
+                    <path fill="" d="M17 15L18 19H21V22H3V19H6L7 15H17M15 8L16 12H8L9 8H15M13 1L14 5H10L11 1H13Z" />
+                </svg>
+                <h1>Site en cours de développement</h1>
+                <p>Ce site web n'est pas encore disponible au public.</p>
+                <p>Seule la partie Magazine peut être consultée en cliquant ci-dessous</p>
+                <router-link class="button-outlined" to="/magazines?ref=cta">Lire le magazine</router-link>
 
-            <form id="mail-form" class="form-group">
-                <h2>Lettre d'informations</h2>
-                <p>Inscrivez-vous à la lettre d'informations pour recevoir les nouveautés concernant le site.</p>
-                <input type="email" id="mail-input" placeholder="Votre adresse email" required>
-                <button class="button">Me tenir informé</button>
-            </form>
+                <form id="mail-form" class="form-group">
+                    <h2>Lettre d'informations</h2>
+                    <p>Inscrivez-vous à la lettre d'informations pour recevoir les nouveautés concernant le site.</p>
+                    <input type="email" id="mail-input" placeholder="Votre adresse email" required>
+                    <button class="button">Me tenir informé</button>
+                </form>
+            </main>
 
             <app-sidebar></app-sidebar>
-        </main>
+        </div>
 
         <app-footer></app-footer>
     </div>
 </template>
 
 <style lang="scss" scoped>
+[a] {
+    display: flex;
+}
+
 main {
     color: #555;
 }

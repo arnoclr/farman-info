@@ -235,7 +235,7 @@ main {
 }
 
 main.divided {
-    aside {
+    &+aside {
         display: none;
     }
 }
@@ -248,15 +248,11 @@ main.divided {
 
 @media screen and(min-width: 900px) {
     main.divided {
-        padding-right: 280px;
+        width: calc(100% - 280px);
         position: relative;
         
-        aside {
+        &+aside {
             display: block;
-            width: 268px;
-            position: absolute;
-            right: 0;
-            top: 0;
         }
     }
 }
