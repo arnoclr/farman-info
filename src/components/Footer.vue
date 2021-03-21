@@ -1,10 +1,10 @@
 <template>
     <div class="no-padding">
         <footer>
-            <div style="padding:16px;color:#444">
+            <div a>
                 <hr>
-                <h4>Retrouvez-nous sur <i class="material-icons">arrow_forward</i></h4>
-                <p>Toute l'actualité aérienne française <br>à découvrir sur vos réseaux sociaux.</p>
+                <h2>Retrouvez-nous sur <i class="material-icons">arrow_forward</i></h2>
+                <p b>Toute l'actualité aérienne française à découvrir sur vos réseaux sociaux.</p>
                 <div class="social-links">
                     <a href="https://www.facebook.com/Farman-104565121316470" title="Page Facebook">
                         <img src="/assets/icons/Farman_Facebook.png" alt="facebook icon" height="24">
@@ -34,8 +34,19 @@
 footer {
     position: relative;
 
+    [a] {
+        padding: 16px;
+        color: #444;
+    }
+
+    p {
+        line-height: 20px;
+        font-size: 16px;
+    }
+
     i {
         vertical-align: -25%;
+        color: teal;
     }
 
     img {
@@ -47,11 +58,15 @@ footer {
         display: flex;
         justify-content: space-evenly;
         background-color: #ccc;
-        padding: 8px 16px;
         
         a {
             text-decoration: none;
             color: #444;
+            font-size: 16px;
+        }
+
+        p {
+            margin: 8px 0;
         }
     }
 }
@@ -59,8 +74,21 @@ footer {
 @media (min-width: 600px) {
     .social-links {
         position: absolute;
-        right: 16px;
-        top: 92px;
+        right: 32px;
+        margin-top: -50px;
+
+        img {
+            height: 28px;
+        }
+    }
+
+    [b] {
+        margin-right: 160px;
+    }
+
+    footer [a] {
+        padding-left: 32px;
+        padding-right: 32px;
     }
 }
 </style>

@@ -2,8 +2,8 @@
     <header>
         <section top>
             <a title="connexion" @click="login" v-if="!user" login>Connexion</a>
-            <div v-else>
-                <a @click="logout" logout>déconnexion</a>
+            <div a v-else>
+                <a @click="logout" logout>déconnexion |</a>
                 <span>{{ user.displayName }}</span>
                 <img :src="user.photoURL ? user.photoURL : 'https://i.stack.imgur.com/34AD2.jpg'" :title="'connecté en tant que : ' + user.displayName" alt="photo de profil" pp>
             </div>
@@ -34,6 +34,10 @@ header {
 [top] {
     height: 32px;
     background: teal;
+
+    [a] {
+        font-weight: 300;
+    }
 
     [login], [logout] {
         display: inline-flex;
@@ -71,7 +75,7 @@ header {
 
     ul {
         position: absolute;
-        right: 0;
+        right: 32px;
         list-style: none;
         display: inline-block;
         margin: 6px;
@@ -79,9 +83,25 @@ header {
 
         li {
             display: inline-flex;
+            position: relative;
             margin-left: 8px;
             height: 60px;
             border-radius: 4px;
+
+            &::before {
+                content: ' ';
+                display: block;
+                background: #ccc;
+                height: 20px;
+                width: 1px;
+                margin-top: 20px;
+                position: absolute;
+                left: -4px;
+            }
+
+            &:first-child::before {
+                opacity: 0;
+            }
 
             &:hover {
                 background: rgba(150, 150, 150, 0.2);
@@ -125,7 +145,7 @@ header {
 }
 
 @media screen and(min-width: 600px) {
-    [bottom] {
+    section {
         padding: 0 16px;
     }
 }
