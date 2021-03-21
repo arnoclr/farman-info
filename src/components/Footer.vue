@@ -34,6 +34,10 @@
 footer {
     position: relative;
 
+    h2 {
+        font-size: 26px;
+    }
+
     [a] {
         padding: 16px;
         color: #444;
@@ -57,11 +61,11 @@ footer {
     .links {
         display: flex;
         justify-content: space-evenly;
-        background-color: #ccc;
+        background-color: #888;
         
         a {
             text-decoration: none;
-            color: #444;
+            color: #fff;
             font-size: 16px;
         }
 
