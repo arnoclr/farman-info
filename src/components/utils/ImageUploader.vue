@@ -1,39 +1,35 @@
 <template>
     <div>
-        <md-dialog :md-active.sync="open">
+        <md-dialog :md-active.sync="open" :md-click-outside-to-close="false">
             <md-dialog-title>Insérer une image</md-dialog-title>
 
-            <md-tabs md-dynamic-height>
-                <md-tab md-label="importer" import>
-                    <img src="https://ssl.gstatic.com/docs/picker/images/upload_background.png" alt="">
-                    <progress id="img-progress" max="1" value="0"></progress>
-                    <md-field>
-                        <label>Image</label>
-                        <md-file v-model="imageFile" accept="image/*" id="img-input" @change="compressImage"/>
-                    </md-field>
-                </md-tab>
+            <md-dialog-content d>
+                <md-tabs md-dynamic-height>
+                    <md-tab md-label="importer" import>
+                        <img src="https://ssl.gstatic.com/docs/picker/images/upload_background.png" alt="illustration nuages">
+                        <progress id="img-progress" max="1" value="0"></progress>
+                        <md-field>
+                            <label>Image</label>
+                            <md-file v-model="imageFile" accept="image/*" id="img-input" @change="compressImage"/>
+                        </md-field>
+                    </md-tab>
 
-                <md-tab md-label="à partie d'une url">
-                    <md-field>
-                        <label>Lien vers l'image</label>
-                        <md-input v-model="fromUrl"></md-input>
-                    </md-field>
-                    <md-button @click="uploadImage(fromUrl)" class="md-raised md-primary">importer</md-button>
-                </md-tab>
-            </md-tabs>
+                    <md-tab md-label="à partir d'une url">
+                        <md-field>
+                            <label>Lien vers l'image</label>
+                            <md-input v-model="fromUrl"></md-input>
+                        </md-field>
+                        <md-button @click="getBlob(fromUrl)" class="md-raised md-primary">importer</md-button>
+                    </md-tab>
+                </md-tabs>
+
+                <div v-if="error" e>
+                    <span>{{ error }}</span>
+                </div>
+            </md-dialog-content>
 
             <md-dialog-actions>
                 <md-button class="md-primary" @click="closeModal">fermer</md-button>
-            </md-dialog-actions>
-        </md-dialog>
-
-        <md-dialog :md-active.sync="error">
-            <div m>
-                <h2>Erreur</h2>
-                <span>{{ error }}</span>
-            </div>
-            <md-dialog-actions>
-                <md-button class="md-primary" @click="error = null">fermer</md-button>
             </md-dialog-actions>
         </md-dialog>
 
@@ -41,16 +37,24 @@
 </template>
 
 <style lang="scss" scoped>
-[import] {
-    text-align: center;
+[d] {
+    max-width: 480px;
 
-    img {
-        height: 120px;
+    [import] {
+        text-align: center;
+
+        img {
+            height: 120px;
+        }
     }
-}
 
-[m] {
-    margin: 16px;
+    [e] {
+        padding: 0 16px;
+
+        span {
+            color: #B00020;
+        }
+    }
 }
 </style>
 
@@ -87,6 +91,15 @@ export default {
                 useWebWorker: true
             }).then(img => {
                 this.uploadImage(img)
+            }).catch(err => {
+                this.error = err
+            })
+        },
+        getBlob(url) {
+            fetch(url).then(res => {
+                return res.blob();
+            }).then(blob => {
+                this.uploadImage(blob)
             }).catch(err => {
                 this.error = err
             })
