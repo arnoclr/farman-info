@@ -11,6 +11,8 @@
     "browser-image-compression": "^1.0.14",
     "firebase": "^8.3.0",
     "firebaseui": "^4.2.0",
+    "highlightjs": "^9.16.2",
+    "node-emoji": "^1.10.0",
     "uuid": "^8.3.2",
     "vue": "^2.6.10",
     "vue-cookie-law": "^1.13.3",
