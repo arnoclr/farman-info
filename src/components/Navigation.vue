@@ -178,7 +178,7 @@ header {
 </style>
 
 <script>
-    import firebase from 'firebase'
+    const {firebase} = require('../firebaseConfig.js')
 
     export default {
         props: [

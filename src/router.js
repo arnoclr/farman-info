@@ -32,6 +32,15 @@ const router = new Router({
       }
 		},
     {
+      path: '/unsubscribe',
+      name: 'Unsubscribe',
+      component: () => import('@/components/Unsubscribe'),
+      meta: {
+        requiresAuth: true,
+        title: 'Se désinscrire de la lettre d\'informations'
+      }
+    },
+    {
 			path: '/magazines',
 			name: 'Magazines',
 			component: Magazines,

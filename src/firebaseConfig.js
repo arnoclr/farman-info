@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import * as firebaseui from '../src/assets/js/npm__fr';
 import "firebaseui/dist/firebaseui.css";
 import 'firebase/firestore'
