@@ -13,6 +13,22 @@ service cloud.firestore {
             || request.auth.uid == 'Pv3IEvvuYONvSjNl630Tap0ERGN2')
         }
 
+        function actualData() {
+            return resource.data
+        }
+
+        function incomingData() {
+            return request.resource.data
+        }
+
+        function notNull(field) {
+            return incomingData().field != null
+        }
+
+        function notModified(field) {
+            return actualData().field == incomingData().field
+        }
+
         // lock access for all documents
         match /{document=**} {
             allow read, write: if false;
@@ -23,16 +39,39 @@ service cloud.firestore {
 
             // Only valid emails
             allow create: if 
-                request.resource.data.mail.matches('.+@.+\\.[a-z]+')
+                incomingData().mail.matches('.+@.+\\.[a-z]+')
 
             // unsubscribe
             allow delete: if isAuth()
-                && resource.data.mail == request.auth.token.email
+                && actualData().mail == request.auth.token.email
         }
         
         match /magazines/{magazine} {
             allow read: if true
             allow write: if isAdmin()
+        }
+
+        match /articles/{articleId} {
+            allow read: if true
+
+            allow create: if isAuth()
+                && incomingData().uid == request.auth.uid
+                && incomingData().published == false
+                && notNull(title)
+                && notNull(content)
+                && notNull(createdAt)
+                && incomingData().createdAt == request.time
+                && notNull(updatedAt)
+                && incomingData().updatedAt == request.time
+
+            allow update: if isAuth()
+                && actualData().uid == request.auth.uid
+                && notModified(createdAt)
+                && request.time > (actualData().updatedAt + duration.time(1, 0, 0, 0))
+                && incomingData().updatedAt > (actualData().updatedAt + duration.time(1, 0, 0, 0))
+
+            allow delete: if isAuth()
+                && actualData().uid == request.auth.uid
         }
     }
 }
