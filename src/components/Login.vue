@@ -65,9 +65,11 @@ p.firebaseui-tospp-full-message {
 </style>
 
 <script>
-    import firebase from 'firebase'
-    import 'firebaseui/dist/firebaseui.css'
-    const fb = require('../firebaseConfig.js')
+    const {firebase, auth} = require('../firebaseConfig.js')
+    import * as firebaseui from '../assets/js/npm__fr';
+    import "firebaseui/dist/firebaseui.css";
+    
+    const ui = new firebaseui.auth.AuthUI(auth);
 
     export default {
         name: 'login',
@@ -128,7 +130,7 @@ p.firebaseui-tospp-full-message {
                     // Privacy policy url.
                     privacyPolicyUrl: 'https://farman.ga/s/cgu'
                 }
-                fb.ui.start('#firebaseui-auth-container', uiConfig)
+                ui.start('#firebaseui-auth-container', uiConfig)
             }
         }
     }
