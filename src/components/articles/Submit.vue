@@ -6,7 +6,7 @@
             <div>
                 <md-field>
                     <label>Titre</label>
-                    <md-input v-model="title"></md-input>
+                    <md-input md-counter="80" v-model="title"></md-input>
                 </md-field>
                 <text-editor :counter="4096" :change="updateContent"></text-editor>
                 <md-field>
@@ -21,7 +21,12 @@
             </div>
 
             <div>
-                <vue-simple-markdown :source="content"></vue-simple-markdown>
+                <vue-simple-markdown v-if="content" :source="content"></vue-simple-markdown>
+                <md-empty-state v-else
+                    md-icon="edit"
+                    md-label="Aperçu"
+                    md-description="Commencez a écrire pour voir le rendu final de votre article.">
+                </md-empty-state>
             </div>
         </main>
 

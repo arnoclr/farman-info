@@ -53,8 +53,8 @@ service cloud.firestore {
             allow create: if isAuth()
                 && incomingData().uid == request.auth.uid
                 && incomingData().published == false
-                && incomingData().title.size() < 120
-                && incomingData().content.size() < 4096
+                && incomingData().title.size() <= 80
+                && incomingData().content.size() <= 4096
                 && incomingData().createdAt == request.time
 
             allow update: if isAuth()

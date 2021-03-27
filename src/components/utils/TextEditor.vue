@@ -34,7 +34,7 @@ export default {
             this.imageUploaderOpen = false
         },
         insertMarkdownImage(url) {
-            this.content += `![remplacer ici par une légende](${url})`
+            this.content += `![remplacer ici par une légende](${url})\n`
             this.change(this.content)
         }
     }
