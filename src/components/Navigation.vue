@@ -13,7 +13,7 @@
         </section>
         <section bottom>
             <router-link to="/?ref=header_logo">
-                <img :src="'/assets/logos/' + ($route.name == 'admin' ? 'header_logo_admin.png' : 'header_logo.png')" alt="navbar logo" header>
+                <img :src="'/assets/logos/' + (gestion ? 'header_logo_admin.png' : 'header_logo.png')" alt="navbar logo" header>
             </router-link>
             <ul>
                 <li>
@@ -186,7 +186,8 @@ header {
 
     export default {
         props: [
-            'transparent'
+            'transparent',
+            'gestion'
         ],
         data() {
             return {

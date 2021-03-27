@@ -1,6 +1,6 @@
 <template>
     <div>
-        <app-header></app-header>
+        <app-header :gestion="true"></app-header>
 
         <main>
             <select v-model="section">
