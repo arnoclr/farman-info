@@ -13,7 +13,7 @@
         </section>
         <section bottom>
             <router-link to="/?ref=header_logo">
-                <img :src="'/assets/logos/' + ($route.name == 'admin' ? 'header_logo_admin.png' : transparent ? 'header_logo_blanc.png' : 'header_logo.png')" alt="navbar logo" header>
+                <img :src="'/assets/logos/' + ($route.name == 'admin' ? 'header_logo_admin.png' : 'header_logo.png')" alt="navbar logo" header>
             </router-link>
             <ul>
                 <li>
@@ -157,6 +157,10 @@ header {
         background: transparent;
         box-shadow: none;
         border-bottom: 1px solid #fff;
+
+        [header] {
+            filter: brightness(0) invert(1);
+        }
 
         a {
             color: #fff;

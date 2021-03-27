@@ -27,6 +27,8 @@
     background: url('https://i.imgur.com/0iUBgjU.webp');
     background-size: cover;
     background-attachment: fixed;
+    background-repeat-y: no-repeat;
+    animation: background-down 1s ease-out;
 
     #login {
         padding: 16px;
@@ -46,6 +48,18 @@
         #firebaseui-auth-container {
             padding: 8px 0;
         }
+    }
+}
+
+@keyframes background-down {
+    0% {
+        background-position-y: 105px;
+    }
+    25% {
+        background-position-y: 105px;
+    }
+    100% {
+        background-position-y: 0;
     }
 }
 </style>
