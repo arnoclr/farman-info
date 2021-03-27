@@ -1,0 +1,3587 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Firestore Rule Coverage Report</title>
+<style>
+.coverage-expr {
+  padding-bottom: 4px;
+  display: inline-block;
+  border-bottom: 3px solid black;
+  vertical-align: top;
+}
+.coverage-expr:hover {
+  background-color: rgba(255, 100, 100, 0.2);
+  cursor: default;
+  border-bottom: 3px solid red;
+}
+</style>
+
+<script>
+// Populated by the emulator at runtime
+const data = {
+  "rules": {
+    "files": [{
+      "content": "rules_version \u003d \u00272\u0027;\r\nservice cloud.firestore {\r\n    match /databases/{database}/documents {\r\n        \r\n        function isAuth() {\r\n            return request.auth !\u003d null\r\n        }\r\n\r\n        function isAdmin() {\r\n            return isAuth() \u0026\u0026 \r\n            (request.auth.uid \u003d\u003d \u00271bOAvkBFV1St3ekuxydGxNlqIGM2\u0027\r\n            || request.auth.uid \u003d\u003d \u0027pUWeCV6FFFfikjLyo6KTuxayrzZ2\u0027\r\n            || request.auth.uid \u003d\u003d \u0027Pv3IEvvuYONvSjNl630Tap0ERGN2\u0027)\r\n        }\r\n\r\n        function actualData() {\r\n            return resource.data\r\n        }\r\n\r\n        function incomingData() {\r\n            return request.resource.data\r\n        }\r\n\r\n        function notModified(fields) {\r\n            return incomingData().diff(incomingData()).unchangedKeys().hasAll(fields)\r\n        }\r\n\r\n        // lock access for all documents\r\n        match /{document\u003d**} {\r\n            allow read, write: if false;\r\n        }\r\n\r\n        match /mails/{mail} {\r\n            allow read: if isAdmin()\r\n\r\n            // Only valid emails\r\n            allow create: if \r\n                incomingData().mail.matches(\u0027.+@.+\\\\.[a-z]+\u0027)\r\n\r\n            // unsubscribe\r\n            allow delete: if isAuth()\r\n                \u0026\u0026 actualData().mail \u003d\u003d request.auth.token.email\r\n        }\r\n        \r\n        match /magazines/{magazine} {\r\n            allow read: if true\r\n            allow write: if isAdmin()\r\n        }\r\n\r\n        match /articles/{articleId} {\r\n            allow read: if true\r\n\r\n            allow create: if isAuth()\r\n                \u0026\u0026 incomingData().uid \u003d\u003d request.auth.uid\r\n                \u0026\u0026 incomingData().published \u003d\u003d false\r\n                \u0026\u0026 incomingData().title.size() \u003c 120\r\n                \u0026\u0026 incomingData().content.size() \u003c 4096\r\n                \u0026\u0026 incomingData().createdAt \u003d\u003d request.time\r\n\r\n            allow update: if isAuth()\r\n                \u0026\u0026 notModified([\u0027uid\u0027, \u0027createdAt\u0027, \u0027published\u0027])\r\n                \u0026\u0026 incomingData().updatedAt \u003d\u003d request.time\r\n\r\n            allow delete: if isAuth()\r\n                \u0026\u0026 actualData().uid \u003d\u003d request.auth.uid\r\n        }\r\n    }\r\n}"
+    }]
+  },
+  "report": [{
+    "sourcePosition": {
+      "line": 6,
+      "column": 20,
+      "currentOffset": 152,
+      "endOffset": 171
+    },
+    "values": [{
+      "value": {
+        "boolValue": true
+      },
+      "count": 4
+    }],
+    "children": [{
+      "sourcePosition": {
+        "line": 6,
+        "column": 20,
+        "currentOffset": 152,
+        "endOffset": 163
+      },
+      "values": [{
+        "value": {
+          "mapValue": {
+            "fields": {
+              "uid": {
+                "stringValue": "author"
+              },
+              "token": {
+                "mapValue": {
+                  "fields": {
+                    "iss": {
+                      "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                    },
+                    "aud": {
+                      "stringValue": "objects-omsistuff"
+                    },
+                    "iat": {
+                      "intValue": "0"
+                    },
+                    "exp": {
+                      "intValue": "3600"
+                    },
+                    "auth_time": {
+                      "intValue": "0"
+                    },
+                    "sub": {
+                      "stringValue": "author"
+                    },
+                    "user_id": {
+                      "stringValue": "author"
+                    },
+                    "firebase": {
+                      "mapValue": {
+                        "fields": {
+                          "sign_in_provider": {
+                            "stringValue": "custom"
+                          },
+                          "identities": {
+                            "mapValue": {
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "email": {
+                      "stringValue": "alice@example.com"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "count": 4
+      }],
+      "children": [{
+        "sourcePosition": {
+          "line": 6,
+          "column": 20,
+          "currentOffset": 152,
+          "endOffset": 158
+        },
+        "values": [{
+          "value": {
+            "mapValue": {
+              "fields": {
+                "time": {
+                  "timestampValue": "2021-03-27T09:20:53.279Z"
+                },
+                "auth": {
+                  "mapValue": {
+                    "fields": {
+                      "uid": {
+                        "stringValue": "author"
+                      },
+                      "token": {
+                        "mapValue": {
+                          "fields": {
+                            "iss": {
+                              "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                            },
+                            "aud": {
+                              "stringValue": "objects-omsistuff"
+                            },
+                            "iat": {
+                              "intValue": "0"
+                            },
+                            "exp": {
+                              "intValue": "3600"
+                            },
+                            "auth_time": {
+                              "intValue": "0"
+                            },
+                            "sub": {
+                              "stringValue": "author"
+                            },
+                            "user_id": {
+                              "stringValue": "author"
+                            },
+                            "firebase": {
+                              "mapValue": {
+                                "fields": {
+                                  "sign_in_provider": {
+                                    "stringValue": "custom"
+                                  },
+                                  "identities": {
+                                    "mapValue": {
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "email": {
+                              "stringValue": "alice@example.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "headers": {
+                  "mapValue": {
+                  }
+                },
+                "inTransaction": {
+                  "boolValue": true
+                },
+                "path": {
+                  "pathValue": {
+                    "segments": [{
+                      "simple": "databases"
+                    }, {
+                      "simple": "(default)"
+                    }, {
+                      "simple": "documents"
+                    }, {
+                      "simple": "articles"
+                    }, {
+                      "simple": "articleId"
+                    }]
+                  }
+                },
+                "transforms": {
+                  "listValue": {
+                    "values": [{
+                      "stringValue": "createdAt"
+                    }]
+                  }
+                },
+                "writeFields": {
+                  "listValue": {
+                    "values": [{
+                      "stringValue": "createdAt"
+                    }]
+                  }
+                },
+                "readFields": {
+                  "nullValue": null
+                },
+                "resource": {
+                  "mapValue": {
+                    "fields": {
+                      "data": {
+                        "mapValue": {
+                          "fields": {
+                            "published": {
+                              "boolValue": false
+                            },
+                            "title": {
+                              "stringValue": "Lorem Ipsum"
+                            },
+                            "content": {
+                              "stringValue": "lorem ipsum dolor sit amet"
+                            },
+                            "uid": {
+                              "stringValue": "author"
+                            },
+                            "createdAt": {
+                              "timestampValue": "2021-03-27T09:20:53.279Z"
+                            }
+                          }
+                        }
+                      },
+                      "__name__": {
+                        "pathValue": {
+                          "segments": [{
+                            "simple": "databases"
+                          }, {
+                            "simple": "(default)"
+                          }, {
+                            "simple": "documents"
+                          }, {
+                            "simple": "articles"
+                          }, {
+                            "simple": "articleId"
+                          }]
+                        }
+                      },
+                      "id": {
+                        "stringValue": "articleId"
+                      }
+                    }
+                  }
+                },
+                "method": {
+                  "stringValue": "create"
+                }
+              }
+            }
+          },
+          "count": 1
+        }, {
+          "value": {
+            "mapValue": {
+              "fields": {
+                "time": {
+                  "timestampValue": "2021-03-27T09:20:53.650Z"
+                },
+                "auth": {
+                  "mapValue": {
+                    "fields": {
+                      "uid": {
+                        "stringValue": "author"
+                      },
+                      "token": {
+                        "mapValue": {
+                          "fields": {
+                            "iss": {
+                              "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                            },
+                            "aud": {
+                              "stringValue": "objects-omsistuff"
+                            },
+                            "iat": {
+                              "intValue": "0"
+                            },
+                            "exp": {
+                              "intValue": "3600"
+                            },
+                            "auth_time": {
+                              "intValue": "0"
+                            },
+                            "sub": {
+                              "stringValue": "author"
+                            },
+                            "user_id": {
+                              "stringValue": "author"
+                            },
+                            "firebase": {
+                              "mapValue": {
+                                "fields": {
+                                  "sign_in_provider": {
+                                    "stringValue": "custom"
+                                  },
+                                  "identities": {
+                                    "mapValue": {
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "email": {
+                              "stringValue": "alice@example.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "headers": {
+                  "mapValue": {
+                  }
+                },
+                "inTransaction": {
+                  "boolValue": true
+                },
+                "path": {
+                  "pathValue": {
+                    "segments": [{
+                      "simple": "databases"
+                    }, {
+                      "simple": "(default)"
+                    }, {
+                      "simple": "documents"
+                    }, {
+                      "simple": "articles"
+                    }, {
+                      "simple": "articleId"
+                    }]
+                  }
+                },
+                "transforms": {
+                  "listValue": {
+                    "values": [{
+                      "stringValue": "createdAt"
+                    }]
+                  }
+                },
+                "writeFields": {
+                  "listValue": {
+                    "values": [{
+                      "stringValue": "createdAt"
+                    }]
+                  }
+                },
+                "readFields": {
+                  "nullValue": null
+                },
+                "resource": {
+                  "mapValue": {
+                    "fields": {
+                      "data": {
+                        "mapValue": {
+                          "fields": {
+                            "published": {
+                              "boolValue": false
+                            },
+                            "title": {
+                              "stringValue": "Lorem Ipsum"
+                            },
+                            "content": {
+                              "stringValue": "lorem ipsum dolor sit amet"
+                            },
+                            "uid": {
+                              "stringValue": "otherPeople"
+                            },
+                            "createdAt": {
+                              "timestampValue": "2021-03-27T09:20:53.650Z"
+                            }
+                          }
+                        }
+                      },
+                      "__name__": {
+                        "pathValue": {
+                          "segments": [{
+                            "simple": "databases"
+                          }, {
+                            "simple": "(default)"
+                          }, {
+                            "simple": "documents"
+                          }, {
+                            "simple": "articles"
+                          }, {
+                            "simple": "articleId"
+                          }]
+                        }
+                      },
+                      "id": {
+                        "stringValue": "articleId"
+                      }
+                    }
+                  }
+                },
+                "method": {
+                  "stringValue": "create"
+                }
+              }
+            }
+          },
+          "count": 1
+        }, {
+          "value": {
+            "mapValue": {
+              "fields": {
+                "time": {
+                  "timestampValue": "2021-03-27T09:20:53.713Z"
+                },
+                "auth": {
+                  "mapValue": {
+                    "fields": {
+                      "uid": {
+                        "stringValue": "author"
+                      },
+                      "token": {
+                        "mapValue": {
+                          "fields": {
+                            "iss": {
+                              "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                            },
+                            "aud": {
+                              "stringValue": "objects-omsistuff"
+                            },
+                            "iat": {
+                              "intValue": "0"
+                            },
+                            "exp": {
+                              "intValue": "3600"
+                            },
+                            "auth_time": {
+                              "intValue": "0"
+                            },
+                            "sub": {
+                              "stringValue": "author"
+                            },
+                            "user_id": {
+                              "stringValue": "author"
+                            },
+                            "firebase": {
+                              "mapValue": {
+                                "fields": {
+                                  "sign_in_provider": {
+                                    "stringValue": "custom"
+                                  },
+                                  "identities": {
+                                    "mapValue": {
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "email": {
+                              "stringValue": "alice@example.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "headers": {
+                  "mapValue": {
+                  }
+                },
+                "inTransaction": {
+                  "boolValue": true
+                },
+                "path": {
+                  "pathValue": {
+                    "segments": [{
+                      "simple": "databases"
+                    }, {
+                      "simple": "(default)"
+                    }, {
+                      "simple": "documents"
+                    }, {
+                      "simple": "articles"
+                    }, {
+                      "simple": "articleId"
+                    }]
+                  }
+                },
+                "transforms": {
+                  "nullValue": null
+                },
+                "writeFields": {
+                  "nullValue": null
+                },
+                "readFields": {
+                  "nullValue": null
+                },
+                "resource": {
+                  "mapValue": {
+                    "fields": {
+                      "data": {
+                        "mapValue": {
+                          "fields": {
+                            "published": {
+                              "boolValue": false
+                            },
+                            "title": {
+                              "stringValue": "Lorem Ipsum"
+                            },
+                            "content": {
+                              "stringValue": "lorem ipsum dolor sit amet"
+                            },
+                            "uid": {
+                              "stringValue": "otherPeople"
+                            },
+                            "createdAt": {
+                              "timestampValue": "1970-01-01T00:00:01Z"
+                            }
+                          }
+                        }
+                      },
+                      "__name__": {
+                        "pathValue": {
+                          "segments": [{
+                            "simple": "databases"
+                          }, {
+                            "simple": "(default)"
+                          }, {
+                            "simple": "documents"
+                          }, {
+                            "simple": "articles"
+                          }, {
+                            "simple": "articleId"
+                          }]
+                        }
+                      },
+                      "id": {
+                        "stringValue": "articleId"
+                      }
+                    }
+                  }
+                },
+                "method": {
+                  "stringValue": "create"
+                }
+              }
+            }
+          },
+          "count": 1
+        }, {
+          "value": {
+            "mapValue": {
+              "fields": {
+                "time": {
+                  "timestampValue": "2021-03-27T09:20:53.746Z"
+                },
+                "auth": {
+                  "mapValue": {
+                    "fields": {
+                      "uid": {
+                        "stringValue": "author"
+                      },
+                      "token": {
+                        "mapValue": {
+                          "fields": {
+                            "iss": {
+                              "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                            },
+                            "aud": {
+                              "stringValue": "objects-omsistuff"
+                            },
+                            "iat": {
+                              "intValue": "0"
+                            },
+                            "exp": {
+                              "intValue": "3600"
+                            },
+                            "auth_time": {
+                              "intValue": "0"
+                            },
+                            "sub": {
+                              "stringValue": "author"
+                            },
+                            "user_id": {
+                              "stringValue": "author"
+                            },
+                            "firebase": {
+                              "mapValue": {
+                                "fields": {
+                                  "sign_in_provider": {
+                                    "stringValue": "custom"
+                                  },
+                                  "identities": {
+                                    "mapValue": {
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "email": {
+                              "stringValue": "alice@example.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "headers": {
+                  "mapValue": {
+                  }
+                },
+                "inTransaction": {
+                  "boolValue": true
+                },
+                "path": {
+                  "pathValue": {
+                    "segments": [{
+                      "simple": "databases"
+                    }, {
+                      "simple": "(default)"
+                    }, {
+                      "simple": "documents"
+                    }, {
+                      "simple": "articles"
+                    }, {
+                      "simple": "articleId"
+                    }]
+                  }
+                },
+                "transforms": {
+                  "nullValue": null
+                },
+                "writeFields": {
+                  "nullValue": null
+                },
+                "readFields": {
+                  "nullValue": null
+                },
+                "resource": {
+                  "mapValue": {
+                    "fields": {
+                      "data": {
+                        "mapValue": {
+                          "fields": {
+                            "published": {
+                              "boolValue": true
+                            },
+                            "title": {
+                              "stringValue": "Lorem Ipsum"
+                            },
+                            "content": {
+                              "stringValue": "lorem ipsum dolor sit amet"
+                            },
+                            "uid": {
+                              "stringValue": "otherPeople"
+                            },
+                            "createdAt": {
+                              "timestampValue": "1970-01-01T00:00:01Z"
+                            }
+                          }
+                        }
+                      },
+                      "__name__": {
+                        "pathValue": {
+                          "segments": [{
+                            "simple": "databases"
+                          }, {
+                            "simple": "(default)"
+                          }, {
+                            "simple": "documents"
+                          }, {
+                            "simple": "articles"
+                          }, {
+                            "simple": "articleId"
+                          }]
+                        }
+                      },
+                      "id": {
+                        "stringValue": "articleId"
+                      }
+                    }
+                  }
+                },
+                "method": {
+                  "stringValue": "create"
+                }
+              }
+            }
+          },
+          "count": 1
+        }]
+      }]
+    }]
+  }, {
+    "sourcePosition": {
+      "line": 10,
+      "column": 20,
+      "currentOffset": 236,
+      "endOffset": 446
+    },
+    "children": [{
+      "sourcePosition": {
+        "line": 10,
+        "column": 20,
+        "currentOffset": 236,
+        "endOffset": 241
+      }
+    }, {
+      "sourcePosition": {
+        "line": 11,
+        "column": 13,
+        "currentOffset": 262,
+        "endOffset": 446
+      },
+      "children": [{
+        "sourcePosition": {
+          "line": 11,
+          "column": 14,
+          "currentOffset": 263,
+          "endOffset": 379
+        },
+        "children": [{
+          "sourcePosition": {
+            "line": 11,
+            "column": 14,
+            "currentOffset": 263,
+            "endOffset": 312
+          },
+          "children": [{
+            "sourcePosition": {
+              "line": 11,
+              "column": 14,
+              "currentOffset": 263,
+              "endOffset": 278
+            },
+            "children": [{
+              "sourcePosition": {
+                "line": 11,
+                "column": 14,
+                "currentOffset": 263,
+                "endOffset": 274
+              },
+              "children": [{
+                "sourcePosition": {
+                  "line": 11,
+                  "column": 14,
+                  "currentOffset": 263,
+                  "endOffset": 269
+                }
+              }]
+            }]
+          }]
+        }, {
+          "sourcePosition": {
+            "line": 12,
+            "column": 16,
+            "currentOffset": 330,
+            "endOffset": 379
+          },
+          "children": [{
+            "sourcePosition": {
+              "line": 12,
+              "column": 16,
+              "currentOffset": 330,
+              "endOffset": 345
+            },
+            "children": [{
+              "sourcePosition": {
+                "line": 12,
+                "column": 16,
+                "currentOffset": 330,
+                "endOffset": 341
+              },
+              "children": [{
+                "sourcePosition": {
+                  "line": 12,
+                  "column": 16,
+                  "currentOffset": 330,
+                  "endOffset": 336
+                }
+              }]
+            }]
+          }]
+        }]
+      }, {
+        "sourcePosition": {
+          "line": 13,
+          "column": 16,
+          "currentOffset": 397,
+          "endOffset": 446
+        },
+        "children": [{
+          "sourcePosition": {
+            "line": 13,
+            "column": 16,
+            "currentOffset": 397,
+            "endOffset": 412
+          },
+          "children": [{
+            "sourcePosition": {
+              "line": 13,
+              "column": 16,
+              "currentOffset": 397,
+              "endOffset": 408
+            },
+            "children": [{
+              "sourcePosition": {
+                "line": 13,
+                "column": 16,
+                "currentOffset": 397,
+                "endOffset": 403
+              }
+            }]
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "sourcePosition": {
+      "line": 17,
+      "column": 20,
+      "currentOffset": 515,
+      "endOffset": 527
+    },
+    "children": [{
+      "sourcePosition": {
+        "line": 17,
+        "column": 20,
+        "currentOffset": 515,
+        "endOffset": 522
+      }
+    }]
+  }, {
+    "sourcePosition": {
+      "line": 21,
+      "column": 20,
+      "currentOffset": 597,
+      "endOffset": 617
+    },
+    "values": [{
+      "value": {
+        "mapValue": {
+          "fields": {
+            "published": {
+              "boolValue": false
+            },
+            "title": {
+              "stringValue": "Lorem Ipsum"
+            },
+            "content": {
+              "stringValue": "lorem ipsum dolor sit amet"
+            },
+            "uid": {
+              "stringValue": "author"
+            },
+            "createdAt": {
+              "timestampValue": "2021-03-27T09:20:53.279Z"
+            }
+          }
+        }
+      },
+      "count": 5
+    }, {
+      "value": {
+        "mapValue": {
+          "fields": {
+            "published": {
+              "boolValue": false
+            },
+            "title": {
+              "stringValue": "Lorem Ipsum"
+            },
+            "content": {
+              "stringValue": "lorem ipsum dolor sit amet"
+            },
+            "uid": {
+              "stringValue": "otherPeople"
+            },
+            "createdAt": {
+              "timestampValue": "2021-03-27T09:20:53.650Z"
+            }
+          }
+        }
+      },
+      "count": 1
+    }, {
+      "value": {
+        "mapValue": {
+          "fields": {
+            "published": {
+              "boolValue": false
+            },
+            "title": {
+              "stringValue": "Lorem Ipsum"
+            },
+            "content": {
+              "stringValue": "lorem ipsum dolor sit amet"
+            },
+            "uid": {
+              "stringValue": "otherPeople"
+            },
+            "createdAt": {
+              "timestampValue": "1970-01-01T00:00:01Z"
+            }
+          }
+        }
+      },
+      "count": 1
+    }, {
+      "value": {
+        "mapValue": {
+          "fields": {
+            "published": {
+              "boolValue": true
+            },
+            "title": {
+              "stringValue": "Lorem Ipsum"
+            },
+            "content": {
+              "stringValue": "lorem ipsum dolor sit amet"
+            },
+            "uid": {
+              "stringValue": "otherPeople"
+            },
+            "createdAt": {
+              "timestampValue": "1970-01-01T00:00:01Z"
+            }
+          }
+        }
+      },
+      "count": 1
+    }],
+    "children": [{
+      "sourcePosition": {
+        "line": 21,
+        "column": 20,
+        "currentOffset": 597,
+        "endOffset": 612
+      },
+      "values": [{
+        "value": {
+          "mapValue": {
+            "fields": {
+              "data": {
+                "mapValue": {
+                  "fields": {
+                    "published": {
+                      "boolValue": false
+                    },
+                    "title": {
+                      "stringValue": "Lorem Ipsum"
+                    },
+                    "content": {
+                      "stringValue": "lorem ipsum dolor sit amet"
+                    },
+                    "uid": {
+                      "stringValue": "author"
+                    },
+                    "createdAt": {
+                      "timestampValue": "2021-03-27T09:20:53.279Z"
+                    }
+                  }
+                }
+              },
+              "__name__": {
+                "pathValue": {
+                  "segments": [{
+                    "simple": "databases"
+                  }, {
+                    "simple": "(default)"
+                  }, {
+                    "simple": "documents"
+                  }, {
+                    "simple": "articles"
+                  }, {
+                    "simple": "articleId"
+                  }]
+                }
+              },
+              "id": {
+                "stringValue": "articleId"
+              }
+            }
+          }
+        },
+        "count": 5
+      }, {
+        "value": {
+          "mapValue": {
+            "fields": {
+              "data": {
+                "mapValue": {
+                  "fields": {
+                    "published": {
+                      "boolValue": false
+                    },
+                    "title": {
+                      "stringValue": "Lorem Ipsum"
+                    },
+                    "content": {
+                      "stringValue": "lorem ipsum dolor sit amet"
+                    },
+                    "uid": {
+                      "stringValue": "otherPeople"
+                    },
+                    "createdAt": {
+                      "timestampValue": "2021-03-27T09:20:53.650Z"
+                    }
+                  }
+                }
+              },
+              "__name__": {
+                "pathValue": {
+                  "segments": [{
+                    "simple": "databases"
+                  }, {
+                    "simple": "(default)"
+                  }, {
+                    "simple": "documents"
+                  }, {
+                    "simple": "articles"
+                  }, {
+                    "simple": "articleId"
+                  }]
+                }
+              },
+              "id": {
+                "stringValue": "articleId"
+              }
+            }
+          }
+        },
+        "count": 1
+      }, {
+        "value": {
+          "mapValue": {
+            "fields": {
+              "data": {
+                "mapValue": {
+                  "fields": {
+                    "published": {
+                      "boolValue": false
+                    },
+                    "title": {
+                      "stringValue": "Lorem Ipsum"
+                    },
+                    "content": {
+                      "stringValue": "lorem ipsum dolor sit amet"
+                    },
+                    "uid": {
+                      "stringValue": "otherPeople"
+                    },
+                    "createdAt": {
+                      "timestampValue": "1970-01-01T00:00:01Z"
+                    }
+                  }
+                }
+              },
+              "__name__": {
+                "pathValue": {
+                  "segments": [{
+                    "simple": "databases"
+                  }, {
+                    "simple": "(default)"
+                  }, {
+                    "simple": "documents"
+                  }, {
+                    "simple": "articles"
+                  }, {
+                    "simple": "articleId"
+                  }]
+                }
+              },
+              "id": {
+                "stringValue": "articleId"
+              }
+            }
+          }
+        },
+        "count": 1
+      }, {
+        "value": {
+          "mapValue": {
+            "fields": {
+              "data": {
+                "mapValue": {
+                  "fields": {
+                    "published": {
+                      "boolValue": true
+                    },
+                    "title": {
+                      "stringValue": "Lorem Ipsum"
+                    },
+                    "content": {
+                      "stringValue": "lorem ipsum dolor sit amet"
+                    },
+                    "uid": {
+                      "stringValue": "otherPeople"
+                    },
+                    "createdAt": {
+                      "timestampValue": "1970-01-01T00:00:01Z"
+                    }
+                  }
+                }
+              },
+              "__name__": {
+                "pathValue": {
+                  "segments": [{
+                    "simple": "databases"
+                  }, {
+                    "simple": "(default)"
+                  }, {
+                    "simple": "documents"
+                  }, {
+                    "simple": "articles"
+                  }, {
+                    "simple": "articleId"
+                  }]
+                }
+              },
+              "id": {
+                "stringValue": "articleId"
+              }
+            }
+          }
+        },
+        "count": 1
+      }],
+      "children": [{
+        "sourcePosition": {
+          "line": 21,
+          "column": 20,
+          "currentOffset": 597,
+          "endOffset": 603
+        },
+        "values": [{
+          "value": {
+            "mapValue": {
+              "fields": {
+                "time": {
+                  "timestampValue": "2021-03-27T09:20:53.279Z"
+                },
+                "auth": {
+                  "mapValue": {
+                    "fields": {
+                      "uid": {
+                        "stringValue": "author"
+                      },
+                      "token": {
+                        "mapValue": {
+                          "fields": {
+                            "iss": {
+                              "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                            },
+                            "aud": {
+                              "stringValue": "objects-omsistuff"
+                            },
+                            "iat": {
+                              "intValue": "0"
+                            },
+                            "exp": {
+                              "intValue": "3600"
+                            },
+                            "auth_time": {
+                              "intValue": "0"
+                            },
+                            "sub": {
+                              "stringValue": "author"
+                            },
+                            "user_id": {
+                              "stringValue": "author"
+                            },
+                            "firebase": {
+                              "mapValue": {
+                                "fields": {
+                                  "sign_in_provider": {
+                                    "stringValue": "custom"
+                                  },
+                                  "identities": {
+                                    "mapValue": {
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "email": {
+                              "stringValue": "alice@example.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "headers": {
+                  "mapValue": {
+                  }
+                },
+                "inTransaction": {
+                  "boolValue": true
+                },
+                "path": {
+                  "pathValue": {
+                    "segments": [{
+                      "simple": "databases"
+                    }, {
+                      "simple": "(default)"
+                    }, {
+                      "simple": "documents"
+                    }, {
+                      "simple": "articles"
+                    }, {
+                      "simple": "articleId"
+                    }]
+                  }
+                },
+                "transforms": {
+                  "listValue": {
+                    "values": [{
+                      "stringValue": "createdAt"
+                    }]
+                  }
+                },
+                "writeFields": {
+                  "listValue": {
+                    "values": [{
+                      "stringValue": "createdAt"
+                    }]
+                  }
+                },
+                "readFields": {
+                  "nullValue": null
+                },
+                "resource": {
+                  "mapValue": {
+                    "fields": {
+                      "data": {
+                        "mapValue": {
+                          "fields": {
+                            "published": {
+                              "boolValue": false
+                            },
+                            "title": {
+                              "stringValue": "Lorem Ipsum"
+                            },
+                            "content": {
+                              "stringValue": "lorem ipsum dolor sit amet"
+                            },
+                            "uid": {
+                              "stringValue": "author"
+                            },
+                            "createdAt": {
+                              "timestampValue": "2021-03-27T09:20:53.279Z"
+                            }
+                          }
+                        }
+                      },
+                      "__name__": {
+                        "pathValue": {
+                          "segments": [{
+                            "simple": "databases"
+                          }, {
+                            "simple": "(default)"
+                          }, {
+                            "simple": "documents"
+                          }, {
+                            "simple": "articles"
+                          }, {
+                            "simple": "articleId"
+                          }]
+                        }
+                      },
+                      "id": {
+                        "stringValue": "articleId"
+                      }
+                    }
+                  }
+                },
+                "method": {
+                  "stringValue": "create"
+                }
+              }
+            }
+          },
+          "count": 5
+        }, {
+          "value": {
+            "mapValue": {
+              "fields": {
+                "time": {
+                  "timestampValue": "2021-03-27T09:20:53.650Z"
+                },
+                "auth": {
+                  "mapValue": {
+                    "fields": {
+                      "uid": {
+                        "stringValue": "author"
+                      },
+                      "token": {
+                        "mapValue": {
+                          "fields": {
+                            "iss": {
+                              "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                            },
+                            "aud": {
+                              "stringValue": "objects-omsistuff"
+                            },
+                            "iat": {
+                              "intValue": "0"
+                            },
+                            "exp": {
+                              "intValue": "3600"
+                            },
+                            "auth_time": {
+                              "intValue": "0"
+                            },
+                            "sub": {
+                              "stringValue": "author"
+                            },
+                            "user_id": {
+                              "stringValue": "author"
+                            },
+                            "firebase": {
+                              "mapValue": {
+                                "fields": {
+                                  "sign_in_provider": {
+                                    "stringValue": "custom"
+                                  },
+                                  "identities": {
+                                    "mapValue": {
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "email": {
+                              "stringValue": "alice@example.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "headers": {
+                  "mapValue": {
+                  }
+                },
+                "inTransaction": {
+                  "boolValue": true
+                },
+                "path": {
+                  "pathValue": {
+                    "segments": [{
+                      "simple": "databases"
+                    }, {
+                      "simple": "(default)"
+                    }, {
+                      "simple": "documents"
+                    }, {
+                      "simple": "articles"
+                    }, {
+                      "simple": "articleId"
+                    }]
+                  }
+                },
+                "transforms": {
+                  "listValue": {
+                    "values": [{
+                      "stringValue": "createdAt"
+                    }]
+                  }
+                },
+                "writeFields": {
+                  "listValue": {
+                    "values": [{
+                      "stringValue": "createdAt"
+                    }]
+                  }
+                },
+                "readFields": {
+                  "nullValue": null
+                },
+                "resource": {
+                  "mapValue": {
+                    "fields": {
+                      "data": {
+                        "mapValue": {
+                          "fields": {
+                            "published": {
+                              "boolValue": false
+                            },
+                            "title": {
+                              "stringValue": "Lorem Ipsum"
+                            },
+                            "content": {
+                              "stringValue": "lorem ipsum dolor sit amet"
+                            },
+                            "uid": {
+                              "stringValue": "otherPeople"
+                            },
+                            "createdAt": {
+                              "timestampValue": "2021-03-27T09:20:53.650Z"
+                            }
+                          }
+                        }
+                      },
+                      "__name__": {
+                        "pathValue": {
+                          "segments": [{
+                            "simple": "databases"
+                          }, {
+                            "simple": "(default)"
+                          }, {
+                            "simple": "documents"
+                          }, {
+                            "simple": "articles"
+                          }, {
+                            "simple": "articleId"
+                          }]
+                        }
+                      },
+                      "id": {
+                        "stringValue": "articleId"
+                      }
+                    }
+                  }
+                },
+                "method": {
+                  "stringValue": "create"
+                }
+              }
+            }
+          },
+          "count": 1
+        }, {
+          "value": {
+            "mapValue": {
+              "fields": {
+                "time": {
+                  "timestampValue": "2021-03-27T09:20:53.713Z"
+                },
+                "auth": {
+                  "mapValue": {
+                    "fields": {
+                      "uid": {
+                        "stringValue": "author"
+                      },
+                      "token": {
+                        "mapValue": {
+                          "fields": {
+                            "iss": {
+                              "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                            },
+                            "aud": {
+                              "stringValue": "objects-omsistuff"
+                            },
+                            "iat": {
+                              "intValue": "0"
+                            },
+                            "exp": {
+                              "intValue": "3600"
+                            },
+                            "auth_time": {
+                              "intValue": "0"
+                            },
+                            "sub": {
+                              "stringValue": "author"
+                            },
+                            "user_id": {
+                              "stringValue": "author"
+                            },
+                            "firebase": {
+                              "mapValue": {
+                                "fields": {
+                                  "sign_in_provider": {
+                                    "stringValue": "custom"
+                                  },
+                                  "identities": {
+                                    "mapValue": {
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "email": {
+                              "stringValue": "alice@example.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "headers": {
+                  "mapValue": {
+                  }
+                },
+                "inTransaction": {
+                  "boolValue": true
+                },
+                "path": {
+                  "pathValue": {
+                    "segments": [{
+                      "simple": "databases"
+                    }, {
+                      "simple": "(default)"
+                    }, {
+                      "simple": "documents"
+                    }, {
+                      "simple": "articles"
+                    }, {
+                      "simple": "articleId"
+                    }]
+                  }
+                },
+                "transforms": {
+                  "nullValue": null
+                },
+                "writeFields": {
+                  "nullValue": null
+                },
+                "readFields": {
+                  "nullValue": null
+                },
+                "resource": {
+                  "mapValue": {
+                    "fields": {
+                      "data": {
+                        "mapValue": {
+                          "fields": {
+                            "published": {
+                              "boolValue": false
+                            },
+                            "title": {
+                              "stringValue": "Lorem Ipsum"
+                            },
+                            "content": {
+                              "stringValue": "lorem ipsum dolor sit amet"
+                            },
+                            "uid": {
+                              "stringValue": "otherPeople"
+                            },
+                            "createdAt": {
+                              "timestampValue": "1970-01-01T00:00:01Z"
+                            }
+                          }
+                        }
+                      },
+                      "__name__": {
+                        "pathValue": {
+                          "segments": [{
+                            "simple": "databases"
+                          }, {
+                            "simple": "(default)"
+                          }, {
+                            "simple": "documents"
+                          }, {
+                            "simple": "articles"
+                          }, {
+                            "simple": "articleId"
+                          }]
+                        }
+                      },
+                      "id": {
+                        "stringValue": "articleId"
+                      }
+                    }
+                  }
+                },
+                "method": {
+                  "stringValue": "create"
+                }
+              }
+            }
+          },
+          "count": 1
+        }, {
+          "value": {
+            "mapValue": {
+              "fields": {
+                "time": {
+                  "timestampValue": "2021-03-27T09:20:53.746Z"
+                },
+                "auth": {
+                  "mapValue": {
+                    "fields": {
+                      "uid": {
+                        "stringValue": "author"
+                      },
+                      "token": {
+                        "mapValue": {
+                          "fields": {
+                            "iss": {
+                              "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                            },
+                            "aud": {
+                              "stringValue": "objects-omsistuff"
+                            },
+                            "iat": {
+                              "intValue": "0"
+                            },
+                            "exp": {
+                              "intValue": "3600"
+                            },
+                            "auth_time": {
+                              "intValue": "0"
+                            },
+                            "sub": {
+                              "stringValue": "author"
+                            },
+                            "user_id": {
+                              "stringValue": "author"
+                            },
+                            "firebase": {
+                              "mapValue": {
+                                "fields": {
+                                  "sign_in_provider": {
+                                    "stringValue": "custom"
+                                  },
+                                  "identities": {
+                                    "mapValue": {
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "email": {
+                              "stringValue": "alice@example.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "headers": {
+                  "mapValue": {
+                  }
+                },
+                "inTransaction": {
+                  "boolValue": true
+                },
+                "path": {
+                  "pathValue": {
+                    "segments": [{
+                      "simple": "databases"
+                    }, {
+                      "simple": "(default)"
+                    }, {
+                      "simple": "documents"
+                    }, {
+                      "simple": "articles"
+                    }, {
+                      "simple": "articleId"
+                    }]
+                  }
+                },
+                "transforms": {
+                  "nullValue": null
+                },
+                "writeFields": {
+                  "nullValue": null
+                },
+                "readFields": {
+                  "nullValue": null
+                },
+                "resource": {
+                  "mapValue": {
+                    "fields": {
+                      "data": {
+                        "mapValue": {
+                          "fields": {
+                            "published": {
+                              "boolValue": true
+                            },
+                            "title": {
+                              "stringValue": "Lorem Ipsum"
+                            },
+                            "content": {
+                              "stringValue": "lorem ipsum dolor sit amet"
+                            },
+                            "uid": {
+                              "stringValue": "otherPeople"
+                            },
+                            "createdAt": {
+                              "timestampValue": "1970-01-01T00:00:01Z"
+                            }
+                          }
+                        }
+                      },
+                      "__name__": {
+                        "pathValue": {
+                          "segments": [{
+                            "simple": "databases"
+                          }, {
+                            "simple": "(default)"
+                          }, {
+                            "simple": "documents"
+                          }, {
+                            "simple": "articles"
+                          }, {
+                            "simple": "articleId"
+                          }]
+                        }
+                      },
+                      "id": {
+                        "stringValue": "articleId"
+                      }
+                    }
+                  }
+                },
+                "method": {
+                  "stringValue": "create"
+                }
+              }
+            }
+          },
+          "count": 1
+        }]
+      }]
+    }]
+  }, {
+    "sourcePosition": {
+      "line": 25,
+      "column": 20,
+      "currentOffset": 692,
+      "endOffset": 756
+    },
+    "children": [{
+      "sourcePosition": {
+        "line": 25,
+        "column": 20,
+        "currentOffset": 692,
+        "endOffset": 740
+      },
+      "children": [{
+        "sourcePosition": {
+          "line": 25,
+          "column": 20,
+          "currentOffset": 692,
+          "endOffset": 723
+        },
+        "children": [{
+          "sourcePosition": {
+            "line": 25,
+            "column": 20,
+            "currentOffset": 692,
+            "endOffset": 703
+          }
+        }, {
+          "sourcePosition": {
+            "line": 25,
+            "column": 40,
+            "currentOffset": 712,
+            "endOffset": 723
+          }
+        }]
+      }]
+    }, {
+      "sourcePosition": {
+        "line": 25,
+        "column": 79,
+        "currentOffset": 751,
+        "endOffset": 756
+      }
+    }]
+  }, {
+    "sourcePosition": {
+      "line": 34,
+      "column": 28,
+      "currentOffset": 960,
+      "endOffset": 966
+    }
+  }, {
+    "sourcePosition": {
+      "line": 38,
+      "column": 17,
+      "currentOffset": 1054,
+      "endOffset": 1097
+    },
+    "children": [{
+      "sourcePosition": {
+        "line": 38,
+        "column": 17,
+        "currentOffset": 1054,
+        "endOffset": 1072
+      },
+      "children": [{
+        "sourcePosition": {
+          "line": 38,
+          "column": 17,
+          "currentOffset": 1054,
+          "endOffset": 1065
+        }
+      }]
+    }]
+  }, {
+    "sourcePosition": {
+      "line": 41,
+      "column": 30,
+      "currentOffset": 1160,
+      "endOffset": 1233
+    },
+    "children": [{
+      "sourcePosition": {
+        "line": 41,
+        "column": 30,
+        "currentOffset": 1160,
+        "endOffset": 1165
+      }
+    }, {
+      "sourcePosition": {
+        "line": 42,
+        "column": 20,
+        "currentOffset": 1189,
+        "endOffset": 1233
+      },
+      "children": [{
+        "sourcePosition": {
+          "line": 42,
+          "column": 20,
+          "currentOffset": 1189,
+          "endOffset": 1205
+        },
+        "children": [{
+          "sourcePosition": {
+            "line": 42,
+            "column": 20,
+            "currentOffset": 1189,
+            "endOffset": 1198
+          }
+        }]
+      }, {
+        "sourcePosition": {
+          "line": 42,
+          "column": 41,
+          "currentOffset": 1210,
+          "endOffset": 1233
+        },
+        "children": [{
+          "sourcePosition": {
+            "line": 42,
+            "column": 41,
+            "currentOffset": 1210,
+            "endOffset": 1227
+          },
+          "children": [{
+            "sourcePosition": {
+              "line": 42,
+              "column": 41,
+              "currentOffset": 1210,
+              "endOffset": 1221
+            },
+            "children": [{
+              "sourcePosition": {
+                "line": 42,
+                "column": 41,
+                "currentOffset": 1210,
+                "endOffset": 1216
+              }
+            }]
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "sourcePosition": {
+      "line": 47,
+      "column": 29,
+      "currentOffset": 1357,
+      "endOffset": 1363
+    }
+  }, {
+    "sourcePosition": {
+      "line": 53,
+      "column": 30,
+      "currentOffset": 1484,
+      "endOffset": 1776
+    },
+    "values": [{
+      "value": {
+        "boolValue": true
+      },
+      "count": 1
+    }, {
+      "value": {
+        "boolValue": false
+      },
+      "count": 3
+    }],
+    "children": [{
+      "sourcePosition": {
+        "line": 53,
+        "column": 30,
+        "currentOffset": 1484,
+        "endOffset": 1715
+      },
+      "values": [{
+        "value": {
+          "boolValue": true
+        },
+        "count": 1
+      }, {
+        "value": {
+          "boolValue": false
+        },
+        "count": 3
+      }],
+      "children": [{
+        "sourcePosition": {
+          "line": 53,
+          "column": 30,
+          "currentOffset": 1484,
+          "endOffset": 1658
+        },
+        "values": [{
+          "value": {
+            "boolValue": true
+          },
+          "count": 1
+        }, {
+          "value": {
+            "boolValue": false
+          },
+          "count": 3
+        }],
+        "children": [{
+          "sourcePosition": {
+            "line": 53,
+            "column": 30,
+            "currentOffset": 1484,
+            "endOffset": 1604
+          },
+          "values": [{
+            "value": {
+              "boolValue": true
+            },
+            "count": 1
+          }, {
+            "value": {
+              "boolValue": false
+            },
+            "count": 3
+          }],
+          "children": [{
+            "sourcePosition": {
+              "line": 53,
+              "column": 30,
+              "currentOffset": 1484,
+              "endOffset": 1550
+            },
+            "values": [{
+              "value": {
+                "boolValue": true
+              },
+              "count": 1
+            }, {
+              "value": {
+                "boolValue": false
+              },
+              "count": 3
+            }],
+            "children": [{
+              "sourcePosition": {
+                "line": 53,
+                "column": 30,
+                "currentOffset": 1484,
+                "endOffset": 1489
+              },
+              "values": [{
+                "value": {
+                  "boolValue": true
+                },
+                "count": 4
+              }]
+            }, {
+              "sourcePosition": {
+                "line": 54,
+                "column": 20,
+                "currentOffset": 1513,
+                "endOffset": 1550
+              },
+              "values": [{
+                "value": {
+                  "boolValue": true
+                },
+                "count": 1
+              }, {
+                "value": {
+                  "boolValue": false
+                },
+                "count": 3
+              }],
+              "children": [{
+                "sourcePosition": {
+                  "line": 54,
+                  "column": 20,
+                  "currentOffset": 1513,
+                  "endOffset": 1530
+                },
+                "values": [{
+                  "value": {
+                    "stringValue": "author"
+                  },
+                  "count": 1
+                }, {
+                  "value": {
+                    "stringValue": "otherPeople"
+                  },
+                  "count": 3
+                }],
+                "children": [{
+                  "sourcePosition": {
+                    "line": 54,
+                    "column": 20,
+                    "currentOffset": 1513,
+                    "endOffset": 1524
+                  },
+                  "values": [{
+                    "value": {
+                      "mapValue": {
+                        "fields": {
+                          "published": {
+                            "boolValue": false
+                          },
+                          "title": {
+                            "stringValue": "Lorem Ipsum"
+                          },
+                          "content": {
+                            "stringValue": "lorem ipsum dolor sit amet"
+                          },
+                          "uid": {
+                            "stringValue": "author"
+                          },
+                          "createdAt": {
+                            "timestampValue": "2021-03-27T09:20:53.279Z"
+                          }
+                        }
+                      }
+                    },
+                    "count": 1
+                  }, {
+                    "value": {
+                      "mapValue": {
+                        "fields": {
+                          "published": {
+                            "boolValue": false
+                          },
+                          "title": {
+                            "stringValue": "Lorem Ipsum"
+                          },
+                          "content": {
+                            "stringValue": "lorem ipsum dolor sit amet"
+                          },
+                          "uid": {
+                            "stringValue": "otherPeople"
+                          },
+                          "createdAt": {
+                            "timestampValue": "2021-03-27T09:20:53.650Z"
+                          }
+                        }
+                      }
+                    },
+                    "count": 1
+                  }, {
+                    "value": {
+                      "mapValue": {
+                        "fields": {
+                          "published": {
+                            "boolValue": false
+                          },
+                          "title": {
+                            "stringValue": "Lorem Ipsum"
+                          },
+                          "content": {
+                            "stringValue": "lorem ipsum dolor sit amet"
+                          },
+                          "uid": {
+                            "stringValue": "otherPeople"
+                          },
+                          "createdAt": {
+                            "timestampValue": "1970-01-01T00:00:01Z"
+                          }
+                        }
+                      }
+                    },
+                    "count": 1
+                  }, {
+                    "value": {
+                      "mapValue": {
+                        "fields": {
+                          "published": {
+                            "boolValue": true
+                          },
+                          "title": {
+                            "stringValue": "Lorem Ipsum"
+                          },
+                          "content": {
+                            "stringValue": "lorem ipsum dolor sit amet"
+                          },
+                          "uid": {
+                            "stringValue": "otherPeople"
+                          },
+                          "createdAt": {
+                            "timestampValue": "1970-01-01T00:00:01Z"
+                          }
+                        }
+                      }
+                    },
+                    "count": 1
+                  }]
+                }]
+              }, {
+                "sourcePosition": {
+                  "line": 54,
+                  "column": 42,
+                  "currentOffset": 1535,
+                  "endOffset": 1550
+                },
+                "values": [{
+                  "value": {
+                    "stringValue": "author"
+                  },
+                  "count": 4
+                }],
+                "children": [{
+                  "sourcePosition": {
+                    "line": 54,
+                    "column": 42,
+                    "currentOffset": 1535,
+                    "endOffset": 1546
+                  },
+                  "values": [{
+                    "value": {
+                      "mapValue": {
+                        "fields": {
+                          "uid": {
+                            "stringValue": "author"
+                          },
+                          "token": {
+                            "mapValue": {
+                              "fields": {
+                                "iss": {
+                                  "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                                },
+                                "aud": {
+                                  "stringValue": "objects-omsistuff"
+                                },
+                                "iat": {
+                                  "intValue": "0"
+                                },
+                                "exp": {
+                                  "intValue": "3600"
+                                },
+                                "auth_time": {
+                                  "intValue": "0"
+                                },
+                                "sub": {
+                                  "stringValue": "author"
+                                },
+                                "user_id": {
+                                  "stringValue": "author"
+                                },
+                                "firebase": {
+                                  "mapValue": {
+                                    "fields": {
+                                      "sign_in_provider": {
+                                        "stringValue": "custom"
+                                      },
+                                      "identities": {
+                                        "mapValue": {
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "email": {
+                                  "stringValue": "alice@example.com"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "count": 4
+                  }],
+                  "children": [{
+                    "sourcePosition": {
+                      "line": 54,
+                      "column": 42,
+                      "currentOffset": 1535,
+                      "endOffset": 1541
+                    },
+                    "values": [{
+                      "value": {
+                        "mapValue": {
+                          "fields": {
+                            "time": {
+                              "timestampValue": "2021-03-27T09:20:53.279Z"
+                            },
+                            "auth": {
+                              "mapValue": {
+                                "fields": {
+                                  "uid": {
+                                    "stringValue": "author"
+                                  },
+                                  "token": {
+                                    "mapValue": {
+                                      "fields": {
+                                        "iss": {
+                                          "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                                        },
+                                        "aud": {
+                                          "stringValue": "objects-omsistuff"
+                                        },
+                                        "iat": {
+                                          "intValue": "0"
+                                        },
+                                        "exp": {
+                                          "intValue": "3600"
+                                        },
+                                        "auth_time": {
+                                          "intValue": "0"
+                                        },
+                                        "sub": {
+                                          "stringValue": "author"
+                                        },
+                                        "user_id": {
+                                          "stringValue": "author"
+                                        },
+                                        "firebase": {
+                                          "mapValue": {
+                                            "fields": {
+                                              "sign_in_provider": {
+                                                "stringValue": "custom"
+                                              },
+                                              "identities": {
+                                                "mapValue": {
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "email": {
+                                          "stringValue": "alice@example.com"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "headers": {
+                              "mapValue": {
+                              }
+                            },
+                            "inTransaction": {
+                              "boolValue": true
+                            },
+                            "path": {
+                              "pathValue": {
+                                "segments": [{
+                                  "simple": "databases"
+                                }, {
+                                  "simple": "(default)"
+                                }, {
+                                  "simple": "documents"
+                                }, {
+                                  "simple": "articles"
+                                }, {
+                                  "simple": "articleId"
+                                }]
+                              }
+                            },
+                            "transforms": {
+                              "listValue": {
+                                "values": [{
+                                  "stringValue": "createdAt"
+                                }]
+                              }
+                            },
+                            "writeFields": {
+                              "listValue": {
+                                "values": [{
+                                  "stringValue": "createdAt"
+                                }]
+                              }
+                            },
+                            "readFields": {
+                              "nullValue": null
+                            },
+                            "resource": {
+                              "mapValue": {
+                                "fields": {
+                                  "data": {
+                                    "mapValue": {
+                                      "fields": {
+                                        "published": {
+                                          "boolValue": false
+                                        },
+                                        "title": {
+                                          "stringValue": "Lorem Ipsum"
+                                        },
+                                        "content": {
+                                          "stringValue": "lorem ipsum dolor sit amet"
+                                        },
+                                        "uid": {
+                                          "stringValue": "author"
+                                        },
+                                        "createdAt": {
+                                          "timestampValue": "2021-03-27T09:20:53.279Z"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "__name__": {
+                                    "pathValue": {
+                                      "segments": [{
+                                        "simple": "databases"
+                                      }, {
+                                        "simple": "(default)"
+                                      }, {
+                                        "simple": "documents"
+                                      }, {
+                                        "simple": "articles"
+                                      }, {
+                                        "simple": "articleId"
+                                      }]
+                                    }
+                                  },
+                                  "id": {
+                                    "stringValue": "articleId"
+                                  }
+                                }
+                              }
+                            },
+                            "method": {
+                              "stringValue": "create"
+                            }
+                          }
+                        }
+                      },
+                      "count": 1
+                    }, {
+                      "value": {
+                        "mapValue": {
+                          "fields": {
+                            "time": {
+                              "timestampValue": "2021-03-27T09:20:53.650Z"
+                            },
+                            "auth": {
+                              "mapValue": {
+                                "fields": {
+                                  "uid": {
+                                    "stringValue": "author"
+                                  },
+                                  "token": {
+                                    "mapValue": {
+                                      "fields": {
+                                        "iss": {
+                                          "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                                        },
+                                        "aud": {
+                                          "stringValue": "objects-omsistuff"
+                                        },
+                                        "iat": {
+                                          "intValue": "0"
+                                        },
+                                        "exp": {
+                                          "intValue": "3600"
+                                        },
+                                        "auth_time": {
+                                          "intValue": "0"
+                                        },
+                                        "sub": {
+                                          "stringValue": "author"
+                                        },
+                                        "user_id": {
+                                          "stringValue": "author"
+                                        },
+                                        "firebase": {
+                                          "mapValue": {
+                                            "fields": {
+                                              "sign_in_provider": {
+                                                "stringValue": "custom"
+                                              },
+                                              "identities": {
+                                                "mapValue": {
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "email": {
+                                          "stringValue": "alice@example.com"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "headers": {
+                              "mapValue": {
+                              }
+                            },
+                            "inTransaction": {
+                              "boolValue": true
+                            },
+                            "path": {
+                              "pathValue": {
+                                "segments": [{
+                                  "simple": "databases"
+                                }, {
+                                  "simple": "(default)"
+                                }, {
+                                  "simple": "documents"
+                                }, {
+                                  "simple": "articles"
+                                }, {
+                                  "simple": "articleId"
+                                }]
+                              }
+                            },
+                            "transforms": {
+                              "listValue": {
+                                "values": [{
+                                  "stringValue": "createdAt"
+                                }]
+                              }
+                            },
+                            "writeFields": {
+                              "listValue": {
+                                "values": [{
+                                  "stringValue": "createdAt"
+                                }]
+                              }
+                            },
+                            "readFields": {
+                              "nullValue": null
+                            },
+                            "resource": {
+                              "mapValue": {
+                                "fields": {
+                                  "data": {
+                                    "mapValue": {
+                                      "fields": {
+                                        "published": {
+                                          "boolValue": false
+                                        },
+                                        "title": {
+                                          "stringValue": "Lorem Ipsum"
+                                        },
+                                        "content": {
+                                          "stringValue": "lorem ipsum dolor sit amet"
+                                        },
+                                        "uid": {
+                                          "stringValue": "otherPeople"
+                                        },
+                                        "createdAt": {
+                                          "timestampValue": "2021-03-27T09:20:53.650Z"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "__name__": {
+                                    "pathValue": {
+                                      "segments": [{
+                                        "simple": "databases"
+                                      }, {
+                                        "simple": "(default)"
+                                      }, {
+                                        "simple": "documents"
+                                      }, {
+                                        "simple": "articles"
+                                      }, {
+                                        "simple": "articleId"
+                                      }]
+                                    }
+                                  },
+                                  "id": {
+                                    "stringValue": "articleId"
+                                  }
+                                }
+                              }
+                            },
+                            "method": {
+                              "stringValue": "create"
+                            }
+                          }
+                        }
+                      },
+                      "count": 1
+                    }, {
+                      "value": {
+                        "mapValue": {
+                          "fields": {
+                            "time": {
+                              "timestampValue": "2021-03-27T09:20:53.713Z"
+                            },
+                            "auth": {
+                              "mapValue": {
+                                "fields": {
+                                  "uid": {
+                                    "stringValue": "author"
+                                  },
+                                  "token": {
+                                    "mapValue": {
+                                      "fields": {
+                                        "iss": {
+                                          "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                                        },
+                                        "aud": {
+                                          "stringValue": "objects-omsistuff"
+                                        },
+                                        "iat": {
+                                          "intValue": "0"
+                                        },
+                                        "exp": {
+                                          "intValue": "3600"
+                                        },
+                                        "auth_time": {
+                                          "intValue": "0"
+                                        },
+                                        "sub": {
+                                          "stringValue": "author"
+                                        },
+                                        "user_id": {
+                                          "stringValue": "author"
+                                        },
+                                        "firebase": {
+                                          "mapValue": {
+                                            "fields": {
+                                              "sign_in_provider": {
+                                                "stringValue": "custom"
+                                              },
+                                              "identities": {
+                                                "mapValue": {
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "email": {
+                                          "stringValue": "alice@example.com"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "headers": {
+                              "mapValue": {
+                              }
+                            },
+                            "inTransaction": {
+                              "boolValue": true
+                            },
+                            "path": {
+                              "pathValue": {
+                                "segments": [{
+                                  "simple": "databases"
+                                }, {
+                                  "simple": "(default)"
+                                }, {
+                                  "simple": "documents"
+                                }, {
+                                  "simple": "articles"
+                                }, {
+                                  "simple": "articleId"
+                                }]
+                              }
+                            },
+                            "transforms": {
+                              "nullValue": null
+                            },
+                            "writeFields": {
+                              "nullValue": null
+                            },
+                            "readFields": {
+                              "nullValue": null
+                            },
+                            "resource": {
+                              "mapValue": {
+                                "fields": {
+                                  "data": {
+                                    "mapValue": {
+                                      "fields": {
+                                        "published": {
+                                          "boolValue": false
+                                        },
+                                        "title": {
+                                          "stringValue": "Lorem Ipsum"
+                                        },
+                                        "content": {
+                                          "stringValue": "lorem ipsum dolor sit amet"
+                                        },
+                                        "uid": {
+                                          "stringValue": "otherPeople"
+                                        },
+                                        "createdAt": {
+                                          "timestampValue": "1970-01-01T00:00:01Z"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "__name__": {
+                                    "pathValue": {
+                                      "segments": [{
+                                        "simple": "databases"
+                                      }, {
+                                        "simple": "(default)"
+                                      }, {
+                                        "simple": "documents"
+                                      }, {
+                                        "simple": "articles"
+                                      }, {
+                                        "simple": "articleId"
+                                      }]
+                                    }
+                                  },
+                                  "id": {
+                                    "stringValue": "articleId"
+                                  }
+                                }
+                              }
+                            },
+                            "method": {
+                              "stringValue": "create"
+                            }
+                          }
+                        }
+                      },
+                      "count": 1
+                    }, {
+                      "value": {
+                        "mapValue": {
+                          "fields": {
+                            "time": {
+                              "timestampValue": "2021-03-27T09:20:53.746Z"
+                            },
+                            "auth": {
+                              "mapValue": {
+                                "fields": {
+                                  "uid": {
+                                    "stringValue": "author"
+                                  },
+                                  "token": {
+                                    "mapValue": {
+                                      "fields": {
+                                        "iss": {
+                                          "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                                        },
+                                        "aud": {
+                                          "stringValue": "objects-omsistuff"
+                                        },
+                                        "iat": {
+                                          "intValue": "0"
+                                        },
+                                        "exp": {
+                                          "intValue": "3600"
+                                        },
+                                        "auth_time": {
+                                          "intValue": "0"
+                                        },
+                                        "sub": {
+                                          "stringValue": "author"
+                                        },
+                                        "user_id": {
+                                          "stringValue": "author"
+                                        },
+                                        "firebase": {
+                                          "mapValue": {
+                                            "fields": {
+                                              "sign_in_provider": {
+                                                "stringValue": "custom"
+                                              },
+                                              "identities": {
+                                                "mapValue": {
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "email": {
+                                          "stringValue": "alice@example.com"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "headers": {
+                              "mapValue": {
+                              }
+                            },
+                            "inTransaction": {
+                              "boolValue": true
+                            },
+                            "path": {
+                              "pathValue": {
+                                "segments": [{
+                                  "simple": "databases"
+                                }, {
+                                  "simple": "(default)"
+                                }, {
+                                  "simple": "documents"
+                                }, {
+                                  "simple": "articles"
+                                }, {
+                                  "simple": "articleId"
+                                }]
+                              }
+                            },
+                            "transforms": {
+                              "nullValue": null
+                            },
+                            "writeFields": {
+                              "nullValue": null
+                            },
+                            "readFields": {
+                              "nullValue": null
+                            },
+                            "resource": {
+                              "mapValue": {
+                                "fields": {
+                                  "data": {
+                                    "mapValue": {
+                                      "fields": {
+                                        "published": {
+                                          "boolValue": true
+                                        },
+                                        "title": {
+                                          "stringValue": "Lorem Ipsum"
+                                        },
+                                        "content": {
+                                          "stringValue": "lorem ipsum dolor sit amet"
+                                        },
+                                        "uid": {
+                                          "stringValue": "otherPeople"
+                                        },
+                                        "createdAt": {
+                                          "timestampValue": "1970-01-01T00:00:01Z"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "__name__": {
+                                    "pathValue": {
+                                      "segments": [{
+                                        "simple": "databases"
+                                      }, {
+                                        "simple": "(default)"
+                                      }, {
+                                        "simple": "documents"
+                                      }, {
+                                        "simple": "articles"
+                                      }, {
+                                        "simple": "articleId"
+                                      }]
+                                    }
+                                  },
+                                  "id": {
+                                    "stringValue": "articleId"
+                                  }
+                                }
+                              }
+                            },
+                            "method": {
+                              "stringValue": "create"
+                            }
+                          }
+                        }
+                      },
+                      "count": 1
+                    }]
+                  }]
+                }]
+              }]
+            }]
+          }, {
+            "sourcePosition": {
+              "line": 55,
+              "column": 20,
+              "currentOffset": 1572,
+              "endOffset": 1604
+            },
+            "values": [{
+              "value": {
+                "boolValue": true
+              },
+              "count": 1
+            }, {
+              "value": {
+              },
+              "count": 3
+            }],
+            "children": [{
+              "sourcePosition": {
+                "line": 55,
+                "column": 20,
+                "currentOffset": 1572,
+                "endOffset": 1595
+              },
+              "values": [{
+                "value": {
+                  "boolValue": false
+                },
+                "count": 1
+              }, {
+                "value": {
+                },
+                "count": 3
+              }],
+              "children": [{
+                "sourcePosition": {
+                  "line": 55,
+                  "column": 20,
+                  "currentOffset": 1572,
+                  "endOffset": 1583
+                },
+                "values": [{
+                  "value": {
+                    "mapValue": {
+                      "fields": {
+                        "published": {
+                          "boolValue": false
+                        },
+                        "title": {
+                          "stringValue": "Lorem Ipsum"
+                        },
+                        "content": {
+                          "stringValue": "lorem ipsum dolor sit amet"
+                        },
+                        "uid": {
+                          "stringValue": "author"
+                        },
+                        "createdAt": {
+                          "timestampValue": "2021-03-27T09:20:53.279Z"
+                        }
+                      }
+                    }
+                  },
+                  "count": 1
+                }, {
+                  "value": {
+                  },
+                  "count": 3
+                }]
+              }]
+            }]
+          }]
+        }, {
+          "sourcePosition": {
+            "line": 56,
+            "column": 20,
+            "currentOffset": 1626,
+            "endOffset": 1658
+          },
+          "values": [{
+            "value": {
+              "boolValue": true
+            },
+            "count": 1
+          }, {
+            "value": {
+            },
+            "count": 3
+          }],
+          "children": [{
+            "sourcePosition": {
+              "line": 56,
+              "column": 20,
+              "currentOffset": 1626,
+              "endOffset": 1650
+            },
+            "values": [{
+              "value": {
+                "intValue": "11"
+              },
+              "count": 1
+            }, {
+              "value": {
+              },
+              "count": 3
+            }],
+            "children": [{
+              "sourcePosition": {
+                "line": 56,
+                "column": 20,
+                "currentOffset": 1626,
+                "endOffset": 1645
+              },
+              "values": [{
+                "value": {
+                  "stringValue": "Lorem Ipsum"
+                },
+                "count": 1
+              }, {
+                "value": {
+                },
+                "count": 3
+              }],
+              "children": [{
+                "sourcePosition": {
+                  "line": 56,
+                  "column": 20,
+                  "currentOffset": 1626,
+                  "endOffset": 1637
+                },
+                "values": [{
+                  "value": {
+                    "mapValue": {
+                      "fields": {
+                        "published": {
+                          "boolValue": false
+                        },
+                        "title": {
+                          "stringValue": "Lorem Ipsum"
+                        },
+                        "content": {
+                          "stringValue": "lorem ipsum dolor sit amet"
+                        },
+                        "uid": {
+                          "stringValue": "author"
+                        },
+                        "createdAt": {
+                          "timestampValue": "2021-03-27T09:20:53.279Z"
+                        }
+                      }
+                    }
+                  },
+                  "count": 1
+                }, {
+                  "value": {
+                  },
+                  "count": 3
+                }]
+              }]
+            }]
+          }]
+        }]
+      }, {
+        "sourcePosition": {
+          "line": 57,
+          "column": 20,
+          "currentOffset": 1680,
+          "endOffset": 1715
+        },
+        "values": [{
+          "value": {
+            "boolValue": true
+          },
+          "count": 1
+        }, {
+          "value": {
+          },
+          "count": 3
+        }],
+        "children": [{
+          "sourcePosition": {
+            "line": 57,
+            "column": 20,
+            "currentOffset": 1680,
+            "endOffset": 1706
+          },
+          "values": [{
+            "value": {
+              "intValue": "26"
+            },
+            "count": 1
+          }, {
+            "value": {
+            },
+            "count": 3
+          }],
+          "children": [{
+            "sourcePosition": {
+              "line": 57,
+              "column": 20,
+              "currentOffset": 1680,
+              "endOffset": 1701
+            },
+            "values": [{
+              "value": {
+                "stringValue": "lorem ipsum dolor sit amet"
+              },
+              "count": 1
+            }, {
+              "value": {
+              },
+              "count": 3
+            }],
+            "children": [{
+              "sourcePosition": {
+                "line": 57,
+                "column": 20,
+                "currentOffset": 1680,
+                "endOffset": 1691
+              },
+              "values": [{
+                "value": {
+                  "mapValue": {
+                    "fields": {
+                      "published": {
+                        "boolValue": false
+                      },
+                      "title": {
+                        "stringValue": "Lorem Ipsum"
+                      },
+                      "content": {
+                        "stringValue": "lorem ipsum dolor sit amet"
+                      },
+                      "uid": {
+                        "stringValue": "author"
+                      },
+                      "createdAt": {
+                        "timestampValue": "2021-03-27T09:20:53.279Z"
+                      }
+                    }
+                  }
+                },
+                "count": 1
+              }, {
+                "value": {
+                },
+                "count": 3
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "sourcePosition": {
+        "line": 58,
+        "column": 20,
+        "currentOffset": 1737,
+        "endOffset": 1776
+      },
+      "values": [{
+        "value": {
+          "boolValue": true
+        },
+        "count": 1
+      }, {
+        "value": {
+        },
+        "count": 3
+      }],
+      "children": [{
+        "sourcePosition": {
+          "line": 58,
+          "column": 20,
+          "currentOffset": 1737,
+          "endOffset": 1760
+        },
+        "values": [{
+          "value": {
+            "timestampValue": "2021-03-27T09:20:53.279Z"
+          },
+          "count": 1
+        }, {
+          "value": {
+          },
+          "count": 3
+        }],
+        "children": [{
+          "sourcePosition": {
+            "line": 58,
+            "column": 20,
+            "currentOffset": 1737,
+            "endOffset": 1748
+          },
+          "values": [{
+            "value": {
+              "mapValue": {
+                "fields": {
+                  "published": {
+                    "boolValue": false
+                  },
+                  "title": {
+                    "stringValue": "Lorem Ipsum"
+                  },
+                  "content": {
+                    "stringValue": "lorem ipsum dolor sit amet"
+                  },
+                  "uid": {
+                    "stringValue": "author"
+                  },
+                  "createdAt": {
+                    "timestampValue": "2021-03-27T09:20:53.279Z"
+                  }
+                }
+              }
+            },
+            "count": 1
+          }, {
+            "value": {
+            },
+            "count": 3
+          }]
+        }]
+      }, {
+        "sourcePosition": {
+          "line": 58,
+          "column": 48,
+          "currentOffset": 1765,
+          "endOffset": 1776
+        },
+        "values": [{
+          "value": {
+            "timestampValue": "2021-03-27T09:20:53.279Z"
+          },
+          "count": 1
+        }, {
+          "value": {
+          },
+          "count": 3
+        }],
+        "children": [{
+          "sourcePosition": {
+            "line": 58,
+            "column": 48,
+            "currentOffset": 1765,
+            "endOffset": 1771
+          },
+          "values": [{
+            "value": {
+              "mapValue": {
+                "fields": {
+                  "time": {
+                    "timestampValue": "2021-03-27T09:20:53.279Z"
+                  },
+                  "auth": {
+                    "mapValue": {
+                      "fields": {
+                        "uid": {
+                          "stringValue": "author"
+                        },
+                        "token": {
+                          "mapValue": {
+                            "fields": {
+                              "iss": {
+                                "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                              },
+                              "aud": {
+                                "stringValue": "objects-omsistuff"
+                              },
+                              "iat": {
+                                "intValue": "0"
+                              },
+                              "exp": {
+                                "intValue": "3600"
+                              },
+                              "auth_time": {
+                                "intValue": "0"
+                              },
+                              "sub": {
+                                "stringValue": "author"
+                              },
+                              "user_id": {
+                                "stringValue": "author"
+                              },
+                              "firebase": {
+                                "mapValue": {
+                                  "fields": {
+                                    "sign_in_provider": {
+                                      "stringValue": "custom"
+                                    },
+                                    "identities": {
+                                      "mapValue": {
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "email": {
+                                "stringValue": "alice@example.com"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "headers": {
+                    "mapValue": {
+                    }
+                  },
+                  "inTransaction": {
+                    "boolValue": true
+                  },
+                  "path": {
+                    "pathValue": {
+                      "segments": [{
+                        "simple": "databases"
+                      }, {
+                        "simple": "(default)"
+                      }, {
+                        "simple": "documents"
+                      }, {
+                        "simple": "articles"
+                      }, {
+                        "simple": "articleId"
+                      }]
+                    }
+                  },
+                  "transforms": {
+                    "listValue": {
+                      "values": [{
+                        "stringValue": "createdAt"
+                      }]
+                    }
+                  },
+                  "writeFields": {
+                    "listValue": {
+                      "values": [{
+                        "stringValue": "createdAt"
+                      }]
+                    }
+                  },
+                  "readFields": {
+                    "nullValue": null
+                  },
+                  "resource": {
+                    "mapValue": {
+                      "fields": {
+                        "data": {
+                          "mapValue": {
+                            "fields": {
+                              "published": {
+                                "boolValue": false
+                              },
+                              "title": {
+                                "stringValue": "Lorem Ipsum"
+                              },
+                              "content": {
+                                "stringValue": "lorem ipsum dolor sit amet"
+                              },
+                              "uid": {
+                                "stringValue": "author"
+                              },
+                              "createdAt": {
+                                "timestampValue": "2021-03-27T09:20:53.279Z"
+                              }
+                            }
+                          }
+                        },
+                        "__name__": {
+                          "pathValue": {
+                            "segments": [{
+                              "simple": "databases"
+                            }, {
+                              "simple": "(default)"
+                            }, {
+                              "simple": "documents"
+                            }, {
+                              "simple": "articles"
+                            }, {
+                              "simple": "articleId"
+                            }]
+                          }
+                        },
+                        "id": {
+                          "stringValue": "articleId"
+                        }
+                      }
+                    }
+                  },
+                  "method": {
+                    "stringValue": "create"
+                  }
+                }
+              }
+            },
+            "count": 1
+          }, {
+            "value": {
+            },
+            "count": 3
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "sourcePosition": {
+      "line": 60,
+      "column": 30,
+      "currentOffset": 1810,
+      "endOffset": 1945
+    },
+    "children": [{
+      "sourcePosition": {
+        "line": 60,
+        "column": 30,
+        "currentOffset": 1810,
+        "endOffset": 1882
+      },
+      "children": [{
+        "sourcePosition": {
+          "line": 60,
+          "column": 30,
+          "currentOffset": 1810,
+          "endOffset": 1815
+        }
+      }, {
+        "sourcePosition": {
+          "line": 61,
+          "column": 20,
+          "currentOffset": 1839,
+          "endOffset": 1882
+        },
+        "children": [{
+          "sourcePosition": {
+            "line": 61,
+            "column": 32,
+            "currentOffset": 1851,
+            "endOffset": 1882
+          }
+        }]
+      }]
+    }, {
+      "sourcePosition": {
+        "line": 62,
+        "column": 20,
+        "currentOffset": 1906,
+        "endOffset": 1945
+      },
+      "children": [{
+        "sourcePosition": {
+          "line": 62,
+          "column": 20,
+          "currentOffset": 1906,
+          "endOffset": 1929
+        },
+        "children": [{
+          "sourcePosition": {
+            "line": 62,
+            "column": 20,
+            "currentOffset": 1906,
+            "endOffset": 1917
+          }
+        }]
+      }, {
+        "sourcePosition": {
+          "line": 62,
+          "column": 48,
+          "currentOffset": 1934,
+          "endOffset": 1945
+        },
+        "children": [{
+          "sourcePosition": {
+            "line": 62,
+            "column": 48,
+            "currentOffset": 1934,
+            "endOffset": 1940
+          }
+        }]
+      }]
+    }]
+  }, {
+    "sourcePosition": {
+      "line": 64,
+      "column": 30,
+      "currentOffset": 1979,
+      "endOffset": 2043
+    },
+    "children": [{
+      "sourcePosition": {
+        "line": 64,
+        "column": 30,
+        "currentOffset": 1979,
+        "endOffset": 1984
+      }
+    }, {
+      "sourcePosition": {
+        "line": 65,
+        "column": 20,
+        "currentOffset": 2008,
+        "endOffset": 2043
+      },
+      "children": [{
+        "sourcePosition": {
+          "line": 65,
+          "column": 20,
+          "currentOffset": 2008,
+          "endOffset": 2023
+        },
+        "children": [{
+          "sourcePosition": {
+            "line": 65,
+            "column": 20,
+            "currentOffset": 2008,
+            "endOffset": 2017
+          }
+        }]
+      }, {
+        "sourcePosition": {
+          "line": 65,
+          "column": 40,
+          "currentOffset": 2028,
+          "endOffset": 2043
+        },
+        "children": [{
+          "sourcePosition": {
+            "line": 65,
+            "column": 40,
+            "currentOffset": 2028,
+            "endOffset": 2039
+          },
+          "children": [{
+            "sourcePosition": {
+              "line": 65,
+              "column": 40,
+              "currentOffset": 2028,
+              "endOffset": 2034
+            }
+          }]
+        }]
+      }]
+    }]
+  }]
+};
+
+const REPORT_LIMIT_SIZE = 15
+
+window.onload = function() {
+  if (data.rules.files.length == 1) {
+    document.body.appendChild(buildFormattedReport(data.report || [], data.rules.files[0].content))
+  } else {
+    document.body.appendChild(document.createTextNode('Only single-file rules supported. ' +
+    'If you encounter this please visit https://github.com/firebase/firebase-tools/issues'))
+  }
+};
+
+/**
+ * Builds the html block with span elements for rule visualization.
+ *
+ * @param expressionList The list of expression blocks.
+ * @param ruleString The full text of the rules with newlines and special characters escaped.
+ * @return A <pre> html element with <span></span> around expressions and subexpressions within
+ *     .write, .read, and .validate tokens so that they can be selected.
+ */
+function buildFormattedReport(expressionList, ruleString) {
+  const elements = Object.keys(expressionList).map((key) => {
+    return mapExpressionBlock(expressionList[key], ruleString)
+  })
+  const withText = interpolateTextNodes(
+    elements,
+    ruleString,
+    0,
+    ruleString.length
+  )
+  var preElement = document.createElement('pre')
+  withText.forEach((element) => preElement.appendChild(element.element))
+  return preElement
+}
+
+/**
+ * Traverses an expression block.
+ *
+ * Each expression needs to be wrapped in a span and so it's children need to be immediately
+ * resolved so they can be added to the element.
+ *
+ * @param expressionBlock The current recursive chunk of expression data.
+ * @param ruleString The full text of the rules with newlines and special characters escaped.
+ * @return A single object with at least the keys start, end, and element. Element is the span
+ *    element for that [sub]expression. The span element should have all it's children
+ *    already added.
+ */
+function mapExpressionBlock(expressionBlock, ruleString) {
+  const start = expressionBlock.sourcePosition.currentOffset
+  const end = expressionBlock.sourcePosition.endOffset + 1
+  const onlyChildSpans = (expressionBlock.children || []).map(
+    (child) => mapExpressionBlock(child, ruleString)
+  )
+  const allChildren = interpolateTextNodes(
+    onlyChildSpans,
+    ruleString,
+    start,
+    end,
+    true
+  )
+  var span = document.createElement('span')
+  allChildren.forEach((child) => {
+    span.appendChild(child.element)
+  })
+  span.classList.add('coverage-expr')
+  span.title = buildValueString(expressionBlock.values);
+  return {
+    element: span,
+    start: start,
+    end: end
+  }
+}
+
+/**
+ * The formatted report data has information about where subexpression are located. It does not,
+ * however, have information about text around these expressions. This function takes a formatted
+ * list of spans (representing expressions) and puts surrounding text into text elements and
+ * returns the list of all elements in that given text-area.
+ *
+ * @param objs the list of spans to have their bounds interpolated. Each element in the list should
+ *    formatted with the keys start, end, and element.
+ * @param ruleString The full text of the rules with newlines and special characters escaped.
+ * @param optStart An optional start index to start gathering text-elements from.
+ * @param optEnd An optional end index to finish gathering text-elements at.
+ * @param whether to remove newlines from the text values.
+ * @return An interpolated list with all indices from start to end of the ruleString being
+ *    included in either a span or a text element.
+ */
+function interpolateTextNodes(objs, ruleString, start = null, end = null, removeNewLines = false) {
+  // Arrays so null objects aren't appended (options)
+  const expressionStart = start !== null ? [{'end': start}] : []
+  const expressionEnd = end !== null ? [{'start': end}] : []
+  const sortedInnerBlocks = (objs || []).sort((a, b) => (a['start'] - b['start']))
+  const blocksWithBounds = [].concat(expressionStart, sortedInnerBlocks, expressionEnd)
+  const interpolatedBlocks = blocksWithBounds.reduce((allChildren, child, idx) => {
+    if (allChildren && allChildren.length) {
+      const lastEnd = allChildren[allChildren.length - 1]['end']
+      const thisStart = child['start']
+      // This is an array so that we don't append null objects
+      if (lastEnd < thisStart) {
+        const text = ruleString.substring(lastEnd, thisStart)
+        const textElement = [{
+          element: document.createTextNode(removeNewLines ? text.replace(/\n\s*/g,' ') : text),
+          'start': allChildren[allChildren.length - 1]['end'],
+          'end': child['start']
+        }]
+        return allChildren.concat(textElement, child)
+      }
+    }
+    return allChildren.concat(child)
+  }, [])
+  return interpolatedBlocks.filter(
+    (child) => child['start'] !== undefined && child['end'] !== undefined
+  )
+}
+
+/**
+ * Creates the mouse-over text for each span.
+ *
+ * @param values The array of value objects formatted as {value: **, count: **}.
+ * @return A single string for the mouse-over text.
+ */
+function buildValueString(values) {
+  if (!values || !values.length) {
+    return 'Expression never evaluated'
+  } else if (values.length >= REPORT_LIMIT_SIZE) {
+    const allCounts = values.reduce((acc, obj) => acc + obj.count, 0)
+    return `${values.length} distinct items returned over ${allCounts} times`
+  } else {
+    return values.map(({value, count}) => {
+      const allowedTypes = ['nullValue', 'boolValue', 'intValue', 'floatValue', 'stringValue',
+        'bytesValue', 'durationValue', 'timestampValue', 'latlngValue', 'pathValue']
+      const compressedTypes = ['mapValue', 'listValue', 'constraintValue']
+      const typeAllowed = allowedTypes.filter(type => value[type] !== undefined).length == 1
+      const typeCompressed = compressedTypes.filter(type => value[type] !== undefined).length >= 1
+      // Format is value = {returnType: returnValue}
+      // A returnType of undefined is an error. Unfortunately the field is called undefined.
+      if (value['undefined']) {
+        // Expression evaluated to error
+        return `Error '${value.undefined.causeMessage}' occurred ${count} time(s)`
+      } else if (typeCompressed) {
+        // These types are recursive and are hard to read
+        return `[object Object] returned ${count} time(s)`
+      } else if (typeAllowed) {
+        // The response is a simple literal
+        // Object.values is not ES2015
+        const realValue = Object.keys(value).map((key) => value[key])[0]
+        return `Value ${JSON.stringify(realValue)} returned ${count} time(s)`
+      } else if (Object.keys(value).length === 0) {
+        // Clause not evaluated because of short-circuit.
+        return `Expression short-circuited ${count} time(s)`
+      } else {
+        // For a properly formatted response each value should have one type.
+        console.error('Found invalid expression-return type.')
+      }
+    }).join('\n')
+  }
+}
+</script>

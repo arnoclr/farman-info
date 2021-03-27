@@ -21,12 +21,8 @@ service cloud.firestore {
             return request.resource.data
         }
 
-        function notNull(field) {
-            return incomingData().field != null
-        }
-
-        function notModified(field) {
-            return actualData().field == incomingData().field
+        function notModified(fields) {
+            return incomingData().diff(incomingData()).unchangedKeys().hasAll(fields)
         }
 
         // lock access for all documents
@@ -57,18 +53,13 @@ service cloud.firestore {
             allow create: if isAuth()
                 && incomingData().uid == request.auth.uid
                 && incomingData().published == false
-                && notNull(title)
-                && notNull(content)
-                && notNull(createdAt)
+                && incomingData().title.size() < 120
+                && incomingData().content.size() < 4096
                 && incomingData().createdAt == request.time
-                && notNull(updatedAt)
-                && incomingData().updatedAt == request.time
 
             allow update: if isAuth()
-                && actualData().uid == request.auth.uid
-                && notModified(createdAt)
-                && request.time > (actualData().updatedAt + duration.time(1, 0, 0, 0))
-                && incomingData().updatedAt > (actualData().updatedAt + duration.time(1, 0, 0, 0))
+                && notModified(['uid', 'createdAt', 'published'])
+                && incomingData().updatedAt == request.time
 
             allow delete: if isAuth()
                 && actualData().uid == request.auth.uid
