@@ -83,7 +83,7 @@ header {
 
 [bottom] {
     height: 72px;
-    box-shadow: 0 8px 6px -6px rgba(60, 64, 67, 0.15);
+    box-shadow: 0 9px 10px 0 rgba(34, 34, 34, 0.1);
     background: #fff;
 
     ul {
