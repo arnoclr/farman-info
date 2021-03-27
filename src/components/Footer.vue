@@ -61,12 +61,12 @@ footer {
     .links {
         display: flex;
         justify-content: space-evenly;
-        background-color: #888;
+        background-color: #000;
         
         a {
             text-decoration: none;
             color: #fff;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         p {
