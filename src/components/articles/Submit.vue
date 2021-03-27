@@ -8,7 +8,16 @@
                     <label>Titre</label>
                     <md-input v-model="title"></md-input>
                 </md-field>
-                <text-editor :change="updateContent"></text-editor>
+                <text-editor :counter="4096" :change="updateContent"></text-editor>
+                <md-field>
+                <label for="category" v-if="categories">Catégorie</label>
+                    <md-select v-model="category" name="category" id="category">
+                        <md-option 
+                            v-for="(category, id) in categories"
+                            v-bind:key="id"
+                            :value="id">{{ category.label }}</md-option>
+                    </md-select>
+                </md-field>
             </div>
 
             <div>
@@ -29,17 +38,35 @@ main {
 </style>
 
 <script>
+import {db} from '../../firebaseConfig'
+
 export default {
     data() {
         return {
             title: '',
             content: '',
+            category: null,
+            categories: [],
         }
     },
     methods: {
         updateContent(value) {
             this.content = value
-        } 
+        },
+        getCategories() {
+            db.collection('categories').get().then(query => {
+                query.forEach(doc => {
+                    let buffer = doc.data()
+                    buffer.id = doc.id
+                    this.categories.push(buffer)
+                })
+            }).catch(err => {
+                alert(err)
+            })
+        }
+    },
+    created() {
+        this.getCategories()
     },
     components: {
         AppFooter: () => import('../Footer.vue'),

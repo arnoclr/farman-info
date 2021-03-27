@@ -2,7 +2,7 @@
     <div>
         <md-field>
             <label>Edition du texte</label>
-            <md-textarea v-model="content" @keyup="updateContent"></md-textarea>
+            <md-textarea :md-counter="counter" :md-autogrow="true" v-model="content" @keyup="updateContent"></md-textarea>
         </md-field>
 
         <md-button @click="imageUploaderOpen = true">insérer une image</md-button>
@@ -16,7 +16,9 @@ export default {
         imageUploader: () => import('../utils/ImageUploader')
     },
     props: [
-        'change'
+        'change',
+        'height',
+        'counter'
     ],
     data() {
         return {

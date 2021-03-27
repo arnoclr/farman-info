@@ -88,7 +88,8 @@ export default {
             imageCompression(img, {
                 maxSizeMB: 2,
                 maxWidthOrHeight: 1920,
-                useWebWorker: true
+                useWebWorker: true,
+                initialQuality: 0.5
             }).then(img => {
                 this.uploadImage(img)
             }).catch(err => {

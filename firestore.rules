@@ -64,5 +64,9 @@ service cloud.firestore {
             allow delete: if isAuth()
                 && actualData().uid == request.auth.uid
         }
+
+        match /categories/{cid} {
+            allow read: if true
+        }
     }
 }
