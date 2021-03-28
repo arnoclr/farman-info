@@ -144,7 +144,7 @@
             content: 'expand_more';
             display: inline-block;
             color: #fff;
-            font-family: 'Material Icons';
+            font-family: 'Material Icons Sharp';
             font-size: 48px;
             transition: transform 250ms ease 350ms;
             // margin-top: 12px;
