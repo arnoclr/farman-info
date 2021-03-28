@@ -8,6 +8,10 @@
 body {
     font-family: 'Inter', Arial, Helvetica, sans-serif;
     background-color: #fff;
+
+    main {
+        min-height: calc(100vh - 104px - 180px);
+    }
 }
 
 // buttons
