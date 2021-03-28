@@ -9,8 +9,10 @@
         <md-button @click="title" class="md-icon-button">
             <md-icon>title</md-icon>
         </md-button>
-
-        <md-button @click="imageUploaderOpen = true">insérer une image</md-button>
+        <md-button @click="imageUploaderOpen = true" class="md-icon-button">
+            <md-icon>add_a_photo</md-icon>
+        </md-button>
+        
         <image-uploader :callback="insertMarkdownImage" :open="imageUploaderOpen" :close="imageUploaderClose"></image-uploader>
     </div>
 </template>

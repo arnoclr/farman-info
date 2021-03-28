@@ -4,23 +4,30 @@
 
         <main>
             <div>
-                <md-field>
-                    <label>Titre</label>
-                    <md-input md-counter="80" v-model="title"></md-input>
-                </md-field>
-                <text-editor :counter="4096" :change="updateContent"></text-editor>
-                <md-field>
-                <label for="category" v-if="categories">Catégorie</label>
-                    <md-select v-model="category" name="category" id="category">
-                        <md-option 
-                            v-for="(category, id) in categories"
-                            v-bind:key="id"
-                            :value="id">{{ category.label }}</md-option>
-                    </md-select>
-                </md-field>
+                <md-tabs id="submit-article-tabs">
+                    <md-tab md-label="édition">
+                        <md-field>
+                            <label>Titre</label>
+                            <md-input md-counter="80" v-model="title"></md-input>
+                        </md-field>
+                        <text-editor :counter="4096" :change="updateContent"></text-editor>
+                        <md-field>
+                        <label for="category" v-if="categories">Catégorie</label>
+                            <md-select v-model="category" name="category" id="category">
+                                <md-option 
+                                    v-for="(category, id) in categories"
+                                    v-bind:key="id"
+                                    :value="id">{{ category.label }}</md-option>
+                            </md-select>
+                        </md-field>
+                    </md-tab>
+                    <md-tab md-label="prévisualisation" v-if="isMobile">
+                        <vue-simple-markdown v-if="content" :source="content"></vue-simple-markdown>
+                    </md-tab>
+                </md-tabs>
             </div>
 
-            <div>
+            <div preview-desktop>
                 <vue-simple-markdown v-if="content" :source="content"></vue-simple-markdown>
                 <md-empty-state v-else
                     md-icon="edit"
@@ -40,6 +47,26 @@ main {
     grid-template-columns: 1fr 1fr;
     column-gap: 32px;
 }
+
+@media screen and(max-width: 800px) {
+    main {
+        grid-template-columns: 1fr;
+        column-gap: 8px;
+
+        [preview-desktop] {
+            display: none;
+        }
+    }
+}
+</style>
+
+<style>
+#submit-article-tabs .md-tabs-navigation {
+    position: sticky;
+    top: 70px;
+    background-color: #fff;
+    z-index: 1;
+}
 </style>
 
 <script>
@@ -52,6 +79,7 @@ export default {
             content: '',
             category: null,
             categories: false,
+            isMobile: window.matchMedia('only screen and (max-width: 800px)').matches,
         }
     },
     methods: {
@@ -73,6 +101,9 @@ export default {
     },
     created() {
         this.getCategories()
+        window.addEventListener('resize', () => {
+            this.isMobile = window.matchMedia('only screen and (max-width: 800px)').matches
+        })
     },
     components: {
         AppFooter: () => import('../Footer.vue'),
