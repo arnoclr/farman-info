@@ -224,11 +224,11 @@ header {
         methods: {
             login() {
                 localStorage.setItem('login-from-url', window.location.href)
-                this.$router.push('/login')
+                this.$router.push('/login?ref=navbar')
             },
             logout() {
                 if(confirm('Se déconnecter ?')) {
-                    firebase.auth().signOut().then(() =>{
+                    firebase.auth().signOut().then(() => {
                         this.$router.go()
                     }).catch(err => {
                         console.log(err)

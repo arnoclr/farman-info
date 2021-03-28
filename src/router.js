@@ -96,7 +96,7 @@ router.beforeEach((to, from, next) => {
 
   if (requiresAuth && !currentUser) {
     localStorage.setItem('login-from-url', to.fullPath)
-    next('/login')
+    next('/login?ref=auto_redirect')
   } else if (requiresAuth && currentUser) {
     next()
   } else {
