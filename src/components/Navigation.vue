@@ -69,6 +69,7 @@ header {
     [r] {
         float: right;
         margin-right: 32px;
+        transition: transform 150ms ease-out;
         
         span {
             padding-top: 6px;
@@ -84,6 +85,10 @@ header {
                     margin-left: 8px;
                 }
             }
+        }
+
+        &:hover {
+            transform: translateX(16px);
         }
     }
 
