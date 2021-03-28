@@ -33,11 +33,13 @@
             font-family: 'Inter', Arial, Helvetica, sans-serif;
             font-weight: 500;
             font-size: 16px;
+            animation: toblack 2s steps(1, end) forwards;
         }
         #sky {
             height: 100vh;
             width: 100vw;
             background-color: #17969c;
+            cursor: progress;
             animation: fadeout 5s ease-out forwards;
         }
         @keyframes forward {
@@ -58,6 +60,11 @@
                 opacity: 0;
             }
         }
+        @keyframes toblack {
+            to {
+                color: #000;
+            }
+        }
     </style>
 </head>
 
@@ -70,6 +77,36 @@
             </svg>
         </div>
         <span id="message">Chargement des scripts ...</span>
+        <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            var attemps = urlParams.get('retry') || 1;
+            setTimeout(() => {
+                if(document.getElementById('message')) {
+                    document.getElementById('message').innerText = 'Le chargement prend du temps'
+                }
+            }, 4000);
+            setTimeout(() => {
+                var i = 0
+                var initTime = attemps * 15 - 3
+                setInterval(() => {
+                    if(document.getElementById('message') && attemps < 3) {
+                        i++
+                        var timeLeft = initTime - i
+                        document.getElementById('message').innerText = 'Tentative de reconnexion dans ' + timeLeft + 's ...'
+                    }
+                }, 1000);
+            }, 5000);
+            setTimeout(() => {
+                if(document.getElementById('message')) {
+                    if(attemps < 3) {
+                        attemps++
+                        window.location.href = '/?retry=' + attemps
+                    } else {
+                        document.getElementById('message').innerText = 'Le site est inaccessible'
+                    }
+                }
+            }, 2000 + attemps * 15000);
+        </script>
     </div>
 </body>
 
