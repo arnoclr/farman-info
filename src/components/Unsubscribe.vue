@@ -2,25 +2,29 @@
     <div>
         <app-header></app-header>
 
-        <main>
-            <div v-if="isSignedIn">
-                <span>désinscription</span>
-                <h1>Quitter la lettre d'informations ?</h1>
-                <p>En cliquant sur le bouton ci-dessous, vous ne recevrez plus de mails d'informations de notre part. Vous continuerez cependant a recevoir des mails de connexion ou de récupération de compte, ainsi que des informations légales ci nécéssaire.</p>
-                <md-button class="md-raised md-accent" @click="signOut">Quitter</md-button>
-            </div>
+        <div class="divided">
+            <main>
+                <div v-if="isSignedIn">
+                    <span>désinscription</span>
+                    <h1>Quitter la lettre d'informations ?</h1>
+                    <p>En cliquant sur le bouton ci-dessous, vous ne recevrez plus de mails d'informations de notre part. Vous continuerez cependant a recevoir des mails de connexion ou de récupération de compte, ainsi que des informations légales ci nécéssaire.</p>
+                    <md-button class="md-raised md-accent" @click="signOut">Quitter</md-button>
+                </div>
 
-            <div v-else>
-                <md-empty-state
-                    md-icon="email"
-                    md-label="Vous n'êtes pas inscrit"
-                    md-description="Vous n'avez jamais été inscrit ou vous vous êtes desinscrit récemment, pour vous réinscrire, cliquez sur le bouton ci-dessous.">
-                    <router-link to="/?ref=unsubscribe_page">
-                        <md-button class="md-primary md-raised">S'inscrire</md-button>
-                    </router-link>
-                </md-empty-state>
-            </div>
-        </main>
+                <div v-else>
+                    <md-empty-state
+                        md-icon="email"
+                        md-label="Vous n'êtes pas inscrit"
+                        md-description="Vous n'avez jamais été inscrit ou vous vous êtes desinscrit récemment, pour vous réinscrire, cliquez sur le bouton ci-dessous.">
+                        <router-link to="/?ref=unsubscribe_page">
+                            <md-button class="md-primary md-raised">S'inscrire</md-button>
+                        </router-link>
+                    </md-empty-state>
+                </div>
+            </main>
+
+            <app-sidebar></app-sidebar>
+        </div>
 
         <app-footer></app-footer>
     </div>
@@ -40,7 +44,8 @@ const {db, firebase} = require('../firebaseConfig.js')
 export default {
     components: {
         AppFooter: () => import('./Footer.vue'),
-        AppHeader: () => import('./Navigation.vue')
+        AppHeader: () => import('./Navigation.vue'),
+        AppSidebar: () => import('./utils/Sidebar.vue')
     },
     data() {
         return {
