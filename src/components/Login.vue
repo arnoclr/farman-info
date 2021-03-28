@@ -89,7 +89,8 @@ p.firebaseui-tospp-full-message {
         name: 'login',
         data() {
             return {
-                loginFromUrl: null
+                loginFromUrl: null,
+                user: this.$root.user
             }
         },
         components: {
@@ -100,8 +101,8 @@ p.firebaseui-tospp-full-message {
             if(localStorage) {
                 this.loginFromUrl = localStorage.getItem('login-from-url')
             }
-            if(firebase.auth().currentUser) {
-                this.$router.push('/')
+            if(this.$root.user) {
+                this.exitLoginPage()
             } else {
                 var uiConfig = {
                     signInSuccessUrl: this.loginFromUrl,
@@ -146,6 +147,20 @@ p.firebaseui-tospp-full-message {
                 }
                 ui.start('#firebaseui-auth-container', uiConfig)
             }
+        },
+        methods: {
+            exitLoginPage() {
+                this.$router.push(this.loginFromUrl)
+            }
+        },
+        created() {
+            this.$root.$on('onAuthStateChanged', () => {
+                this.user = this.$root.user
+                this.exitLoginPage()
+            })
+        },
+        beforeDestroy() {
+            this.$root.$off('onAuthStateChanged')
         }
     }
 </script>
