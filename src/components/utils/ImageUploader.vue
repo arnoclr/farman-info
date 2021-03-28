@@ -19,7 +19,7 @@
                             <label>Lien vers l'image</label>
                             <md-input v-model="fromUrl"></md-input>
                         </md-field>
-                        <md-button @click="getBlob(fromUrl)" class="md-raised md-primary">importer</md-button>
+                        <md-button @click="getBlob(fromUrl)" :disabled="uploading" class="md-raised md-primary">importer</md-button>
                     </md-tab>
                 </md-tabs>
 
@@ -29,7 +29,7 @@
             </md-dialog-content>
 
             <md-dialog-actions>
-                <md-button class="md-primary" @click="closeModal">fermer</md-button>
+                <md-button class="md-primary" @click="closeModal" :disabled="uploading">fermer</md-button>
             </md-dialog-actions>
         </md-dialog>
 
@@ -77,6 +77,7 @@ export default {
             error: null,
             fromUrl: null,
             imageFile: null,
+            uploading: false
         }
     },
     methods: {
@@ -84,6 +85,7 @@ export default {
             this.close()
         },
         compressImage() {
+            this.uploading = true
             let img = document.getElementById('img-input').files[0]
             imageCompression(img, {
                 maxSizeMB: 2,
@@ -97,12 +99,14 @@ export default {
             })
         },
         getBlob(url) {
+            this.uploading = true
             fetch(url).then(res => {
                 return res.blob();
             }).then(blob => {
                 this.uploadImage(blob)
             }).catch(err => {
                 this.error = err
+                this.uploading = false
             })
         },
         uploadImage(img) {
@@ -118,9 +122,11 @@ export default {
                 }, 
                 (error) => {
                     this.error = error
+                    this.uploading = false
                 }, 
                 () => {
                     uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        this.uploading = false
                         this.closeModal()
                         this.callback(downloadURL)
                     })
