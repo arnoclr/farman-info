@@ -6,13 +6,4 @@
   theme: light // This can be dark or light
 ));
 
-@import "~vue-material/dist/components/MdButton/theme";
-@import "~vue-material/dist/components/MdDialog/theme";
-@import "~vue-material/dist/components/MdTabs/theme";
-@import "~vue-material/dist/components/MdField/theme";
-@import "~vue-material/dist/components/MdTable/theme";
-@import "~vue-material/dist/components/MdCard/theme";
-@import "~vue-material/dist/components/MdContent/theme";
-@import "~vue-material/dist/components/MdEmptyState/theme";
-@import "~vue-material/dist/components/MdMenu/theme";
-@import "~vue-material/dist/components/MdList/theme";
+@import "~vue-material/dist/theme/all";

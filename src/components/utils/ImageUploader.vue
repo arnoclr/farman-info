@@ -7,10 +7,9 @@
                 <md-tabs md-dynamic-height>
                     <md-tab md-label="importer" import>
                         <img src="https://ssl.gstatic.com/docs/picker/images/upload_background.png" alt="illustration nuages">
-                        <progress id="img-progress" max="1" value="0"></progress>
                         <md-field>
                             <label>Image</label>
-                            <md-file v-model="imageFile" accept="image/*" id="img-input" @change="compressImage"/>
+                            <md-file v-model="imageFile" accept="image/*" id="img-input" @change="hasChanged"/>
                         </md-field>
                     </md-tab>
 
@@ -23,6 +22,7 @@
                     </md-tab>
                 </md-tabs>
 
+                <md-progress-bar v-if="uploading" :md-mode="progressMode" :md-value="progressValue"></md-progress-bar>
                 <div v-if="error" e>
                     <span>{{ error }}</span>
                 </div>
@@ -77,16 +77,22 @@ export default {
             error: null,
             fromUrl: null,
             imageFile: null,
-            uploading: false
+            uploading: false,
+            progressMode: 'query',
+            progressValue: 0
         }
     },
     methods: {
         closeModal() {
             this.close()
         },
-        compressImage() {
-            this.uploading = true
+        hasChanged() {
             let img = document.getElementById('img-input').files[0]
+            this.compressImage(img)
+        },
+        compressImage(img) {
+            this.progressMode = 'buffer'
+            this.uploading = true
             imageCompression(img, {
                 maxSizeMB: 2,
                 maxWidthOrHeight: 1920,
@@ -96,20 +102,23 @@ export default {
                 this.uploadImage(img)
             }).catch(err => {
                 this.error = err
+                this.uploading = false
             })
         },
         getBlob(url) {
+            this.progressMode = 'query'
             this.uploading = true
             fetch(url).then(res => {
                 return res.blob();
             }).then(blob => {
-                this.uploadImage(blob)
+                this.compressImage(blob)
             }).catch(err => {
                 this.error = err
                 this.uploading = false
             })
         },
         uploadImage(img) {
+            this.progressMode = 'determinate'
             let ref = images.child(uuidv4())
             let uploadTask = ref.put(img)
 
@@ -117,8 +126,7 @@ export default {
             uploadTask.on('state_changed',
                 (snapshot) => {
                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                    let progress = (snapshot.bytesTransferred / snapshot.totalBytes)
-                    document.getElementById('img-progress').value = progress
+                    this.progressValue = (snapshot.bytesTransferred / snapshot.totalBytes)
                 }, 
                 (error) => {
                     this.error = error
