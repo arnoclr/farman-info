@@ -1,5 +1,6 @@
 <template>
     <div>
+        <md-progress-bar v-if="$root.loading" md-mode="indeterminate" pb></md-progress-bar>
         <router-view/>
         <cookie-law
             button-text="Accepter" button-class="button" 
@@ -23,16 +24,12 @@
 
 <script>
     import Navigation from './components/Navigation.vue'
-    import {mapState} from 'vuex'
     import CookieLaw from 'vue-cookie-law'
     
     export default {
         components: {
             CookieLaw,
             Navigation
-        },
-        computed: {
-            ...mapState(['user'])
         }
     }
 </script>

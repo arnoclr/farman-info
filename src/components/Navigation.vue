@@ -212,7 +212,7 @@ header {
         ],
         data() {
             return {
-                user: firebase.auth().currentUser,
+                user: this.$root.user,
                 hasArticleDraft: localStorage.getItem('submit:draft')
             }
         },
@@ -230,6 +230,14 @@ header {
                     })
                 }
             }
-        }
+        },
+        created() {
+            this.$root.$on('onAuthStateChanged', () => {
+                this.user = this.$root.user
+            })
+        },
+        beforeDestroy() {
+            this.$root.$off('onAuthStateChanged')
+        },
     }
 </script>

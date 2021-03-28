@@ -2,13 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import firebase from 'firebase'
 
-import Login from '@/components/Login'
-import Landing from '@/components/Landing'
-import Magazine from '@/components/magazines/Magazine'
-import Magazines from '@/components/magazines/List'
-import PdfViewer from '@/components/magazines/PdfViewer'
-import NotFound from '@/components/NotFound'
-
 Vue.use(Router)
 
 const router = new Router({
@@ -18,7 +11,7 @@ const router = new Router({
     {
       path: '/',
       name: 'Landing Page',
-      component: Landing,
+      component: () => import('@/components/Landing'),
       meta: {
         title: 'Farman, bientôt disponible ...'
       }
@@ -26,7 +19,7 @@ const router = new Router({
 		{
 			path: '/login',
 			name: 'Login',
-			component: Login,
+			component: () => import('@/components/Login'),
       meta: {
         title: 'Se connecter'
       }
@@ -43,7 +36,7 @@ const router = new Router({
     {
 			path: '/magazines',
 			name: 'Magazines',
-			component: Magazines,
+			component: () => import('@/components/magazines/List'),
       meta: {
         title: 'Les derniers magazines'
       }
@@ -51,7 +44,7 @@ const router = new Router({
     {
       path: '/magazine/:ref',
       name: 'Magazine',
-      component: Magazine,
+      component: () => import('@/components/magazines/Magazine'),
       params: true,
       meta: {
         title: 'Magazine'
@@ -60,7 +53,7 @@ const router = new Router({
     {
       path: '/magazine/:ref/view',
       name: 'PdfViewer',
-      component: PdfViewer,
+      component: () => import('@/components/magazines/PdfViewer'),
       params: true,
       meta: {
         title: 'Liseuse du magazine'
@@ -87,7 +80,7 @@ const router = new Router({
     {
       path: '*',
       name: 'NotFound',
-      component: NotFound,
+      component: () => import('@/components/NotFound'),
       meta: {
         title: 'Page non trouvée - err:404'
       }
