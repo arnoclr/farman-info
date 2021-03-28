@@ -9,13 +9,13 @@ Farman web application is built with vuejs and google firebase.
 # Test
 
 You can run app in localhost by typing :
-
 ```sh
+npm install
 npm run serve
 ```
+After, open website on http://localhost:8080/
 
 or build assets with this command :
-
 ```sh
 npm run build
 ```
