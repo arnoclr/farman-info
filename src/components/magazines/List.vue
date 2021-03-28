@@ -13,7 +13,12 @@
                 <div class="list" v-if="magazines">
                     <div v-for="(item, index) in magazines" v-bind:key="index">
                         <div class="magazine-last" v-if="index === 0">
-                            <h2>Dernier numéro</h2>
+                            <h2>Dernier numéro
+                                <md-button @click="requestNotifications" class="md-icon-button" b>
+                                    <md-icon>notification_add</md-icon>
+                                    <md-tooltip md-direction="bottom">Activer les notifications</md-tooltip>
+                                </md-button>
+                            </h2>
                             <router-link :to="'/magazine/' + item.id + '?ref=thumb'">
                                 <img :src="item.image" alt="">
                             </router-link>
@@ -58,6 +63,10 @@
     display: flex;
 }
 
+[b] {
+    margin-top: -8px;
+}
+
 .box span {
     color: #999;
 }
@@ -86,6 +95,7 @@ a {
 
 <script>
 const {magazines} = require('../../firebaseConfig.js')
+import { askForPermissioToReceiveNotifications } from '../../assets/js/push-notification';
 
 export default {
     components: {
@@ -122,6 +132,9 @@ export default {
                 this.error = err
             })
         },
+        requestNotifications() {
+            askForPermissioToReceiveNotifications()
+        }
     }
 }
 </script>

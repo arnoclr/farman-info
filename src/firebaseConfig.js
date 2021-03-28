@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/storage'
 import 'firebase/auth'
+import 'firebase/messaging'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBzk6MWgJJcmZNP4oKhp_xCfI8PhTdqRGE",
@@ -27,6 +28,7 @@ firebase.initializeApp(firebaseConfig)
 const db = firebase.firestore()
 const auth = firebase.auth()
 const storage = firebase.storage()
+const messaging = firebase.messaging()
 
 // firebase collections
 const magazines = db.collection('magazines')
@@ -36,5 +38,6 @@ export {
   auth,
   storage,
   magazines,
+  messaging,
   firebase
 }
