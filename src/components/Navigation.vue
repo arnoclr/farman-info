@@ -235,14 +235,6 @@ header {
                     })
                 }
             }
-        },
-        created() {
-            this.$root.$on('onAuthStateChanged', () => {
-                this.user = this.$root.user
-            })
-        },
-        beforeDestroy() {
-            this.$root.$off('onAuthStateChanged')
-        },
+        }
     }
 </script>

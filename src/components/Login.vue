@@ -101,7 +101,7 @@ p.firebaseui-tospp-full-message {
             if(localStorage) {
                 this.loginFromUrl = localStorage.getItem('login-from-url')
             }
-            if(this.$root.user) {
+            if(this.user) {
                 this.exitLoginPage()
             } else {
                 var uiConfig = {
@@ -152,15 +152,6 @@ p.firebaseui-tospp-full-message {
             exitLoginPage() {
                 this.$router.push(this.loginFromUrl)
             }
-        },
-        created() {
-            this.$root.$on('onAuthStateChanged', () => {
-                this.user = this.$root.user
-                this.exitLoginPage()
-            })
-        },
-        beforeDestroy() {
-            this.$root.$off('onAuthStateChanged')
         }
     }
 </script>

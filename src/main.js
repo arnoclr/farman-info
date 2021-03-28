@@ -23,26 +23,31 @@ console.log('%cAtttention !', 'color: #f00; background: #ff0; font-size: 24px')
 console.log('%cEn utilisant cette console, vous vous exposez au risque que des personnes malveillantes usurpent votre identité et volent vos informations par le biais d\'une attaque appelée Self-XSS.\nNe saisissez pas et ne copiez pas du code que vous ne comprenez pas.', 'font-size: 16px')
 console.log('%cLe code du site est open source → https://github.com/Aryqs-Ipsum/farman-info', 'color: #333; font-size: 16px')
 
-const app = new Vue({
-  data: {
-    loading: false,
-    user: null
-  },
-  el: '#app',
-  router,
-  render: h => h(App)
-})
+let app
+
+console.time('login')
+document.getElementById('message').innerText = "Authentification ..."
 
 fb.auth.onAuthStateChanged(user => {
-  app.user = user
-  app.$root.$emit('onAuthStateChanged')
-})
+  console.timeEnd('login')
+  if(!app) {
+    app = new Vue({
+      data: {
+        loading: false,
+        user: user
+      },
+      el: '#app',
+      router,
+      render: h => h(App)
+    })
 
-router.beforeEach((to, from, next) => {
-  app.loading = true
-  next()
-})
-
-router.afterEach(() => {
-  app.loading = false
+    router.beforeEach((to, from, next) => {
+      app.loading = true
+      next()
+    })
+    
+    router.afterEach(() => {
+      app.loading = false
+    })
+  }
 })
