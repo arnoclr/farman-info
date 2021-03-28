@@ -8,11 +8,11 @@
                 <img :src="user.photoURL ? user.photoURL : 'https://i.stack.imgur.com/34AD2.jpg'" :title="'connecté en tant que : ' + user.displayName" alt="photo de profil" pp>
             </div>
             <router-link to="/articles/submit?ref=navbar_draft_continue" v-if="hasArticleDraft" r>
-                <span>Terminer la rédaction de mon article <i class="material-icons">arrow_forward</i></span>
+                <span>Terminer la rédaction de mon article <i rt class="material-icons">arrow_forward</i></span>
             </router-link>
-            <div r v-else>
-                <span>Site web d'actualités aéronautiques</span>
-            </div>
+            <router-link to="/articles/submit?ref=navbar" r v-else>
+                <span><i lt class="material-icons">edit</i> Proposer un article</span>
+            </router-link>
         </section>
         <section bottom>
             <router-link to="/?ref=header_logo">
@@ -75,7 +75,14 @@ header {
 
             i {
                 font-size: 18px;
-                margin-left: 8px;
+                
+                &[lt] {
+                    margin-right: 8px;
+                }
+
+                &[rt] {
+                    margin-left: 8px;
+                }
             }
         }
     }
