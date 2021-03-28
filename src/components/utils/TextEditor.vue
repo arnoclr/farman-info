@@ -2,8 +2,13 @@
     <div>
         <md-field>
             <label>Edition du texte</label>
-            <md-textarea :md-counter="counter" :md-autogrow="true" v-model="content" @keyup="updateContent"></md-textarea>
+            <md-textarea id="te-ta" :md-counter="counter" :md-autogrow="true" v-model="content" @keyup="updateContent"></md-textarea>
+            <span class="md-helper-text">Brouillon enregistré</span>
         </md-field>
+
+        <md-button @click="title" class="md-icon-button">
+            <md-icon>title</md-icon>
+        </md-button>
 
         <md-button @click="imageUploaderOpen = true">insérer une image</md-button>
         <image-uploader :callback="insertMarkdownImage" :open="imageUploaderOpen" :close="imageUploaderClose"></image-uploader>
@@ -29,13 +34,28 @@ export default {
     methods: {
         updateContent() {
             this.change(this.content)
+            localStorage.setItem('submit:draft', this.content)
         },
         imageUploaderClose() {
             this.imageUploaderOpen = false
         },
         insertMarkdownImage(url) {
-            this.content += `![remplacer ici par une légende](${url})\n`
-            this.change(this.content)
+            this.appendContent(`\n![remplacer ici par une légende](${url})\n`)
+        },
+        title() {
+            this.appendContent('\n# ')
+        },
+        appendContent(text) {
+            this.content += text
+            document.getElementById('te-ta').focus()
+            this.updateContent()
+        }
+    },
+    mounted() {
+        let draft = localStorage.getItem('submit:draft')
+        if(draft) {
+            this.content = draft
+            this.updateContent()
         }
     }
 }

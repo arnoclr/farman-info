@@ -51,7 +51,7 @@ export default {
             title: '',
             content: '',
             category: null,
-            categories: [],
+            categories: false,
         }
     },
     methods: {
@@ -60,6 +60,7 @@ export default {
         },
         getCategories() {
             db.collection('categories').get().then(query => {
+                this.categories = []
                 query.forEach(doc => {
                     let buffer = doc.data()
                     buffer.id = doc.id
