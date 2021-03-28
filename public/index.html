@@ -16,25 +16,29 @@
     <!-- loading animation -->
     <style>
         #plane-svg {
-            color: #222;
+            color: #9cd7db;
             height: 250px;
             position: absolute;
             top: 50%;
             left: -250px;
             transform: rotate(90deg) translateX(-50%);
-            animation: forward 5s cubic-bezier(0, 0, 0, 1);
+            animation: forward 5s cubic-bezier(0, 0, 0, 1) forwards;
         }
         #message {
             position: absolute;
             bottom: 10vh;
             left: 50%;
             transform: translateX(-50%);
+            color: #fff;
+            font-family: 'Inter', Arial, Helvetica, sans-serif;
+            font-weight: 500;
+            font-size: 16px;
         }
         #sky {
             height: 100vh;
             width: 100vw;
-            background-color: #2196f3;
-            animation: fadeout 5s ease-out;
+            background-color: #17969c;
+            animation: fadeout 5s ease-out forwards;
         }
         @keyframes forward {
             33% {
@@ -64,8 +68,8 @@
             <svg viewBox="0 0 24 24" id="plane-svg">
                 <path fill="currentColor" d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z" />
             </svg>
-            <span id="message">Chargement des scripts ...</span>
         </div>
+        <span id="message">Chargement des scripts ...</span>
     </div>
 </body>
 

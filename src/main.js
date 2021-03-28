@@ -25,11 +25,11 @@ console.log('%cLe code du site est open source → https://github.com/Aryqs-Ipsu
 
 let app
 
-console.time('login')
+//console.time('login')
 document.getElementById('message').innerText = "Authentification ..."
 
 fb.auth.onAuthStateChanged(user => {
-  console.timeEnd('login')
+  //console.timeEnd('login')
   if(!app) {
     app = new Vue({
       data: {
