@@ -39,7 +39,7 @@ header {
 
 [top] {
     height: 32px;
-    background: teal;
+    background: #17969c;
 
     [a] {
         font-weight: 300;
