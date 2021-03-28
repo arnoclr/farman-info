@@ -3,17 +3,17 @@
         <app-header :gestion="true"></app-header>
 
         <main>
-            <div>
+            <form>
                 <md-tabs id="submit-article-tabs">
                     <md-tab md-label="édition">
                         <md-field>
                             <label>Titre</label>
-                            <md-input md-counter="80" v-model="title"></md-input>
+                            <md-input md-counter="80" max="80" v-model="title" required></md-input>
                         </md-field>
                         <text-editor :counter="4096" :change="updateContent"></text-editor>
                         <md-field>
                         <label for="category" v-if="categories">Catégorie</label>
-                            <md-select v-model="category" name="category" id="category">
+                            <md-select v-model="category" name="category" id="category" required>
                                 <md-option 
                                     v-for="(category, id) in categories"
                                     v-bind:key="id"
@@ -25,7 +25,9 @@
                         <vue-simple-markdown v-if="content" :source="content"></vue-simple-markdown>
                     </md-tab>
                 </md-tabs>
-            </div>
+
+                <md-button class="md-raised md-primary">Soumettre</md-button>
+            </form>
 
             <div preview-desktop>
                 <vue-simple-markdown v-if="content" :source="content"></vue-simple-markdown>

@@ -7,7 +7,10 @@
                 <span>{{ user.displayName }}</span>
                 <img :src="user.photoURL ? user.photoURL : 'https://i.stack.imgur.com/34AD2.jpg'" :title="'connecté en tant que : ' + user.displayName" alt="photo de profil" pp>
             </div>
-            <div r>
+            <router-link to="/articles/submit?ref=navbar_draft_continue" v-if="hasArticleDraft" r>
+                <span>Terminer la rédaction de mon article <i class="material-icons">arrow_forward</i></span>
+            </router-link>
+            <div r v-else>
                 <span>Site web d'actualités aéronautiques</span>
             </div>
         </section>
@@ -40,6 +43,12 @@ header {
 
     [a] {
         font-weight: 300;
+        width: fit-content;
+        display: inline-flex;
+
+        span {
+            margin-top: 5px;
+        }
     }
 
     [login], [logout] {
@@ -63,6 +72,11 @@ header {
         
         span {
             padding-top: 6px;
+
+            i {
+                font-size: 18px;
+                margin-left: 8px;
+            }
         }
     }
 
@@ -76,7 +90,7 @@ header {
     [pp] {
         height: 16px;
         vertical-align: -15%;
-        margin: 0 8px;
+        margin: 8px;
         border-radius: 2px;
     }
 }
@@ -191,7 +205,8 @@ header {
         ],
         data() {
             return {
-                user: firebase.auth().currentUser
+                user: firebase.auth().currentUser,
+                hasArticleDraft: localStorage.getItem('submit:draft')
             }
         },
         methods: {

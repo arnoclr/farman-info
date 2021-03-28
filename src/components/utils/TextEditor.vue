@@ -2,7 +2,7 @@
     <div>
         <md-field>
             <label>Edition du texte</label>
-            <md-textarea id="te-ta" :md-counter="counter" :md-autogrow="true" v-model="content" @keyup="updateContent"></md-textarea>
+            <md-textarea id="te-ta" :md-counter="counter" :max="counter" :md-autogrow="true" v-model="content" @keyup="updateContent" required></md-textarea>
             <span class="md-helper-text">Brouillon enregistré</span>
         </md-field>
 
@@ -12,7 +12,7 @@
         <md-button @click="imageUploaderOpen = true" class="md-icon-button">
             <md-icon>add_a_photo</md-icon>
         </md-button>
-        
+
         <image-uploader :callback="insertMarkdownImage" :open="imageUploaderOpen" :close="imageUploaderClose"></image-uploader>
     </div>
 </template>
