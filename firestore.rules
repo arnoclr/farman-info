@@ -60,6 +60,7 @@ service cloud.firestore {
             allow update: if isAuth()
                 && notModified(['uid', 'createdAt', 'published'])
                 && incomingData().updatedAt == request.time
+                && request.time > actualData().updatedAt + duration.value(60, 's')
 
             allow delete: if isAuth()
                 && actualData().uid == request.auth.uid

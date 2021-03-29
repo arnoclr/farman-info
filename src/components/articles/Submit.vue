@@ -17,7 +17,7 @@
                                 <md-option 
                                     v-for="(category, id) in categories"
                                     v-bind:key="id"
-                                    :value="id">{{ category.label }}</md-option>
+                                    :value="category.id">{{ category.label }}</md-option>
                             </md-select>
                         </md-field>
                     </md-tab>
@@ -26,7 +26,7 @@
                     </md-tab>
                 </md-tabs>
 
-                <md-button class="md-raised md-primary">Soumettre</md-button>
+                <md-button class="md-raised md-primary" @click="submit">Soumettre</md-button>
             </form>
 
             <div preview-desktop>
@@ -72,7 +72,8 @@ main {
 </style>
 
 <script>
-import {db} from '../../firebaseConfig'
+import {db, firebase} from '../../firebaseConfig'
+const articles = db.collection('articles')
 
 export default {
     data() {
@@ -99,6 +100,28 @@ export default {
             }).catch(err => {
                 alert(err)
             })
+        },
+        submit() {
+            if(this.title && this.content && this.category) {
+                articles.add({
+                    title: this.title,
+                    content: this.content,
+                    category: this.category,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    uid: firebase.auth().currentUser.uid,
+                    published: false
+                })
+                .then(doc => {
+                    console.log(doc.id)
+                    this.title = this.content = this.category = null
+                    this.$router.push('/article/' + doc.id + '?ref=submit_page')
+                })
+                .catch(err => {
+                    alert(err)
+                })
+            } else {
+                alert('Champs non remplis')
+            }
         }
     },
     created() {
