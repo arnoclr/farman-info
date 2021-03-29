@@ -14,9 +14,11 @@ import './assets/scss/app.scss'
 
 // markdown parser
 import VueSimpleMarkdown from '../src/assets/js/vue-simple-markdown.js'
-// import 'vue-simple-markdown/dist/vue-simple-markdown.css'
-
 Vue.use(VueSimpleMarkdown)
+
+// workbox
+// import wb from "./assets/js/registerServiceWorker";
+// Vue.prototype.$workbox = wb;
 
 // console disclaimers
 console.log('%cAtttention !', 'color: #f00; background: #ff0; font-size: 24px')

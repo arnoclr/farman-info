@@ -20,7 +20,8 @@
     "vue-material": "^1.0.0-beta-15",
     "vue-pdf": "^4.2.0",
     "vue-router": "^3.0.3",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "workbox-webpack-plugin": "^6.1.2"
   },
   "devDependencies": {
     "@firebase/rules-unit-testing": "^1.2.5",

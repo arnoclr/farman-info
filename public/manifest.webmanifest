@@ -1,0 +1,48 @@
+{
+    "short_name": "MyFarman",
+    "name": "MyFarman par Farman",
+    "description": "L'offre de presse aéronautique améliorée par Farman.",
+    "icons": [
+        {
+            "src": "/assets/logos/icons-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/assets/logos/icons-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/?source=pwa",
+    "background_color": "#eeeeee",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#009698",
+    "shortcuts": [
+        {
+            "name": "Dernières actualités",
+            "short_name": "Articles",
+            "description": "Découvrez les derniers articles de la rédaction et des utilisateurs",
+            "url": "/articles?utm_source=pwa_shortcut",
+            "icons": [
+                {
+                    "src": "/assets/logos/news.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Ecrire un article",
+            "short_name": "Poster",
+            "description": "Ecrire une actualité sur le site",
+            "url": "/articles/submit?utm_source=pwa_shortcut",
+            "icons": [
+                {
+                    "src": "/assets/logos/publish.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
+    ]
+}
