@@ -5,6 +5,7 @@
         <div class="divided">
             <main>
                 <div v-if="article">
+                    <span v-if="!article.published">En cours de traitement ...</span>
                     <h1>{{ article.title }}</h1>
                     <vue-simple-markdown :source="article.content"></vue-simple-markdown>
                 </div>
