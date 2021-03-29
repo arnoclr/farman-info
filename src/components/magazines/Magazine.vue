@@ -81,10 +81,12 @@ export default {
         getMagazine() {
             this.magazine = this.error = null
             this.loading = true
+            this.$root.$emit('query:loading')
             const ref = this.$route.params.ref
             magazines.doc(ref).get().then(snapshot => {
                 if (this.$route.params.ref !== ref) return
                 this.loading = false
+                this.$root.$emit('query:loaded')
                 if(snapshot.data()) {
                     this.magazine = snapshot.data()
                     this.magazine.ref = ref

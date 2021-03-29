@@ -1,6 +1,6 @@
 <template>
     <div>
-        <md-progress-bar v-if="$root.loading" md-mode="indeterminate" pb></md-progress-bar>
+        <md-progress-bar v-if="$root.loading.state" :md-mode="$root.loading.mode" pb></md-progress-bar>
         <router-view/>
         <cookie-law
             button-text="Accepter" button-class="button" 
@@ -19,6 +19,14 @@
 
 .Cookie .button-outlined {
     margin: 0 !important;
+}
+
+[pb].md-progress-bar.md-theme-default {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #ddd;
+    z-index: 3;
 }
 </style>
 

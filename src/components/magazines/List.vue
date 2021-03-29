@@ -115,10 +115,12 @@ export default {
     },
     methods: {
         getMagazines() {
+            this.$root.$emit('query:loading')
             this.magazines = this.error = null
             this.loading = true
             magazines.orderBy('date', 'desc').limit(5).get()
             .then(snapshot => {
+                this.$root.$emit('query:loaded')
                 this.loading = false
                 this.magazines = []
                 snapshot.forEach(doc => {

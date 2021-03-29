@@ -33,7 +33,10 @@ fb.auth.onAuthStateChanged(user => {
   if(!app) {
     app = new Vue({
       data: {
-        loading: false,
+        loading: {
+          state: false,
+          mode: 'indeterminate'
+        },
         user: user
       },
       el: '#app',
@@ -42,12 +45,22 @@ fb.auth.onAuthStateChanged(user => {
     })
 
     router.beforeEach((to, from, next) => {
-      app.loading = true
+      app.loading.state = true
+      app.loading.mode = 'indeterminate'
       next()
     })
     
     router.afterEach(() => {
-      app.loading = false
+      app.loading.state = false
+    })
+
+    app.$root.$on('query:loading', () => {
+      app.loading.state = true
+      app.loading.mode = 'query'
+    })
+
+    app.$root.$on('query:loaded', () => {
+      app.loading.state = false
     })
   }
 })
