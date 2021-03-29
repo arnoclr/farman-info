@@ -63,6 +63,7 @@ describe("Articles", () => {
         uid: "author",
         title: "Lorem Ipsum",
         content: "lorem ipsum dolor sit amet",
+        category: "any",
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         published: false
     };
@@ -123,4 +124,32 @@ describe("Articles", () => {
             firebase.assertFails(doc.update(updatedDataModifiedCreatedAt));
         });
     });
+
+    it('On ne peut récupérer que 20 articles a la fois', async () => {
+        firebase.assertSucceeds(db.collection('articles')
+            .orderBy('createdAt', 'desc')
+            .where('published', '==', true)
+            .limit(20)
+            .get())
+        firebase.assertFails(db.collection('articles')
+            .orderBy('createdAt', 'desc')
+            .where('published', '==', true)
+            .limit(21)
+            .get())
+    })
+
+    it('On ne peut pas lister des articles non publiés', async () => {
+        firebase.assertFails(db.collection('articles')
+            .orderBy('createdAt', 'desc')
+            .limit(20)
+            .get())
+    })
+
+    it('On peut lister nos articles non publiés', async () => {
+        firebase.assertSucceeds(db.collection('articles')
+            .orderBy('createdAt', 'desc')
+            .where('uid', '==', 'author')
+            .limit(20)
+            .get())
+    })
 });

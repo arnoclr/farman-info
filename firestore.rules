@@ -48,7 +48,15 @@ service cloud.firestore {
         }
 
         match /articles/{articleId} {
-            allow read: if true
+            allow get: if true
+
+            allow list: 
+                if request.query.limit <= 15
+                && (
+                    isAdmin()
+                    || actualData().published == true
+                    || (isAuth() && actualData().uid == request.auth.uid)
+                )
 
             allow create: if isAuth()
                 && incomingData().uid == request.auth.uid

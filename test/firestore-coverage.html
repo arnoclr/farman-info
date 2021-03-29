@@ -20,7 +20,7 @@
 const data = {
   "rules": {
     "files": [{
-      "content": "rules_version \u003d \u00272\u0027;\r\nservice cloud.firestore {\r\n    match /databases/{database}/documents {\r\n        \r\n        function isAuth() {\r\n            return request.auth !\u003d null\r\n        }\r\n\r\n        function isAdmin() {\r\n            return isAuth() \u0026\u0026 \r\n            (request.auth.uid \u003d\u003d \u00271bOAvkBFV1St3ekuxydGxNlqIGM2\u0027\r\n            || request.auth.uid \u003d\u003d \u0027pUWeCV6FFFfikjLyo6KTuxayrzZ2\u0027\r\n            || request.auth.uid \u003d\u003d \u0027Pv3IEvvuYONvSjNl630Tap0ERGN2\u0027)\r\n        }\r\n\r\n        function actualData() {\r\n            return resource.data\r\n        }\r\n\r\n        function incomingData() {\r\n            return request.resource.data\r\n        }\r\n\r\n        function notModified(fields) {\r\n            return incomingData().diff(incomingData()).unchangedKeys().hasAll(fields)\r\n        }\r\n\r\n        // lock access for all documents\r\n        match /{document\u003d**} {\r\n            allow read, write: if false;\r\n        }\r\n\r\n        match /mails/{mail} {\r\n            allow read: if isAdmin()\r\n\r\n            // Only valid emails\r\n            allow create: if \r\n                incomingData().mail.matches(\u0027.+@.+\\\\.[a-z]+\u0027)\r\n\r\n            // unsubscribe\r\n            allow delete: if isAuth()\r\n                \u0026\u0026 actualData().mail \u003d\u003d request.auth.token.email\r\n        }\r\n        \r\n        match /magazines/{magazine} {\r\n            allow read: if true\r\n            allow write: if isAdmin()\r\n        }\r\n\r\n        match /articles/{articleId} {\r\n            allow read: if true\r\n\r\n            allow create: if isAuth()\r\n                \u0026\u0026 incomingData().uid \u003d\u003d request.auth.uid\r\n                \u0026\u0026 incomingData().published \u003d\u003d false\r\n                \u0026\u0026 incomingData().title.size() \u003c 120\r\n                \u0026\u0026 incomingData().content.size() \u003c 4096\r\n                \u0026\u0026 incomingData().createdAt \u003d\u003d request.time\r\n\r\n            allow update: if isAuth()\r\n                \u0026\u0026 notModified([\u0027uid\u0027, \u0027createdAt\u0027, \u0027published\u0027])\r\n                \u0026\u0026 incomingData().updatedAt \u003d\u003d request.time\r\n\r\n            allow delete: if isAuth()\r\n                \u0026\u0026 actualData().uid \u003d\u003d request.auth.uid\r\n        }\r\n    }\r\n}"
+      "content": "rules_version \u003d \u00272\u0027;\r\nservice cloud.firestore {\r\n    match /databases/{database}/documents {\r\n        \r\n        function isAuth() {\r\n            return request.auth !\u003d null\r\n        }\r\n\r\n        function isAdmin() {\r\n            return isAuth() \u0026\u0026 \r\n            (request.auth.uid \u003d\u003d \u00271bOAvkBFV1St3ekuxydGxNlqIGM2\u0027\r\n            || request.auth.uid \u003d\u003d \u0027pUWeCV6FFFfikjLyo6KTuxayrzZ2\u0027\r\n            || request.auth.uid \u003d\u003d \u0027Pv3IEvvuYONvSjNl630Tap0ERGN2\u0027)\r\n        }\r\n\r\n        function actualData() {\r\n            return resource.data\r\n        }\r\n\r\n        function incomingData() {\r\n            return request.resource.data\r\n        }\r\n\r\n        function notModified(fields) {\r\n            return incomingData().diff(incomingData()).unchangedKeys().hasAll(fields)\r\n        }\r\n\r\n        // lock access for all documents\r\n        match /{document\u003d**} {\r\n            allow read, write: if false;\r\n        }\r\n\r\n        match /mails/{mail} {\r\n            allow read: if isAdmin()\r\n\r\n            // Only valid emails\r\n            allow create: if \r\n                incomingData().mail.matches(\u0027.+@.+\\\\.[a-z]+\u0027)\r\n\r\n            // unsubscribe\r\n            allow delete: if isAuth()\r\n                \u0026\u0026 actualData().mail \u003d\u003d request.auth.token.email\r\n        }\r\n        \r\n        match /magazines/{magazine} {\r\n            allow read: if true\r\n            allow write: if isAdmin()\r\n        }\r\n\r\n        match /articles/{articleId} {\r\n            allow get: if true\r\n\r\n            allow list: \r\n                if request.query.limit \u003c\u003d 15\r\n                \u0026\u0026 (\r\n                    isAdmin()\r\n                    || actualData().published \u003d\u003d true\r\n                    || (isAuth() \u0026\u0026 actualData().uid \u003d\u003d request.auth.uid)\r\n                )\r\n\r\n            allow create: if isAuth()\r\n                \u0026\u0026 incomingData().uid \u003d\u003d request.auth.uid\r\n                \u0026\u0026 incomingData().published \u003d\u003d false\r\n                \u0026\u0026 incomingData().title.size() \u003c\u003d 80\r\n                \u0026\u0026 incomingData().content.size() \u003c\u003d 4096\r\n                \u0026\u0026 incomingData().createdAt \u003d\u003d request.time\r\n\r\n            allow update: if isAuth()\r\n                \u0026\u0026 notModified([\u0027uid\u0027, \u0027createdAt\u0027, \u0027published\u0027])\r\n                \u0026\u0026 incomingData().updatedAt \u003d\u003d request.time\r\n                \u0026\u0026 request.time \u003e actualData().updatedAt + duration.value(60, \u0027s\u0027)\r\n\r\n            allow delete: if isAuth()\r\n                \u0026\u0026 actualData().uid \u003d\u003d request.auth.uid\r\n        }\r\n\r\n        match /categories/{cid} {\r\n            allow read: if true\r\n        }\r\n    }\r\n}"
     }]
   },
   "report": [{
@@ -110,7 +110,7 @@ const data = {
             "mapValue": {
               "fields": {
                 "time": {
-                  "timestampValue": "2021-03-27T09:20:53.279Z"
+                  "timestampValue": "2021-03-29T08:52:15.179Z"
                 },
                 "auth": {
                   "mapValue": {
@@ -221,8 +221,11 @@ const data = {
                             "uid": {
                               "stringValue": "author"
                             },
+                            "category": {
+                              "stringValue": "any"
+                            },
                             "createdAt": {
-                              "timestampValue": "2021-03-27T09:20:53.279Z"
+                              "timestampValue": "2021-03-29T08:52:15.179Z"
                             }
                           }
                         }
@@ -260,7 +263,7 @@ const data = {
             "mapValue": {
               "fields": {
                 "time": {
-                  "timestampValue": "2021-03-27T09:20:53.650Z"
+                  "timestampValue": "2021-03-29T08:52:15.551Z"
                 },
                 "auth": {
                   "mapValue": {
@@ -371,8 +374,11 @@ const data = {
                             "uid": {
                               "stringValue": "otherPeople"
                             },
+                            "category": {
+                              "stringValue": "any"
+                            },
                             "createdAt": {
-                              "timestampValue": "2021-03-27T09:20:53.650Z"
+                              "timestampValue": "2021-03-29T08:52:15.551Z"
                             }
                           }
                         }
@@ -410,7 +416,7 @@ const data = {
             "mapValue": {
               "fields": {
                 "time": {
-                  "timestampValue": "2021-03-27T09:20:53.713Z"
+                  "timestampValue": "2021-03-29T08:52:15.618Z"
                 },
                 "auth": {
                   "mapValue": {
@@ -515,6 +521,9 @@ const data = {
                             },
                             "createdAt": {
                               "timestampValue": "1970-01-01T00:00:01Z"
+                            },
+                            "category": {
+                              "stringValue": "any"
                             }
                           }
                         }
@@ -552,7 +561,7 @@ const data = {
             "mapValue": {
               "fields": {
                 "time": {
-                  "timestampValue": "2021-03-27T09:20:53.746Z"
+                  "timestampValue": "2021-03-29T08:52:15.649Z"
                 },
                 "auth": {
                   "mapValue": {
@@ -657,6 +666,9 @@ const data = {
                             },
                             "createdAt": {
                               "timestampValue": "1970-01-01T00:00:01Z"
+                            },
+                            "category": {
+                              "stringValue": "any"
                             }
                           }
                         }
@@ -854,8 +866,11 @@ const data = {
             "uid": {
               "stringValue": "author"
             },
+            "category": {
+              "stringValue": "any"
+            },
             "createdAt": {
-              "timestampValue": "2021-03-27T09:20:53.279Z"
+              "timestampValue": "2021-03-29T08:52:15.179Z"
             }
           }
         }
@@ -877,8 +892,11 @@ const data = {
             "uid": {
               "stringValue": "otherPeople"
             },
+            "category": {
+              "stringValue": "any"
+            },
             "createdAt": {
-              "timestampValue": "2021-03-27T09:20:53.650Z"
+              "timestampValue": "2021-03-29T08:52:15.551Z"
             }
           }
         }
@@ -902,6 +920,9 @@ const data = {
             },
             "createdAt": {
               "timestampValue": "1970-01-01T00:00:01Z"
+            },
+            "category": {
+              "stringValue": "any"
             }
           }
         }
@@ -925,6 +946,9 @@ const data = {
             },
             "createdAt": {
               "timestampValue": "1970-01-01T00:00:01Z"
+            },
+            "category": {
+              "stringValue": "any"
             }
           }
         }
@@ -957,8 +981,11 @@ const data = {
                     "uid": {
                       "stringValue": "author"
                     },
+                    "category": {
+                      "stringValue": "any"
+                    },
                     "createdAt": {
-                      "timestampValue": "2021-03-27T09:20:53.279Z"
+                      "timestampValue": "2021-03-29T08:52:15.179Z"
                     }
                   }
                 }
@@ -1004,8 +1031,11 @@ const data = {
                     "uid": {
                       "stringValue": "otherPeople"
                     },
+                    "category": {
+                      "stringValue": "any"
+                    },
                     "createdAt": {
-                      "timestampValue": "2021-03-27T09:20:53.650Z"
+                      "timestampValue": "2021-03-29T08:52:15.551Z"
                     }
                   }
                 }
@@ -1053,6 +1083,9 @@ const data = {
                     },
                     "createdAt": {
                       "timestampValue": "1970-01-01T00:00:01Z"
+                    },
+                    "category": {
+                      "stringValue": "any"
                     }
                   }
                 }
@@ -1100,6 +1133,9 @@ const data = {
                     },
                     "createdAt": {
                       "timestampValue": "1970-01-01T00:00:01Z"
+                    },
+                    "category": {
+                      "stringValue": "any"
                     }
                   }
                 }
@@ -1139,7 +1175,7 @@ const data = {
             "mapValue": {
               "fields": {
                 "time": {
-                  "timestampValue": "2021-03-27T09:20:53.279Z"
+                  "timestampValue": "2021-03-29T08:52:15.179Z"
                 },
                 "auth": {
                   "mapValue": {
@@ -1250,8 +1286,11 @@ const data = {
                             "uid": {
                               "stringValue": "author"
                             },
+                            "category": {
+                              "stringValue": "any"
+                            },
                             "createdAt": {
-                              "timestampValue": "2021-03-27T09:20:53.279Z"
+                              "timestampValue": "2021-03-29T08:52:15.179Z"
                             }
                           }
                         }
@@ -1289,7 +1328,7 @@ const data = {
             "mapValue": {
               "fields": {
                 "time": {
-                  "timestampValue": "2021-03-27T09:20:53.650Z"
+                  "timestampValue": "2021-03-29T08:52:15.551Z"
                 },
                 "auth": {
                   "mapValue": {
@@ -1400,8 +1439,11 @@ const data = {
                             "uid": {
                               "stringValue": "otherPeople"
                             },
+                            "category": {
+                              "stringValue": "any"
+                            },
                             "createdAt": {
-                              "timestampValue": "2021-03-27T09:20:53.650Z"
+                              "timestampValue": "2021-03-29T08:52:15.551Z"
                             }
                           }
                         }
@@ -1439,7 +1481,7 @@ const data = {
             "mapValue": {
               "fields": {
                 "time": {
-                  "timestampValue": "2021-03-27T09:20:53.713Z"
+                  "timestampValue": "2021-03-29T08:52:15.618Z"
                 },
                 "auth": {
                   "mapValue": {
@@ -1544,6 +1586,9 @@ const data = {
                             },
                             "createdAt": {
                               "timestampValue": "1970-01-01T00:00:01Z"
+                            },
+                            "category": {
+                              "stringValue": "any"
                             }
                           }
                         }
@@ -1581,7 +1626,7 @@ const data = {
             "mapValue": {
               "fields": {
                 "time": {
-                  "timestampValue": "2021-03-27T09:20:53.746Z"
+                  "timestampValue": "2021-03-29T08:52:15.649Z"
                 },
                 "auth": {
                   "mapValue": {
@@ -1686,6 +1731,9 @@ const data = {
                             },
                             "createdAt": {
                               "timestampValue": "1970-01-01T00:00:01Z"
+                            },
+                            "category": {
+                              "stringValue": "any"
                             }
                           }
                         }
@@ -1874,10 +1922,605 @@ const data = {
     }
   }, {
     "sourcePosition": {
-      "line": 53,
+      "line": 54,
+      "column": 20,
+      "currentOffset": 1499,
+      "endOffset": 1705
+    },
+    "values": [{
+      "value": {
+        "boolValue": false
+      },
+      "count": 4
+    }],
+    "children": [{
+      "sourcePosition": {
+        "line": 54,
+        "column": 20,
+        "currentOffset": 1499,
+        "endOffset": 1523
+      },
+      "values": [{
+        "value": {
+          "boolValue": false
+        },
+        "count": 4
+      }],
+      "children": [{
+        "sourcePosition": {
+          "line": 54,
+          "column": 20,
+          "currentOffset": 1499,
+          "endOffset": 1517
+        },
+        "values": [{
+          "value": {
+            "intValue": "20"
+          },
+          "count": 3
+        }, {
+          "value": {
+            "intValue": "21"
+          },
+          "count": 1
+        }],
+        "children": [{
+          "sourcePosition": {
+            "line": 54,
+            "column": 20,
+            "currentOffset": 1499,
+            "endOffset": 1511
+          },
+          "values": [{
+            "value": {
+              "mapValue": {
+                "fields": {
+                  "distinct": {
+                    "boolValue": false
+                  },
+                  "selectOnlyKeys": {
+                    "boolValue": false
+                  },
+                  "groupBy": {
+                    "mapValue": {
+                    }
+                  },
+                  "kind": {
+                    "stringValue": "articles"
+                  },
+                  "parent": {
+                    "nullValue": null
+                  },
+                  "orderBy": {
+                    "mapValue": {
+                      "fields": {
+                        "createdAt": {
+                          "stringValue": "DESC"
+                        },
+                        "__name__": {
+                          "stringValue": "DESC"
+                        }
+                      }
+                    }
+                  },
+                  "limit": {
+                    "intValue": "20"
+                  },
+                  "offset": {
+                    "intValue": "0"
+                  },
+                  "allDescendants": {
+                    "boolValue": false
+                  }
+                }
+              }
+            },
+            "count": 3
+          }, {
+            "value": {
+              "mapValue": {
+                "fields": {
+                  "distinct": {
+                    "boolValue": false
+                  },
+                  "selectOnlyKeys": {
+                    "boolValue": false
+                  },
+                  "groupBy": {
+                    "mapValue": {
+                    }
+                  },
+                  "kind": {
+                    "stringValue": "articles"
+                  },
+                  "parent": {
+                    "nullValue": null
+                  },
+                  "orderBy": {
+                    "mapValue": {
+                      "fields": {
+                        "createdAt": {
+                          "stringValue": "DESC"
+                        },
+                        "__name__": {
+                          "stringValue": "DESC"
+                        }
+                      }
+                    }
+                  },
+                  "limit": {
+                    "intValue": "21"
+                  },
+                  "offset": {
+                    "intValue": "0"
+                  },
+                  "allDescendants": {
+                    "boolValue": false
+                  }
+                }
+              }
+            },
+            "count": 1
+          }],
+          "children": [{
+            "sourcePosition": {
+              "line": 54,
+              "column": 20,
+              "currentOffset": 1499,
+              "endOffset": 1505
+            },
+            "values": [{
+              "value": {
+                "mapValue": {
+                  "fields": {
+                    "time": {
+                      "timestampValue": "2021-03-29T08:52:15.770Z"
+                    },
+                    "auth": {
+                      "mapValue": {
+                        "fields": {
+                          "uid": {
+                            "stringValue": "author"
+                          },
+                          "token": {
+                            "mapValue": {
+                              "fields": {
+                                "iss": {
+                                  "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                                },
+                                "aud": {
+                                  "stringValue": "objects-omsistuff"
+                                },
+                                "iat": {
+                                  "intValue": "0"
+                                },
+                                "exp": {
+                                  "intValue": "3600"
+                                },
+                                "auth_time": {
+                                  "intValue": "0"
+                                },
+                                "sub": {
+                                  "stringValue": "author"
+                                },
+                                "user_id": {
+                                  "stringValue": "author"
+                                },
+                                "firebase": {
+                                  "mapValue": {
+                                    "fields": {
+                                      "sign_in_provider": {
+                                        "stringValue": "custom"
+                                      },
+                                      "identities": {
+                                        "mapValue": {
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "email": {
+                                  "stringValue": "alice@example.com"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "headers": {
+                      "mapValue": {
+                      }
+                    },
+                    "inTransaction": {
+                      "boolValue": false
+                    },
+                    "fields": {
+                      "nullValue": null
+                    },
+                    "query": {
+                      "mapValue": {
+                        "fields": {
+                          "distinct": {
+                            "boolValue": false
+                          },
+                          "selectOnlyKeys": {
+                            "boolValue": false
+                          },
+                          "groupBy": {
+                            "mapValue": {
+                            }
+                          },
+                          "kind": {
+                            "stringValue": "articles"
+                          },
+                          "parent": {
+                            "nullValue": null
+                          },
+                          "orderBy": {
+                            "mapValue": {
+                              "fields": {
+                                "createdAt": {
+                                  "stringValue": "DESC"
+                                },
+                                "__name__": {
+                                  "stringValue": "DESC"
+                                }
+                              }
+                            }
+                          },
+                          "limit": {
+                            "intValue": "20"
+                          },
+                          "offset": {
+                            "intValue": "0"
+                          },
+                          "allDescendants": {
+                            "boolValue": false
+                          }
+                        }
+                      }
+                    },
+                    "path": {
+                      "pathValue": {
+                        "segments": [{
+                          "simple": "databases"
+                        }, {
+                          "simple": "(default)"
+                        }, {
+                          "simple": "documents"
+                        }, {
+                          "simple": "articles"
+                        }]
+                      }
+                    },
+                    "method": {
+                      "stringValue": "list"
+                    }
+                  }
+                }
+              },
+              "count": 3
+            }, {
+              "value": {
+                "mapValue": {
+                  "fields": {
+                    "time": {
+                      "timestampValue": "2021-03-29T08:52:15.770Z"
+                    },
+                    "auth": {
+                      "mapValue": {
+                        "fields": {
+                          "uid": {
+                            "stringValue": "author"
+                          },
+                          "token": {
+                            "mapValue": {
+                              "fields": {
+                                "iss": {
+                                  "stringValue": "https://securetoken.google.com/objects-omsistuff"
+                                },
+                                "aud": {
+                                  "stringValue": "objects-omsistuff"
+                                },
+                                "iat": {
+                                  "intValue": "0"
+                                },
+                                "exp": {
+                                  "intValue": "3600"
+                                },
+                                "auth_time": {
+                                  "intValue": "0"
+                                },
+                                "sub": {
+                                  "stringValue": "author"
+                                },
+                                "user_id": {
+                                  "stringValue": "author"
+                                },
+                                "firebase": {
+                                  "mapValue": {
+                                    "fields": {
+                                      "sign_in_provider": {
+                                        "stringValue": "custom"
+                                      },
+                                      "identities": {
+                                        "mapValue": {
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "email": {
+                                  "stringValue": "alice@example.com"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "headers": {
+                      "mapValue": {
+                      }
+                    },
+                    "inTransaction": {
+                      "boolValue": false
+                    },
+                    "fields": {
+                      "nullValue": null
+                    },
+                    "query": {
+                      "mapValue": {
+                        "fields": {
+                          "distinct": {
+                            "boolValue": false
+                          },
+                          "selectOnlyKeys": {
+                            "boolValue": false
+                          },
+                          "groupBy": {
+                            "mapValue": {
+                            }
+                          },
+                          "kind": {
+                            "stringValue": "articles"
+                          },
+                          "parent": {
+                            "nullValue": null
+                          },
+                          "orderBy": {
+                            "mapValue": {
+                              "fields": {
+                                "createdAt": {
+                                  "stringValue": "DESC"
+                                },
+                                "__name__": {
+                                  "stringValue": "DESC"
+                                }
+                              }
+                            }
+                          },
+                          "limit": {
+                            "intValue": "21"
+                          },
+                          "offset": {
+                            "intValue": "0"
+                          },
+                          "allDescendants": {
+                            "boolValue": false
+                          }
+                        }
+                      }
+                    },
+                    "path": {
+                      "pathValue": {
+                        "segments": [{
+                          "simple": "databases"
+                        }, {
+                          "simple": "(default)"
+                        }, {
+                          "simple": "documents"
+                        }, {
+                          "simple": "articles"
+                        }]
+                      }
+                    },
+                    "method": {
+                      "stringValue": "list"
+                    }
+                  }
+                }
+              },
+              "count": 1
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "sourcePosition": {
+        "line": 55,
+        "column": 20,
+        "currentOffset": 1545,
+        "endOffset": 1705
+      },
+      "values": [{
+        "value": {
+        },
+        "count": 4
+      }],
+      "children": [{
+        "sourcePosition": {
+          "line": 56,
+          "column": 21,
+          "currentOffset": 1568,
+          "endOffset": 1631
+        },
+        "values": [{
+          "value": {
+          },
+          "count": 4
+        }],
+        "children": [{
+          "sourcePosition": {
+            "line": 56,
+            "column": 21,
+            "currentOffset": 1568,
+            "endOffset": 1574
+          },
+          "values": [{
+            "value": {
+            },
+            "count": 4
+          }]
+        }, {
+          "sourcePosition": {
+            "line": 57,
+            "column": 24,
+            "currentOffset": 1602,
+            "endOffset": 1631
+          },
+          "values": [{
+            "value": {
+            },
+            "count": 4
+          }],
+          "children": [{
+            "sourcePosition": {
+              "line": 57,
+              "column": 24,
+              "currentOffset": 1602,
+              "endOffset": 1623
+            },
+            "values": [{
+              "value": {
+              },
+              "count": 4
+            }],
+            "children": [{
+              "sourcePosition": {
+                "line": 57,
+                "column": 24,
+                "currentOffset": 1602,
+                "endOffset": 1611
+              },
+              "values": [{
+                "value": {
+                },
+                "count": 4
+              }]
+            }]
+          }]
+        }]
+      }, {
+        "sourcePosition": {
+          "line": 58,
+          "column": 24,
+          "currentOffset": 1657,
+          "endOffset": 1705
+        },
+        "values": [{
+          "value": {
+          },
+          "count": 4
+        }],
+        "children": [{
+          "sourcePosition": {
+            "line": 58,
+            "column": 25,
+            "currentOffset": 1658,
+            "endOffset": 1663
+          },
+          "values": [{
+            "value": {
+            },
+            "count": 4
+          }]
+        }, {
+          "sourcePosition": {
+            "line": 58,
+            "column": 37,
+            "currentOffset": 1670,
+            "endOffset": 1705
+          },
+          "values": [{
+            "value": {
+            },
+            "count": 4
+          }],
+          "children": [{
+            "sourcePosition": {
+              "line": 58,
+              "column": 37,
+              "currentOffset": 1670,
+              "endOffset": 1685
+            },
+            "values": [{
+              "value": {
+              },
+              "count": 4
+            }],
+            "children": [{
+              "sourcePosition": {
+                "line": 58,
+                "column": 37,
+                "currentOffset": 1670,
+                "endOffset": 1679
+              },
+              "values": [{
+                "value": {
+                },
+                "count": 4
+              }]
+            }]
+          }, {
+            "sourcePosition": {
+              "line": 58,
+              "column": 57,
+              "currentOffset": 1690,
+              "endOffset": 1705
+            },
+            "values": [{
+              "value": {
+              },
+              "count": 4
+            }],
+            "children": [{
+              "sourcePosition": {
+                "line": 58,
+                "column": 57,
+                "currentOffset": 1690,
+                "endOffset": 1701
+              },
+              "values": [{
+                "value": {
+                },
+                "count": 4
+              }],
+              "children": [{
+                "sourcePosition": {
+                  "line": 58,
+                  "column": 57,
+                  "currentOffset": 1690,
+                  "endOffset": 1696
+                },
+                "values": [{
+                  "value": {
+                  },
+                  "count": 4
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "sourcePosition": {
+      "line": 61,
       "column": 30,
-      "currentOffset": 1484,
-      "endOffset": 1776
+      "currentOffset": 1759,
+      "endOffset": 2052
     },
     "values": [{
       "value": {
@@ -1892,10 +2535,10 @@ const data = {
     }],
     "children": [{
       "sourcePosition": {
-        "line": 53,
+        "line": 61,
         "column": 30,
-        "currentOffset": 1484,
-        "endOffset": 1715
+        "currentOffset": 1759,
+        "endOffset": 1991
       },
       "values": [{
         "value": {
@@ -1910,10 +2553,10 @@ const data = {
       }],
       "children": [{
         "sourcePosition": {
-          "line": 53,
+          "line": 61,
           "column": 30,
-          "currentOffset": 1484,
-          "endOffset": 1658
+          "currentOffset": 1759,
+          "endOffset": 1933
         },
         "values": [{
           "value": {
@@ -1928,10 +2571,10 @@ const data = {
         }],
         "children": [{
           "sourcePosition": {
-            "line": 53,
+            "line": 61,
             "column": 30,
-            "currentOffset": 1484,
-            "endOffset": 1604
+            "currentOffset": 1759,
+            "endOffset": 1879
           },
           "values": [{
             "value": {
@@ -1946,10 +2589,10 @@ const data = {
           }],
           "children": [{
             "sourcePosition": {
-              "line": 53,
+              "line": 61,
               "column": 30,
-              "currentOffset": 1484,
-              "endOffset": 1550
+              "currentOffset": 1759,
+              "endOffset": 1825
             },
             "values": [{
               "value": {
@@ -1964,10 +2607,10 @@ const data = {
             }],
             "children": [{
               "sourcePosition": {
-                "line": 53,
+                "line": 61,
                 "column": 30,
-                "currentOffset": 1484,
-                "endOffset": 1489
+                "currentOffset": 1759,
+                "endOffset": 1764
               },
               "values": [{
                 "value": {
@@ -1977,10 +2620,10 @@ const data = {
               }]
             }, {
               "sourcePosition": {
-                "line": 54,
+                "line": 62,
                 "column": 20,
-                "currentOffset": 1513,
-                "endOffset": 1550
+                "currentOffset": 1788,
+                "endOffset": 1825
               },
               "values": [{
                 "value": {
@@ -1995,10 +2638,10 @@ const data = {
               }],
               "children": [{
                 "sourcePosition": {
-                  "line": 54,
+                  "line": 62,
                   "column": 20,
-                  "currentOffset": 1513,
-                  "endOffset": 1530
+                  "currentOffset": 1788,
+                  "endOffset": 1805
                 },
                 "values": [{
                   "value": {
@@ -2013,10 +2656,10 @@ const data = {
                 }],
                 "children": [{
                   "sourcePosition": {
-                    "line": 54,
+                    "line": 62,
                     "column": 20,
-                    "currentOffset": 1513,
-                    "endOffset": 1524
+                    "currentOffset": 1788,
+                    "endOffset": 1799
                   },
                   "values": [{
                     "value": {
@@ -2034,8 +2677,11 @@ const data = {
                           "uid": {
                             "stringValue": "author"
                           },
+                          "category": {
+                            "stringValue": "any"
+                          },
                           "createdAt": {
-                            "timestampValue": "2021-03-27T09:20:53.279Z"
+                            "timestampValue": "2021-03-29T08:52:15.179Z"
                           }
                         }
                       }
@@ -2057,8 +2703,11 @@ const data = {
                           "uid": {
                             "stringValue": "otherPeople"
                           },
+                          "category": {
+                            "stringValue": "any"
+                          },
                           "createdAt": {
-                            "timestampValue": "2021-03-27T09:20:53.650Z"
+                            "timestampValue": "2021-03-29T08:52:15.551Z"
                           }
                         }
                       }
@@ -2082,6 +2731,9 @@ const data = {
                           },
                           "createdAt": {
                             "timestampValue": "1970-01-01T00:00:01Z"
+                          },
+                          "category": {
+                            "stringValue": "any"
                           }
                         }
                       }
@@ -2105,6 +2757,9 @@ const data = {
                           },
                           "createdAt": {
                             "timestampValue": "1970-01-01T00:00:01Z"
+                          },
+                          "category": {
+                            "stringValue": "any"
                           }
                         }
                       }
@@ -2114,10 +2769,10 @@ const data = {
                 }]
               }, {
                 "sourcePosition": {
-                  "line": 54,
+                  "line": 62,
                   "column": 42,
-                  "currentOffset": 1535,
-                  "endOffset": 1550
+                  "currentOffset": 1810,
+                  "endOffset": 1825
                 },
                 "values": [{
                   "value": {
@@ -2127,10 +2782,10 @@ const data = {
                 }],
                 "children": [{
                   "sourcePosition": {
-                    "line": 54,
+                    "line": 62,
                     "column": 42,
-                    "currentOffset": 1535,
-                    "endOffset": 1546
+                    "currentOffset": 1810,
+                    "endOffset": 1821
                   },
                   "values": [{
                     "value": {
@@ -2189,17 +2844,17 @@ const data = {
                   }],
                   "children": [{
                     "sourcePosition": {
-                      "line": 54,
+                      "line": 62,
                       "column": 42,
-                      "currentOffset": 1535,
-                      "endOffset": 1541
+                      "currentOffset": 1810,
+                      "endOffset": 1816
                     },
                     "values": [{
                       "value": {
                         "mapValue": {
                           "fields": {
                             "time": {
-                              "timestampValue": "2021-03-27T09:20:53.279Z"
+                              "timestampValue": "2021-03-29T08:52:15.179Z"
                             },
                             "auth": {
                               "mapValue": {
@@ -2310,8 +2965,11 @@ const data = {
                                         "uid": {
                                           "stringValue": "author"
                                         },
+                                        "category": {
+                                          "stringValue": "any"
+                                        },
                                         "createdAt": {
-                                          "timestampValue": "2021-03-27T09:20:53.279Z"
+                                          "timestampValue": "2021-03-29T08:52:15.179Z"
                                         }
                                       }
                                     }
@@ -2349,7 +3007,7 @@ const data = {
                         "mapValue": {
                           "fields": {
                             "time": {
-                              "timestampValue": "2021-03-27T09:20:53.650Z"
+                              "timestampValue": "2021-03-29T08:52:15.551Z"
                             },
                             "auth": {
                               "mapValue": {
@@ -2460,8 +3118,11 @@ const data = {
                                         "uid": {
                                           "stringValue": "otherPeople"
                                         },
+                                        "category": {
+                                          "stringValue": "any"
+                                        },
                                         "createdAt": {
-                                          "timestampValue": "2021-03-27T09:20:53.650Z"
+                                          "timestampValue": "2021-03-29T08:52:15.551Z"
                                         }
                                       }
                                     }
@@ -2499,7 +3160,7 @@ const data = {
                         "mapValue": {
                           "fields": {
                             "time": {
-                              "timestampValue": "2021-03-27T09:20:53.713Z"
+                              "timestampValue": "2021-03-29T08:52:15.618Z"
                             },
                             "auth": {
                               "mapValue": {
@@ -2604,6 +3265,9 @@ const data = {
                                         },
                                         "createdAt": {
                                           "timestampValue": "1970-01-01T00:00:01Z"
+                                        },
+                                        "category": {
+                                          "stringValue": "any"
                                         }
                                       }
                                     }
@@ -2641,7 +3305,7 @@ const data = {
                         "mapValue": {
                           "fields": {
                             "time": {
-                              "timestampValue": "2021-03-27T09:20:53.746Z"
+                              "timestampValue": "2021-03-29T08:52:15.649Z"
                             },
                             "auth": {
                               "mapValue": {
@@ -2746,6 +3410,9 @@ const data = {
                                         },
                                         "createdAt": {
                                           "timestampValue": "1970-01-01T00:00:01Z"
+                                        },
+                                        "category": {
+                                          "stringValue": "any"
                                         }
                                       }
                                     }
@@ -2785,10 +3452,10 @@ const data = {
             }]
           }, {
             "sourcePosition": {
-              "line": 55,
+              "line": 63,
               "column": 20,
-              "currentOffset": 1572,
-              "endOffset": 1604
+              "currentOffset": 1847,
+              "endOffset": 1879
             },
             "values": [{
               "value": {
@@ -2802,10 +3469,10 @@ const data = {
             }],
             "children": [{
               "sourcePosition": {
-                "line": 55,
+                "line": 63,
                 "column": 20,
-                "currentOffset": 1572,
-                "endOffset": 1595
+                "currentOffset": 1847,
+                "endOffset": 1870
               },
               "values": [{
                 "value": {
@@ -2819,10 +3486,10 @@ const data = {
               }],
               "children": [{
                 "sourcePosition": {
-                  "line": 55,
+                  "line": 63,
                   "column": 20,
-                  "currentOffset": 1572,
-                  "endOffset": 1583
+                  "currentOffset": 1847,
+                  "endOffset": 1858
                 },
                 "values": [{
                   "value": {
@@ -2840,8 +3507,11 @@ const data = {
                         "uid": {
                           "stringValue": "author"
                         },
+                        "category": {
+                          "stringValue": "any"
+                        },
                         "createdAt": {
-                          "timestampValue": "2021-03-27T09:20:53.279Z"
+                          "timestampValue": "2021-03-29T08:52:15.179Z"
                         }
                       }
                     }
@@ -2857,10 +3527,10 @@ const data = {
           }]
         }, {
           "sourcePosition": {
-            "line": 56,
+            "line": 64,
             "column": 20,
-            "currentOffset": 1626,
-            "endOffset": 1658
+            "currentOffset": 1901,
+            "endOffset": 1933
           },
           "values": [{
             "value": {
@@ -2874,10 +3544,10 @@ const data = {
           }],
           "children": [{
             "sourcePosition": {
-              "line": 56,
+              "line": 64,
               "column": 20,
-              "currentOffset": 1626,
-              "endOffset": 1650
+              "currentOffset": 1901,
+              "endOffset": 1925
             },
             "values": [{
               "value": {
@@ -2891,10 +3561,10 @@ const data = {
             }],
             "children": [{
               "sourcePosition": {
-                "line": 56,
+                "line": 64,
                 "column": 20,
-                "currentOffset": 1626,
-                "endOffset": 1645
+                "currentOffset": 1901,
+                "endOffset": 1920
               },
               "values": [{
                 "value": {
@@ -2908,10 +3578,10 @@ const data = {
               }],
               "children": [{
                 "sourcePosition": {
-                  "line": 56,
+                  "line": 64,
                   "column": 20,
-                  "currentOffset": 1626,
-                  "endOffset": 1637
+                  "currentOffset": 1901,
+                  "endOffset": 1912
                 },
                 "values": [{
                   "value": {
@@ -2929,8 +3599,11 @@ const data = {
                         "uid": {
                           "stringValue": "author"
                         },
+                        "category": {
+                          "stringValue": "any"
+                        },
                         "createdAt": {
-                          "timestampValue": "2021-03-27T09:20:53.279Z"
+                          "timestampValue": "2021-03-29T08:52:15.179Z"
                         }
                       }
                     }
@@ -2947,10 +3620,10 @@ const data = {
         }]
       }, {
         "sourcePosition": {
-          "line": 57,
+          "line": 65,
           "column": 20,
-          "currentOffset": 1680,
-          "endOffset": 1715
+          "currentOffset": 1955,
+          "endOffset": 1991
         },
         "values": [{
           "value": {
@@ -2964,10 +3637,10 @@ const data = {
         }],
         "children": [{
           "sourcePosition": {
-            "line": 57,
+            "line": 65,
             "column": 20,
-            "currentOffset": 1680,
-            "endOffset": 1706
+            "currentOffset": 1955,
+            "endOffset": 1981
           },
           "values": [{
             "value": {
@@ -2981,10 +3654,10 @@ const data = {
           }],
           "children": [{
             "sourcePosition": {
-              "line": 57,
+              "line": 65,
               "column": 20,
-              "currentOffset": 1680,
-              "endOffset": 1701
+              "currentOffset": 1955,
+              "endOffset": 1976
             },
             "values": [{
               "value": {
@@ -2998,10 +3671,10 @@ const data = {
             }],
             "children": [{
               "sourcePosition": {
-                "line": 57,
+                "line": 65,
                 "column": 20,
-                "currentOffset": 1680,
-                "endOffset": 1691
+                "currentOffset": 1955,
+                "endOffset": 1966
               },
               "values": [{
                 "value": {
@@ -3019,8 +3692,11 @@ const data = {
                       "uid": {
                         "stringValue": "author"
                       },
+                      "category": {
+                        "stringValue": "any"
+                      },
                       "createdAt": {
-                        "timestampValue": "2021-03-27T09:20:53.279Z"
+                        "timestampValue": "2021-03-29T08:52:15.179Z"
                       }
                     }
                   }
@@ -3037,10 +3713,10 @@ const data = {
       }]
     }, {
       "sourcePosition": {
-        "line": 58,
+        "line": 66,
         "column": 20,
-        "currentOffset": 1737,
-        "endOffset": 1776
+        "currentOffset": 2013,
+        "endOffset": 2052
       },
       "values": [{
         "value": {
@@ -3054,14 +3730,14 @@ const data = {
       }],
       "children": [{
         "sourcePosition": {
-          "line": 58,
+          "line": 66,
           "column": 20,
-          "currentOffset": 1737,
-          "endOffset": 1760
+          "currentOffset": 2013,
+          "endOffset": 2036
         },
         "values": [{
           "value": {
-            "timestampValue": "2021-03-27T09:20:53.279Z"
+            "timestampValue": "2021-03-29T08:52:15.179Z"
           },
           "count": 1
         }, {
@@ -3071,10 +3747,10 @@ const data = {
         }],
         "children": [{
           "sourcePosition": {
-            "line": 58,
+            "line": 66,
             "column": 20,
-            "currentOffset": 1737,
-            "endOffset": 1748
+            "currentOffset": 2013,
+            "endOffset": 2024
           },
           "values": [{
             "value": {
@@ -3092,8 +3768,11 @@ const data = {
                   "uid": {
                     "stringValue": "author"
                   },
+                  "category": {
+                    "stringValue": "any"
+                  },
                   "createdAt": {
-                    "timestampValue": "2021-03-27T09:20:53.279Z"
+                    "timestampValue": "2021-03-29T08:52:15.179Z"
                   }
                 }
               }
@@ -3107,14 +3786,14 @@ const data = {
         }]
       }, {
         "sourcePosition": {
-          "line": 58,
+          "line": 66,
           "column": 48,
-          "currentOffset": 1765,
-          "endOffset": 1776
+          "currentOffset": 2041,
+          "endOffset": 2052
         },
         "values": [{
           "value": {
-            "timestampValue": "2021-03-27T09:20:53.279Z"
+            "timestampValue": "2021-03-29T08:52:15.179Z"
           },
           "count": 1
         }, {
@@ -3124,17 +3803,17 @@ const data = {
         }],
         "children": [{
           "sourcePosition": {
-            "line": 58,
+            "line": 66,
             "column": 48,
-            "currentOffset": 1765,
-            "endOffset": 1771
+            "currentOffset": 2041,
+            "endOffset": 2047
           },
           "values": [{
             "value": {
               "mapValue": {
                 "fields": {
                   "time": {
-                    "timestampValue": "2021-03-27T09:20:53.279Z"
+                    "timestampValue": "2021-03-29T08:52:15.179Z"
                   },
                   "auth": {
                     "mapValue": {
@@ -3245,8 +3924,11 @@ const data = {
                               "uid": {
                                 "stringValue": "author"
                               },
+                              "category": {
+                                "stringValue": "any"
+                              },
                               "createdAt": {
-                                "timestampValue": "2021-03-27T09:20:53.279Z"
+                                "timestampValue": "2021-03-29T08:52:15.179Z"
                               }
                             }
                           }
@@ -3289,136 +3971,197 @@ const data = {
     }]
   }, {
     "sourcePosition": {
-      "line": 60,
+      "line": 68,
       "column": 30,
-      "currentOffset": 1810,
-      "endOffset": 1945
+      "currentOffset": 2086,
+      "endOffset": 2304
     },
     "children": [{
       "sourcePosition": {
-        "line": 60,
+        "line": 68,
         "column": 30,
-        "currentOffset": 1810,
-        "endOffset": 1882
+        "currentOffset": 2086,
+        "endOffset": 2221
       },
       "children": [{
         "sourcePosition": {
-          "line": 60,
+          "line": 68,
           "column": 30,
-          "currentOffset": 1810,
-          "endOffset": 1815
-        }
-      }, {
-        "sourcePosition": {
-          "line": 61,
-          "column": 20,
-          "currentOffset": 1839,
-          "endOffset": 1882
+          "currentOffset": 2086,
+          "endOffset": 2158
         },
         "children": [{
           "sourcePosition": {
-            "line": 61,
-            "column": 32,
-            "currentOffset": 1851,
-            "endOffset": 1882
+            "line": 68,
+            "column": 30,
+            "currentOffset": 2086,
+            "endOffset": 2091
           }
+        }, {
+          "sourcePosition": {
+            "line": 69,
+            "column": 20,
+            "currentOffset": 2115,
+            "endOffset": 2158
+          },
+          "children": [{
+            "sourcePosition": {
+              "line": 69,
+              "column": 32,
+              "currentOffset": 2127,
+              "endOffset": 2158
+            }
+          }]
+        }]
+      }, {
+        "sourcePosition": {
+          "line": 70,
+          "column": 20,
+          "currentOffset": 2182,
+          "endOffset": 2221
+        },
+        "children": [{
+          "sourcePosition": {
+            "line": 70,
+            "column": 20,
+            "currentOffset": 2182,
+            "endOffset": 2205
+          },
+          "children": [{
+            "sourcePosition": {
+              "line": 70,
+              "column": 20,
+              "currentOffset": 2182,
+              "endOffset": 2193
+            }
+          }]
+        }, {
+          "sourcePosition": {
+            "line": 70,
+            "column": 48,
+            "currentOffset": 2210,
+            "endOffset": 2221
+          },
+          "children": [{
+            "sourcePosition": {
+              "line": 70,
+              "column": 48,
+              "currentOffset": 2210,
+              "endOffset": 2216
+            }
+          }]
         }]
       }]
     }, {
       "sourcePosition": {
-        "line": 62,
+        "line": 71,
         "column": 20,
-        "currentOffset": 1906,
-        "endOffset": 1945
+        "currentOffset": 2243,
+        "endOffset": 2304
       },
       "children": [{
         "sourcePosition": {
-          "line": 62,
+          "line": 71,
           "column": 20,
-          "currentOffset": 1906,
-          "endOffset": 1929
+          "currentOffset": 2243,
+          "endOffset": 2254
         },
         "children": [{
           "sourcePosition": {
-            "line": 62,
+            "line": 71,
             "column": 20,
-            "currentOffset": 1906,
-            "endOffset": 1917
+            "currentOffset": 2243,
+            "endOffset": 2249
           }
         }]
       }, {
         "sourcePosition": {
-          "line": 62,
-          "column": 48,
-          "currentOffset": 1934,
-          "endOffset": 1945
+          "line": 71,
+          "column": 35,
+          "currentOffset": 2258,
+          "endOffset": 2304
         },
         "children": [{
           "sourcePosition": {
-            "line": 62,
-            "column": 48,
-            "currentOffset": 1934,
-            "endOffset": 1940
+            "line": 71,
+            "column": 35,
+            "currentOffset": 2258,
+            "endOffset": 2279
+          },
+          "children": [{
+            "sourcePosition": {
+              "line": 71,
+              "column": 35,
+              "currentOffset": 2258,
+              "endOffset": 2267
+            }
+          }]
+        }, {
+          "sourcePosition": {
+            "line": 71,
+            "column": 60,
+            "currentOffset": 2283,
+            "endOffset": 2304
           }
         }]
       }]
     }]
   }, {
     "sourcePosition": {
-      "line": 64,
+      "line": 73,
       "column": 30,
-      "currentOffset": 1979,
-      "endOffset": 2043
+      "currentOffset": 2339,
+      "endOffset": 2403
     },
     "children": [{
       "sourcePosition": {
-        "line": 64,
+        "line": 73,
         "column": 30,
-        "currentOffset": 1979,
-        "endOffset": 1984
+        "currentOffset": 2339,
+        "endOffset": 2344
       }
     }, {
       "sourcePosition": {
-        "line": 65,
+        "line": 74,
         "column": 20,
-        "currentOffset": 2008,
-        "endOffset": 2043
+        "currentOffset": 2368,
+        "endOffset": 2403
       },
       "children": [{
         "sourcePosition": {
-          "line": 65,
+          "line": 74,
           "column": 20,
-          "currentOffset": 2008,
-          "endOffset": 2023
+          "currentOffset": 2368,
+          "endOffset": 2383
         },
         "children": [{
           "sourcePosition": {
-            "line": 65,
+            "line": 74,
             "column": 20,
-            "currentOffset": 2008,
-            "endOffset": 2017
+            "currentOffset": 2368,
+            "endOffset": 2377
           }
         }]
       }, {
         "sourcePosition": {
-          "line": 65,
+          "line": 74,
           "column": 40,
-          "currentOffset": 2028,
-          "endOffset": 2043
+          "currentOffset": 2388,
+          "endOffset": 2403
         },
         "children": [{
           "sourcePosition": {
-            "line": 65,
+            "line": 74,
             "column": 40,
-            "currentOffset": 2028,
-            "endOffset": 2039
+            "currentOffset": 2388,
+            "endOffset": 2399
           },
           "children": [{
             "sourcePosition": {
-              "line": 65,
+              "line": 74,
               "column": 40,
-              "currentOffset": 2028,
-              "endOffset": 2034
+              "currentOffset": 2388,
+              "endOffset": 2394
             }
           }]
         }]

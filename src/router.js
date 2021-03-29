@@ -69,6 +69,14 @@ const router = new Router({
       }
     },
     {
+      path: '/articles',
+      name: 'articleList',
+      component: () => import('@/components/articles/List'),
+      meta: {
+        title: 'Tous les articles'
+      }
+    },
+    {
       path: '/article/:ref',
       name: 'articleView',
       component: () => import('@/components/articles/View'),
