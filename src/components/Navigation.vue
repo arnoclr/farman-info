@@ -210,6 +210,16 @@ header {
         padding: 0 16px;
     }
 }
+
+@media screen and(max-width: 600px) {
+    header {
+        top: 0;
+        
+        [top] {
+            display: none;
+        }
+    }
+}
 </style>
 
 <script>
