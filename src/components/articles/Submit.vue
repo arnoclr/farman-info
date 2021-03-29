@@ -69,6 +69,9 @@ main {
     background-color: #fff;
     z-index: 1;
 }
+#submit-article-tabs .md-tabs-content {
+    height: auto !important;
+}
 </style>
 
 <script>
@@ -114,6 +117,7 @@ export default {
                 .then(doc => {
                     console.log(doc.id)
                     this.title = this.content = this.category = null
+                    localStorage.removeItem('submit:draft')
                     this.$router.push('/article/' + doc.id + '?ref=submit_page')
                 })
                 .catch(err => {
