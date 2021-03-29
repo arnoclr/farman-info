@@ -254,6 +254,10 @@ main {
     min-height: 50vh;
 }
 
+.md-overlay {
+    height: 100vh;
+}
+
 .divided {
     aside {
         margin: 0 16px;
@@ -287,4 +291,23 @@ main {
 // images
 a img:hover {
     filter: brightness(0.8);
+}
+
+// details
+details {
+    summary {
+        list-style: none;
+    
+        &::marker {
+            display:none;
+        }
+    
+        .md-icon {
+            transition: transform 150ms ease-out !important;
+        }
+    }
+
+    &[open] summary .md-icon {
+        transform: rotate(180deg);
+    }
 }
