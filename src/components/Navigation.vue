@@ -7,6 +7,7 @@
                 <span>{{ user.displayName }}</span>
                 <img :src="user.photoURL ? user.photoURL : 'https://i.stack.imgur.com/34AD2.jpg'" :title="'connecté en tant que : ' + user.displayName" alt="photo de profil" pp>
             </div>
+            <a href="#" @click="requestNotifications" n>| Activer les notifications</a>
             <router-link to="/articles/submit?ref=navbar_draft_continue" v-if="hasArticleDraft" r>
                 <span>Terminer la rédaction de mon article <i rt class="material-icons">arrow_forward</i></span>
             </router-link>
@@ -92,11 +93,15 @@ header {
         }
     }
 
-    span {
+    span, [n] {
         display: inline-flex;
         height: 30px;
         margin: 0;
         color: #fff;
+
+        &:hover {
+            color: #eee;
+        }
     }
 
     [pp] {
@@ -208,33 +213,37 @@ header {
 </style>
 
 <script>
-    const {firebase} = require('../firebaseConfig.js')
+const {firebase} = require('../firebaseConfig.js')
+import { askForPermissioToReceiveNotifications } from '../assets/js/push-notification';
 
-    export default {
-        props: [
-            'transparent',
-            'gestion'
-        ],
-        data() {
-            return {
-                user: this.$root.user,
-                hasArticleDraft: localStorage.getItem('submit:draft')
+export default {
+    props: [
+        'transparent',
+        'gestion'
+    ],
+    data() {
+        return {
+            user: this.$root.user,
+            hasArticleDraft: localStorage.getItem('submit:draft')
+        }
+    },
+    methods: {
+        login() {
+            localStorage.setItem('login-from-url', window.location.href)
+            this.$router.push('/login?ref=navbar')
+        },
+        logout() {
+            if(confirm('Se déconnecter ?')) {
+                firebase.auth().signOut().then(() => {
+                    this.$router.go()
+                }).catch(err => {
+                    console.log(err)
+                })
             }
         },
-        methods: {
-            login() {
-                localStorage.setItem('login-from-url', window.location.href)
-                this.$router.push('/login?ref=navbar')
-            },
-            logout() {
-                if(confirm('Se déconnecter ?')) {
-                    firebase.auth().signOut().then(() => {
-                        this.$router.go()
-                    }).catch(err => {
-                        console.log(err)
-                    })
-                }
-            }
+        requestNotifications() {
+            askForPermissioToReceiveNotifications()
         }
     }
+}
 </script>
