@@ -8,7 +8,7 @@
                     <span>{{ user.displayName }}</span>
                     <img :src="user.photoURL ? user.photoURL : 'https://i.stack.imgur.com/34AD2.jpg'" :title="'connecté en tant que : ' + user.displayName" alt="photo de profil" pp>
                 </div>
-                <a href="#" @click="requestNotifications" n>| Activer les notifications <i class="material-icons">notification_add</i></a>
+                <a href="#" @click="requestNotifications" id="request-notifications" n>| Activer les notifications <i class="material-icons">notification_add</i></a>
                 <router-link to="/articles/submit?ref=navbar_draft_continue" v-if="hasArticleDraft" r>
                     <span>Terminer la rédaction de mon article <i rt class="material-icons">arrow_forward</i></span>
                 </router-link>
@@ -355,6 +355,9 @@ export default {
     },
     mounted() {
         this.fetchCategories()
+        if (Notification.permission === "granted") {
+            document.getElementById('request-notifications').style.display = 'none'
+        }
     }
 }
 </script>
