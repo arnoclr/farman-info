@@ -34,7 +34,7 @@ Contact : farman.bonjour@outlook.fr
 Le site web est open source, et le code source est disponible à cette adresse : https://github.com/Aryqs-Ipsum/farman-info
 */
 #plane-svg {color: #9cd7db;height: 250px;position: absolute;top: 50%;left: -250px;transform: rotate(90deg) translateX(-50%);animation: forward 5s cubic-bezier(0, 0, 0, 1) forwards;}
-#message {position: absolute;bottom: 10vh;left: 50%;transform: translateX(-50%);color: #fff;font-family: 'Inter', Arial, Helvetica, sans-serif;font-weight: 500;font-size: 16px;animation: toblack 2s steps(1, end) forwards;}
+#splash-message {position: absolute;bottom: 10vh;left: 50%;transform: translateX(-50%);color: #fff;font-family: 'Inter', Arial, Helvetica, sans-serif;font-weight: 500;font-size: 16px;animation: toblack 2s steps(1, end) forwards;}
 #sky {height: 100vh;width: 100vw;background-color: #17969c;cursor: progress;animation: fadeout 5s ease-out forwards;}
 @keyframes forward {
     33% {transform: rotate(88deg) translateX(-55%);}
@@ -58,8 +58,7 @@ Le site web est open source, et le code source est disponible à cette adresse :
                 <path fill="currentColor" d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z" />
             </svg>
         </div>
-        <span id="message">Chargement des scripts ...</span>
-        <script>const urlParams=new URLSearchParams(window.location.search);var attemps=urlParams.get("retry")||1;setTimeout(()=>{document.getElementById("message")&&(document.getElementById("message").innerText="Le chargement prend du temps")},4e3),setTimeout(()=>{var e=0,t=15*attemps-3;setInterval(()=>{if(document.getElementById("message")&&attemps<3){var s=t-++e;document.getElementById("message").innerText="Tentative de reconnexion dans "+s+"s ..."}},1e3)},5e3),setTimeout(()=>{document.getElementById("message")&&(attemps<3?(attemps++,window.location.href="/?retry="+attemps):document.getElementById("message").innerText="Le site est inaccessible")},2e3+15e3*attemps);</script>
+        <span id="splash-message">Chargement des scripts ...</span>
     </div>
 </body>
 

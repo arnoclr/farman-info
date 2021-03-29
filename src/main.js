@@ -26,7 +26,7 @@ console.log('%cLe code du site est open source → https://github.com/Aryqs-Ipsu
 let app
 
 //console.time('login')
-document.getElementById('message').innerText = "Authentification ..."
+document.getElementById('splash-message').innerText = "Authentification ..."
 
 fb.auth.onAuthStateChanged(user => {
   //console.timeEnd('login')
