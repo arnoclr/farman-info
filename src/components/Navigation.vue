@@ -17,6 +17,8 @@
                 </router-link>
             </section>
             <section bottom>
+                <button class="button" @click="login" v-if="!user" login-btn>Connexion</button>
+                <router-link class="button" @click="login" v-else login-btn to="/articles/submit?ref=navbar_cta">Publier</router-link>
                 <router-link to="/?ref=header_logo">
                     <img :src="'/assets/logos/' + (gestion ? 'header_logo_admin.png' : 'header_logo.png')" alt="navbar logo" logo>
                 </router-link>
@@ -240,6 +242,13 @@
             font-size: 12px;
         }
 
+        [login-btn] {
+            height: 48px;
+            font-size: 18px;
+            font-weight: 500;
+            margin: 12px 8px;
+        }
+
         [logo] {
             display: inline-block;
             height: 42px;
@@ -273,15 +282,13 @@
     }
 }
 
-@media screen and(max-width: 450px) {
-    [cat] li, [r] {
-        display: none !important;
-    }
-}
-
 @media screen and(min-width: 600px) {
     section {
         padding: 0 16px;
+
+        [login-btn] {
+            display: none;
+        }
     }
 }
 
@@ -293,11 +300,24 @@
             display: none;
         }
 
-        [bottom] [cat] {
-            right: 0;
+        [cat] li, [r] {
+            display: none !important;
+        }
 
-            [menu] {
-                display: inline-flex !important;
+        [bottom] {
+            [logo] {
+                position: absolute;
+                right: 56px;
+                border-right: 1px solid #555;
+                padding-right: 8px;
+            }
+
+            [cat] {
+                right: 0;
+
+                [menu] {
+                    display: inline-flex !important;
+                }
             }
         }
     }
