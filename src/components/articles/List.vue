@@ -39,6 +39,12 @@ export default {
             lastVisible: null
         }
     },
+    watch: {
+        '$route.path': function(val, oldVal) {
+            this.articles = this.lastVisible = null
+            this.fetch()
+        }
+    },
     methods: {
         getImageFromContent(content) {
             const regex = /!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g
@@ -46,19 +52,14 @@ export default {
             return matchs ? matchs[1] : null
         },
         fetch() {
+            let category = this.$route.params.category
             this.$root.$emit('query:loading')
-            let query = db.collection('articles')
-                .orderBy('createdAt', 'desc')
-                .where('published', '==', true)
-                .limit(15)
-            if(this.lastVisible) {
-                console.log(this.lastVisible)
-                query = db.collection('articles')
-                    .orderBy('createdAt', 'desc')
-                    .where('published', '==', true)
-                    .startAfter(this.lastVisible.createdAt)
-                    .limit(10)
-            }
+            
+            let query = db.collection('articles').orderBy('createdAt', 'desc').where('published', '==', true)
+            query = category ? query.where('category', '==', category) : query
+            query = this.lastVisible ? query.startAfter(this.lastVisible.createdAt) : query
+            query = query.limit(15)
+            
             query.get().then(docs => {
                 this.$root.$emit('query:loaded')
                 this.articles = this.articles ? this.articles : []

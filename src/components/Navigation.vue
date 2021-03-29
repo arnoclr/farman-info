@@ -61,7 +61,7 @@
                             <span class="md-list-item-text">Par thèmes</span>
                         </md-list-item>
                     </summary>
-                    <router-link v-for="(category, index) in categories" v-bind:key="index" :to="'/articles/categories/' + category.id + '?ref=drawer'">
+                    <router-link v-for="(category, index) in categories" v-bind:key="index" :to="'/articles/category/' + category.id + '?ref=drawer'">
                         <md-list-item pastille>
                             <div wrapper class="md-list-item-text" 
                                 v-bind:style="{background: category.color + '20'}">
@@ -84,6 +84,7 @@
 <style lang="scss" scoped>
 .md-drawer {
     height: 100vh;
+    width: 230px;
     position: fixed;
 }
 
