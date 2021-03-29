@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 
 Vue.use(Router)
 
@@ -71,6 +72,14 @@ const router = new Router({
     {
       path: '/articles',
       name: 'articleList',
+      component: () => import('@/components/articles/List'),
+      meta: {
+        title: 'Tous les articles'
+      }
+    },
+    {
+      path: '/articles/category/:category',
+      name: 'articleListCategory',
       component: () => import('@/components/articles/List'),
       meta: {
         title: 'Tous les articles'
