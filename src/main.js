@@ -16,10 +16,6 @@ import './assets/scss/app.scss'
 import VueSimpleMarkdown from '../src/assets/js/vue-simple-markdown.js'
 Vue.use(VueSimpleMarkdown)
 
-// workbox
-// import wb from "./assets/js/registerServiceWorker";
-// Vue.prototype.$workbox = wb;
-
 // console disclaimers
 console.log('%cAtttention !', 'color: #f00; background: #ff0; font-size: 24px')
 console.log('%cEn utilisant cette console, vous vous exposez au risque que des personnes malveillantes usurpent votre identité et volent vos informations par le biais d\'une attaque appelée Self-XSS.\nNe saisissez pas et ne copiez pas du code que vous ne comprenez pas.', 'font-size: 16px')
