@@ -2,9 +2,11 @@
 
 Farman web application is built with vuejs and google firebase.
 
-![screenshot de la page de connexion](https://i.imgur.com/T9HLTyr.jpg)
+Screenshots| |→
+-|-|-
+![](https://i.imgur.com/Mmpde8j.png) | ![](https://i.imgur.com/Vb0UIhd.png) | ![](https://i.imgur.com/5VSvc48.png)
 
-→ [https://farman.info](https://farman.info?utm_source=github_readme)
+[![install](https://i.imgur.com/RPOS6Bo.png)](https://farman.info?utm_source=github_readme)
 
 # Test
 
