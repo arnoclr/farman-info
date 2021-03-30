@@ -65,6 +65,7 @@
 
 [b] {
     margin-top: -8px;
+    z-index: 0;
 }
 
 .box span {
