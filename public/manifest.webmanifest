@@ -15,7 +15,7 @@
         }
     ],
     "start_url": "/?utm_source=homescreen&utm_medium=shortcut",
-    "background_color": "#eeeeee",
+    "background_color": "#17969c",
     "display": "standalone",
     "scope": "/",
     "theme_color": "#009698",
