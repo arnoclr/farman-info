@@ -1,7 +1,7 @@
 {
     "short_name": "MyFarman",
     "name": "MyFarman par Farman",
-    "description": "L'offre de presse aéronautique améliorée par Farman.",
+    "description": "Farman publie des actualités sur les compagnies aériennes, les aéroports, les bons plans pour prendre l'avion et les voyages chaque semaine pour tout savoir sur le transport aérien et l'aviation civile en France.",
     "icons": [
         {
             "src": "/assets/logos/icons-192.png",
@@ -14,7 +14,7 @@
             "sizes": "512x512"
         }
     ],
-    "start_url": "/?utm_source=pwa",
+    "start_url": "/?utm_source=homescreen&utm_medium=shortcut",
     "background_color": "#eeeeee",
     "display": "standalone",
     "scope": "/",
@@ -41,7 +41,7 @@
             "name": "Dernières actualités",
             "short_name": "Articles",
             "description": "Découvrez les derniers articles de la rédaction et des utilisateurs",
-            "url": "/articles?utm_source=pwa_shortcut",
+            "url": "/articles?utm_source=jumplist&utm_medium=shortcut",
             "icons": [
                 {
                     "src": "/assets/logos/news.png",
@@ -53,7 +53,7 @@
             "name": "Ecrire un article",
             "short_name": "Poster",
             "description": "Ecrire une actualité sur le site",
-            "url": "/articles/submit?utm_source=pwa_shortcut",
+            "url": "/articles/submit?utm_source=jumplist&utm_medium=shortcut",
             "icons": [
                 {
                     "src": "/assets/logos/publish.png",
