@@ -2,7 +2,7 @@
 
 Farman publishes news on airlines, airports, travel tips and travel tips every week to find out all about air transport and civil aviation in France.
 
-*Farman web application is built with vuejs and google firebase.*
+[![install](https://i.imgur.com/RPOS6Bo.png)](https://farman.info?utm_source=github_readme)
 
 ## Screenshots
 
@@ -10,7 +10,7 @@ Magazines|Login|Publish
 -|-|-
 ![](https://i.imgur.com/Mmpde8j.png)|![](https://i.imgur.com/Vb0UIhd.png)|![](https://i.imgur.com/5VSvc48.png)
 
-[![install](https://i.imgur.com/RPOS6Bo.png)](https://farman.info?utm_source=github_readme)
+*Farman web application is built with vuejs and google firebase.*
 
 # Test
 
