@@ -294,7 +294,7 @@
     section {
         padding: 0 16px;
 
-        [login-btn] {
+        [login-btn], [rn] {
             display: none;
         }
     }
