@@ -16,8 +16,16 @@
                 <div class="info" v-else>
                     <p>Description non disponible.</p>
                 </div>
+
                 <router-link :to="{ name: 'PdfViewer', params: { ref: magazine.ref } }" class="button" id="start-reading">Ouvrir le lecteur</router-link>
-                <a class="button-outlined" :href="magazine.url">Télécharger le pdf</a>
+
+                <md-button @click="deletePdfFromStorage" class="md-icon-button" v-if="stored">
+                    <md-icon>delete</md-icon>
+                </md-button>
+                <md-button @click="downloadPdf" class="md-icon-button" v-if="!stored && !downloadPdfProgress">
+                    <md-icon>download</md-icon>
+                </md-button>
+                <md-progress-spinner :md-diameter="30" :md-stroke="3" :md-value="downloadPdfProgress" md-mode="determinate" v-if="downloadPdfProgress"></md-progress-spinner>
             </template>
             <div class="center" style="height: 80vh" v-else>
                 <svg class="loader" width="60" height="60" xmlns="http://www.w3.org/2000/svg" >
@@ -59,7 +67,7 @@ img {
 
 <script>
 const {magazines} = require('../../firebaseConfig.js')
-let magazine = {}
+import browserFileStorage from 'browser-file-storage'
 
 export default {
     components: {
@@ -72,10 +80,19 @@ export default {
             magazine: null,
             error: null,
             viewer: false,
+            stored: false,
+            downloadPdfProgress: false
         }
     },
     created() {
         this.getMagazine()
+        if(!browserFileStorage._init) {
+            browserFileStorage.init('farman').then(status => {})
+            .catch(error => {
+                console.log(error)
+                this.$root.$emit('toast', "Erreur lors de l'initialisation du stockage")
+            })
+        }
     },
     methods: {
         getMagazine() {
@@ -92,11 +109,54 @@ export default {
                     this.magazine.ref = ref
                     document.title = this.magazine.title
                     this.error = false
+                    this.checkIfPdfIsStored()
                 } else {
                     this.error = 'Aucun résultat correspondant'
                 }
             }).catch(err => {
                 this.error = err
+            })
+        },
+        downloadPdf() {
+            var xhr = new XMLHttpRequest()
+            xhr.responseType = 'blob'
+            xhr.onload = (event) => {
+                this.savePdfIntoStorage(xhr.response)
+                this.downloadPdfProgress = false
+            }
+            xhr.onprogress = evt => {
+                if (evt.lengthComputable) {
+                    this.downloadPdfProgress = (evt.loaded / evt.total) * 100
+                } 
+            }
+            xhr.onerror = (err) => {
+                this.$root.$emit('toast', 'Impossible de télécharger le document')
+            }
+            xhr.open('GET', this.magazine.url)
+            xhr.send();
+        },
+        savePdfIntoStorage(blob) {
+            browserFileStorage.save(this.magazine.id, blob).then(file => {
+                this.$root.$emit('toast', this.magazine.title + ' télechargé avec succès')
+                this.checkIfPdfIsStored()
+            }).catch(error => {
+                console.error('Could not save the image!', file)
+            })
+        },
+        deletePdfFromStorage() {
+            browserFileStorage.delete(this.magazine.id).then(() => {
+                this.$root.$emit('toast', this.magazine.title + ' supprimé')
+                this.checkIfPdfIsStored()
+            }).catch((error) => {
+                console.error(error)
+            })
+        },
+        checkIfPdfIsStored() {
+            browserFileStorage.load(this.magazine.id).then((file) => {
+                this.stored = true
+            }).catch((error) => {
+                this.stored = false
+                console.error(error)
             })
         },
         back() {

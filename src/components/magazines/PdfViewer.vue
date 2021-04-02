@@ -32,7 +32,7 @@
                     v-for="i in numPages"
                     :key="i"
                     :src="src"
-                    :page="i"
+                    @loaded="loaded(i)"
                     class="page"
                 ></pdf>
                 <div class="center" v-if="loading">
@@ -202,6 +202,7 @@
 
 <script>
 import pdf from 'vue-pdf'
+import browserFileStorage from 'browser-file-storage'
 const {magazines} = require('../../firebaseConfig.js')
  
 export default {
@@ -221,10 +222,24 @@ export default {
         }
     },
     created() {
-        this.getMagazine()
         this.storageKey = this.$route.params.ref + '-progress'
+        if(!browserFileStorage._init) {
+            browserFileStorage.init('farman').then(status => {
+                this.checkIfPdfIsStored()
+            })
+            .catch(error => {
+                console.log(error)
+                this.$root.$emit('toast', "Erreur lors de l'initialisation du stockage")
+            })
+        } else {
+            this.checkIfPdfIsStored()
+        }
     },
     methods: {
+        loaded(page) {
+            if(page != this.numPages) return
+            this.loading = false
+        },
         scrollTo(page) {
             document.getElementById('main').scrollTo({
                 top: 0,
@@ -251,22 +266,33 @@ export default {
             let page = localStorage.getItem(this.storageKey)
             console.log(page)
         },
+        setSrc(url) {
+            console.log(url)
+            this.src = pdf.createLoadingTask(url);
+            this.src.promise.then(pdf => {
+                this.numPages = pdf.numPages
+                this.retrieveLastProgress()
+            }).catch(err => {
+                this.error = err
+            })
+        },
+        checkIfPdfIsStored() {
+            browserFileStorage.load(this.$route.params.ref).then(file => {
+                this.$root.$emit('toast', 'Chargé depuis le stockage interne')
+                let url = file.createURL()
+                this.setSrc(url)
+            }).catch((error) => {
+                this.getMagazine()
+            })
+        },
         getMagazine() {
             this.src = this.error = null
-            this.loading = true
             const ref = this.$route.params.ref
             magazines.doc(ref).get().then(snapshot => {
                 if (this.$route.params.ref !== ref) return
                 if(snapshot.data()) {
-                    this.src = pdf.createLoadingTask(snapshot.data().url);
                     document.title = snapshot.data().title
-                    this.src.promise.then(pdf => {
-                        this.numPages = pdf.numPages
-                        this.loading = false
-                        this.retrieveLastProgress()
-                    }).catch(err => {
-                        this.error = err
-                    })
+                    this.setSrc(snapshot.data().url)
                 } else {
                     this.error = 'Données non disponibles'
                 }
