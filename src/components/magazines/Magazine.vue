@@ -141,7 +141,7 @@ export default {
             xhr.send();
         },
         savePdfIntoStorage(blob) {
-            browserFileStorage.save(this.magazine.id, blob).then(file => {
+            browserFileStorage.save(this.magazine.ref, blob).then(file => {
                 this.$root.$emit('toast', this.magazine.title + ' télechargé avec succès')
                 this.checkIfPdfIsStored()
             }).catch(error => {
@@ -149,7 +149,7 @@ export default {
             })
         },
         deletePdfFromStorage() {
-            browserFileStorage.delete(this.magazine.id).then(() => {
+            browserFileStorage.delete(this.magazine.ref).then(() => {
                 this.$root.$emit('toast', this.magazine.title + ' supprimé')
                 this.checkIfPdfIsStored()
             }).catch((error) => {
@@ -157,7 +157,7 @@ export default {
             })
         },
         checkIfPdfIsStored() {
-            browserFileStorage.load(this.magazine.id).then((file) => {
+            browserFileStorage.load(this.magazine.ref).then((file) => {
                 this.stored = true
             }).catch((error) => {
                 this.stored = false
