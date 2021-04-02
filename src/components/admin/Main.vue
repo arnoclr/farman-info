@@ -18,9 +18,10 @@
 <style scoped>
 select {
     position: fixed;
-    top: 12px;
-    left: 200px;
+    bottom: 16px;
+    left: 16px;
     z-index: 2;
+    background-color: #fff;
 }
 </style>
 

@@ -4,64 +4,47 @@
             <p>Une erreur est survenue : <ins>{{ error }}</ins></p>
         </div>
 
-        <div v-if="pdfs" p>
-            <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
-                <md-table-toolbar>
-                    <div class="md-toolbar-section-start">
-                        <input id="pdf-input" type="file" @change="upload" accept="application/pdf" />
-                        <button class="button">Importer <i class="material-icons">publish</i></button>
-                        <progress id="pdf-progress" max="1" value="0"></progress>
-                    </div>
-
-                    <md-field md-clearable class="md-toolbar-section-end">
-                        <md-input placeholder="Rechercher ou ajouter" v-model="search" @input="searchOnTable" />
-                    </md-field>
-                </md-table-toolbar>
-
-                <md-table-empty-state
-                    md-label="Aucun pdf trouvé"
-                    :md-description="`Aucun résultat pour la recherche '${search}'. Essayez avec un terme différent ou importez un nouveau pdf.`">
-                </md-table-empty-state>
-
-                <md-table-row slot="md-table-row" slot-scope="{ item }">
-                    <md-table-cell md-label="Name" md-sort-by="name">
-                        {{ item.name }}
-                        <div class="right">
-                            <md-button @click="download(item)" title="télécharger" class="md-icon-button">
-                                <md-icon>download</md-icon>
-                            </md-button>
-                            <md-button @click="open(item)" title="ouvrir dans un nouvel onglet" class="md-icon-button">
-                                <md-icon>launch</md-icon>
-                            </md-button>
-                            <md-button @click="remove(item)" title="supprimer" class="md-icon-button">
-                                <md-icon>delete</md-icon>
-                            </md-button>
-                        </div>
-                    </md-table-cell>
-                </md-table-row>
-            </md-table>
-        </div>
-        <ul v-if="pdfsLoading">
-            <p>Chargement ...</p>
-        </ul>
+        <md-dialog :md-active.sync="requestPdfOpen" :md-click-outside-to-close="false">
+            <md-dialog-title>Ajouter le pdf</md-dialog-title>
+            <md-dialog-content>
+                <small>{{ currentPdfId }}</small>
+                <progress id="pdf-progress" max="1" value="0"></progress>
+                <input id="pdf-input" type="file" @change="uploadPdf" accept="application/pdf" />
+            </md-dialog-content>
+            <md-dialog-actions>
+                <md-button class="md-primary" @click="requestPdfOpen = false" :disabled="pdfIsUploading">Annuler</md-button>
+            </md-dialog-actions>
+        </md-dialog>
 
         <div v-if="magazines">
-            <md-table v-model="magazines" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
+            <md-table v-model="searched" md-sort="title" md-sort-order="asc" md-card md-fixed-header>
                 <md-table-toolbar>
                     <div class="md-toolbar-section-start">
                         <button @click="currentEditDialog = true; currentEdit = {url: null, image: null}" class="button" publish>Publier un magazine <i class="material-icons">edit</i></button>
                     </div>
+
+                    <md-field md-clearable class="md-toolbar-section-end">
+                        <md-input placeholder="Rechercher par titre" v-model="search" @input="searchOnTable" />
+                    </md-field>
                 </md-table-toolbar>
 
+                <md-table-empty-state
+                    md-label="Aucun magazine"
+                    :md-description="`'${search}' ne correpond à aucun magazine publié, réessayez avec un autre terme de recherche ou vérifiez la syntaxe.`">
+                </md-table-empty-state>
+
                 <md-table-row slot="md-table-row" slot-scope="{ item }">
-                    <md-table-cell md-label="Name" md-sort-by="name">
+                    <md-table-cell md-label="Titre" md-sort-by="title">
                         {{ item.title }}
                         <div class="right">
-                            <router-link class="md-button md-icon-button" :to="{ name: 'Magazine', params: { ref: item.id } }">
-                                <i title="visionner" class="material-icons">visibility</i>
-                            </router-link>
+                            <md-button @click="viewPage(item.id)" title="Modifier les informations" class="md-icon-button">
+                                <md-icon>visibility</md-icon>
+                            </md-button>
                             <md-button @click="edit(item)" title="Modifier les informations" class="md-icon-button">
                                 <md-icon>edit</md-icon>
+                            </md-button>
+                            <md-button @click="requestPdf(item.id)" title="Publier le pdf du magazine" class="md-icon-button">
+                                <md-icon>picture_as_pdf</md-icon>
                             </md-button>
                             <md-button @click="remove_db(item.id)" title="supprimer" class="md-icon-button">
                                 <md-icon>delete</md-icon>
@@ -87,11 +70,6 @@
                     <md-field>
                         <label>Extrait</label>
                         <md-textarea v-model="currentEdit.summary"></md-textarea>
-                    </md-field>
-
-                    <md-field>
-                        <label>pdf</label>
-                        <md-input v-model="currentEdit.url"></md-input>
                     </md-field>
 
                     <md-field>
@@ -132,13 +110,6 @@ button {
     display: flex;
 }
 
-#pdf-input {
-    height: 42px;
-    opacity: 0;
-    position: absolute;
-    cursor: pointer;
-}
-
 [publish] {
     margin: 8px 0;
 }
@@ -156,7 +127,10 @@ button {
 }
 
 .right {
-    float: right;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 4px;
 
     .md-icon-button {
         display: inline-flex;
@@ -172,9 +146,9 @@ const toLower = text => {
     return text.toString().toLowerCase()
 }
 
-const searchByName = (items, term) => {
+const searchByTitle = (items, term) => {
     if (term) {
-        return items.filter(item => toLower(item.name).includes(toLower(term)))
+        return items.filter(item => toLower(item.title).includes(toLower(term)))
     }
 
     return items
@@ -194,17 +168,16 @@ export default {
             currentEdit: null,
             currentEditDialog: false,
             imageUploaderOpen: false,
+            requestPdfOpen: false,
+            currentPdfId: null,
+            pdfIsUploading: false,
             search: null,
             searched: []
         }
     },
     methods: {
-        // table
-        newUser () {
-            window.alert('Noop')
-        },
         searchOnTable () {
-            this.searched = searchByName(this.pdfs, this.search)
+            this.searched = searchByTitle(this.magazines, this.search)
         },
         // image upload
         appendImageUrl(url) {
@@ -213,60 +186,20 @@ export default {
         imageUploaderClose() {
             this.imageUploaderOpen = false
         },
-        // pdf data
-        getFiles() {
-            this.pdfs = this.error = null
-            this.pdfsLoading = true
-            files.listAll().then(res => {
-                this.pdfsLoading = false
-                this.pdfs = []
-                res.items.forEach(pdf => {
-                    this.pdfs.push(pdf)
-                })
-                this.searched = this.pdfs
-            }).catch(err => {
-                this.pdfsLoading = false
-                this.error = err
-            })
+        viewPage(id) {
+            this.$router.push('/magazine/' + id)
         },
-        open(storageRef) {
-            storageRef.getDownloadURL().then((url) => {
-                window.open(url)
-            })
+        // PDF upload
+        requestPdf(id) {
+            this.requestPdfOpen = true
+            this.currentPdfId = id
         },
-        insertFileIntoEdition(storageRef) {
-            storageRef.getDownloadURL().then((url) => {
-                this.currentEdit.url = url
-            })
-        },
-        download(storageRef) {
-            storageRef.getDownloadURL().then((url) => {
-                var xhr = new XMLHttpRequest();
-                xhr.responseType = 'blob';
-                xhr.onload = (event) => {
-                    var blob = xhr.response;
-                };
-                xhr.onerror = (err) => {
-                    this.error = "Impossible de télécharger le document"
-                }
-                xhr.open('GET', url);
-                xhr.send();
-            })
-        },
-        remove(storageRef) {
-            if(confirm('Supprimer ?')) {
-                storageRef.delete().then(() => {
-                    this.getFiles()
-                }).catch(err => {
-                    this.error = err
-                });
-            }
-        },
-        upload() {
+        uploadPdf() {
             // 'file' comes from the Blob or File API
             let pdf = document.getElementById('pdf-input').files[0]
-            let ref = files.child(pdf.name)
+            let ref = files.child(this.currentPdfId + '.pdf')
             let uploadTask = ref.put(pdf)
+            this.pdfIsUploading = true
 
             // Listen for state changes, errors, and completion of the upload.
             uploadTask.on('state_changed',
@@ -277,11 +210,27 @@ export default {
                 }, 
                 (error) => {
                     this.error = error
+                    this.pdfIsUploading = false
                 }, 
                 () => {
-                    this.getFiles()
+                    this.getPdfLinkFrom(this.currentPdfId)
+                    this.pdfIsUploading = false
                 }
             );
+        },
+        getPdfLinkFrom(id) {
+            files.child(id + '.pdf').getDownloadURL().then((url) => {
+                this.insertPdfLink(id, url)
+            })
+        },
+        insertPdfLink(id, url) {
+            magazines.doc(id).update({url: url}).then(res => {
+                this.getMagazines()
+                this.requestPdfOpen = false
+            }).catch(err => {
+                this.$root.$emit('toast', err)
+                this.requestPdfOpen = false
+            })
         },
         // magazines data
         getMagazines() {
@@ -295,6 +244,7 @@ export default {
                     buffer.id = doc.id
                     this.magazines.push(buffer)
                 })
+                this.searched = this.magazines
             })
             .catch(err => {
                 console.log(err)
@@ -315,6 +265,7 @@ export default {
             this.currentEdit.date = firebase.firestore.Timestamp.fromDate(new Date());
             magazines.add(this.currentEdit).then(ref => {
                 this.undoEdit()
+                this.requestPdf(ref.id)
             }).catch(err => {
                 this.error = err
             })
@@ -341,7 +292,6 @@ export default {
         }
     },
     mounted() {
-        this.getFiles()
         this.getMagazines()
     }
 }
