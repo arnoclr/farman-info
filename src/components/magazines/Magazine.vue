@@ -26,6 +26,8 @@
                     <md-icon>download</md-icon>
                 </md-button>
                 <md-progress-spinner :md-diameter="30" :md-stroke="3" :md-value="downloadPdfProgress" md-mode="determinate" v-if="downloadPdfProgress"></md-progress-spinner>
+
+                <br><small v-if="fileSize">{{ fileSize }}</small>
             </template>
             <div class="center" style="height: 80vh" v-else>
                 <svg class="loader" width="60" height="60" xmlns="http://www.w3.org/2000/svg" >
@@ -66,8 +68,9 @@ img {
 </style>
 
 <script>
-const {magazines} = require('../../firebaseConfig.js')
+const {magazines, storage} = require('../../firebaseConfig.js')
 import browserFileStorage from 'browser-file-storage'
+import FileConvertSize from '../../assets/js/fileConvertSize'
 
 export default {
     components: {
@@ -81,7 +84,8 @@ export default {
             error: null,
             viewer: false,
             stored: false,
-            downloadPdfProgress: false
+            downloadPdfProgress: false,
+            fileSize: null
         }
     },
     created() {
@@ -110,6 +114,7 @@ export default {
                     document.title = this.magazine.title
                     this.error = false
                     this.checkIfPdfIsStored()
+                    this.getFileSize()
                 } else {
                     this.error = 'Aucun résultat correspondant'
                 }
@@ -157,6 +162,11 @@ export default {
             }).catch((error) => {
                 this.stored = false
                 console.error(error)
+            })
+        },
+        getFileSize() {
+            storage.ref('magazines').child(this.magazine.ref + '.pdf').getMetadata().then(meta => {
+                this.fileSize = FileConvertSize(meta.size)
             })
         },
         back() {
