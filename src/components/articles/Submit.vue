@@ -124,7 +124,7 @@ export default {
                     alert(err)
                 })
             } else {
-                alert('Champs non remplis')
+                this.$root.$emit('toast', 'Champs non remplis')
             }
         }
     },
