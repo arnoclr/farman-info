@@ -17,7 +17,10 @@
                     <p>Description non disponible.</p>
                 </div>
 
-                <router-link :to="{ name: 'PdfViewer', params: { ref: magazine.ref } }" class="button" id="start-reading">Ouvrir le lecteur</router-link>
+                <router-link 
+                    :to="{ name: 'PdfViewer', params: { ref: magazine.ref } }"
+                    class="button" id="start-reading"
+                    :disabled="offline && !stored">Ouvrir le lecteur</router-link>
 
                 <md-button @click="deletePdfFromStorage" class="md-icon-button" v-if="stored">
                     <md-icon>delete</md-icon>
@@ -28,6 +31,7 @@
                 <md-progress-spinner :md-diameter="30" :md-stroke="3" :md-value="downloadPdfProgress" md-mode="determinate" v-if="downloadPdfProgress"></md-progress-spinner>
 
                 <br><small v-if="fileSize">{{ fileSize }}</small>
+                <small v-if="stored" os>Disponible hors-ligne <md-icon oi>done</md-icon></small>
             </template>
             <div class="center" style="height: 80vh" v-else>
                 <svg class="loader" width="60" height="60" xmlns="http://www.w3.org/2000/svg" >
@@ -65,6 +69,13 @@ img {
     vertical-align: bottom;
     height: 40px;
 }
+
+[os] {
+    margin-left: 8px;
+}
+[oi] {
+    font-size: small !important;
+}
 </style>
 
 <script>
@@ -85,7 +96,8 @@ export default {
             viewer: false,
             stored: false,
             downloadPdfProgress: false,
-            fileSize: null
+            fileSize: null,
+            offline: !navigator.onLine
         }
     },
     created() {

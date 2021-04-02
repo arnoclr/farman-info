@@ -31,6 +31,11 @@ const auth = firebase.auth()
 const storage = firebase.storage()
 const messaging = firebase.messaging()
 
+db.enablePersistence()
+  .catch(err => {
+    console.error(err)
+  })
+
 // firebase collections
 const magazines = db.collection('magazines')
 

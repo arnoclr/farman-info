@@ -31,6 +31,10 @@ button, .button, .button-outlined, .icon-button {
     border-radius: 4px;
     border: none;
     text-decoration: none;
+
+    &[disabled] {
+        pointer-events: none;
+    }
 }
 
 .button {
@@ -45,7 +49,7 @@ button, .button, .button-outlined, .icon-button {
         background-color: #ddd;
     }
 
-    &:hover {
+    &:hover:not([disabled]) {
         box-shadow: 2px 2px 5px 0px rgba(150, 150, 150, 0.6);
     }
 }

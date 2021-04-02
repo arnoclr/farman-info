@@ -9,6 +9,7 @@
                     <img :src="user.photoURL ? user.photoURL : 'https://i.stack.imgur.com/34AD2.jpg'" :title="'connecté en tant que : ' + user.displayName" alt="photo de profil" pp>
                 </div>
                 <a href="#" v-if="!notificationsEnabled" @click="requestNotifications" n>| Activer les notifications <i class="material-icons">notification_add</i></a>
+                <span href="#" v-if="offline" n>| mode hors ligne <i class="material-icons">airplanemode_active</i></span>
                 <router-link to="/articles/submit?ref=navbar_draft_continue" v-if="hasArticleDraft" r>
                     <span>Terminer la rédaction de mon article <i rt class="material-icons">arrow_forward</i></span>
                 </router-link>
@@ -347,7 +348,8 @@ export default {
             hasArticleDraft: localStorage.getItem('submit:draft'),
             showSidepanel: false,
             categories: null,
-            notificationsEnabled: Notification.permission === "granted"
+            notificationsEnabled: Notification.permission === "granted",
+            offline: !navigator.onLine
         }
     },
     methods: {
