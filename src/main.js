@@ -40,6 +40,10 @@ fb.auth.onAuthStateChanged(user => {
           state: false,
           mode: 'indeterminate'
         },
+        toast: {
+          open: false,
+          value: ''
+        },
         user: user
       },
       el: '#app',
@@ -64,6 +68,11 @@ fb.auth.onAuthStateChanged(user => {
 
     app.$root.$on('query:loaded', () => {
       app.loading.state = false
+    })
+
+    app.$root.$on('toast', value => {
+      app.toast.open = true
+      app.toast.value = value
     })
   }
 })

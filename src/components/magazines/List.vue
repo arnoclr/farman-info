@@ -132,7 +132,7 @@ export default {
             })
             .catch(err => {
                 console.log(err)
-                this.error = err
+                this.$root.$emit('toast', err)
             })
         },
         requestNotifications() {

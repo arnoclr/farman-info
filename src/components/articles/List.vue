@@ -71,7 +71,7 @@ export default {
                 this.lastVisible = this.articles[this.articles.length - 1]
             })
             .catch(err => {
-                alert(err)
+                this.$root.$emit('toast', err)
                 console.log(err)
             })
         }
