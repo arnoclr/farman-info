@@ -83,7 +83,7 @@
 
                 <md-dialog-actions>
                     <md-button class="md-primary" @click="undoEdit">annuler</md-button>
-                    <md-button class="md-primary" @click="saveEdit(currentEdit.id)">{{ currentEdit.id ? 'Enregistrer' : 'Publier' }}</md-button>
+                    <md-button class="md-primary" @click="saveEdit(currentEdit.id)">{{ currentEdit.id ? 'Enregistrer' : 'Suivant' }}</md-button>
                 </md-dialog-actions>
             </md-dialog>
 
