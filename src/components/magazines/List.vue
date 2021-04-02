@@ -74,6 +74,7 @@
 
 .magazine-box {
     width: 50%;
+    margin-top: 16px;
 }
 
 img {
