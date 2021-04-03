@@ -68,14 +68,12 @@
                             <span class="md-list-item-text">Par thèmes</span>
                         </md-list-item>
                     </summary>
-                    <router-link v-for="(category, index) in categories" v-bind:key="index" :to="'/articles/category/' + category.id + '?ref=drawer'">
-                        <md-list-item pastille>
-                            <div wrapper class="md-list-item-text" 
-                                v-bind:style="{background: category.color + '20'}">
-                                <span v-bind:style="{color: category.color}">{{ category.label }}</span>
-                            </div>
-                        </md-list-item>
-                    </router-link>
+                    <category-label 
+                        v-for="(category, index) in categories" v-bind:key="index"
+                        :category="category"
+                        link-ref="drawer"
+                        style="margin-left:56px">
+                    </category-label>
                 </details>
             </md-list>
         </md-drawer>
@@ -93,13 +91,6 @@
     height: 100vh;
     width: 230px;
     position: fixed;
-}
-
-[wrapper] {
-    border-radius: 6px;
-    margin-left: 56px;
-    padding: 8px 16px;
-    width: fit-content;
 }
 
 [header] {
@@ -342,6 +333,9 @@ export default {
         'transparent',
         'gestion'
     ],
+    components: {
+        CategoryLabel: () => import('./utils/CategoryLabel')
+    },
     data() {
         return {
             user: this.$root.user,

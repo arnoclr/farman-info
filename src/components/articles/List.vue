@@ -4,11 +4,16 @@
 
         <div class="divided">
             <main>
-                {{ categories }}
                 <div v-if="articles">
                     <article v-for="(article, index) in articles" v-bind:key="index">
                         <router-link :to="'/article/' + article.id + '?ref=feed'">
-                            <img :src="getImageFromContent(article.content)" alt="">
+                            <img :src="getImageFromContent(article.content)" :alt="article.title">
+                            <div v-if="categories">
+                                <category-label
+                                    :category="categories.find(o => o.id == article.category)"
+                                    link-ref="articles_feed">
+                                </category-label>
+                            </div>
                             <h1>{{ article.title }}</h1>
                         </router-link>
                     </article>
@@ -35,7 +40,8 @@ export default {
     components: {
         AppFooter: () => import('../Footer.vue'),
         AppHeader: () => import('../Navigation.vue'),
-        AppSidebar: () => import('../utils/Sidebar.vue')
+        AppSidebar: () => import('../utils/Sidebar.vue'),
+        CategoryLabel: () => import('../utils/CategoryLabel')
     },
     data() {
         return {
