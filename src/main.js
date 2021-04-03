@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-const fb = require('./firebaseConfig.js')
+import {auth, analytics} from './firebaseConfig.js'
 
 Vue.config.productionTip = false
 
@@ -28,11 +28,10 @@ console.log('%cLe code du site est open source → https://github.com/Aryqs-Ipsu
 
 let app
 
-//console.time('login')
 document.getElementById('splash-message').innerText = "Authentification ..."
 
-fb.auth.onAuthStateChanged(user => {
-  //console.timeEnd('login')
+auth.onAuthStateChanged(user => {
+  analytics.setUserId(user.uid);
   if(!app) {
     app = new Vue({
       data: {

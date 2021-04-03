@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import {auth, analytics} from './firebaseConfig'
 
 Vue.use(Router)
 
@@ -123,9 +122,15 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
-  const currentUser = firebase.auth().currentUser
+  const currentUser = auth.currentUser
 
   document.title = to.meta.title || 'Farman - Actualités Aéronautiques'
+
+  let urlParams = new URLSearchParams('?' + to.fullPath.split('?')[1])
+  analytics.logEvent('page_view', { 
+    type: 'internal',
+    click_source: urlParams.get('ref')
+  })
 
   if (requiresAuth && !currentUser) {
     localStorage.setItem('login-from-url', to.fullPath)
