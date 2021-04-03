@@ -4,12 +4,22 @@
 
         <div class="divided">
             <main>
+                <div class="box">
+                    <span>
+                        Articles
+                        {{ $route.params.author ? '> par auteur' : '' }}
+                        {{ $route.params.category ? '> par catégories' : '' }}
+                    </span>
+                    <h1>Les derniers articles</h1>
+                    <p>Découvrez les derniers articles de la rédaction et des utilisateurs.</p>
+                </div>
+
                 <div v-if="articles">
                     <article v-for="(article, index) in articles" v-bind:key="index">
                         <router-link :to="'/article/' + article.id + '?ref=feed'">
                             <img :src="getImageFromContent(article.content)" :alt="article.title">
                             <div v-if="categories">
-                                <category-label
+                                <category-label cat
                                     :category="categories.find(o => o.id == article.category)"
                                     link-ref="articles_feed">
                                 </category-label>
@@ -29,7 +39,25 @@
 </template>
 
 <style lang="scss" scoped>
+article {
+    position: relative;
 
+    img {
+        border-radius: 4px;
+        object-fit: cover;
+        height: 240px;
+        width: 480px;
+    }
+
+    [cat] {
+        margin-top: 4px;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-top: 0;
+    }
+}
 </style>
 
 <script>
