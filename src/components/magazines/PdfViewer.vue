@@ -29,10 +29,11 @@
                     <i class="material-icons">navigate_next</i>
                 </div>
                 <pdf
-                    v-for="i in numPages"
+                    v-for="i in numPagesDefer"
                     :key="i"
+                    :page="i"
                     :src="src"
-                    @loaded="loaded(i)"
+                    @page-rendered="loaded(i)"
                     class="page"
                 ></pdf>
                 <div class="center" v-if="loading">
@@ -201,7 +202,7 @@
 </style>
 
 <script>
-import pdf from 'vue-pdf'
+import pdf from 'vue-pdf-render-event'
 import browserFileStorage from 'browser-file-storage'
 const {magazines} = require('../../firebaseConfig.js')
  
@@ -214,6 +215,9 @@ export default {
             loading: true,
             src: null,
             numPages: undefined,
+            numPagesDefer: 2,
+            loadedPages: [],
+            deferRendering: false,
             error: null,
             currentPage: 1,
             summaryOpen: false,
@@ -237,10 +241,21 @@ export default {
     },
     methods: {
         loaded(page) {
-            if(page != this.numPages) return
-            this.loading = false
+            this.loadedPages.push(page)
+            if(this.currentPage == page) {
+                this.loading = false
+            }
         },
         scrollTo(page) {
+            if(page > this.numPagesDefer) {
+                if(!this.loadedPages.includes(page)) {
+                    this.loading = true
+                }
+                this.numPagesDefer = page
+                setTimeout(() => {
+                    this.scrollTo(page)
+                }, 250);
+            }
             document.getElementById('main').scrollTo({
                 top: 0,
                 left: (page - 1) * window.innerWidth,
@@ -258,6 +273,15 @@ export default {
         getCurrentPage() {
             this.currentPage = Math.round(main.scrollLeft / window.innerWidth) + 1
             this.saveProgress(this.currentPage)
+            if(this.currentPage == this.numPagesDefer - 1 && !this.deferRendering) {
+                this.deferRendering = true
+                setTimeout(() => {
+                    if(this.numPagesDefer < this.numPages) {
+                        this.numPagesDefer++
+                    }
+                    this.deferRendering = false
+                }, 500);
+            }
         },
         saveProgress(page) {
             localStorage.setItem(this.storageKey ,page)
