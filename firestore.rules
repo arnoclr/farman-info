@@ -65,10 +65,17 @@ service cloud.firestore {
                 && incomingData().content.size() <= 4096
                 && incomingData().createdAt == request.time
 
-            allow update: if isAuth()
-                && notModified(['uid', 'createdAt', 'published'])
-                && incomingData().updatedAt == request.time
-                && request.time > actualData().updatedAt + duration.value(60, 's')
+            allow update:
+                if (
+                    isAuth()
+                    && notModified(['uid', 'createdAt'])
+                    && incomingData().published == false
+                    && incomingData().title.size() <= 80
+                    && incomingData().content.size() <= 4096
+                    && incomingData().updatedAt == request.time
+                    && request.time > actualData().updatedAt + duration.value(60, 's')
+                )
+                || isAdmin()
 
             allow delete: if isAuth()
                 && actualData().uid == request.auth.uid

@@ -4,15 +4,14 @@
 
         <div class="divided">
             <main>
+                {{ categories }}
                 <div v-if="articles">
-                    <ul>
-                        <li v-for="(article, index) in articles" v-bind:key="index">
-                            <router-link :to="'/article/' + article.id + '?ref=feed'">
-                                <h1>{{ article.title }}</h1>
-                                <img :src="getImageFromContent(article.content)" alt="">
-                            </router-link>
-                        </li>
-                    </ul>
+                    <article v-for="(article, index) in articles" v-bind:key="index">
+                        <router-link :to="'/article/' + article.id + '?ref=feed'">
+                            <img :src="getImageFromContent(article.content)" alt="">
+                            <h1>{{ article.title }}</h1>
+                        </router-link>
+                    </article>
                     <md-button @click="fetch">afficher plus</md-button>
                 </div>
             </main>
@@ -24,8 +23,13 @@
     </div>
 </template>
 
+<style lang="scss" scoped>
+
+</style>
+
 <script>
-import {db} from '../../firebaseConfig'
+import {db, auth} from '../../firebaseConfig'
+import {getCategories} from '../../assets/js/firestore/getCategories'
 
 export default {
     components: {
@@ -36,7 +40,8 @@ export default {
     data() {
         return {
             articles: null,
-            lastVisible: null
+            lastVisible: null,
+            categories: null
         }
     },
     watch: {
@@ -53,10 +58,17 @@ export default {
         },
         fetch() {
             let category = this.$route.params.category
+            let author = this.$route.params.author
             this.$root.$emit('query:loading')
             
-            let query = db.collection('articles').orderBy('createdAt', 'desc').where('published', '==', true)
+            let query = db.collection('articles').orderBy('createdAt', 'desc')
+            if(auth.currentUser && author && auth.currentUser.uid == author) {
+                document.title = 'Mes articles'
+            } else {
+                query = query.where('published', '==', true)
+            }
             query = category ? query.where('category', '==', category) : query
+            query = author ? query.where('uid', '==', author) : query
             query = this.lastVisible ? query.startAfter(this.lastVisible.createdAt) : query
             query = query.limit(15)
             
@@ -78,6 +90,7 @@ export default {
     },
     mounted() {
         this.fetch()
+        this.categories = getCategories()
     }
 }
 </script>

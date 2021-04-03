@@ -78,6 +78,14 @@ const router = new Router({
       }
     },
     {
+      path: '/articles/author/:author',
+      name: 'articleListAuthor',
+      component: () => import('@/components/articles/List'),
+      meta: {
+        title: 'Tous les articles'
+      }
+    },
+    {
       path: '/articles/category/:category',
       name: 'articleListCategory',
       component: () => import('@/components/articles/List'),
