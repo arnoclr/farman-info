@@ -79,7 +79,7 @@ img {
 </style>
 
 <script>
-const {magazines, storage} = require('../../firebaseConfig.js')
+import {magazines, storage, analytics} from '../../firebaseConfig.js'
 import browserFileStorage from 'browser-file-storage'
 import FileConvertSize from '../../assets/js/fileConvertSize'
 
@@ -154,6 +154,7 @@ export default {
         },
         savePdfIntoStorage(blob) {
             browserFileStorage.save(this.magazine.ref, blob).then(file => {
+                analytics.logEvent('pdf_downloaded')
                 this.$root.$emit('toast', this.magazine.title + ' télechargé avec succès')
                 this.checkIfPdfIsStored()
             }).catch(error => {

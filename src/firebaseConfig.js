@@ -26,6 +26,7 @@ if(consent == false) {
 firebase.initializeApp(firebaseConfig)
 
 // firebase utils
+const analytics = firebase.analytics()
 const db = firebase.firestore()
 const auth = firebase.auth()
 const storage = firebase.storage()
@@ -40,6 +41,7 @@ db.enablePersistence()
 const magazines = db.collection('magazines')
 
 export {
+  analytics,
   db,
   auth,
   storage,
