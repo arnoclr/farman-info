@@ -20,10 +20,6 @@
             <section bottom>
                 <button class="button" @click="login" v-if="!user" login-btn>Connexion</button>
                 <router-link class="button" @click="login" v-else login-btn to="/articles/submit?ref=navbar_cta">Publier</router-link>
-                <md-button v-if="!notificationsEnabled" @click="requestNotifications" class="md-icon-button" rn>
-                    <md-icon>notification_add</md-icon>
-                    <md-tooltip md-direction="bottom">Activer les notifications</md-tooltip>
-                </md-button>
                 <router-link to="/?ref=header_logo">
                     <img :src="'/assets/logos/' + (gestion ? 'header_logo_admin.png' : 'header_logo.png')" alt="navbar logo" logo>
                 </router-link>
@@ -75,6 +71,10 @@
                         style="margin-left:56px">
                     </category-label>
                 </details>
+                <md-list-item v-if="!notificationsEnabled" @click="requestNotifications">
+                    <md-icon>notification_add</md-icon>
+                    <span class="md-list-item-text">Activer les notifications</span>
+                </md-list-item>
             </md-list>
         </md-drawer>
     </div>
@@ -245,10 +245,6 @@
             margin: 12px 8px;
         }
 
-        [rn] {
-            margin: 16px 0;
-        }
-
         [logo] {
             display: inline-block;
             height: 42px;
@@ -276,8 +272,10 @@
             filter: brightness(0) invert(1);
         }
 
-        a {
-            color: #fff;
+        [cat] {
+            li a, i {
+                color: #fff;
+            }
         }
     }
 }
@@ -286,7 +284,7 @@
     section {
         padding: 0 16px;
 
-        [login-btn], [rn] {
+        [login-btn] {
             display: none;
         }
     }
