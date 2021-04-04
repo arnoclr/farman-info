@@ -380,14 +380,14 @@ export default {
     },
     mounted() {
         this.fetchCategories()
-        try {
+        if ('Notification' in window) {
             if(Notification.permission === "granted") {
                 this.notificationsEnabled = true
             }
-        } catch(e) {
-            console.error(e)
+        } else {
+            // hide button if navigator don't support notifications
+            this.notificationsEnabled = true
         }
-        console.log('test')
     }
 }
 </script>
