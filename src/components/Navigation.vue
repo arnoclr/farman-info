@@ -342,7 +342,7 @@ export default {
             hasArticleDraft: localStorage.getItem('submit:draft'),
             showSidepanel: false,
             categories: null,
-            notificationsEnabled: Notification.permission === "granted",
+            notificationsEnabled: false,
             offline: !navigator.onLine
         }
     },
@@ -380,6 +380,14 @@ export default {
     },
     mounted() {
         this.fetchCategories()
+        try {
+            if(Notification.permission === "granted") {
+                this.notificationsEnabled = true
+            }
+        } catch(e) {
+            console.error(e)
+        }
+        console.log('test')
     }
 }
 </script>
