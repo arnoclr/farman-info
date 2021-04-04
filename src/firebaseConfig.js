@@ -3,7 +3,6 @@ import 'firebase/analytics'
 import 'firebase/firestore'
 import 'firebase/storage'
 import 'firebase/auth'
-import 'firebase/messaging'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBzk6MWgJJcmZNP4oKhp_xCfI8PhTdqRGE",
@@ -30,7 +29,6 @@ const analytics = firebase.analytics()
 const db = firebase.firestore()
 const auth = firebase.auth()
 const storage = firebase.storage()
-const messaging = firebase.messaging()
 
 db.enablePersistence()
   .catch(err => {
@@ -46,6 +44,5 @@ export {
   auth,
   storage,
   magazines,
-  messaging,
   firebase
 }
