@@ -31,47 +31,48 @@ let app
 document.getElementById('splash-message').innerText = "Authentification ..."
 
 auth.onAuthStateChanged(user => {
-  if(user) analytics.setUserId(user.uid)
-  if(!app) {
-    app = new Vue({
-      data: {
-        loading: {
-          state: false,
-          mode: 'indeterminate'
-        },
-        toast: {
-          open: false,
-          value: ''
-        },
-        user: user
-      },
-      el: '#app',
-      router,
-      render: h => h(App)
-    })
-
-    router.beforeEach((to, from, next) => {
-      app.loading.state = true
-      app.loading.mode = 'indeterminate'
-      next()
-    })
+    if(user) analytics.setUserId(user.uid)
     
-    router.afterEach(() => {
-      app.loading.state = false
-    })
+    if(!app) {
+        app = new Vue({
+            data: {
+                loading: {
+                    state: false,
+                    mode: 'indeterminate'
+                },
+                toast: {
+                    open: false,
+                    value: ''
+                },
+                user: user
+            },
+            el: '#app',
+            router,
+            render: h => h(App)
+        })
 
-    app.$root.$on('query:loading', () => {
-      app.loading.state = true
-      app.loading.mode = 'query'
-    })
+        router.beforeEach((to, from, next) => {
+            app.loading.state = true
+            app.loading.mode = 'indeterminate'
+            next()
+        })
+            
+        router.afterEach(() => {
+            app.loading.state = false
+        })
 
-    app.$root.$on('query:loaded', () => {
-      app.loading.state = false
-    })
+        app.$root.$on('query:loading', () => {
+            app.loading.state = true
+            app.loading.mode = 'query'
+        })
 
-    app.$root.$on('toast', value => {
-      app.toast.open = true
-      app.toast.value = value
-    })
-  }
+        app.$root.$on('query:loaded', () => {
+            app.loading.state = false
+        })
+
+        app.$root.$on('toast', value => {
+            app.toast.open = true
+            app.toast.value = value
+        })
+    }
 })
