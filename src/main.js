@@ -31,7 +31,7 @@ let app
 document.getElementById('splash-message').innerText = "Authentification ..."
 
 auth.onAuthStateChanged(user => {
-  analytics.setUserId(user.uid);
+  if(user) analytics.setUserId(user.uid)
   if(!app) {
     app = new Vue({
       data: {
