@@ -8,7 +8,7 @@
                     <md-tab md-label="édition">
                         <md-field>
                             <label>Titre</label>
-                            <md-input md-counter="80" max="80" v-model="article.title" required></md-input>
+                            <md-input md-counter="80" max="80" v-model="article.title" :disabled="article.id" required></md-input>
                         </md-field>
 
                         <text-editor :content.sync="article.content" :counter="4096"></text-editor>
@@ -31,7 +31,8 @@
                     </md-tab>
                 </md-tabs>
 
-                <md-button class="md-raised md-primary" @click="submit">Soumettre</md-button>
+                <md-button class="md-raised md-primary" @click="submit">{{ article.id ? 'Mettre à jour' : 'Soumettre'}}</md-button>
+                <span revalidate v-if="article.id">Attention, vos modifications devront être revalidées pour que votre article soit a nouveau visible. Ce processus peut prendre un certain temps.</span>
             </form>
 
             <div preview-desktop>
@@ -53,6 +54,12 @@ main {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 32px;
+
+    [revalidate] {
+        display: block;
+        margin: 8px;
+        color: #555;
+    }
 }
 
 @media screen and(max-width: 800px) {
@@ -102,6 +109,8 @@ export default {
             this.article.content = text
         },
         submit() {
+            if(this.article.id)
+                return this.updateArticle()
             if(this.article.title && this.article.content && this.article.category && this.article.tags) {
                 articles.add({
                     title: this.article.title,
@@ -125,9 +134,24 @@ export default {
                 this.$root.$emit('toast', 'Champs non remplis')
             }
         },
+        updateArticle() {
+            articles.doc(this.article.id).update({
+                content: this.article.content,
+                category: this.article.category,
+                tags: this.article.tags,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                published: false
+            }).then(() => {
+                this.$root.$emit('toast', 'Article mis à jour')
+            }).catch(err => {
+                this.$root.$emit('toast', err)
+                console.error(err)
+            })
+        },
         fetch(id) {
             articles.doc(id).get().then(doc => {
                 this.article = doc.data()
+                this.article.id = doc.id
             }).catch(err => {
                 this.$root.$emit('toast', err)
                 console.error(err)
