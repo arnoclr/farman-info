@@ -8,7 +8,7 @@
                     <md-tab md-label="édition">
                         <md-field>
                             <label>Titre</label>
-                            <md-input md-counter="80" max="80" v-model="article.title" :disabled="article.id" required></md-input>
+                            <md-input md-counter="80" max="80" v-model="article.title" required></md-input>
                         </md-field>
 
                         <text-editor :content.sync="article.content" :counter="4096"></text-editor>
@@ -136,6 +136,7 @@ export default {
         },
         updateArticle() {
             articles.doc(this.article.id).update({
+                title: this.article.title,
                 content: this.article.content,
                 category: this.article.category,
                 tags: this.article.tags,

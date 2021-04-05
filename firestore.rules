@@ -82,7 +82,6 @@ service cloud.firestore {
                     && incomingData().title.size() <= 80
                     && incomingData().content.size() <= 4096
                     && incomingData().updatedAt == request.time
-                    && request.time > actualData().updatedAt + duration.value(60, 's')
                 )
                 || isAdmin()
 
