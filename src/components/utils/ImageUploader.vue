@@ -23,7 +23,8 @@
                     </md-tab>
                 </md-tabs>
 
-                <md-progress-bar v-if="uploading" :md-mode="progressMode" :md-value="progressValue"></md-progress-bar>
+                <md-progress-bar v-if="uploading"
+                    :md-mode="progressMode" :md-value="progressValue" :md-buffer="bufferValue"></md-progress-bar>
                 <div v-if="error" e>
                     <span>{{ error }}</span>
                 </div>
@@ -79,7 +80,8 @@ export default {
             imageFile: null,
             uploading: false,
             progressMode: 'query',
-            progressValue: 0
+            progressValue: 0,
+            bufferValue: 0
         }
     },
     methods: {
@@ -90,6 +92,9 @@ export default {
             let img = document.getElementById('img-input').files[0]
             this.compressImage(img)
         },
+        setBufferPercentage(percentage) {
+            this.bufferValue = percentage
+        },
         compressImage(img) {
             this.progressMode = 'buffer'
             this.uploading = true
@@ -97,7 +102,8 @@ export default {
                 maxSizeMB: 0.5,
                 maxWidthOrHeight: 1920,
                 useWebWorker: true,
-                initialQuality: 0.5
+                initialQuality: 0.5,
+                onProgress: this.setBufferPercentage
             }).then(img => {
                 this.uploadImage(img)
             }).catch(err => {
