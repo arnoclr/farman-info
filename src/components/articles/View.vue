@@ -6,7 +6,7 @@
             <main>
                 <div v-if="article">
                     <span v-if="!article.published">En cours de traitement ...</span>
-                    <router-link v-if="article.uid == user.uid" :to="'/article/' + $route.params.ref + '/edit'">modifier</router-link>
+                    <router-link v-if="user && article.uid == user.uid" :to="'/article/' + $route.params.ref + '/edit'">modifier</router-link>
                     <h1>{{ article.title }}</h1>
                     <vue-simple-markdown :source="article.content"></vue-simple-markdown>
                 </div>
