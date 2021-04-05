@@ -2,7 +2,6 @@
     <div class="no-padding">
         <footer>
             <div a>
-                <hr>
                 <h2>Retrouvez-nous sur <i class="material-icons">arrow_forward</i></h2>
                 <p b>Toute l'actualité aérienne française à découvrir sur vos réseaux sociaux.</p>
                 <div class="social-links">
@@ -35,6 +34,9 @@ footer {
     position: relative;
 
     h2 {
+        border-top: 1px solid #666;
+        padding-top: 32px;
+        margin-top: 0px;
         font-size: 26px;
     }
 
