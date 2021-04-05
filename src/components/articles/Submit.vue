@@ -23,7 +23,7 @@
                             </md-select>
                         </md-field>
 
-                        <md-chips v-model="article.tags" md-placeholder="Ajouter des tags"></md-chips>
+                        <md-chips class="shake-on-error" v-model="article.tags" :md-limit="10" md-placeholder="Ajouter des tags"></md-chips>
                         <div class="md-helper-text">Les tags sont nécéssaires pour la recherche, ajoutez des mots simples qui décrivent au mieux votre article.</div>
                     </md-tab>
                     <md-tab md-label="prévisualisation" v-if="isMobile">
@@ -32,7 +32,9 @@
                 </md-tabs>
 
                 <md-button class="md-raised md-primary" @click="submit">{{ article.id ? 'Mettre à jour' : 'Soumettre'}}</md-button>
-                <span revalidate v-if="article.id">Attention, vos modifications devront être revalidées pour que votre article soit a nouveau visible. Ce processus peut prendre un certain temps.</span>
+                <span help v-if="article.id">Attention, vos modifications devront être revalidées pour que votre article soit a nouveau visible. Ce processus peut prendre un certain temps.</span>
+                <span help>La première image de votre article sera utilisée en tant que vignette.</span>
+                <span help>En continuant, vous confirmez avoir lu et approuvé nos <a target="_blank" href="https://farman.ga/s/cgu">conditions générales d'utilisation.</a></span>
             </form>
 
             <div preview-desktop>
@@ -50,12 +52,26 @@
 </template>
 
 <style lang="scss" scoped>
+.shake-on-error /deep/ .md-duplicated {
+    animation-name: shake;
+    animation-duration: 0.5s;
+}
+
+@keyframes shake {
+    0% { transform: translate(15px); }
+    20% { transform: translate(-15px); }
+    40% { transform: translate(7px); }
+    60% { transform: translate(-7px); }
+    80% { transform: translate(3px); }
+    100% { transform: translate(0px); }
+}
+
 main {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 32px;
 
-    [revalidate] {
+    [help] {
         display: block;
         margin: 8px;
         color: #555;
