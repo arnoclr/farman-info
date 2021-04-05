@@ -44,6 +44,10 @@ auth.onAuthStateChanged(user => {
                     open: false,
                     value: ''
                 },
+                alert: {
+                    open: false,
+                    value: ''
+                },
                 user: user
             },
             el: '#app',
@@ -73,6 +77,11 @@ auth.onAuthStateChanged(user => {
         app.$root.$on('toast', value => {
             app.toast.open = true
             app.toast.value = value
+        })
+
+        app.$root.$on('alert', value => {
+            app.alert.open = true
+            app.alert.value = value
         })
     }
 })

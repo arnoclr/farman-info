@@ -62,7 +62,7 @@ main {
     }
 }
 
-@media screen and(max-width: 800px) {
+@media screen and(max-width: 1200px) {
     main {
         grid-template-columns: 1fr;
         column-gap: 8px;
@@ -101,7 +101,7 @@ export default {
                 tags: []
             },
             categories: false,
-            isMobile: window.matchMedia('only screen and (max-width: 800px)').matches,
+            isMobile: window.matchMedia('only screen and (max-width: 1200px)').matches,
         }
     },
     methods: {
@@ -145,7 +145,7 @@ export default {
             }).then(() => {
                 this.$root.$emit('toast', 'Article mis à jour')
             }).catch(err => {
-                this.$root.$emit('toast', err)
+                this.$root.$emit('alert', err)
                 console.error(err)
             })
         },
@@ -168,7 +168,7 @@ export default {
         }
 
         window.addEventListener('resize', () => {
-            this.isMobile = window.matchMedia('only screen and (max-width: 800px)').matches
+            this.isMobile = window.matchMedia('only screen and (max-width: 1200px)').matches
         })
     },
     components: {

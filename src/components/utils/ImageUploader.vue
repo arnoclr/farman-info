@@ -137,6 +137,7 @@ export default {
                         this.uploading = false
                         this.fromUrl = null
                         this.closeModal()
+                        this.$root.$emit('toast', 'Image ajoutée')
                         this.callback(downloadURL)
                     })
                 }

@@ -6,6 +6,11 @@
             <span>{{ $root.toast.value }}</span>
         </md-snackbar>
 
+        <md-dialog-alert
+            :md-active.sync="$root.alert.open"
+            :md-content="$root.alert.value"
+            md-confirm-text="OK" />
+
         <router-view/>
 
         <cookie-law
