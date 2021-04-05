@@ -4,6 +4,7 @@ import 'firebase/firestore'
 import 'firebase/storage'
 import 'firebase/auth'
 import 'firebase/messaging'
+import 'firebase/remote-config'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBzk6MWgJJcmZNP4oKhp_xCfI8PhTdqRGE",
@@ -31,6 +32,7 @@ const db = firebase.firestore()
 const auth = firebase.auth()
 const storage = firebase.storage()
 let messaging = null
+const remoteConfig = firebase.remoteConfig()
 
 if(firebase.messaging.isSupported()) {
   messaging = firebase.messaging()
@@ -44,6 +46,13 @@ db.enablePersistence()
 // firebase collections
 const magazines = db.collection('magazines')
 
+// remote config
+remoteConfig.settings.minimumFetchIntervalMillis = 3600000
+remoteConfig.defaultConfig = {
+  "sidebar_banner": "https://i.imgur.com/yRzHUAO.webp",
+  "sidebar_banner_link": "#"
+}
+
 export {
   analytics,
   db,
@@ -51,5 +60,6 @@ export {
   storage,
   magazines,
   messaging,
+  remoteConfig,
   firebase
 }
