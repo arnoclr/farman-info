@@ -66,6 +66,7 @@
         z-index: 1;
         top: 8px;
         left: 8px;
+        z-index: 2;
     }
 
     &.open {
@@ -153,8 +154,10 @@
     }
 
     .page {
-        display: inline-block !important;
+        display: inline-flex !important;
         width: 100vw;
+        height: 100%;
+        align-items: center;
         scroll-snap-align: start;
         transition: filter 350ms ease;
     }
@@ -170,12 +173,12 @@
     [prev-page], [next-page] {
         position: fixed;
         height: 100vh;
-        width: 32px;
+        width: 64px;
         top: 0;
         cursor: pointer;
         z-index: 1;
         opacity: 0;
-        background: rgba(0, 0, 0, 0.4);
+        background: rgba(0, 0, 0, 0.2);
         transition: opacity 150ms ease;
         display: flex;
         align-items: center;
@@ -187,8 +190,12 @@
 
         i {
             color: white;
-            font-size: 32px;
+            font-size: 64px;
         }
+    }
+
+    .page {
+        align-items: flex-start !important;
     }
 
     [prev-page] {

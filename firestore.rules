@@ -41,6 +41,15 @@ service cloud.firestore {
             allow delete: if isAuth()
                 && actualData().mail == request.auth.token.email
         }
+
+        match /users/{id} {
+            allow read: if true
+
+            allow list, delete: if false
+
+            allow create, update: if isAuth()
+                && request.auth.uid == id
+        }
         
         match /magazines/{magazine} {
             allow read: if true

@@ -153,3 +153,25 @@ describe("Articles", () => {
             .get())
     })
 });
+
+describe("Users", () => {
+    const db = getAuthedFirestore({
+        uid: "author",
+        email: "alice@example.com"
+    });
+    const user = db.collection("users").doc("author");
+    const data = {
+        uid: "author",
+        name: "Jonh Doe",
+        profilePic: "https://img.com/example.jpg"
+    };
+    let otherUser = data
+    otherUser.uid = "other"
+
+    it("L'utilisateur ne peut modifier ou créer que son profil", async () => {
+        await firebase.assertSucceeds(user.set(data));
+        await firebase.assertSucceeds(user.update(data));
+        await firebase.assertFails(user.set(otherUser));
+        await firebase.assertFails(user.update(otherUser));
+    });
+});

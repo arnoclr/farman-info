@@ -7,7 +7,8 @@
     "build": "vue-cli-service build --modern",
     "deploy": "npm run build && firebase deploy",
     "deploy-beta": "npm run build && firebase hosting:channel:deploy %npm_config_channel%",
-    "test-firestore": "mocha --exit test/firestore.spec.js"
+    "deploy-rules": "firebase deploy --only firestore:rules",
+    "test-firestore": "mocha --exit --timeout 10000 test/firestore.spec.js"
   },
   "dependencies": {
     "browser-file-storage": "^1.0.7",
