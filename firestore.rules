@@ -78,6 +78,7 @@ service cloud.firestore {
                 if (
                     isAuth()
                     && notModified(['uid', 'createdAt'])
+                    && request.auth.uid == actualData().uid
                     && incomingData().published == false
                     && incomingData().title.size() <= 80
                     && incomingData().content.size() <= 4096
