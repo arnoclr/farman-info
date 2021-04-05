@@ -78,7 +78,7 @@ footer {
 @media (min-width: 600px) {
     .social-links {
         position: absolute;
-        right: 32px;
+        right: 10vw;
         margin-top: -50px;
 
         img {
@@ -92,8 +92,8 @@ footer {
     }
 
     footer [a] {
-        padding-left: 32px;
-        padding-right: 32px;
+        padding-left: 10vw;
+        padding-right: 10vw;
     }
 }
 </style>

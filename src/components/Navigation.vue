@@ -180,7 +180,7 @@
 
     [bottom] {
         height: 72px;
-        box-shadow: 0 9px 10px 0 rgba(34, 34, 34, 0.1);
+        box-shadow: 0 9px 10px 0 rgba(34, 34, 34, 0.04);
         background: #fff;
 
         [cat] {
@@ -282,10 +282,14 @@
 
 @media screen and(min-width: 600px) {
     section {
-        padding: 0 16px;
+        padding: 0 calc(10vw - 16px);
 
         [login-btn] {
             display: none;
+        }
+
+        [cat] {
+            right: 10vw !important;
         }
     }
 }
