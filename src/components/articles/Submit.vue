@@ -8,21 +8,26 @@
                     <md-tab md-label="édition">
                         <md-field>
                             <label>Titre</label>
-                            <md-input md-counter="80" max="80" v-model="title" required></md-input>
+                            <md-input md-counter="80" max="80" v-model="article.title" required></md-input>
                         </md-field>
-                        <text-editor :counter="4096" :change="updateContent"></text-editor>
+
+                        <text-editor :content.sync="article.content" :counter="4096"></text-editor>
+                        
                         <md-field>
-                        <label for="category" v-if="categories">Catégorie</label>
-                            <md-select v-model="category" name="category" id="category" required>
+                            <label for="category" v-if="categories">Catégorie</label>
+                            <md-select v-model="article.category" name="category" id="category" required>
                                 <md-option 
                                     v-for="(category, id) in categories"
                                     v-bind:key="id"
                                     :value="category.id">{{ category.label }}</md-option>
                             </md-select>
                         </md-field>
+
+                        <md-chips v-model="article.tags" md-placeholder="Ajouter des tags"></md-chips>
+                        <div class="md-helper-text">Les tags sont nécéssaires pour la recherche, ajoutez des mots simples qui décrivent au mieux votre article.</div>
                     </md-tab>
                     <md-tab md-label="prévisualisation" v-if="isMobile">
-                        <vue-simple-markdown v-if="content" :source="content"></vue-simple-markdown>
+                        <vue-simple-markdown v-if="article.content" :source="article.content"></vue-simple-markdown>
                     </md-tab>
                 </md-tabs>
 
@@ -30,7 +35,7 @@
             </form>
 
             <div preview-desktop>
-                <vue-simple-markdown v-if="content" :source="content"></vue-simple-markdown>
+                <vue-simple-markdown v-if="article.content" :source="article.content"></vue-simple-markdown>
                 <md-empty-state v-else
                     md-icon="edit"
                     md-label="Aperçu"
@@ -76,47 +81,40 @@ main {
 
 <script>
 import {db, firebase} from '../../firebaseConfig'
+import {getCategories} from '../../assets/js/firestore/getCategories'
 const articles = db.collection('articles')
 
 export default {
     data() {
         return {
-            title: '',
-            content: '',
-            category: null,
+            article: {
+                title: '',
+                content: '',
+                category: null,
+                tags: []
+            },
             categories: false,
             isMobile: window.matchMedia('only screen and (max-width: 800px)').matches,
         }
     },
     methods: {
-        updateContent(value) {
-            this.content = value
-        },
-        getCategories() {
-            db.collection('categories').get().then(query => {
-                this.categories = []
-                query.forEach(doc => {
-                    let buffer = doc.data()
-                    buffer.id = doc.id
-                    this.categories.push(buffer)
-                })
-            }).catch(err => {
-                alert(err)
-            })
+        updateContent(text) {
+            this.article.content = text
         },
         submit() {
-            if(this.title && this.content && this.category) {
+            if(this.article.title && this.article.content && this.article.category && this.article.tags) {
                 articles.add({
-                    title: this.title,
-                    content: this.content,
-                    category: this.category,
+                    title: this.article.title,
+                    content: this.article.content,
+                    category: this.article.category,
+                    tags: this.article.tags,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     uid: firebase.auth().currentUser.uid,
                     published: false
                 })
                 .then(doc => {
                     console.log(doc.id)
-                    this.title = this.content = this.category = null
+                    this.article.title = this.article.content = this.article.category = null
                     localStorage.removeItem('submit:draft')
                     this.$router.push('/article/' + doc.id + '?ref=submit_page')
                 })
@@ -126,10 +124,24 @@ export default {
             } else {
                 this.$root.$emit('toast', 'Champs non remplis')
             }
+        },
+        fetch(id) {
+            articles.doc(id).get().then(doc => {
+                this.article = doc.data()
+            }).catch(err => {
+                this.$root.$emit('toast', err)
+                console.error(err)
+            })
         }
     },
     created() {
-        this.getCategories()
+        this.categories = getCategories()
+
+        const id = this.$route.params.ref
+        if(id) {
+            this.fetch(id)
+        }
+
         window.addEventListener('resize', () => {
             this.isMobile = window.matchMedia('only screen and (max-width: 800px)').matches
         })
