@@ -2,7 +2,7 @@
     <div>
         <md-progress-bar v-if="$root.loading.state" :md-mode="$root.loading.mode" pb></md-progress-bar>
 
-        <md-snackbar md-position="left" :md-duration="5000" :md-active.sync="$root.toast.open" md-persistent>
+        <md-snackbar md-position="center" :md-duration="5000" :md-active.sync="$root.toast.open" md-persistent>
             <span>{{ $root.toast.value }}</span>
         </md-snackbar>
 

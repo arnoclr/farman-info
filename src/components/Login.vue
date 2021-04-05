@@ -100,6 +100,10 @@ p.firebaseui-tospp-full-message {
         mounted() {
             if(localStorage) {
                 this.loginFromUrl = localStorage.getItem('login-from-url')
+                let paths = this.loginFromUrl.split('/')
+                let path = paths[paths.length - 1]
+                this.loginFromUrl += '?ref=login_page'
+                this.$root.$emit('toast', 'Vous serez redirigé vers ' + path)
             }
             if(this.user) {
                 this.exitLoginPage()
