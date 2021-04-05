@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="list" v-if="magazines">
-                    <div v-for="(item, index) in magazines" v-bind:key="index">
+                    <div v-for="(item, index) in magazines" v-bind:key="index" :class="index != 0 ? 'grid' : ''">
                         <div class="magazine-last" v-if="index === 0">
                             <h2>Dernier numéro
                                 <md-button @click="requestNotifications" class="md-icon-button" b>
@@ -58,40 +58,43 @@
     </div>
 </template>
 
-<style scoped>
-[a] {
-    display: flex;
-}
-
-[b] {
-    margin-top: -8px;
-    z-index: 0;
-}
-
+<style lang="scss" scoped>
 .box span {
     color: #999;
 }
 
-.magazine-box {
-    width: 50%;
-    margin-top: 16px;
-}
+.list {
+    img {
+        width: 100%;
+        aspect-ratio: 1/1.414;
+        object-fit: cover;
+        max-width: 240px;
+        border: 1px solid grey;
+    }
 
-img {
-    width: 100%;
-    aspect-ratio: 1/1.414;
-    object-fit: cover;
-    max-width: 240px;
-}
+    .magazine-last {
+        [b] {
+            margin-top: -8px;
+            z-index: 0;
+        }
 
-.magazine-last img {
-    width: 50%;
-    display: block;
-}
+        img {
+            width: 50%;
+            display: block;
+        }
 
-a {
-    height: 42px;
-    vertical-align: bottom;
+        a {
+            height: 42px;
+            vertical-align: bottom;
+        }
+    }
+
+    .grid {
+        width: 50%;
+        margin-top: 16px;
+        display: inline-block;
+        vertical-align: text-top;
+    }
 }
 </style>
 
