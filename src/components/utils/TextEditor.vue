@@ -2,7 +2,7 @@
     <div>
         <md-field>
             <label>Edition du texte</label>
-            <md-textarea id="te-ta" :md-counter="counter" :max="counter" :md-autogrow="true" v-model="content" @keyup="updateContent" required></md-textarea>
+            <md-textarea id="te-ta" :md-counter="counter" :max="counter" :md-autogrow="true" v-model="editableContent" @keyup="updateContent" required></md-textarea>
             <span class="md-helper-text">Brouillon enregistré</span>
         </md-field>
 
@@ -13,7 +13,7 @@
             <md-icon>add_a_photo</md-icon>
         </md-button>
 
-        <image-uploader :callback="insertMarkdownImage" :open="imageUploaderOpen" :close="imageUploaderClose"></image-uploader>
+        <image-uploader :callback="insertMarkdownImage" :open.sync="imageUploaderOpen"></image-uploader>
     </div>
 </template>
 
@@ -23,20 +23,19 @@ export default {
         imageUploader: () => import('../utils/ImageUploader')
     },
     props: [
-        'change',
-        'height',
+        'content',
         'counter'
     ],
     data() {
         return {
             imageUploaderOpen: false,
-            content: '',
+            editableContent: '',
         }
     },
     methods: {
         updateContent() {
-            this.change(this.content)
-            localStorage.setItem('submit:draft', this.content)
+            this.$emit('update:content', this.editableContent)
+            localStorage.setItem('submit:draft', this.editableContent)
         },
         imageUploaderClose() {
             this.imageUploaderOpen = false
@@ -48,15 +47,16 @@ export default {
             this.appendContent('\n# ')
         },
         appendContent(text) {
-            this.content += text
+            this.editableContent += text
             document.getElementById('te-ta').focus()
             this.updateContent()
         }
     },
     mounted() {
+        this.editableContent = this.content
         let draft = localStorage.getItem('submit:draft')
         if(draft) {
-            this.content = draft
+            this.editableContent = draft
             this.updateContent()
         }
     }

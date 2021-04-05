@@ -101,6 +101,15 @@ const router = new Router({
       }
     },
     {
+      path: '/article/:ref/edit',
+      name: 'articleEdit',
+      component: () => import('@/components/articles/Submit'),
+      meta: {
+        title: 'Edition article',
+        requiresAuth: true
+      }
+    },
+    {
       path: '/admin/:section?',
       name: 'admin',
       component: () => import('@/components/admin/Main'),

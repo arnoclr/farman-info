@@ -82,7 +82,7 @@
                 </md-dialog-actions>
             </md-dialog>
 
-            <image-uploader :callback="appendImageUrl" :open="imageUploaderOpen" :close="imageUploaderClose"></image-uploader>
+            <image-uploader :callback="appendImageUrl" :open.sync="imageUploaderOpen"></image-uploader>
         </div>
     </div>
 </template>
@@ -177,9 +177,6 @@ export default {
         // image upload
         appendImageUrl(url) {
             this.currentEdit.image = url
-        },
-        imageUploaderClose() {
-            this.imageUploaderOpen = false
         },
         viewPage(id) {
             this.$router.push('/magazine/' + id)

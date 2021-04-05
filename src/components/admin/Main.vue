@@ -15,7 +15,7 @@
                                 <md-option value="magazines">Magazines</md-option>
                                 <md-option value="articles">Articles</md-option>
                                 <md-option value="mails">Newsletter</md-option>
-                                <md-option value="annonces">Annonces</md-option>
+                                <md-option value="remoteConfig">Annonces</md-option>
                             </md-select>
                         </md-field>
                     </md-card-content>
@@ -28,9 +28,7 @@
             <admin-mails v-if="section == 'mails'"></admin-mails>
             <admin-magazines v-if="section == 'magazines'"></admin-magazines>
             <admin-articles v-if="section == 'articles'"></admin-articles>
-            <div v-if="section == 'annonces'">
-                <a target="_blank" href="https://console.firebase.google.com/u/0/project/actualites-aeronautiques/config" class="button">Editer les bannières internes</a>
-            </div>
+            <admin-remote-config  v-if="section == 'remoteConfig'"></admin-remote-config>
         </main>
 
         <app-footer></app-footer>
@@ -83,7 +81,8 @@ export default {
         AppHeader: () => import('../Navigation.vue'),
         AdminMails: () => import('./Mails.vue'),
         AdminMagazines: () => import('./Magazines.vue'),
-        AdminArticles: () => import('./Articles.vue')
+        AdminArticles: () => import('./Articles.vue'),
+        AdminRemoteConfig: () => import('./RemoteConfig.vue')
     }
 }
 </script>

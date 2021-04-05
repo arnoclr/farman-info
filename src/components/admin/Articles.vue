@@ -20,7 +20,10 @@
                 <md-table-cell md-label="Date de publication" md-sort-by="createdAt">
                     {{ (new Date(item.createdAt.toDate())).toLocaleDateString("fr-FR") }}
                 </md-table-cell>
-                <md-table-cell md-label="Publié ?" md-sort-by="published">
+                <md-table-cell md-label="Tags">
+                    <md-chips v-model="item.tags" md-static></md-chips>
+                </md-table-cell>
+                <md-table-cell md-label="Publié ?">
                     <md-switch v-model="item.published" @change="triggerPublished(item.id)" class="md-primary"></md-switch>
                 </md-table-cell>
                 <md-table-cell md-label="Actions" actions>
