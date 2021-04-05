@@ -1,9 +1,9 @@
 <template>
     <aside>
         <div a>
-            <router-link :to="sidebarBannerLink">
+            <a :href="sidebarBannerLink">
                 <img :src="sidebarBanner" alt="magazine publicité">
-            </router-link>
+            </a>
         </div>
     </aside>
 </template>
@@ -42,6 +42,8 @@ export default {
             .then(() => {
                 this.sidebarBanner = remoteConfig.getString('sidebar_banner')
                 this.sidebarBannerLink = remoteConfig.getString('sidebar_banner_link')
+                let utm = 'utm_source=farman&utm_medium=banner&utm_campaign=internal_ads'
+                this.sidebarBannerLink += this.sidebarBannerLink.includes('?') ? '&' + utm : '?' + utm
             })
             .catch((err) => { console.error(err) })
     }
