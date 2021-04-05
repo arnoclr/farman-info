@@ -33,7 +33,7 @@ service firebase.storage {
             allow get: if true
             allow list, update, delete: if false
             allow write: if isAuth()
-                && request.resource.size < 2 * 1024 * 1024
+                && request.resource.size < 0.5 * 1024 * 1024
                 && request.resource.contentType.matches('image/.*')
         }
     }

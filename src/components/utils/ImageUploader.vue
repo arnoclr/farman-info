@@ -18,6 +18,7 @@
                             <label>Lien vers l'image</label>
                             <md-input v-model="fromUrl"></md-input>
                         </md-field>
+                        <small>Assurez-vous d'avoir les droits nécéssaires pour utiliser cette image.</small>
                         <md-button @click="getBlob(fromUrl)" :disabled="uploading" class="md-raised md-primary">importer</md-button>
                     </md-tab>
                 </md-tabs>
@@ -69,7 +70,6 @@ export default {
     name: 'ImageUploadDialog',
     props: [
         'callback',
-        'close',
         'open'
     ],
     data() {
@@ -84,7 +84,7 @@ export default {
     },
     methods: {
         closeModal() {
-            this.close()
+            this.$emit('update:open', false)
         },
         hasChanged() {
             let img = document.getElementById('img-input').files[0]
@@ -94,7 +94,7 @@ export default {
             this.progressMode = 'buffer'
             this.uploading = true
             imageCompression(img, {
-                maxSizeMB: 2,
+                maxSizeMB: 0.5,
                 maxWidthOrHeight: 1920,
                 useWebWorker: true,
                 initialQuality: 0.5
@@ -135,6 +135,7 @@ export default {
                 () => {
                     uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                         this.uploading = false
+                        this.fromUrl = null
                         this.closeModal()
                         this.callback(downloadURL)
                     })
