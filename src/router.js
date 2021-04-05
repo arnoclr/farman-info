@@ -101,7 +101,7 @@ const router = new Router({
       }
     },
     {
-      path: '/admin',
+      path: '/admin/:section?',
       name: 'admin',
       component: () => import('@/components/admin/Main'),
       meta: {

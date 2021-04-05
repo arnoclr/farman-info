@@ -71,11 +71,6 @@
                         <label>Extrait</label>
                         <md-textarea v-model="currentEdit.summary"></md-textarea>
                     </md-field>
-
-                    <md-field>
-                        <label>Image</label>
-                        <md-input v-model="currentEdit.image"></md-input>
-                    </md-field>
                     
                     <button class="button-outlined" @click="imageUploaderOpen = true">{{ currentEdit.image ? "Modifier l'image" : "Insérer une image" }}</button>
                     <img height="128" :src="currentEdit.image">

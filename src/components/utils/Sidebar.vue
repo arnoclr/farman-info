@@ -42,7 +42,7 @@ export default {
             .then(() => {
                 this.sidebarBanner = remoteConfig.getString('sidebar_banner')
                 this.sidebarBannerLink = remoteConfig.getString('sidebar_banner_link')
-                let utm = 'utm_source=farman&utm_medium=banner&utm_campaign=internal_ads'
+                let utm = 'utm_source=farman&utm_medium=banner&utm_campaign=internal_ad'
                 this.sidebarBannerLink += this.sidebarBannerLink.includes('?') ? '&' + utm : '?' + utm
             })
             .catch((err) => { console.error(err) })
