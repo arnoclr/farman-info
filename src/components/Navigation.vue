@@ -180,8 +180,9 @@
 
     [bottom] {
         height: 72px;
-        box-shadow: 0 9px 10px 0 rgba(34, 34, 34, 0.04);
-        background: #fff;
+        backdrop-filter: saturate(180%) blur(20px);
+        background-color: rgba(255,255,255,.72);
+        border-bottom: 1px solid rgba(0,0,0,.16);
 
         [cat] {
             position: absolute;
@@ -265,6 +266,7 @@
 .transparent {
     [bottom] {
         background: transparent;
+        backdrop-filter: none;
         box-shadow: none;
         border-bottom: 1px solid #fff;
 
