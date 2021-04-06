@@ -9,6 +9,10 @@
                         <h1>Connexion</h1>
                         <p>Connectez-vous à votre espace MyFarman pour commenter et poster des articles.</p>
                     </div>
+                    <span class="loc">
+                        <md-icon>place</md-icon>
+                        Étretat, Seine-Maritime, France
+                    </span>
                     <div id="firebaseui-auth-container"></div>
                 </div>
             </main>
@@ -24,7 +28,7 @@
 
 <style lang="scss" scoped>
 [root] {
-    background: url('https://i.imgur.com/0iUBgjU.webp');
+    background: url('https://i.imgur.com/4HZI65g.webp');
     background-size: cover;
     background-attachment: fixed;
     background-repeat-y: no-repeat;
@@ -35,6 +39,7 @@
         min-height: calc(100vh - 120px);
         display: grid;
         justify-content: center;
+        position: relative;
 
         .centered {
             text-align: center;
@@ -42,6 +47,23 @@
 
             h1, p {
                 color: #fff;
+            }
+        }
+
+        .loc {
+            position: fixed;
+            bottom: 16px;
+            left: 10vw;
+            color: #eee;
+
+            i {
+                color: #eee;
+            }
+        }
+
+        @media screen and(max-width: 600px) {
+            .loc {
+                display: none;
             }
         }
 
