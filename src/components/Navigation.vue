@@ -282,7 +282,7 @@
     }
 }
 
-@media screen and(min-width: 600px) {
+@media screen and(min-width: 800px) {
     section {
         padding: 0 calc(10vw - 16px);
 
@@ -296,7 +296,7 @@
     }
 }
 
-@media screen and(max-width: 600px) {
+@media screen and(max-width: 800px) {
     [header] {
         top: 0;
 
