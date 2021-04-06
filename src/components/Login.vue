@@ -54,10 +54,10 @@
             position: fixed;
             bottom: 16px;
             left: 10vw;
-            color: #eee;
+            color: #fff;
 
             i {
-                color: #eee;
+                color: #fff;
             }
         }
 
