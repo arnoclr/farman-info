@@ -22,7 +22,7 @@
                             <router-link :to="'/magazine/' + item.id + '?ref=thumb'">
                                 <img :src="item.image" alt="">
                             </router-link>
-                            <h3>{{ item.title }}</h3>
+                            <h2>{{ item.title }}</h2>
                             <p v-if="item.summary">{{ item.summary }}</p>
                             <div class="info" v-else>
                                 <p>Description non disponible.</p>
@@ -34,7 +34,7 @@
                             <router-link :to="'/magazine/' + item.id + '?ref=cta'">
                                 <img :src="item.image" alt="">
                             </router-link>
-                            <h3>{{ item.title }}</h3>
+                            <h2>{{ item.title }}</h2>
                             <p v-if="item.summary">{{ item.summary }}</p>
                             <div class="info" v-else>
                                 <p>Description non disponible.</p>
