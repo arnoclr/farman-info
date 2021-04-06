@@ -94,6 +94,10 @@
         margin-top: 16px;
         display: inline-block;
         vertical-align: text-top;
+
+        @media screen and(max-width: 600px) {
+            width: 100%;
+        }
     }
 }
 </style>
