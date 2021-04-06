@@ -21,17 +21,17 @@
     "theme_color": "#009698",
     "screenshots": [
         {
-            "src": "https://i.imgur.com/Mmpde8j.png",
+            "src": "/assets/screenshots/magazines.png",
             "sizes": "750x1333",
             "type": "image/png"
         },
         {
-            "src": "https://i.imgur.com/Vb0UIhd.png",
+            "src": "/assets/screenshots/login.png",
             "sizes": "750x1333",
             "type": "image/png"
         },
         {
-            "src": "https://i.imgur.com/5VSvc48.png",
+            "src": "/assets/screenshots/submit.png",
             "sizes": "750x1333",
             "type": "image/png"
         }
