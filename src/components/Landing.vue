@@ -54,7 +54,7 @@ svg {
 }
 
 #mail-form {
-    background: #e6e6e6;
+    background: #eee;
     padding: 32px 16px;
     margin-top: 32px;
     border-radius: 8px;
