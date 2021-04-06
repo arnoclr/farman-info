@@ -21,9 +21,23 @@
 
         <md-button @click="title" class="md-icon-button">
             <md-icon>title</md-icon>
+            <md-tooltip md-delay="300">Ajouter un titre</md-tooltip>
+        </md-button>
+        <md-button @click="italic" class="md-icon-button">
+            <md-icon>format_italic</md-icon>
+            <md-tooltip md-delay="300">Mettre en italique</md-tooltip>
+        </md-button>
+        <md-button @click="bold" class="md-icon-button">
+            <md-icon>format_bold</md-icon>
+            <md-tooltip md-delay="300">Mettre en gras</md-tooltip>
+        </md-button>
+        <md-button @click="quote" class="md-icon-button">
+            <md-icon>format_quote</md-icon>
+            <md-tooltip md-delay="300">Intégrer une citation</md-tooltip>
         </md-button>
         <md-button @click="imageUploaderOpen = true" class="md-icon-button">
             <md-icon>add_a_photo</md-icon>
+            <md-tooltip md-delay="300">Ajouter une image</md-tooltip>
         </md-button>
 
         <image-uploader ref="uploader" :callback="insertMarkdownImage" :open.sync="imageUploaderOpen"></image-uploader>
@@ -103,15 +117,93 @@ export default {
             this.imageUploaderOpen = false
         },
         insertMarkdownImage(url) {
-            this.appendContent(`\n![remplacer ici par une légende](${url})\n`)
+            this.appendContent(`\n![texte alternatif](${url})\n`)
+        },
+        // format text
+        // https://jsfiddle.net/ourcodeworld/o4k7rfu0/1/
+        getInputSelection() {
+            const el = document.getElementById('te-ta')
+            el.focus()
+            let start = 0, end = 0, normalizedValue, range,
+                textInputRange, len, endRange
+
+            if (typeof el.selectionStart == "number" && typeof el.selectionEnd == "number") {
+                start = el.selectionStart
+                end = el.selectionEnd
+            } else {
+                range = document.selection.createRange()
+
+                if (range && range.parentElement() == el) {
+                    len = el.value.length
+                    normalizedValue = el.value.replace(/\r\n/g, "\n")
+
+                    // Create a working TextRange that lives only in the input
+                    textInputRange = el.createTextRange()
+                    textInputRange.moveToBookmark(range.getBookmark())
+
+                    // Check if the start and end of the selection are at the very end
+                    // of the input, since moveStart/moveEnd doesn't return what we want
+                    // in those cases
+                    endRange = el.createTextRange()
+                    endRange.collapse(false)
+
+                    if (textInputRange.compareEndPoints("StartToEnd", endRange) > -1) {
+                        start = end = len
+                    } else {
+                        start = -textInputRange.moveStart("character", -len)
+                        start += normalizedValue.slice(0, start).split("\n").length - 1
+
+                        if (textInputRange.compareEndPoints("EndToEnd", endRange) > -1) {
+                            end = len
+                        } else {
+                            end = -textInputRange.moveEnd("character", -len)
+                            end += normalizedValue.slice(0, end).split("\n").length - 1
+                        }
+                    }
+                }
+            }
+
+            if(start == end) {
+                this.$root.$emit('toast', 'Aucun texte selectionné')
+                return false
+            }
+
+            return { start, end }
+        },
+        insertAt(index, schema) {
+            this.editableContent = this.editableContent.substr(0, index) + schema + this.editableContent.substr(index)
         },
         title() {
             this.appendContent('\n# ')
+        },
+        italic() {
+            this.appendBeforeAndAfter('*')
+        },
+        bold() {
+            this.appendBeforeAndAfter('**')
+        },
+        quote() {
+            this.appendContent('\n> ')
         },
         appendContent(text) {
             this.editableContent += text
             document.getElementById('te-ta').focus()
             this.updateContent()
+        },
+        appendBeforeAndAfter(schema) {
+            const delimiters = this.getInputSelection()
+            // detect if selected string contain schema
+            const schemaSize = schema.length
+            let startString = ''
+            for (let index = delimiters.start - schemaSize; index < delimiters.start + schemaSize + 1; index++) {
+                startString += this.editableContent.charAt(index)
+            }
+            if(startString.includes(schema)) {
+                
+            } else if(delimiters) {
+                this.insertAt(delimiters.end, schema)
+                this.insertAt(delimiters.start, schema)
+            }
         }
     },
     mounted() {
