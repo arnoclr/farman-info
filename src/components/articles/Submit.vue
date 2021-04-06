@@ -169,6 +169,9 @@ export default {
             articles.doc(id).get().then(doc => {
                 this.article = doc.data()
                 this.article.id = doc.id
+                if(this.article.uid != this.$root.user.uid) {
+                    this.$root.$emit('alert', 'Vous ne pouvez pas modifier cet article')
+                }
             }).catch(err => {
                 this.$root.$emit('toast', err)
                 console.error(err)
