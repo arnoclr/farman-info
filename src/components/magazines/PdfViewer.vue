@@ -3,7 +3,9 @@
         <div v-if="!error" class="no-padding">
             <div class="summary" :class="summaryOpen ? 'open' : ''">
                 <div class="scroll">
-                    <a @click="$router.push('/magazine/' + $route.params.ref + '?ref=back_button')" class="icon-button"><i class="material-icons">arrow_back</i></a>
+                    <a @click="$router.push('/magazine/' + $route.params.ref + '?ref=back_button')" class="icon-button">
+                        <i class="material-icons">arrow_back</i>
+                    </a>
                     <div
                         v-for="i in numPages"
                         :key="i"
@@ -13,6 +15,7 @@
                             :src="summaryThumbs ? src : null"
                             :page="i"
                             :active="i == currentPage"
+                            @page-rendered="thumbRendered(i)"
                             class="canvas"
                         ></pdf>
                         <span>{{ i }}</span>
@@ -36,12 +39,14 @@
                     @page-rendered="loaded(i)"
                     class="page"
                 ></pdf>
-                <div class="center" v-if="loading">
-                    <svg class="loader" width="60" height="60" xmlns="http://www.w3.org/2000/svg" >
-                        <g>
-                            <ellipse ry="25" rx="25" cy="30" cx="30" stroke-width="5" stroke="teal" fill="none"/>
-                        </g>
-                    </svg>
+            </div>
+
+            <div class="loader" 
+                v-if="!(summaryRenderProgress == 0 || summaryRenderProgress == 100) || loading">
+                <div sp>
+                    <md-progress-spinner
+                        :md-mode="loading ? 'indeterminate' : 'determinate'"
+                        :md-value="summaryRenderProgress"></md-progress-spinner>
                 </div>
             </div>
         </div>
@@ -123,6 +128,7 @@
     align-items: center;
     display: -webkit-box;
     transition: height 350ms ease;
+    color-scheme: dark;
 
     ::-webkit-scrollbar {
         width: 0;
@@ -163,10 +169,21 @@
     }
 }
 
-.center {
+.loader {
     position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    background-color: rgba(50, 50, 50, 0.3);
+    z-index: 10;
+
+    [sp] {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
 
 @media screen and (min-width: 600px) {
@@ -229,6 +246,7 @@ export default {
             currentPage: 1,
             summaryOpen: false,
             summaryThumbs: false,
+            summaryRenderProgress: 0,
             storageKey: null
         }
     },
@@ -251,12 +269,19 @@ export default {
             this.loadedPages.push(page)
             if(this.currentPage == page) {
                 this.loading = false
+                this.summaryOpen = false
             }
+        },
+        thumbRendered(i) {
+            this.summaryRenderProgress = i / this.numPages * 100
         },
         scrollTo(page) {
             if(page > this.numPagesDefer) {
                 if(!this.loadedPages.includes(page)) {
                     this.loading = true
+                    setTimeout(() => {
+                        this.loading = false
+                    }, 5000);
                 }
                 this.numPagesDefer = page
                 setTimeout(() => {

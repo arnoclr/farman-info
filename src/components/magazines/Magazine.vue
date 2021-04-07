@@ -183,7 +183,7 @@ export default {
             })
         },
         back() {
-            this.$router.go(-1)
+            this.$router.push('/magazines?ref=back_button')
         }
     }
 }
