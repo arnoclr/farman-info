@@ -10,13 +10,13 @@
                         v-for="i in numPages"
                         :key="i"
                         @click="scrollTo(i)"
-                        class="thumb">
+                        :class="(loadedPages.includes(i) ? 'loaded' : 'loading' ) + ' thumb'">
                         <pdf
                             :src="summaryThumbs ? src : null"
                             :page="i"
                             :active="i == currentPage"
                             @page-rendered="thumbRendered(i)"
-                            class="canvas"
+                            :class="(i & 1 ? 'right' : 'left') + (i == 0 ? 'first' : '') + ' canvas'"
                         ></pdf>
                         <span>{{ i }}</span>
                     </div>
@@ -79,8 +79,6 @@
         opacity: 1;
 
         &~#main {
-            height: calc(100vh - 125px);
-            
             .page {
                 filter: brightness(50%);
             }
@@ -99,16 +97,30 @@
         overflow-x: scroll;
         overflow-y: hidden;
         white-space: nowrap;
-        padding-left: 56px;
+        padding-left: 64px;
         
         .thumb {
             display: inline-block !important;
             width: 64px;
-            margin: 3px 8px;
             cursor: pointer;
+            opacity: 1;
+            transition: opacity 350ms ease;
+
+            &.loading {
+                opacity: 0.5;
+            }
 
             .canvas {
+                margin: 8px 8px 3px 8px;
                 box-shadow: 0 0 0 1px #bbb;
+
+                &.left {
+                    margin-right: 0px;
+                }
+
+                &.right {
+                    margin-left: 0px;
+                }
 
                 &[active] {
                     box-shadow: 0 0 0 3px teal;
@@ -269,7 +281,6 @@ export default {
             this.loadedPages.push(page)
             if(this.currentPage == page) {
                 this.loading = false
-                this.summaryOpen = false
             }
         },
         thumbRendered(i) {
