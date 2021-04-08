@@ -198,6 +198,11 @@
 }
 
 @media screen and (min-width: 600px) {
+    .no-padding {
+        padding: 0px 25vw !important;
+        background-color: #000;
+    }
+
     [prev-page], [next-page] {
         position: fixed;
         height: 100vh;
@@ -222,8 +227,13 @@
         }
     }
 
-    .page {
-        align-items: flex-start !important;
+    #main .page {
+        width: 50vw !important;
+        overflow-x: hidden;
+
+        @media screen and (min-width: 975px) {
+            align-items: flex-start !important;
+        }
     }
 
     [prev-page] {
@@ -298,7 +308,7 @@ export default {
             }
             document.getElementById('main').scrollTo({
                 top: 0,
-                left: (page - 1) * window.innerWidth,
+                left: (page - 1) * main.offsetWidth,
                 behavior: 'smooth'
             })
         },
@@ -311,7 +321,7 @@ export default {
             }
         },
         getCurrentPage() {
-            this.currentPage = Math.round(main.scrollLeft / window.innerWidth) + 1
+            this.currentPage = Math.round(main.scrollLeft / main.offsetWidth) + 1
             this.saveProgress(this.currentPage)
             if(this.currentPage == this.numPagesDefer - 1 && !this.deferRendering) {
                 this.deferRendering = true
