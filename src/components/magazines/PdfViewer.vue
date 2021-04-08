@@ -15,7 +15,6 @@
                             :src="summaryThumbs ? src : null"
                             :page="i"
                             :active="i == currentPage"
-                            @page-rendered="thumbRendered(i)"
                             :class="(i & 1 ? 'right' : 'left') + (i == 0 ? 'first' : '') + ' canvas'"
                         ></pdf>
                         <span>{{ i }}</span>
@@ -41,12 +40,12 @@
                 ></pdf>
             </div>
 
-            <div class="loader" 
-                v-if="!(summaryRenderProgress == 0 || summaryRenderProgress == 100) || loading">
+            <div class="loader"
+                v-if="loading">
                 <div sp>
                     <md-progress-spinner
-                        :md-mode="loading ? 'indeterminate' : 'determinate'"
-                        :md-value="summaryRenderProgress"></md-progress-spinner>
+                        :md-mode="loadingMode"
+                        :md-value="loadingValue"></md-progress-spinner>
                 </div>
             </div>
         </div>
@@ -249,6 +248,8 @@ export default {
     data() {
         return {
             loading: true,
+            loadingMode: 'determinate',
+            loadingValue: 0,
             src: null,
             numPages: undefined,
             numPagesDefer: 2,
@@ -258,7 +259,6 @@ export default {
             currentPage: 1,
             summaryOpen: false,
             summaryThumbs: false,
-            summaryRenderProgress: 0,
             storageKey: null
         }
     },
@@ -282,9 +282,6 @@ export default {
             if(this.currentPage == page) {
                 this.loading = false
             }
-        },
-        thumbRendered(i) {
-            this.summaryRenderProgress = i / this.numPages * 100
         },
         scrollTo(page) {
             if(page > this.numPagesDefer) {
@@ -333,10 +330,14 @@ export default {
             let page = localStorage.getItem(this.storageKey)
             console.log(page)
         },
+        downloadProgress(e) {
+            this.loadingValue = e.loaded / e.total * 100
+        },
         setSrc(url) {
             console.log(url)
-            this.src = pdf.createLoadingTask(url);
+            this.src = pdf.createLoadingTask(url, {onProgress: this.downloadProgress})
             this.src.promise.then(pdf => {
+                this.loadingMode = 'indeterminate'
                 this.numPages = pdf.numPages
                 this.retrieveLastProgress()
             }).catch(err => {
