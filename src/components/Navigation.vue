@@ -5,7 +5,10 @@
                 <a title="connexion" @click="login" v-if="!user" login>Connexion</a>
                 <div a v-else>
                     <a @click="logout" logout>déconnexion |</a>
-                    <span>{{ user.displayName }}</span>
+                    <span @click="userModalOpen = true">
+                        {{ user.displayName }}
+                        <md-tooltip md-direction="bottom">Editer mon profil</md-tooltip>
+                    </span>
                     <img :src="user.photoURL ? user.photoURL : 'https://i.stack.imgur.com/34AD2.jpg'" :title="'connecté en tant que : ' + user.displayName" alt="photo de profil" pp>
                 </div>
                 <a href="#" v-if="!notificationsEnabled" @click="requestNotifications" n>| Activer les notifications <i class="material-icons">notification_add</i></a>
@@ -77,6 +80,8 @@
                 </md-list-item>
             </md-list>
         </md-drawer>
+
+        <user-profile-modal :user="user" :open.sync="userModalOpen"></user-profile-modal>
     </div>
 </template>
 
@@ -338,7 +343,8 @@ export default {
         'gestion'
     ],
     components: {
-        CategoryLabel: () => import('./utils/CategoryLabel')
+        CategoryLabel: () => import('./utils/CategoryLabel'),
+        UserProfileModal: () => import('./utils/UserProfile')
     },
     data() {
         return {
@@ -347,7 +353,8 @@ export default {
             showSidepanel: false,
             categories: null,
             notificationsEnabled: false,
-            offline: !navigator.onLine
+            offline: !navigator.onLine,
+            userModalOpen: false
         }
     },
     methods: {
