@@ -1,6 +1,12 @@
 <template>
     <div header>
         <header>
+            <section v-if="betaDisclaimer" work>
+                <span>Ce site est en cours de développement et peut contenir des bugs. Les fonctionnalités principales sont deja disponibles et des ajouts arriveront par la suite.</span>
+                <md-button @click="closeDisclaimer" class="md-icon-button">
+                    <md-icon>close</md-icon>
+                </md-button>
+            </section>
             <section top>
                 <a title="connexion" @click="login" v-if="!user" login>Connexion</a>
                 <div a v-else>
@@ -102,6 +108,17 @@
     position: sticky;
     top: -32px;
     z-index: 2;
+
+    [work] {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        background-color: #ffda29;
+        display: flex;
+        align-items: center;
+        z-index: 2;
+    }
 
     [top] {
         height: 32px;
@@ -355,7 +372,8 @@ export default {
             categories: null,
             notificationsEnabled: false,
             offline: !navigator.onLine,
-            userModalOpen: false
+            userModalOpen: false,
+            betaDisclaimer: true
         }
     },
     methods: {
@@ -374,6 +392,10 @@ export default {
         },
         requestNotifications() {
             askForPermissioToReceiveNotifications()
+        },
+        closeDisclaimer() {
+            this.betaDisclaimer = false
+            localStorage.setItem('disclaimer:beta', 'false')
         },
         fetchCategories() {
             db.collection('categories').get()
@@ -399,6 +421,10 @@ export default {
         } else {
             // hide button if navigator don't support notifications
             this.notificationsEnabled = true
+        }
+        const disclaimerStatus = JSON.parse(localStorage.getItem('disclaimer:beta'))
+        if(disclaimerStatus == false) {
+            this.betaDisclaimer = false
         }
     }
 }
