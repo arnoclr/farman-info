@@ -1,84 +1,131 @@
 <template>
     <div>
-        <app-header></app-header>
+        <app-header class="transparent" transparent></app-header>
 
-        <div class="divided">
+        <img alt="Airbus Airfrance Aéroport de Nice"
+            src="https://i.imgur.com/hrPi8hz.webp"
+            srcset="https://i.imgur.com/hrPi8hzl.webp 640w,
+                    https://i.imgur.com/czbTP95.webp 1200w,
+                    https://i.imgur.com/hrPi8hz.webp 4032w">
+
+        <div r>
             <main>
-                <span>Information</span>
-                <br>
-                <svg viewBox="0 0 24 24">
-                    <path fill="" d="M17 15L18 19H21V22H3V19H6L7 15H17M15 8L16 12H8L9 8H15M13 1L14 5H10L11 1H13Z" />
-                </svg>
-                <h1>Site en cours de développement</h1>
-                <p>Ce site web n'est pas encore disponible au public.</p>
-                <p>Seule la partie Magazine peut être consultée en cliquant ci-dessous</p>
-                <router-link class="button-outlined" to="/magazines?ref=cta">Lire le magazine</router-link>
+                <h1>Bientôt disponible</h1>
+                <p>Ce site web n'est pas encore disponible au public. 
+                    <br>Seule la partie Magazine peut être consultée en cliquant ci-dessous.</p>
 
-                <form id="mail-form" class="form-group">
-                    <h2>Lettre d'informations</h2>
-                    <p>Inscrivez-vous à la lettre d'informations pour recevoir les nouveautés concernant le site.</p>
-                    <input type="email" id="mail-input" placeholder="Votre adresse email" required>
-                    <button class="button">Me tenir informé</button>
-                </form>
+                <router-link to="/magazines?ref=cta" class="button" cta>Lire le magazine</router-link>
+
+                <div b>
+                    <span i>S'inscrire à notre newsletter</span>
+
+                    <form @submit.prevent="submit" id="mail-form" class="form-group">
+                        <input v-model="mail" type="email" id="mail-input" placeholder="Votre adresse email" required>
+                        <button class="icon-button">
+                            <md-icon>arrow_forward</md-icon>
+                        </button>
+                    </form>
+                </div>
             </main>
 
-            <app-sidebar></app-sidebar>
+            <span c>
+                Photo par <a href="https://unsplash.com/@chiabra?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Paolo Chiabrando</a> via <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+            </span>
         </div>
 
-        <app-footer></app-footer>
+        <app-footer f></app-footer>
     </div>
 </template>
 
 <style lang="scss" scoped>
-[a] {
-    display: flex;
+img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+    filter: brightness(0.5);
 }
 
-main {
-    color: #555;
-}
+[r] {
+    position: relative;
+    height: 85vh;
 
-span {
-    color: #999;
-}
+    main {
+        position: absolute;
 
-svg {
-    width: 56px;
-    height: 56px;
-    fill: #333;
-    margin-top: 16px;
+        h1 {
+            font-size: 56px;
+            color: #fff;
+        }
 
-    &+h1 {
-        margin-top: 12px;
+        p {
+            color: #fff;
+            padding-bottom: 16px;
+        }
+
+        [cta] {
+            display: inline;
+            padding: 12px 16px;
+            font-size: 22px;
+            background-color: #fff;
+            color: #000 !important;
+        }
+
+        [b] {
+            margin-top: 32px;
+            padding: 32px 16px;
+            border: 2px solid #fff;
+            border-radius: 8px;
+
+            [i] {
+                color: #eee;
+                font-size: 24px;
+            }
+
+            #mail-form {
+                margin-top: 8px;
+
+                input {
+                    width: 250px;
+                    height: 42px;
+                    max-width: 100%;
+                    padding-left: 8px;
+                    margin-right: 4px;
+                    border: 1px solid #fff;
+                }
+
+                .icon-button {
+                    background-color: transparent;
+                    display: contents;
+
+                    i {
+                        margin-left: 8px;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+
+    [c] {
+        position: absolute;
+        bottom: 16px;
+        right: 16px;
+        color: #fff;
+
+        a {
+            color: #ddd;
+        }
     }
 }
 
-#mail-form {
-    background: #eee;
-    padding: 32px 16px;
-    margin-top: 32px;
-    border-radius: 8px;
-
-    h2 {
-        margin-top: 8px;
-    }
-
-    p {
-        margin-top: 0;
-    }
-
-    input {
-        width: 250px;
-        height: 42px;
-        max-width: 100%;
-        padding-left: 8px;
-        margin-right: 4px;
-    }
-
-    button {
-        height: 42px;
-        vertical-align: baseline;
-    }
+[f] {
+    background-color: #fff;
+    position: absolute;
+    bottom: -200px;
+    width: 100%;
 }
 </style>
 
@@ -91,25 +138,25 @@ export default {
         AppHeader: () => import('./Navigation.vue'),
         AppSidebar: () => import('./utils/Sidebar.vue')
     },
-    mounted() {
-        const mailForm = document.querySelector('#mail-form')
-        const mailInput = document.querySelector('#mail-input')
-
-        mailForm.addEventListener('submit', (e) => {
-            e.preventDefault()
+    data() {
+        return {
+            mail: '',
+        }
+    },
+    methods: {
+        submit() {
             db.collection('mails').add({
-                mail: mailInput.value
+                mail: this.mail
             })
-            .then(function (docRef) {
-                console.log('Document written with ID: ', docRef.id)
-                mailInput.value = ''
-                alert('Merci ! Vous serez informé lorsque le site sera disponible.')
+            .then(() => {
+                this.mail = ''
+                this.$root.$emit('alert', 'Merci ! Vous serez informé lorsque le site sera disponible.')
             })
-            .catch(function (error) {
+            .catch(error => {
                 console.error('Error adding document: ', error)
-                alert('Oops, une erreur est survenue.')
+                this.$root.$emit('alert', 'Oops, une erreur est survenue.')
             })
-        })
+        }
     }
 }
 </script>

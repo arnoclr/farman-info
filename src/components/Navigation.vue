@@ -114,10 +114,15 @@
         top: 0;
         left: 0;
         width: 100vw;
+        padding: 4px 16px;
         background-color: #ffda29;
         display: flex;
         align-items: center;
         z-index: 2;
+
+        @media screen and(max-width: 800px) {
+            padding-right: 72px;
+        }
     }
 
     [top] {
