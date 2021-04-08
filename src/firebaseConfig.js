@@ -19,6 +19,7 @@ const firebaseConfig = {
 
 // check cookie consent before init
 const consent = JSON.parse(localStorage.getItem('cookie:accepted'))
+window.consent = consent
 if(consent == false) {
   // https://developers.google.com/analytics/devguides/collection/ga4/disable-analytics
   window['ga-disable-' + firebaseConfig.measurementId] = true;
