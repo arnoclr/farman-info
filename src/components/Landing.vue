@@ -2,17 +2,19 @@
     <div>
         <app-header class="transparent" transparent></app-header>
 
-        <img alt="Airbus Airfrance Aéroport de Nice"
-            src="https://i.imgur.com/hrPi8hz.webp"
+        <img alt="Avion sur le tarmac en noir et blanc"
+            src="https://i.imgur.com/hrPi8hz.jpg"
             srcset="https://i.imgur.com/hrPi8hzl.webp 640w,
                     https://i.imgur.com/czbTP95.webp 1200w,
-                    https://i.imgur.com/hrPi8hz.webp 4032w">
+                    https://i.imgur.com/WmF4LFX.webp 1600w,
+                    https://i.imgur.com/hrPi8hz.webp 2400w">
 
         <div r>
             <main>
                 <h1>Bientôt disponible</h1>
-                <p>Ce site web n'est pas encore disponible au public. 
-                    <br>Seule la partie Magazine peut être consultée en cliquant ci-dessous.</p>
+
+                <p>Ce site web n'est pas encore disponible au public. Seule la partie Magazine peut être consultée en cliquant ci-dessous.</p>
+                <p npt>Farman propose une selection d'informations sur l'aéronautique ainsi qu'une offre de magazines lifestyle, culture & voyages.</p>
 
                 <router-link to="/magazines?ref=cta" class="button" cta>Lire le magazine</router-link>
 
@@ -25,11 +27,26 @@
                             <md-icon>arrow_forward</md-icon>
                         </button>
                     </form>
+
+                    <md-menu md-direction="top-end" u>
+                        <md-button md-menu-trigger class="md-icon-button">
+                            <md-icon>more_vert</md-icon>
+                        </md-button>
+
+                        <md-menu-content>
+                            <a target="_blank" href="https://farman.ga/s/newsletter">
+                                <md-menu-item>En savoir plus</md-menu-item>
+                            </a>
+                            <router-link to="/unsubscribe?ref=landing_page">
+                                <md-menu-item>Se désinscrire</md-menu-item>
+                            </router-link>
+                        </md-menu-content>
+                    </md-menu>
                 </div>
             </main>
 
             <span c>
-                Photo par <a href="https://unsplash.com/@chiabra?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Paolo Chiabrando</a> via <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+                <a href="https://unsplash.com/@chiabra?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">@Paolo Chiabrando</a>
             </span>
         </div>
 
@@ -46,6 +63,7 @@ img {
     width: 100vw;
     object-fit: cover;
     filter: brightness(0.5);
+    transform: scaleX(-1);
 }
 
 [r] {
@@ -54,6 +72,7 @@ img {
 
     main {
         position: absolute;
+        max-width: 520px;
 
         h1 {
             font-size: 56px;
@@ -63,6 +82,11 @@ img {
         p {
             color: #fff;
             padding-bottom: 16px;
+            letter-spacing: 0;
+
+            &[npt] {
+                margin-top: -16px;
+            }
         }
 
         [cta] {
@@ -74,8 +98,9 @@ img {
         }
 
         [b] {
+            position: relative;
             margin-top: 32px;
-            padding: 32px 16px;
+            padding: 32px 16px 16px 16px;
             border: 2px solid #fff;
             border-radius: 8px;
 
@@ -85,7 +110,7 @@ img {
             }
 
             #mail-form {
-                margin-top: 8px;
+                margin-top: 16px;
 
                 input {
                     width: 250px;
@@ -94,6 +119,15 @@ img {
                     padding-left: 8px;
                     margin-right: 4px;
                     border: 1px solid #fff;
+                    color: #fff;
+
+                    &::placeholder {
+                        color: #aaa;
+                    }
+
+                    &:focus {
+                        background-color: rgba(0, 0, 0, 0.6);
+                    }
                 }
 
                 .icon-button {
@@ -104,6 +138,16 @@ img {
                         margin-left: 8px;
                         color: #fff;
                     }
+                }
+            }
+
+            [u] {
+                position: absolute;
+                top: 4px;
+                right: 4px;
+
+                button i {
+                    color: #aaa;
                 }
             }
         }
@@ -118,14 +162,22 @@ img {
         a {
             color: #ddd;
         }
+
+        @media screen and(max-width: 660px) {
+            display: none;
+        }
     }
 }
 
 [f] {
-    background-color: #fff;
+    background-color: #ffffff80;
     position: absolute;
     bottom: -200px;
     width: 100%;
+
+    @media screen and(max-width: 500px) {
+        bottom: -30rem;
+    }
 }
 </style>
 
