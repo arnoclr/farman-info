@@ -71,7 +71,8 @@ export default {
     name: 'ImageUploadDialog',
     props: [
         'callback',
-        'open'
+        'open',
+        'size'
     ],
     data() {
         return {
@@ -100,7 +101,7 @@ export default {
             this.uploading = true
             imageCompression(img, {
                 maxSizeMB: 0.5,
-                maxWidthOrHeight: 1920,
+                maxWidthOrHeight: this.size || 1920,
                 useWebWorker: true,
                 initialQuality: 0.5,
                 onProgress: this.setBufferPercentage

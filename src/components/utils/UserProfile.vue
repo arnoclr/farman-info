@@ -23,7 +23,7 @@
             </md-dialog-actions>
         </md-dialog>
 
-        <image-uploader :callback="setPhoto" :open.sync="imageUploaderOpen"></image-uploader>
+        <image-uploader :size="256" :callback="setPhoto" :open.sync="imageUploaderOpen"></image-uploader>
     </div>
 </template>
 
