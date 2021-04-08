@@ -10,7 +10,7 @@
             <section top>
                 <a title="connexion" @click="login" v-if="!user" login>Connexion</a>
                 <div a v-else>
-                    <a @click="logout" logout>déconnexion |</a>
+                    <a @click="logoutModalOpen = true" logout>déconnexion |</a>
                     <span @click="userModalOpen = true">
                         {{ user.displayName || 'Ajouter un nom' }}
                         <md-tooltip md-direction="bottom">Editer mon profil</md-tooltip>
@@ -86,6 +86,14 @@
                 </md-list-item>
             </md-list>
         </md-drawer>
+
+        <md-dialog-confirm
+            :md-active.sync="logoutModalOpen"
+            md-title="Se déconnecter ?"
+            md-content="Vous n'aurez plus accès a certaines fonctionnalités de l'application, telles que l'ajout d'articles ou de commentaires."
+            md-confirm-text="Déconnexion"
+            md-cancel-text="Annuler"
+            @md-confirm="logout" />
 
         <user-profile-modal :user="user" :open.sync="userModalOpen"></user-profile-modal>
     </div>
@@ -378,6 +386,7 @@ export default {
             notificationsEnabled: false,
             offline: !navigator.onLine,
             userModalOpen: false,
+            logoutModalOpen: false,
             betaDisclaimer: true
         }
     },
@@ -387,13 +396,11 @@ export default {
             this.$router.push('/login?ref=navbar')
         },
         logout() {
-            if(confirm('Se déconnecter ?')) {
-                firebase.auth().signOut().then(() => {
-                    this.$router.go()
-                }).catch(err => {
-                    console.log(err)
-                })
-            }
+            firebase.auth().signOut().then(() => {
+                this.$router.go()
+            }).catch(err => {
+                alert(err)
+            })
         },
         requestNotifications() {
             askForPermissioToReceiveNotifications()
