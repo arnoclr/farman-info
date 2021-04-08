@@ -6,7 +6,7 @@
             <form>
                 <md-tabs id="submit-article-tabs">
                     <md-tab md-label="édition">
-                        <md-field>
+                        <md-field z>
                             <label>Titre</label>
                             <md-input md-counter="80" max="80" v-model="article.title" required></md-input>
                         </md-field>
@@ -70,6 +70,10 @@ main {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 32px;
+
+    [z] {
+        z-index: 1;
+    }
 
     [help] {
         display: block;
