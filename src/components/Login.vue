@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div root>
+        <div root id="login-background">
             <app-header class="transparent" transparent="true"></app-header>
 
             <main>
@@ -28,10 +28,12 @@
 
 <style lang="scss" scoped>
 [root] {
-    background: url('https://i.imgur.com/4HZI65g.webp');
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat-y: no-repeat;
+    // background: url('https://i.imgur.com/4HZI65g.webp');
+    background: url('https://i.imgur.com/4HZI65gm.webp');
+    background-color: #91AFDE;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    background-repeat-y: no-repeat !important;
     animation: background-down 1s ease-out;
 
     #login {
@@ -172,6 +174,13 @@ p.firebaseui-tospp-full-message {
                     privacyPolicyUrl: 'https://farman.ga/s/cgu'
                 }
                 ui.start('#firebaseui-auth-container', uiConfig)
+                // image loading
+                let downloadingImage = new Image()
+                let imageSrc = 'https://i.imgur.com/4HZI65g.webp'
+                downloadingImage.onload = () => {
+                    document.getElementById('login-background').style.background = `url('${imageSrc}')`  
+                }
+                downloadingImage.src = imageSrc
             }
         },
         methods: {
