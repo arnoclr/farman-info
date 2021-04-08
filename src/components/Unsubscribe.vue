@@ -7,7 +7,7 @@
                 <div v-if="isSignedIn">
                     <span>désinscription</span>
                     <h1>Quitter la lettre d'informations ?</h1>
-                    <p>En cliquant sur le bouton ci-dessous, vous ne recevrez plus de mails d'informations de notre part. Vous continuerez cependant a recevoir des mails de connexion ou de récupération de compte, ainsi que des informations légales ci nécéssaire.</p>
+                    <p>En cliquant sur le bouton ci-dessous, vous ne recevrez plus de mails d'informations de notre part. Vous continuerez cependant à recevoir des mails de connexion ou de récupération de compte, ainsi que des informations légales si nécéssaire.</p>
                     <md-button class="md-raised md-accent" @click="signOut">Quitter</md-button>
                 </div>
 
