@@ -6,7 +6,7 @@
                 <div a v-else>
                     <a @click="logout" logout>déconnexion |</a>
                     <span @click="userModalOpen = true">
-                        {{ user.displayName }}
+                        {{ user.displayName || 'Ajouter un nom' }}
                         <md-tooltip md-direction="bottom">Editer mon profil</md-tooltip>
                     </span>
                     <img :src="user.photoURL ? user.photoURL : 'https://i.stack.imgur.com/34AD2.jpg'" :title="'connecté en tant que : ' + user.displayName" alt="photo de profil" pp>
@@ -111,6 +111,7 @@
             font-weight: 300;
             width: fit-content;
             display: inline-flex;
+            cursor: pointer;
 
             span {
                 margin-top: 5px;
