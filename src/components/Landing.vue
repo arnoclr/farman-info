@@ -4,7 +4,8 @@
 
         <img alt="Avion sur le tarmac en noir et blanc"
             src="https://i.imgur.com/hrPi8hz.jpg"
-            srcset="https://i.imgur.com/hrPi8hzl.webp 640w,
+            srcset="https://i.imgur.com/vvYf1m0.webp 24w,
+                    https://i.imgur.com/hrPi8hzl.webp 640w,
                     https://i.imgur.com/czbTP95.webp 1200w,
                     https://i.imgur.com/WmF4LFX.webp 1600w,
                     https://i.imgur.com/hrPi8hz.webp 2400w">
