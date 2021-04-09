@@ -24,10 +24,10 @@
 
             <div v-if="src" id="main" v-on:scroll.passive="getCurrentPage">
                 <button id="summary-trigger" @click="triggerSummary"></button>
-                <div prev-page @click="scrollTo(currentPage - 1)">
+                <div prev-page @click="scrollTo(currentPage - 1)" :disabled="disableButtons">
                     <i class="material-icons">navigate_before</i>
                 </div>
-                <div next-page @click="scrollTo(currentPage + 1)">
+                <div next-page @click="scrollTo(currentPage + 1)" :disabled="disableButtons">
                     <i class="material-icons">navigate_next</i>
                 </div>
                 <pdf
@@ -58,6 +58,10 @@
 </template>
 
 <style lang="scss" scoped>
+.no-padding {
+    overflow-y: hidden;
+}
+
 .summary {
     height: 125px;
     margin-top: -125px;
@@ -135,14 +139,26 @@
     white-space: nowrap;
     background: #000;
     scroll-snap-type: x mandatory;
-    height: 100vh;
+    height: calc(100vh + 18px); // hide horizontal scrollbar
     align-items: center;
     display: -webkit-box;
     transition: height 350ms ease;
     color-scheme: dark;
 
-    ::-webkit-scrollbar {
-        width: 0;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #000;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: #222; 
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #333; 
     }
 
     #summary-trigger {
@@ -222,14 +238,22 @@
         }
 
         i {
-            color: white;
+            color: #fff;
             font-size: 64px;
+        }
+
+        &[disabled] {
+            pointer-events: none;
+            cursor: default;
+
+            i {
+                color: #aaa;
+            }
         }
     }
 
     #main .page {
         width: 50vw !important;
-        overflow-x: hidden;
 
         @media screen and (min-width: 975px) {
             align-items: flex-start !important;
@@ -269,7 +293,8 @@ export default {
             currentPage: 1,
             summaryOpen: false,
             summaryThumbs: false,
-            storageKey: null
+            storageKey: null,
+            disableButtons: false
         }
     },
     created() {
@@ -294,6 +319,10 @@ export default {
             }
         },
         scrollTo(page) {
+            this.disableButtons = true
+            setTimeout(() => {
+                this.disableButtons = false
+            }, 500);
             if(page > this.numPagesDefer) {
                 if(!this.loadedPages.includes(page)) {
                     this.loading = true
