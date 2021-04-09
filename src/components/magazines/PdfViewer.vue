@@ -30,14 +30,12 @@
                 <div next-page @click="scrollTo(currentPage + 1)" :disabled="disableButtons">
                     <i class="material-icons">navigate_next</i>
                 </div>
-                <pdf
-                    v-for="i in numPagesDefer"
-                    :key="i"
-                    :page="i"
-                    :src="src"
-                    @page-rendered="loaded(i)"
-                    class="page"
-                ></pdf>
+                <div v-for="i in numPages"
+                    :key="i" class="page">
+                    <pdf
+                        :page="i" :src="src"
+                        @page-rendered="loaded(i)"></pdf>
+                </div>
             </div>
 
             <div class="loader"
@@ -82,6 +80,8 @@
         opacity: 1;
 
         &~#main {
+            overflow: hidden;
+
             .page {
                 filter: brightness(50%);
             }
@@ -139,27 +139,10 @@
     white-space: nowrap;
     background: #000;
     scroll-snap-type: x mandatory;
-    height: calc(100vh + 18px); // hide horizontal scrollbar
+    height: 100vh;
     align-items: center;
     display: -webkit-box;
     transition: height 350ms ease;
-    color-scheme: dark;
-
-    &::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    &::-webkit-scrollbar-track {
-        background: #000;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-        background: #222; 
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-        background: #333; 
-    }
 
     #summary-trigger {
         position: fixed;
@@ -193,6 +176,17 @@
         align-items: center;
         scroll-snap-align: start;
         transition: filter 350ms ease;
+        background-color: #000;
+
+        &>div {
+            height: 100%;
+            width: 100%;
+
+            @media screen and(max-width: 490px) {
+                display: flex;
+                align-items: center;
+            }
+        }
     }
 }
 
@@ -213,7 +207,7 @@
     }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 1600px) {
     .no-padding {
         padding: 0px 25vw !important;
         background-color: #000;
@@ -270,6 +264,12 @@
 }
 </style>
 
+<style>
+.annotationLayer {
+    display: none;
+}
+</style>
+
 <script>
 import pdf from 'vue-pdf-render-event'
 import browserFileStorage from 'browser-file-storage'
@@ -314,9 +314,10 @@ export default {
     methods: {
         loaded(page) {
             this.loadedPages.push(page)
-            if(this.currentPage == page) {
-                this.loading = false
-            }
+            this.loadingMode = 'determinate'
+            this.loadingValue = page / this.numPages * 100
+            if(page == 1) return this.loading = false
+            if(this.numPages == page) return this.documentReady()
         },
         scrollTo(page) {
             this.disableButtons = true
@@ -352,22 +353,19 @@ export default {
         getCurrentPage() {
             this.currentPage = Math.round(main.scrollLeft / main.offsetWidth) + 1
             this.saveProgress(this.currentPage)
-            if(this.currentPage == this.numPagesDefer - 1 && !this.deferRendering) {
-                this.deferRendering = true
-                setTimeout(() => {
-                    if(this.numPagesDefer < this.numPages) {
-                        this.numPagesDefer++
-                    }
-                    this.deferRendering = false
-                }, 500);
+            if(this.currentPage >= this.numPagesDefer && this.currentPage <= this.numPages) {
+                this.numPagesDefer = this.currentPage
             }
+        },
+        documentReady() {
+            this.retrieveLastProgress()
         },
         saveProgress(page) {
             localStorage.setItem(this.storageKey ,page)
         },
         retrieveLastProgress() {
             let page = localStorage.getItem(this.storageKey)
-            console.log(page)
+            this.scrollTo(page)
         },
         downloadProgress(e) {
             this.loadingValue = e.loaded / e.total * 100
@@ -378,7 +376,6 @@ export default {
             this.src.promise.then(pdf => {
                 this.loadingMode = 'indeterminate'
                 this.numPages = pdf.numPages
-                this.retrieveLastProgress()
             }).catch(err => {
                 this.error = err
             })
