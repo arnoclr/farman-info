@@ -17,9 +17,9 @@
             </md-dialog-content>
 
             <md-dialog-actions>
-                <md-button class="md-primary" @click="closeModal">Annuler</md-button>
+                <md-button class="md-primary" @click="closeModal" :disabled="loading">Annuler</md-button>
                 <md-button class="md-primary" @click="save"
-                    :disabled="editedUser.displayName == user.displayName && editedUser.photoURL == user.photoURL">Enregistrer</md-button>
+                    :disabled="(editedUser.displayName == user.displayName && editedUser.photoURL == user.photoURL) || loading">Enregistrer</md-button>
             </md-dialog-actions>
         </md-dialog>
 
@@ -66,8 +66,6 @@
 </style>
 
 <script>
-import {auth} from '../../firebaseConfig'
-
 export default {
     props: ['user', 'open'],
     components: {
@@ -75,8 +73,9 @@ export default {
     },
     data() {
         return {
-            editedUser: null,
-            imageUploaderOpen: false
+            editedUser: {},
+            imageUploaderOpen: false,
+            loading: false
         }
     },
     methods: {
@@ -84,14 +83,15 @@ export default {
             this.$emit('update:open', false)
         },
         save() {
-            const user = auth.currentUser
-            console.log(this.editedUser)
-            user.updateProfile(this.editedUser)
+            this.loading = true
+            this.user.updateProfile(this.editedUser)
             .then(() => {
                 this.$root.$emit('toast', 'Informations mises à jour')
                 this.closeModal()
+                this.loading = false
             })
             .catch(err => {
+                this.loading = false
                 this.$root.$emit('alert', err)
             })
         },
