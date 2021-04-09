@@ -127,6 +127,8 @@
         display: flex;
         align-items: center;
         z-index: 2;
+        transform: translateY(-100%);
+        animation: slide-down 350ms 1.2s forwards cubic-bezier(0,.6,.23,.91);
 
         @media screen and(max-width: 800px) {
             padding-right: 72px;
@@ -360,6 +362,12 @@
                 }
             }
         }
+    }
+}
+
+@keyframes slide-down {
+    to {
+        transform: translateY(0);
     }
 }
 </style>
