@@ -98,6 +98,7 @@ export default {
         fetchRelated() {
             db.collection('articles')
             .orderBy('createdAt', 'desc')
+            .where('published', '==', true)
             .where('tags', 'array-contains-any', this.article.tags)
             .startAfter(this.article.createdAt)
             .limit(5)
