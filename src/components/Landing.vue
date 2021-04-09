@@ -61,7 +61,7 @@ img {
     position: fixed;
     top: 0;
     left: 0;
-    height: 120vh;
+    height: 110vh;
     width: 100vw;
     object-fit: cover;
     filter: brightness(0.5);
