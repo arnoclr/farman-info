@@ -12,14 +12,14 @@
 
         <div r>
             <main>
-                <h1>Bientôt disponible</h1>
+                <h1 a1>Bientôt disponible</h1>
 
-                <p>Ce site web n'est pas encore disponible au public. Seule la partie Magazine peut être consultée en cliquant ci-dessous.</p>
-                <p npt>Farman propose une selection d'informations sur l'aéronautique ainsi qu'une offre de magazines lifestyle, culture & voyages.</p>
+                <p a2>Ce site web n'est pas encore disponible au public. Seule la partie Magazine peut être consultée en cliquant ci-dessous.</p>
+                <p npt a2>Farman propose une selection d'informations sur l'aéronautique ainsi qu'une offre de magazines lifestyle, culture & voyages.</p>
 
-                <router-link to="/magazines?ref=cta" class="button" cta>Lire le magazine</router-link>
+                <router-link to="/magazines?ref=cta" class="button" cta a2>Lire le magazine</router-link>
 
-                <div b>
+                <div b a3>
                     <span i>S'inscrire à notre newsletter</span>
 
                     <form @submit.prevent="submit" id="mail-form" class="form-group">
@@ -152,6 +152,22 @@ img {
                 }
             }
         }
+
+        [a1], [a2], [a3] {
+            opacity: 0;
+        }
+
+        [a1] {
+            animation: fade-in 750ms forwards cubic-bezier(0,.95,.25,.97);
+        }
+
+        [a2] {
+            animation: fade-in 750ms 0.5s forwards cubic-bezier(0,.95,.25,.97);
+        }
+
+        [a3] {
+            animation: fade-in 750ms 0.7s forwards cubic-bezier(0,.95,.25,.97);
+        }
     }
 
     [c] {
@@ -178,6 +194,17 @@ img {
 
     @media screen and(max-width: 500px) {
         bottom: -30rem;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        transform: translateY(-25px);
+    }
+    
+    to {
+        transform: translateY(0);
+        opacity: 1;
     }
 }
 </style>
