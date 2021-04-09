@@ -415,7 +415,7 @@ export default {
         },
         closeDisclaimer() {
             this.betaDisclaimer = false
-            localStorage.setItem('disclaimer:beta', 'false')
+            localStorage.setItem('disclaimer:beta', + new Date())
         },
         fetchCategories() {
             db.collection('categories').get()
@@ -442,8 +442,9 @@ export default {
             // hide button if navigator don't support notifications
             this.notificationsEnabled = true
         }
-        const disclaimerStatus = JSON.parse(localStorage.getItem('disclaimer:beta'))
-        if(disclaimerStatus == false) {
+        const disclaimerTimestamp = JSON.parse(localStorage.getItem('disclaimer:beta'))
+        // hide disclaimer for 1 day
+        if(disclaimerTimestamp + 1e3 * 86400 > + new Date()) {
             this.betaDisclaimer = false
         }
     }
