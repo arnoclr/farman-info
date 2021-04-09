@@ -3,13 +3,14 @@
         <app-header class="transparent" transparent></app-header>
 
         <img alt="Avion sur le tarmac en noir et blanc"
+            id="parallax-img-landing"
             src="https://i.imgur.com/hrPi8hz.jpg"
             srcset="https://i.imgur.com/vvYf1m0.webp 24w,
                     https://i.imgur.com/hrPi8hzl.webp 640w,
                     https://i.imgur.com/czbTP95.webp 1200w,
                     https://i.imgur.com/WmF4LFX.webp 1600w,
                     https://i.imgur.com/hrPi8hz.webp 2400w">
-
+        
         <div r>
             <main>
                 <h1 a1>Bientôt disponible</h1>
@@ -60,7 +61,7 @@ img {
     position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: 120vh;
     width: 100vw;
     object-fit: cover;
     filter: brightness(0.5);
@@ -119,25 +120,29 @@ img {
                     max-width: 100%;
                     padding-left: 8px;
                     margin-right: 4px;
-                    border: 1px solid #fff;
-                    color: #fff;
+                    border: 1px solid #777;
+                    color: #000;
+                    background-color: #fff;
 
                     &::placeholder {
-                        color: #aaa;
-                    }
-
-                    &:focus {
-                        background-color: rgba(0, 0, 0, 0.6);
+                        color: #999;
                     }
                 }
 
                 .icon-button {
                     background-color: transparent;
-                    display: contents;
+                    display: inline-block;
+                    vertical-align: middle;
+                    transform: translateX(-8px) rotate(0);
+                    transition: transform 150ms ease;
 
                     i {
                         margin-left: 8px;
                         color: #fff;
+                    }
+
+                    &:hover {
+                        transform: translateX(0) rotate(-45deg);
                     }
                 }
             }
@@ -236,7 +241,18 @@ export default {
                 console.error('Error adding document: ', error)
                 this.$root.$emit('alert', 'Oops, une erreur est survenue.')
             })
+        },
+        parallax() {
+            const img = document.getElementById('parallax-img-landing')
+            let offset = window.scrollY / window.innerHeight * 50
+            img.style.transform = `translateY(-${offset}px) scaleX(-1)`
         }
+    },
+    created() {
+        window.addEventListener('scroll', this.parallax)
+    },
+    destroyed() {
+        window.removeEventListener('scroll', this.parallax)
     }
 }
 </script>
