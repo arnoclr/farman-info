@@ -192,7 +192,8 @@ img {
 }
 
 [f] {
-    background-color: #ffffff80;
+    backdrop-filter: saturate(180%) blur(5px);
+    background-color: rgba(255, 255, 255, 0.5);
     position: absolute;
     bottom: -200px;
     width: 100%;
