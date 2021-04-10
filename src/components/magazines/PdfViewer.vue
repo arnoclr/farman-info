@@ -34,7 +34,8 @@
                     <i class="material-icons">navigate_next</i>
                 </div>
                 <div v-for="i in numPages"
-                    :key="i" class="page">
+                    :key="i"
+                    :class="(fullscreen ? 'fullscreen' : 'margin') + ' page'">
                     <pdf v-if="loadedPages.includes(i)"
                         :page="i" :src="src"
                         @page-rendered="loaded(i)"></pdf>
@@ -50,6 +51,14 @@
                         :md-value="loadingValue"></md-progress-spinner>
                 </div>
             </div>
+
+            <md-button id="fullscreen-trigger"
+                :class="(fullscreen ? 'morphed' : '') + ' md-icon-button md-raised'" 
+                @click="fullscreen = !fullscreen">
+                <md-icon class="before">fullscreen</md-icon>
+                <md-icon class="after">fullscreen_exit</md-icon>
+                <md-tooltip md-delay="500" md-direction="left">Ajuster a l'écran</md-tooltip>
+            </md-button>
         </div>
 
         <div class="error" v-else>
@@ -174,7 +183,7 @@
     }
 
     .page {
-        display: inline-flex !important;
+        // display: inline-flex !important;
         width: 100vw;
         height: 100%;
         align-items: center;
@@ -211,7 +220,46 @@
     }
 }
 
-@media screen and(min-width: 600px) {
+#fullscreen-trigger {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+
+    i {
+        position: absolute;
+        top: -12px;
+        left: -12px;
+        transition: transform .3s cubic-bezier(.25,.8,.25,1), opacity .3s cubic-bezier(.25,.8,.25,1);
+    }
+
+    .before {
+        opacity: 1;
+        transform: rotate(0) scale(1);
+    }
+
+    .after {
+        opacity: 0;
+        transform: rotate(90deg) scale(.7);
+    }
+
+    &.morphed {
+        .before {
+            opacity: 0;
+            transform: rotate(-90deg) scale(.7);
+        }
+
+        .after {
+            opacity: 1;
+            transform: rotate(0) scale(1);
+        }
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .page canvas {
+        height: 100vh !important;
+    }
+
     [prev-page], [next-page] {
         position: fixed;
         height: 100vh;
@@ -254,7 +302,13 @@
     }
 }
 
-@media screen and(min-width: 1600px) {
+@media screen and (max-width: 500px) {
+    #fullscreen-trigger {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1600px) {
     .no-padding {
         padding: 0px 25vw !important;
         background-color: #000;
@@ -273,6 +327,18 @@
 <style>
 .annotationLayer {
     display: none;
+}
+
+@media screen and (min-width: 500px) {
+    .page canvas {
+        transition: height 350ms ease;
+    }
+
+    .margin canvas {
+        height: 100vh !important;
+        width: auto !important;
+        margin: 0 auto;
+    }
 }
 </style>
 
@@ -300,7 +366,8 @@ export default {
             summaryThumbs: false,
             summaryThumbsToRender: 5,
             storageKey: null,
-            disableButtons: false
+            disableButtons: false,
+            fullscreen: false
         }
     },
     created() {
