@@ -2,7 +2,7 @@
     <div>
         <div v-if="!error" class="no-padding">
             <div class="summary" :class="summaryOpen ? 'open' : ''">
-                <div class="scroll">
+                <div class="scroll" ref="scroll" v-on:scroll.passive="summaryScrolled">
                     <a @click="$router.push('/magazine/' + $route.params.ref + '?ref=back_button')" class="icon-button">
                         <i class="material-icons">arrow_back</i>
                     </a>
@@ -12,11 +12,14 @@
                         @click="scrollTo(i)"
                         :class="(loadedPages.includes(i) ? 'loaded' : 'loading' ) + ' thumb'">
                         <pdf
+                            v-if="i <= summaryThumbsToRender"
                             :src="summaryThumbs ? src : null"
                             :page="i"
                             :active="i == currentPage"
                             :class="(i & 1 ? 'right' : 'left') + (i == 0 ? 'first' : '') + ' canvas'"
                         ></pdf>
+                        <div v-else
+                            :class="(i & 1 ? 'right' : 'left') + (i == 0 ? 'first' : '') + ' canvas'"></div>
                         <span>{{ i }}</span>
                     </div>
                 </div>
@@ -32,9 +35,10 @@
                 </div>
                 <div v-for="i in numPages"
                     :key="i" class="page">
-                    <pdf
+                    <pdf v-if="loadedPages.includes(i)"
                         :page="i" :src="src"
                         @page-rendered="loaded(i)"></pdf>
+                    <div v-else>chargement ...</div>
                 </div>
             </div>
 
@@ -207,12 +211,7 @@
     }
 }
 
-@media screen and (min-width: 1600px) {
-    .no-padding {
-        padding: 0px 25vw !important;
-        background-color: #000;
-    }
-
+@media screen and(min-width: 600px) {
     [prev-page], [next-page] {
         position: fixed;
         height: 100vh;
@@ -245,6 +244,21 @@
             }
         }
     }
+    
+    [prev-page] {
+        left: 0;
+    }
+
+    [next-page] {
+        right: 0;
+    }
+}
+
+@media screen and(min-width: 1600px) {
+    .no-padding {
+        padding: 0px 25vw !important;
+        background-color: #000;
+    }
 
     #main .page {
         width: 50vw !important;
@@ -252,14 +266,6 @@
         @media screen and (min-width: 975px) {
             align-items: flex-start !important;
         }
-    }
-
-    [prev-page] {
-        left: 0;
-    }
-
-    [next-page] {
-        right: 0;
     }
 }
 </style>
@@ -286,13 +292,13 @@ export default {
             loadingValue: 0,
             src: null,
             numPages: undefined,
-            numPagesDefer: 2,
-            loadedPages: [],
+            loadedPages: [1],
             deferRendering: false,
             error: null,
             currentPage: 1,
             summaryOpen: false,
             summaryThumbs: false,
+            summaryThumbsToRender: 5,
             storageKey: null,
             disableButtons: false
         }
@@ -314,33 +320,26 @@ export default {
     methods: {
         loaded(page) {
             this.loadedPages.push(page)
-            this.loadingMode = 'determinate'
-            this.loadingValue = page / this.numPages * 100
             if(page == 1) return this.loading = false
-            if(this.numPages == page) return this.documentReady()
         },
         scrollTo(page) {
             this.disableButtons = true
             setTimeout(() => {
                 this.disableButtons = false
-            }, 500);
-            if(page > this.numPagesDefer) {
-                if(!this.loadedPages.includes(page)) {
-                    this.loading = true
-                    setTimeout(() => {
-                        this.loading = false
-                    }, 5000);
-                }
-                this.numPagesDefer = page
-                setTimeout(() => {
-                    this.scrollTo(page)
-                }, 250);
-            }
+            }, 500)
             document.getElementById('main').scrollTo({
                 top: 0,
                 left: (page - 1) * main.offsetWidth,
                 behavior: 'smooth'
             })
+            setTimeout(() => {
+                this.renderCurrentPage(page)
+            }, 500)
+        },
+        renderCurrentPage(i) {
+            if(!this.loadedPages.includes(i)) {
+                this.loadedPages.push(i)
+            }
         },
         triggerSummary() {
             this.summaryOpen = !this.summaryOpen
@@ -353,12 +352,14 @@ export default {
         getCurrentPage() {
             this.currentPage = Math.round(main.scrollLeft / main.offsetWidth) + 1
             this.saveProgress(this.currentPage)
-            if(this.currentPage >= this.numPagesDefer && this.currentPage <= this.numPages) {
-                this.numPagesDefer = this.currentPage
-            }
+            this.renderCurrentPage(this.currentPage)
         },
-        documentReady() {
-            this.retrieveLastProgress()
+        summaryScrolled() {
+            const thumbsSlided = this.$refs.scroll.scrollLeft / 64
+            const thumbToRender = main.offsetWidth / 64 + thumbsSlided
+            this.summaryThumbsToRender = 
+                thumbToRender >= this.summaryThumbsToRender ?
+                thumbToRender : this.summaryThumbsToRender
         },
         saveProgress(page) {
             localStorage.setItem(this.storageKey ,page)
