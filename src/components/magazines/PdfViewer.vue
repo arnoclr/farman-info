@@ -244,7 +244,7 @@
             }
         }
     }
-    
+
     [prev-page] {
         left: 0;
     }
@@ -320,7 +320,11 @@ export default {
     methods: {
         loaded(page) {
             this.loadedPages.push(page)
-            if(page == 1) return this.loading = false
+            if(page == 1) return this.ready()
+        },
+        ready() {
+            this.loading = false
+            this.retrieveLastProgress()
         },
         scrollTo(page) {
             this.disableButtons = true
