@@ -1,27 +1,104 @@
 <template>
-    <div class="body">
-        <div id="message" class="no-padding">
-            <h2>404</h2>
-            <h1>Page non trouvée</h1>
-            <p>Le fichier spécifié n'a pas été trouvé, verifiez les erreurs dans l'url et réessayez.</p>
+    <div a>
+        <span>404</span>
+        <h1>Page non trouvée</h1>
+
+        <div l>
+            <router-link to="/?ref=404">Page d'accueil</router-link>
+            <router-link to="/magazines?ref=404">Nos magazines</router-link>
+            <router-link to="/articles?ref=404">Derniers articles</router-link>
         </div>
+
+        <a c target="_blank" href="https://unsplash.com/photos/la9EgQSuSV8">Photo par @grmot</a>
     </div>
 </template>
 
-<style scoped>
-    .body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; height: 100vh; width: 100vw; position: absolute; top: 0; }
-    #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px 16px; border-radius: 3px; }
-    #message h3 { color: #888; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
-    #message h2 { color: #17969C; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-    #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-    #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-    #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-    #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-    #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-    @media (max-width: 600px) {
-        .body, #message { margin-top: 0; background: white; box-shadow: none; }
-        .body { border-top: 16px solid #17969C; }
+<style lang="scss" scoped>
+[a] {
+    padding: 32px;
+    height: 100vh;
+    width: 100vw;
+    background-image: url('https://i.imgur.com/A9SDhSL.webp');
+    background-position: center;
+    background-size: cover;
+
+    span {
+        color: #eee;
+        font-size: 26px;
     }
+
+    h1 {
+        margin-top: -32px;
+        color: #fff;
+        border-bottom: 2px solid #fff;
+        letter-spacing: -18px;
+        animation: letters .5s cubic-bezier(.36,.28,.06,.99) forwards,
+            slide .3s ease .7s forwards,
+            border .3s ease .9s forwards;
+    }
+
+    [l] {
+        a {
+            display: block;
+            position: relative;
+            font-size: 26px;
+            font-weight: 500;
+            color: #fff;
+            margin: 16px 0;
+            transition: transform .3s cubic-bezier(0,.95,.25,.97);
+
+            &::before {
+                content: 'arrow_forward';
+                font-family: 'Material Icons Sharp';
+                position: absolute;
+                left: -24px;
+                top: 0;
+                opacity: 0;
+                transition: opacity .2s;
+            }
+
+            &:hover {
+                transform: translateX(24px);
+                opacity: 1 !important;
+
+                &::before {
+                    opacity: 1;
+                }
+            }
+        }
+
+        &:hover {
+            a {
+                opacity: .6;
+            }
+        }
+    }
+
+    [c] {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        color: #fff;
+    }
+}
+
+@keyframes letters {
+    to {
+        letter-spacing: -2px;
+    }
+}
+
+@keyframes slide {
+    to {
+        margin-top: 0;
+    }
+}
+
+@keyframes border {
+    to {
+        padding-bottom: 32px;
+    }
+}
 </style>
 
 <script>
