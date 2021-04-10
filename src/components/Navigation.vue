@@ -47,7 +47,7 @@
         </header>
 
         <md-drawer class="md-right" :md-active.sync="showSidepanel">
-            <md-list>
+            <md-list dl>
                 <router-link to="/?ref=drawer">
                     <md-list-item>
                         <md-icon>home</md-icon>
@@ -83,6 +83,14 @@
                 <md-list-item v-if="!notificationsEnabled" @click="requestNotifications">
                     <md-icon>notification_add</md-icon>
                     <span class="md-list-item-text">Activer les notifications</span>
+                </md-list-item>
+                <md-list-item @click="userModalOpen = true">
+                    <md-icon>account_circle</md-icon>
+                    <span class="md-list-item-text">Mes informations</span>
+                </md-list-item>
+                <md-list-item @click="logoutModalOpen = true">
+                    <md-icon>phonelink_erase</md-icon>
+                    <span class="md-list-item-text">Se déconnecter</span>
                 </md-list-item>
             </md-list>
         </md-drawer>
@@ -317,6 +325,12 @@
                 color: #fff;
             }
         }
+    }
+}
+
+[dl] {
+    li {
+        height: 48px;
     }
 }
 

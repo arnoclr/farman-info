@@ -1,6 +1,6 @@
 <template>
     <div>
-        <md-dialog :md-active.sync="open" :md-click-outside-to-close="false">
+        <md-dialog :md-active.sync="open" :md-click-outside-to-close="false" :md-fullscreen="false">
             <md-dialog-title>Mes informations</md-dialog-title>
 
             <md-dialog-content v-if="editedUser" c>
