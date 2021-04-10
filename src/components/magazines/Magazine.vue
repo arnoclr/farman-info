@@ -20,7 +20,9 @@
                 <router-link 
                     :to="{ name: 'PdfViewer', params: { ref: magazine.ref } }"
                     class="button" id="start-reading"
-                    :disabled="offline && !stored">Ouvrir le lecteur</router-link>
+                    :disabled="offline && !stored">
+                    {{ continueReading ? 'Continuer a lire' : 'Ouvrir le lecteur' }}    
+                </router-link>
 
                 <md-button @click="deletePdfFromStorage" class="md-icon-button" v-if="stored">
                     <md-icon>delete</md-icon>
@@ -97,11 +99,15 @@ export default {
             stored: false,
             downloadPdfProgress: false,
             fileSize: null,
+            continueReading: false,
             offline: !navigator.onLine
         }
     },
     created() {
         this.getMagazine()
+        const storageKey = this.$route.params.ref + '-progress'
+        const lastProgress = localStorage.getItem(storageKey)
+        this.continueReading = (lastProgress && lastProgress > 1) ? true : false
         if(!browserFileStorage._init) {
             browserFileStorage.init('farman').then(status => {})
             .catch(error => {
