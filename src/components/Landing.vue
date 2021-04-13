@@ -192,14 +192,23 @@ img {
 }
 
 [f] {
-    backdrop-filter: saturate(180%) blur(5px);
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: #fff;
     position: absolute;
     bottom: -200px;
     width: 100%;
 
     @media screen and(max-width: 500px) {
         bottom: -30rem;
+    }
+}
+
+@media screen and(min-height: 700px) {
+    [npt] {
+        margin-bottom: 32px;
+    }
+
+    [b] {
+        margin-top: 58px !important;
     }
 }
 
