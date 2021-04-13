@@ -31,6 +31,11 @@ let app
 document.getElementById('splash-message').innerText = "Authentification ..."
 
 auth.onAuthStateChanged(user => {
+    document.getElementById('load').classList.add('out')
+    setTimeout(() => {
+        document.getElementById('load').style.display = 'none'
+    }, 350 + 350);
+
     if(user && window.consent) analytics.setUserId(user.uid)
     
     if(!app) {

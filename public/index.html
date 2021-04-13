@@ -34,26 +34,32 @@ Site web Farman, développé par Arno Cellarier
 Contact : farman.bonjour@outlook.fr
 Le site web est open source, et le code source est disponible à cette adresse : https://github.com/Aryqs-Ipsum/farman-info
 */
-#plane-svg {color: #9cd7db;height: 250px;position: absolute;top: 50%;left: -250px;transform: rotate(90deg) translateX(-50%);animation: forward 5s cubic-bezier(0, 0, 0, 1) forwards;}
-#splash-message {position: absolute;bottom: 10vh;left: 50%;transform: translateX(-50%);color: #fff;font-family: 'Inter', Arial, Helvetica, sans-serif;font-weight: 500;font-size: 16px;animation: toblack 2s steps(1, end) forwards;}
-#sky {height: 100vh;width: 100vw;background-color: #17969c;cursor: progress;animation: fadeout 5s ease-out forwards;}
+#load {z-index: 10; position: absolute; overflow: hidden;}
+#load.out {animation: fadeout 350ms ease 350ms forwards;}
+#plane-svg {color: #9cd7db;height: 250px;position: absolute;top: 50%;left: -250px;transform: rotate(90deg) translateX(-50%);animation: forward 7s cubic-bezier(0,.09,0,.68) forwards;}
+#load.out #plane-svg {animation: out 350ms ease forwards; left: calc(50% - 250px);}
+#splash-message {position: absolute;bottom: 10vh;left: 50%;transform: translateX(-50%);color: #fff;font-family: 'Inter', Arial, Helvetica, sans-serif;font-weight: 500;font-size: 16px;}
+#sky {height: 100vh;width: 100vw;background-color: #17969c;cursor: progress;}
 @keyframes forward {
     33% {transform: rotate(88deg) translateX(-55%);}
     66% {transform: rotate(92deg) translateX(-45%);}
     100% {left: calc(100% - 250px);transform: rotate(90deg) translateX(-50%);opacity: 0;}
 }
-@keyframes fadeout {
-    to {opacity: 0;}
+@keyframes out {
+    0% {transform: scale(1) rotate(90deg);}
+    25% {transform: scale(0.8) rotate(90deg);}
+    100% {transform: scale(35) rotate(90deg);}
 }
-@keyframes toblack {
-    to {color: #000;}
+@keyframes fadeout {
+    from {opacity: 1;}
+    to {opacity: 0;}
 }
 </style>
 </head>
 
 <body style="margin:0">
-    <div id="app">
-        <!-- loading animation -->
+    <!-- loading animation -->
+    <div id="load">
         <div id="sky">
             <svg viewBox="0 0 24 24" id="plane-svg">
                 <path fill="currentColor" d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z" />
@@ -61,6 +67,7 @@ Le site web est open source, et le code source est disponible à cette adresse :
         </div>
         <span id="splash-message">Chargement des scripts ...</span>
     </div>
+    <div id="app"></div>
 </body>
 
 </html>
