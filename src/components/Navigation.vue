@@ -19,12 +19,12 @@
                 </div>
                 <a href="#" v-if="!notificationsEnabled" @click="requestNotifications" n>| Activer les notifications <i class="material-icons">notification_add</i></a>
                 <span href="#" v-if="offline" n>| mode hors ligne <i class="material-icons">airplanemode_active</i></span>
-                <router-link to="/articles/submit?ref=navbar_draft_continue" v-if="hasArticleDraft" r>
+                <!-- <router-link to="/articles/submit?ref=navbar_draft_continue" v-if="hasArticleDraft" r>
                     <span>Terminer la rédaction de mon article <i rt class="material-icons">arrow_forward</i></span>
                 </router-link>
                 <router-link to="/articles/submit?ref=navbar" r v-else>
                     <span><i lt class="material-icons">edit</i> Proposer un article</span>
-                </router-link>
+                </router-link> -->
             </section>
             <section bottom>
                 <button class="button" @click="login" v-if="!user" login-btn>Connexion</button>
@@ -60,7 +60,7 @@
                         <span class="md-list-item-text">Magazines</span>
                     </md-list-item>
                 </router-link>
-                <router-link to="/articles?ref=drawer">
+                <!-- <router-link to="/articles?ref=drawer">
                     <md-list-item>
                         <md-icon>new_releases</md-icon>
                         <span class="md-list-item-text">Dernières infos</span>
@@ -79,7 +79,7 @@
                         link-ref="drawer"
                         style="margin-left:56px">
                     </category-label>
-                </details>
+                </details> -->
                 <md-list-item v-if="!notificationsEnabled" @click="requestNotifications">
                     <md-icon>notification_add</md-icon>
                     <span class="md-list-item-text">Activer les notifications</span>

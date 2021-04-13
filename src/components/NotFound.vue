@@ -8,8 +8,6 @@
             <router-link to="/magazines?ref=404">Nos magazines</router-link>
             <router-link to="/articles?ref=404">Derniers articles</router-link>
         </div>
-
-        <a c target="_blank" href="https://unsplash.com/photos/la9EgQSuSV8">Photo par @grmot</a>
     </div>
 </template>
 
@@ -18,9 +16,7 @@
     padding: 32px;
     height: 100vh;
     width: 100vw;
-    background-image: url('https://i.imgur.com/A9SDhSL.webp');
-    background-position: center;
-    background-size: cover;
+    background-color: #000;
 
     span {
         color: #eee;
