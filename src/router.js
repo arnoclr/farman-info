@@ -59,56 +59,56 @@ const router = new Router({
         title: 'Liseuse du magazine'
       }
     },
-    {
-      path: '/articles/submit',
-      name: 'articleSubmit',
-      component: () => import('@/components/articles/Submit'),
-      meta: {
-        requiresAuth: true,
-        title: 'Proposer un article'
-      }
-    },
-    {
-      path: '/articles',
-      name: 'articleList',
-      component: () => import('@/components/articles/List'),
-      meta: {
-        title: 'Tous les articles'
-      }
-    },
-    {
-      path: '/articles/author/:author',
-      name: 'articleListAuthor',
-      component: () => import('@/components/articles/List'),
-      meta: {
-        title: 'Tous les articles'
-      }
-    },
-    {
-      path: '/articles/category/:category',
-      name: 'articleListCategory',
-      component: () => import('@/components/articles/List'),
-      meta: {
-        title: 'Tous les articles'
-      }
-    },
-    {
-      path: '/article/:ref',
-      name: 'articleView',
-      component: () => import('@/components/articles/View'),
-      meta: {
-        title: 'Lecture d\'un article'
-      }
-    },
-    {
-      path: '/article/:ref/edit',
-      name: 'articleEdit',
-      component: () => import('@/components/articles/Submit'),
-      meta: {
-        title: 'Edition article',
-        requiresAuth: true
-      }
-    },
+    // {
+    //   path: '/articles/submit',
+    //   name: 'articleSubmit',
+    //   component: () => import('@/components/articles/Submit'),
+    //   meta: {
+    //     requiresAuth: true,
+    //     title: 'Proposer un article'
+    //   }
+    // },
+    // {
+    //   path: '/articles',
+    //   name: 'articleList',
+    //   component: () => import('@/components/articles/List'),
+    //   meta: {
+    //     title: 'Tous les articles'
+    //   }
+    // },
+    // {
+    //   path: '/articles/author/:author',
+    //   name: 'articleListAuthor',
+    //   component: () => import('@/components/articles/List'),
+    //   meta: {
+    //     title: 'Tous les articles'
+    //   }
+    // },
+    // {
+    //   path: '/articles/category/:category',
+    //   name: 'articleListCategory',
+    //   component: () => import('@/components/articles/List'),
+    //   meta: {
+    //     title: 'Tous les articles'
+    //   }
+    // },
+    // {
+    //   path: '/article/:ref',
+    //   name: 'articleView',
+    //   component: () => import('@/components/articles/View'),
+    //   meta: {
+    //     title: 'Lecture d\'un article'
+    //   }
+    // },
+    // {
+    //   path: '/article/:ref/edit',
+    //   name: 'articleEdit',
+    //   component: () => import('@/components/articles/Submit'),
+    //   meta: {
+    //     title: 'Edition article',
+    //     requiresAuth: true
+    //   }
+    // },
     {
       path: '/admin/:section?',
       name: 'admin',
