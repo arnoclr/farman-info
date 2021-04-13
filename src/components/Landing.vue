@@ -133,16 +133,16 @@ img {
                     background-color: transparent;
                     display: inline-block;
                     vertical-align: middle;
-                    transform: translateX(-8px) rotate(0);
+                    transform: rotate(0);
                     transition: transform 150ms ease;
+                    transform-origin: 24px;
 
                     i {
-                        margin-left: 8px;
                         color: #fff;
                     }
 
                     &:hover {
-                        transform: translateX(0) rotate(-45deg);
+                        transform: rotate(-45deg);
                     }
                 }
             }
