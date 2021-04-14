@@ -48,16 +48,7 @@ db.enablePersistence()
 const magazines = db.collection('magazines')
 
 // remote config
-const sidebar_banners = {
-  "magazine": {
-    "image": "https://i.imgur.com/yRzHUAO.jpg",
-    "link": "#"
-  },
-  "test": {
-    "image": "https://i.imgur.com/aZY7AaX.jpg",
-    "link": "#"
-  }
-}
+const sidebar_banners = {}
 remoteConfig.settings.minimumFetchIntervalMillis = 3600000
 remoteConfig.defaultConfig = {
   "sidebar_banners": JSON.stringify(sidebar_banners)
