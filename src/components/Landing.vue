@@ -40,7 +40,7 @@
                                 <md-menu-item>En savoir plus</md-menu-item>
                             </a>
                             <router-link to="/unsubscribe?ref=landing_page">
-                                <md-menu-item>Se désinscrire</md-menu-item>
+                                <md-menu-item>Se désinscrire (nécessite connexion)</md-menu-item>
                             </router-link>
                         </md-menu-content>
                     </md-menu>
