@@ -103,7 +103,7 @@
             md-cancel-text="Annuler"
             @md-confirm="logout" />
 
-        <user-profile-modal :user="user" :open.sync="userModalOpen"></user-profile-modal>
+        <user-profile-modal v-if="user" :user="user" :open.sync="userModalOpen"></user-profile-modal>
     </div>
 </template>
 
