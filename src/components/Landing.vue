@@ -1,15 +1,12 @@
 <template>
     <div>
         <app-header class="transparent" transparent></app-header>
-
-        <img alt="Avion sur le tarmac en noir et blanc"
+        
+        <lazy-img
             id="parallax-img-landing"
-            src="https://i.imgur.com/hrPi8hz.jpg"
-            srcset="https://i.imgur.com/vvYf1m0.webp 24w,
-                    https://i.imgur.com/hrPi8hzl.webp 640w,
-                    https://i.imgur.com/czbTP95.webp 1200w,
-                    https://i.imgur.com/WmF4LFX.webp 1600w,
-                    https://i.imgur.com/hrPi8hz.webp 2400w">
+            src="https://i.imgur.com/hrPi8hz.jpg" 
+            blur-src="https://i.imgur.com/hrPi8hzm.jpg"
+            alt="Avion sur le tarmac en noir et blanc"></lazy-img>
         
         <div r>
             <main>
@@ -231,7 +228,8 @@ export default {
     components: {
         AppFooter: () => import('./Footer.vue'),
         AppHeader: () => import('./Navigation.vue'),
-        AppSidebar: () => import('./utils/Sidebar.vue')
+        AppSidebar: () => import('./utils/Sidebar.vue'),
+        LazyImg: () => import('./utils/LazyImage')
     },
     data() {
         return {
