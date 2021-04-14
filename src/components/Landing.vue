@@ -4,8 +4,8 @@
         
         <lazy-img
             id="parallax-img-landing"
-            src="https://i.imgur.com/hrPi8hz.jpg" 
-            blur-src="https://i.imgur.com/hrPi8hzm.jpg"
+            src="https://i.imgur.com/Hl8V2ov.jpg" 
+            blur-src="https://i.imgur.com/Hl8V2ovm.webp"
             alt="Avion sur le tarmac en noir et blanc"></lazy-img>
         
         <div r>
@@ -45,7 +45,7 @@
             </main>
 
             <span c>
-                <a href="https://unsplash.com/@chiabra?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">@Paolo Chiabrando</a>
+                <a href="https://unsplash.com/photos/xGiWEdOv7x8">@uncleyau</a>
             </span>
         </div>
 
