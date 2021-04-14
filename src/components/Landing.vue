@@ -13,12 +13,12 @@
                 <h1 a1>Bientôt disponible</h1>
 
                 <p a2>Ce site web n'est pas encore disponible au public. Seule la partie Magazine peut être consultée en cliquant ci-dessous.</p>
-                <p npt a2>Farman propose une selection d'informations sur l'aéronautique ainsi qu'une offre de magazines lifestyle, culture & voyages.</p>
+                <p npt a2>Farman propose une sélection d'informations sur l'aéronautique ainsi qu'une offre de magazines lifestyle, culture & voyage.</p>
 
                 <router-link to="/magazines?ref=cta" class="button" cta a2>Lire le magazine</router-link>
 
                 <div b a3>
-                    <span i>S'inscrire à notre newsletter</span>
+                    <span i>S'inscrire à notre lettre d'informations</span>
 
                     <form @submit.prevent="submit" id="mail-form" class="form-group">
                         <input v-model="mail" type="email" id="mail-input" placeholder="Votre adresse email" required>
