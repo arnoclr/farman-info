@@ -15,7 +15,7 @@
                         <div class="fm-card__body-content">
                             <p>L'astronaute français va embarquer à bord de la deuxième mission habitée de SpaceX vers l'ISS. 
                                 Regardez l'évènement sur le YouTube de Farman.</p>
-                            <a role="button" href="https://farman.ga/s/live/spacex" class="fm-button">regarder</a>
+                            <a role="button" href="https://farman.ga/s/direct" class="fm-button">regarder</a>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                                         <a target="_blank" href="https://farman.ga/s/newsletter">
                                             <md-menu-item>En savoir plus</md-menu-item>
                                         </a>
-                                        <router-link to="/unsubscribe?ref=landing_page">
+                                        <router-link to="/unsubscribe?ref=landing_page" title="Vous devez être connecté">
                                             <md-menu-item>Se désinscrire</md-menu-item>
                                         </router-link>
                                     </md-menu-content>

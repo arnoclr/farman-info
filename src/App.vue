@@ -14,8 +14,8 @@
         <router-view/>
 
         <cookie-law
-            button-text="Accepter" button-class="button" 
-            :button-decline="true" button-decline-text="Tout refuser" button-decline-class="button-outlined">
+            button-text="Accepter" button-class="fm-button" 
+            :button-decline="true" button-decline-text="Tout refuser" button-decline-class="fm-button fm-button--outlined">
             <div slot="message">
                 Ce site web utilise des cookies <a href="https://farman.ga/s/cgu">Informations complémentaires</a>
             </div>
