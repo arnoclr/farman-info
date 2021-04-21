@@ -42,6 +42,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="center" style="height: 80vh" v-else>
                     <svg class="loader" width="60" height="60" xmlns="http://www.w3.org/2000/svg" >
                         <g>
@@ -49,6 +50,13 @@
                         </g>
                     </svg>
                 </div>
+
+                <md-empty-state
+                    v-if="magazines.length == 0"
+                    md-icon="upcoming"
+                    md-label="Patientez ..."
+                    md-description="Aucun magazine n'a encore été publié.">
+                </md-empty-state>
             </main>
 
             <app-sidebar></app-sidebar>

@@ -72,7 +72,8 @@ export default {
     components: {
         AppFooter: () => import('./Footer.vue'),
         AppHeader: () => import('./Navigation.vue'),
-        AppSidebar: () => import('./utils/Sidebar.vue')
+        AppSidebar: () => import('./utils/Sidebar.vue'),
+        LazyImg: () => import('./utils/LazyImage')
     },
     data() {
         return {
