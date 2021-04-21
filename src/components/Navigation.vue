@@ -27,7 +27,7 @@
                 </router-link> -->
             </section>
             <section bottom>
-                <button class="button" @click="login" v-if="!user" login-btn>Connexion</button>
+                <button class="fm-button fm-button--large" @click="login" v-if="!user" login-btn>Connexion</button>
                 <router-link class="fm-button fm-button--large" @click="login" v-else login-btn to="/articles/submit?ref=navbar_cta">Publier</router-link>
                 <router-link to="/?ref=header_logo">
                     <img :src="'/assets/logos/' + (gestion ? 'header_logo_admin.png' : 'header_logo.png')" alt="navbar logo" logo>
@@ -270,13 +270,6 @@
             margin: 8px;
             color: grey;
             font-size: 12px;
-        }
-
-        [login-btn] {
-            height: 48px;
-            font-size: 18px;
-            font-weight: 500;
-            margin: 12px 8px;
         }
 
         [logo] {
