@@ -1,7 +1,7 @@
 <template>
     <div>
         <div root id="login-background">
-            <app-header class="transparent" transparent="true"></app-header>
+            <app-header class="fm-header--transparent" transparent="true"></app-header>
 
             <main>
                 <div id="login">

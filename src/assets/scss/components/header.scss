@@ -1,0 +1,205 @@
+.fm-header {
+    &--sticky {
+        position: sticky;
+        top: -32px;
+        z-index: 2;
+    }
+
+    &--transparent {
+        .fm-header__bottom {
+            background: transparent;
+            backdrop-filter: none;
+            box-shadow: none;
+            border-bottom: 1px solid #fff;
+    
+            &-logo {
+                filter: brightness(0) invert(1);
+            }
+    
+            &-categories {
+                li a, i {
+                    color: #fff !important;
+                }
+            }
+        }
+    }
+
+    &__disclaimer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        padding: 4px 16px;
+        background-color: #ffda29;
+        display: flex;
+        align-items: center;
+        z-index: 2;
+        transform: translateY(-100%);
+        animation: slide-down 350ms 1.2s forwards cubic-bezier(0,.6,.23,.91);
+
+        @media screen and(max-width: 800px) {
+            padding-right: 72px;
+        }
+    }
+
+    &__top {
+        display: flex;
+        align-items: center;
+        height: 32px;
+        background: #17969c;
+
+        &-link {
+            cursor: pointer;
+            color: #fff !important;
+        }
+
+        &-avatar {
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+        }
+
+        &-right {
+            float: right;
+            margin-right: 32px;
+            transition: transform 150ms ease-out;
+            
+            span {
+                padding-top: 6px;
+
+                i {
+                    font-size: 18px;
+                    
+                    &[lt] {
+                        margin-right: 8px;
+                    }
+
+                    &[rt] {
+                        margin-left: 8px;
+                    }
+                }
+            }
+
+            &:hover {
+                transform: translateX(16px);
+            }
+        }
+    }
+
+    &__bottom {
+        display: flex;
+        height: 72px;
+        backdrop-filter: saturate(180%) blur(20px);
+        background-color: rgba(255,255,255,.72);
+        border-bottom: 1px solid rgba(0,0,0,.16);
+
+        &-button {
+            margin: 12px 8px;
+        }
+
+        &-categories {
+            position: absolute;
+            right: 32px;
+            list-style: none;
+            display: inline-block;
+            margin: 6px;
+            padding: 0;
+
+            &-menu {
+                margin: 8px;
+                display: none;
+            }
+
+            li {
+                display: inline-flex;
+                position: relative;
+                margin-left: 8px;
+                height: 60px;
+                border-radius: 4px;
+                
+                &:hover {
+                    opacity: 0.8;
+                }
+
+                a {
+                    font-size: 26px;
+                    font-weight: 600;
+                    text-decoration: none !important;
+                    color: #222 !important;
+                    display: flex;
+                    align-items: center;
+                    padding: 0 8px;
+                }
+            }
+        }
+
+        &-logo {
+            margin: 14px 0;
+
+            img {
+                display: inline-block;
+                height: 42px;
+            }
+        }
+
+        [pp] {
+            width: 42px;
+            margin-right: 16px;
+            margin-top: -4px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+    }
+
+    &__drawer {
+        height: 100vh;
+        width: 230px;
+        position: fixed;
+    }
+
+    @media screen and(min-width: 800px) {
+        &__top, &__bottom {
+            padding: 0 calc(10vw - 16px);
+        }
+
+        &__bottom-button {
+            display: none;
+        }
+
+        &__bottom-categories {
+            right: 10vw !important;
+        }
+    }
+
+    @media screen and(max-width: 800px) {
+        top: 0;
+    
+        &__top, &__bottom-categories li, &__top-right {
+            display: none !important;
+        }
+    
+        &__bottom {
+            &-logo {
+                position: absolute;
+                right: 56px;
+                border-right: 1px solid #555;
+                padding-right: 8px;
+            }
+    
+            &-categories {
+                right: 0;
+    
+                &-menu {
+                    display: inline-flex !important;
+                }
+            }
+        }
+    }
+}
+
+
+@keyframes slide-down {
+    to {
+        transform: translateY(0);
+    }
+}
