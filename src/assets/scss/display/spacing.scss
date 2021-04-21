@@ -1,0 +1,31 @@
+// https://gist.github.com/amielantonio/9201e0beec6f6925b82d609f2023c7bb
+
+$spacing-settings: (
+    "spaces"         : (
+        "margin"      : "m",
+        "padding"     : "p"
+    ),
+    "positions"      : (
+        "top"         : "t",
+        "bottom"      : "b",
+        "right"       : "r",
+        "left"        : "l",
+    )
+);
+$sizes: (4, 8, 16, 32, 64, 128);
+
+@each $space-key, $space in map_get($spacing-settings, "spaces") {
+    @each $position-key, $position in map_get($spacing-settings, "positions") {
+
+        @each $size in $sizes {
+            .#{$space}#{$position}-#{$size}{
+                #{$space-key}-#{$position-key}: #{$size}px !important;
+            }
+
+            .#{$space}-#{$size}{
+                #{$space-key}: #{$size}px !important;
+            }
+        }
+
+    }
+}

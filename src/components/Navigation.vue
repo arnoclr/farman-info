@@ -28,7 +28,7 @@
             </section>
             <section bottom>
                 <button class="button" @click="login" v-if="!user" login-btn>Connexion</button>
-                <router-link class="button" @click="login" v-else login-btn to="/articles/submit?ref=navbar_cta">Publier</router-link>
+                <router-link class="fm-button fm-button--large" @click="login" v-else login-btn to="/articles/submit?ref=navbar_cta">Publier</router-link>
                 <router-link to="/?ref=header_logo">
                     <img :src="'/assets/logos/' + (gestion ? 'header_logo_admin.png' : 'header_logo.png')" alt="navbar logo" logo>
                 </router-link>
@@ -249,29 +249,16 @@
                 margin-left: 8px;
                 height: 60px;
                 border-radius: 4px;
-
-                &::before {
-                    content: ' ';
-                    display: block;
-                    background: #ccc;
-                    height: 20px;
-                    width: 1px;
-                    margin-top: 20px;
-                    position: absolute;
-                    left: -4px;
-                }
-
-                &:first-child::before {
-                    opacity: 0;
-                }
-
+                
                 &:hover {
-                    background: rgba(150, 150, 150, 0.2);
+                    opacity: 0.8;
                 }
 
                 a {
+                    font-size: 26px;
+                    font-weight: 600;
                     text-decoration: none;
-                    color: #444;
+                    color: #222;
                     display: flex;
                     align-items: center;
                     padding: 0 8px;

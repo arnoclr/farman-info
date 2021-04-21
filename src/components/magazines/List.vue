@@ -27,8 +27,8 @@
                             <div class="info" v-else>
                                 <p>Description non disponible.</p>
                             </div>
-                            <router-link :to="'/magazine/' + item.id + '?ref=cta'" class="button-outlined">Lire</router-link>
-                            <a class="button-outlined" target="_blank" :href="'https://api.whatsapp.com/send?text=https://farman.info/magazines?utm_source=share'">Partager <i class="material-icons">ios_share</i></a>
+                            <router-link :to="'/magazine/' + item.id + '?ref=cta'" class="fm-button fm-button--outlined">Lire</router-link>
+                            <a class="fm-button fm-button--outlined" target="_blank" :href="'https://api.whatsapp.com/send?text=https://farman.info/magazines?utm_source=share'">Partager <i class="material-icons">ios_share</i></a>
                         </div>
                         <div class="magazine-box" v-else>
                             <router-link :to="'/magazine/' + item.id + '?ref=cta'">

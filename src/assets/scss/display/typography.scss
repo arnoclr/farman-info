@@ -1,0 +1,50 @@
+h1, h2, h3, h4, h5, h6, p {
+    color: #212121;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 42px;
+    line-height: 42px;
+    letter-spacing: -2px;
+}
+
+h2 {
+    font-size: 32px;
+    letter-spacing: -1.5px;
+}
+
+h3 {
+    letter-spacing: -1px;
+}
+
+p {
+    letter-spacing: -0.5pt;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.material-icons {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    vertical-align: -25%;
+}
+
+.material-icons, .md-icon-font {
+    font-family: 'Material Icons Sharp';
+}

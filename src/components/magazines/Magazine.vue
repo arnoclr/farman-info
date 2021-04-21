@@ -19,7 +19,7 @@
 
                 <router-link 
                     :to="{ name: 'PdfViewer', params: { ref: magazine.ref } }"
-                    class="button" id="start-reading"
+                    class="fm-button fm-button--outlined" id="start-reading"
                     :disabled="offline && !stored">
                     {{ continueReading ? 'Continuer a lire' : 'Ouvrir le lecteur' }}    
                 </router-link>

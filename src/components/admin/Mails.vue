@@ -33,7 +33,7 @@ export default {
             mails: null,
             loading: null,
             error: null,
-            mailLink: 'mailto:farman.bonjour@outlook.com?subject=Farman - '
+            mailLink: 'mailto:farman.bonjour@outlook.fr?subject=Farman - '
         }
     },
     created() {

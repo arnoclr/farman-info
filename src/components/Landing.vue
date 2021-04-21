@@ -1,228 +1,69 @@
 <template>
     <div>
-        <app-header class="transparent" transparent></app-header>
-
-        <img alt="Avion sur le tarmac en noir et blanc"
-            id="parallax-img-landing"
-            src="https://i.imgur.com/hrPi8hz.jpg"
-            srcset="https://i.imgur.com/vvYf1m0.webp 24w,
-                    https://i.imgur.com/hrPi8hzl.webp 640w,
-                    https://i.imgur.com/czbTP95.webp 1200w,
-                    https://i.imgur.com/WmF4LFX.webp 1600w,
-                    https://i.imgur.com/hrPi8hz.webp 2400w">
+        <app-header></app-header>
         
         <div r>
             <main>
-                <h1 a1>Bientôt disponible</h1>
+                
+                <div class="fm-card fm-card--img fm-card--full-width">
+                    <div class="fm-card__img fm-card__img--left">
+                        <img src="https://i.imgur.com/pReQ6Mz.jpg" alt="Thomas Pesquet">
+                    </div>
+                    <div class="fm-card__body">
+                        <span class="fm-card__body-category">évènement en direct</span>
+                        <h1 class="fm-card___body-title">Vivez en direct le décollage de Thomas Pesquet à bord de SpaceX.</h1>
+                        <div class="fm-card__body-content">
+                            <p>L'astronaute français va embarquer à bord de la deuxième mission habitée de SpaceX vers l'ISS. 
+                                Regardez l'évènement sur le YouTube de Farman.</p>
+                            <a role="button" href="https://farman.ga/s/live/spacex" class="fm-button">regarder</a>
+                        </div>
+                    </div>
+                </div>
 
-                <p a2>Ce site web n'est pas encore disponible au public. Seule la partie Magazine peut être consultée en cliquant ci-dessous.</p>
-                <p npt a2>Farman propose une selection d'informations sur l'aéronautique ainsi qu'une offre de magazines lifestyle, culture & voyages.</p>
+                <div class="mt-64 mb-64">
+                    <h1>Ce site est partiellement disponible</h1>
+                    <p>Ce site web n'est pas encore disponible au public. Seule la partie Magazine peut
+                        être consultée en cliquant ci-dessous.</p>
+                    <p>Farman propose une sélection d'informations sur l'aéronautique ainsi qu'une offre de
+                        magazines lifestyle, culture & voyage.</p>
+                    <router-link to="/magazines?ref=cta" class="fm-button fm-button--large">Lire le magazine</router-link>
+                </div>
 
-                <router-link to="/magazines?ref=cta" class="button" cta a2>Lire le magazine</router-link>
+                <div class="fm-card fm-card--fullwidth">
+                    <div class="fm-card__body">
+                        <h1 class="fm-card__body-title fm-card__body-title--small">S’inscrire à notre lettre d’information</h1>
+                        <div class="fm-card__body-content">
+                            <form @submit.prevent="submit" id="mail-form" 
+                                class="fm-textfield fm-textfield--button">
+                                <input v-model="mail" type="email" id="mail-input" placeholder="Votre adresse email"
+                                    class="fm-textfield__input" required>
+                                <button class="fm-textfield__button fm-button">
+                                    <md-icon>arrow_forward</md-icon>
+                                </button>
+                                <md-menu class="m-4" md-direction="top-end">
+                                    <md-button md-menu-trigger class="md-icon-button">
+                                        <md-icon>more_vert</md-icon>
+                                    </md-button>
 
-                <div b a3>
-                    <span i>S'inscrire à notre newsletter</span>
-
-                    <form @submit.prevent="submit" id="mail-form" class="form-group">
-                        <input v-model="mail" type="email" id="mail-input" placeholder="Votre adresse email" required>
-                        <button class="icon-button">
-                            <md-icon>arrow_forward</md-icon>
-                        </button>
-                    </form>
-
-                    <md-menu md-direction="top-end" u>
-                        <md-button md-menu-trigger class="md-icon-button">
-                            <md-icon>more_vert</md-icon>
-                        </md-button>
-
-                        <md-menu-content>
-                            <a target="_blank" href="https://farman.ga/s/newsletter">
-                                <md-menu-item>En savoir plus</md-menu-item>
-                            </a>
-                            <router-link to="/unsubscribe?ref=landing_page">
-                                <md-menu-item>Se désinscrire</md-menu-item>
-                            </router-link>
-                        </md-menu-content>
-                    </md-menu>
+                                    <md-menu-content>
+                                        <a target="_blank" href="https://farman.ga/s/newsletter">
+                                            <md-menu-item>En savoir plus</md-menu-item>
+                                        </a>
+                                        <router-link to="/unsubscribe?ref=landing_page">
+                                            <md-menu-item>Se désinscrire</md-menu-item>
+                                        </router-link>
+                                    </md-menu-content>
+                                </md-menu>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </main>
-
-            <span c>
-                <a href="https://unsplash.com/@chiabra?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">@Paolo Chiabrando</a>
-            </span>
         </div>
 
-        <app-footer f></app-footer>
+        <app-footer></app-footer>
     </div>
 </template>
-
-<style lang="scss" scoped>
-img {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 110vh;
-    width: 100vw;
-    object-fit: cover;
-    filter: brightness(0.5);
-    transform: scaleX(-1);
-}
-
-[r] {
-    position: relative;
-    height: 85vh;
-
-    main {
-        position: absolute;
-        max-width: 520px;
-
-        h1 {
-            font-size: 56px;
-            color: #fff;
-        }
-
-        p {
-            color: #fff;
-            padding-bottom: 16px;
-            letter-spacing: 0;
-
-            &[npt] {
-                margin-top: -16px;
-            }
-        }
-
-        [cta] {
-            display: inline;
-            padding: 12px 16px;
-            font-size: 22px;
-            background-color: #fff;
-            color: #000 !important;
-        }
-
-        [b] {
-            position: relative;
-            margin-top: 32px;
-            padding: 32px 16px 16px 16px;
-            border: 2px solid #fff;
-            border-radius: 8px;
-
-            [i] {
-                color: #eee;
-                font-size: 24px;
-            }
-
-            #mail-form {
-                margin-top: 16px;
-
-                input {
-                    width: 250px;
-                    height: 42px;
-                    max-width: 100%;
-                    padding-left: 8px;
-                    margin-right: 4px;
-                    border: 1px solid #777;
-                    color: #000;
-                    background-color: #fff;
-
-                    &::placeholder {
-                        color: #999;
-                    }
-                }
-
-                .icon-button {
-                    background-color: transparent;
-                    display: inline-block;
-                    vertical-align: middle;
-                    transform: rotate(0);
-                    transition: transform 150ms ease;
-                    transform-origin: 24px;
-
-                    i {
-                        color: #fff;
-                    }
-
-                    &:hover {
-                        transform: rotate(-45deg);
-                    }
-                }
-            }
-
-            [u] {
-                position: absolute;
-                top: 4px;
-                right: 4px;
-
-                button i {
-                    color: #aaa;
-                }
-            }
-        }
-
-        [a1], [a2], [a3] {
-            opacity: 0;
-        }
-
-        [a1] {
-            animation: fade-in 750ms forwards cubic-bezier(0,.95,.25,.97);
-        }
-
-        [a2] {
-            animation: fade-in 750ms 0.5s forwards cubic-bezier(0,.95,.25,.97);
-        }
-
-        [a3] {
-            animation: fade-in 750ms 0.7s forwards cubic-bezier(0,.95,.25,.97);
-        }
-    }
-
-    [c] {
-        position: absolute;
-        bottom: 16px;
-        right: 16px;
-        color: #fff;
-
-        a {
-            color: #ddd;
-        }
-
-        @media screen and(max-width: 660px) {
-            display: none;
-        }
-    }
-}
-
-[f] {
-    background-color: #fff;
-    position: absolute;
-    bottom: -200px;
-    width: 100%;
-
-    @media screen and(max-width: 500px) {
-        bottom: -30rem;
-    }
-}
-
-@media screen and(min-height: 700px) {
-    [npt] {
-        margin-bottom: 32px;
-    }
-
-    [b] {
-        margin-top: 58px !important;
-    }
-}
-
-@keyframes fade-in {
-    from {
-        transform: translateY(-25px);
-    }
-    
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-</style>
 
 <script>
 const {db} = require('../firebaseConfig.js')
@@ -251,18 +92,7 @@ export default {
                 console.error('Error adding document: ', error)
                 this.$root.$emit('alert', 'Oops, une erreur est survenue.')
             })
-        },
-        parallax() {
-            const img = document.getElementById('parallax-img-landing')
-            let offset = window.scrollY / window.innerHeight * 50
-            img.style.transform = `translateY(-${offset}px) scaleX(-1)`
         }
-    },
-    created() {
-        window.addEventListener('scroll', this.parallax)
-    },
-    destroyed() {
-        window.removeEventListener('scroll', this.parallax)
     }
 }
 </script>
