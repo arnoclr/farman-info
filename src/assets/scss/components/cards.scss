@@ -59,6 +59,7 @@
         display: block;
 
         &--img &__img {
+            display: block;
             width: 100%;
             height: 250px;
             
@@ -68,8 +69,9 @@
             }
         }
 
-        &--img &__body {
+        &__body {
             width: 100%;
+            padding: 24px !important;
         }
     }
 }

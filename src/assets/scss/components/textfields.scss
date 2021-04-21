@@ -13,6 +13,7 @@
         }
 
         &:focus {
+            border-color: transparent;
             outline: auto;
             outline-style: solid;
             outline-color: $primary-dark;
