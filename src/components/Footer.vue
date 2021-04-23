@@ -21,8 +21,8 @@
             </div>
             <div class="links">
                 <p></p>
-                <p><router-link to="/?ref=footer_copyright">©{{ new Date().getFullYear() }} Farman</router-link></p>
-                <p><a href="https://farman.ga/s/cgu">Informations juridiques</a></p>
+                <p><router-link class="fm-link" to="/?ref=footer_copyright">©{{ new Date().getFullYear() }} Farman</router-link></p>
+                <p><a class="fm-link" href="https://farman.ga/s/cgu">Informations juridiques</a></p>
                 <p></p>
             </div>
         </footer>
@@ -67,11 +67,11 @@ footer {
         
         a {
             text-decoration: none;
-            color: #fff;
             font-size: 14px;
         }
 
         p {
+            color: #fff;
             margin: 8px 0;
         }
     }

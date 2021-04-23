@@ -5,17 +5,19 @@
         <div r>
             <main>
                 
-                <div class="fm-card fm-card--img fm-card--full-width">
-                    <div class="fm-card__img fm-card__img--left">
-                        <img src="https://i.imgur.com/pReQ6Mz.jpg" alt="Thomas Pesquet">
-                    </div>
-                    <div class="fm-card__body">
-                        <span class="fm-card__body-category">évènement en direct</span>
-                        <h1 class="fm-card__body-title">Vivez en direct le décollage de Thomas Pesquet à bord de SpaceX.</h1>
-                        <div class="fm-card__body-content">
-                            <p>L'astronaute français va embarquer à bord de la deuxième mission habitée de SpaceX vers l'ISS. 
-                                Regardez l'évènement sur le YouTube de Farman.</p>
-                            <a role="button" href="https://farman.ga/s/direct" class="fm-button">regarder</a>
+                <div class="fm-section fm-section--full-height">
+                    <div class="fm-card fm-card--img fm-card--full-width">
+                        <div class="fm-card__img fm-card__img--left">
+                            <img src="https://i.imgur.com/pReQ6Mz.jpg" alt="Thomas Pesquet">
+                        </div>
+                        <div class="fm-card__body">
+                            <span class="fm-card__body-category">évènement en direct</span>
+                            <h1 class="fm-card__body-title">Vivez en direct le décollage de Thomas Pesquet à bord de SpaceX.</h1>
+                            <div class="fm-card__body-content">
+                                <p>L'astronaute français va embarquer à bord de la deuxième mission habitée de SpaceX vers l'ISS. 
+                                    Regardez l'évènement sur le YouTube de Farman.</p>
+                                <a role="button" href="https://farman.ga/s/direct" class="fm-button">regarder</a>
+                            </div>
                         </div>
                     </div>
                 </div>

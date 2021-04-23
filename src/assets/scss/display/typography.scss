@@ -28,6 +28,16 @@ p {
     line-height: 22px;
 }
 
+.fm-link {
+    text-decoration: none;
+    color: inherit !important;
+    border-bottom: 2px solid transparent;
+    
+    &:hover {
+        border-bottom: 2px dotted #999;
+    }
+}
+
 .material-icons {
     font-weight: normal;
     font-style: normal;

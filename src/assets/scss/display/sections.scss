@@ -1,0 +1,8 @@
+.fm-section {
+    display: flex;
+    align-items: center;
+
+    &--full-height {
+        min-height: calc(100vh - 100px); // remove header
+    }
+}
