@@ -35,7 +35,7 @@ p {
 
     &:hover {
         border-bottom: 2px dotted #999;
-        text-decoration: none;
+        text-decoration: none !important;
     }
 
     &--white {
