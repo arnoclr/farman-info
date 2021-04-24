@@ -1,10 +1,10 @@
 <template>
     <div class="no-padding">
-        <footer>
-            <div a>
+        <footer class="fm-footer">
+            <div class="fm-footer__container">
                 <h2>Retrouvez-nous sur <i class="material-icons">arrow_forward</i></h2>
-                <p b>Toute l'actualité aérienne française à découvrir sur vos réseaux sociaux.</p>
-                <div class="social-links">
+                <p>Toute l'actualité aérienne française à découvrir sur vos réseaux sociaux.</p>
+                <div class="fm-footer__container-social">
                     <a href="https://www.facebook.com/Farman-104565121316470" title="Page Facebook">
                         <img src="/assets/icons/Farman_Facebook.png" alt="facebook icon" height="24">
                     </a>
@@ -19,7 +19,7 @@
                     </a>
                 </div>
             </div>
-            <div class="links">
+            <div class="fm-footer__links">
                 <p></p>
                 <p><router-link class="fm-link" to="/?ref=footer_copyright">©{{ new Date().getFullYear() }} Farman</router-link></p>
                 <p><a class="fm-link" href="https://farman.ga/s/cgu">Informations juridiques</a></p>
@@ -28,77 +28,6 @@
         </footer>
     </div>
 </template>
-
-<style lang="scss" scoped>
-footer {
-    position: relative;
-
-    h2 {
-        border-top: 1px solid #666;
-        padding-top: 32px;
-        margin-top: 0px;
-        font-size: 26px;
-    }
-
-    [a] {
-        padding: 16px;
-        color: #444;
-    }
-
-    p {
-        line-height: 20px;
-        font-size: 16px;
-    }
-
-    i {
-        vertical-align: -25%;
-        color: teal;
-    }
-
-    img {
-        height: 36px;
-        margin-right: 8px;
-    }
-
-    .links {
-        display: flex;
-        justify-content: space-evenly;
-        background-color: #000;
-        
-        a {
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        p {
-            color: #fff;
-            margin: 8px 0;
-        }
-    }
-}
-
-@media (min-width: 600px) {
-    .social-links {
-        position: absolute;
-        right: 10vw;
-        margin-top: -50px;
-
-        img {
-            height: 28px;
-            margin-right: 16px;
-        }
-    }
-
-    [b] {
-        margin-right: 180px;
-    }
-
-    footer [a] {
-        padding-left: 10vw;
-        padding-right: 10vw;
-    }
-}
-</style>
 
 <script>
 export default {

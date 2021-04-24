@@ -2,14 +2,16 @@
 @import 'vue-material.scss';
 @import 'markdown.scss';
 
-// colors
+// vars
 $primary: #17969C;
 $primary-dark: #116a6e;
+$padding: 20vw;
 
 // farman components
 // fm-
 @import 'components/buttons.scss';
 @import 'components/cards.scss';
+@import 'components/footer.scss';
 @import 'components/header.scss';
 @import 'components/textfields.scss';
 
@@ -181,12 +183,12 @@ main {
 
 @media screen and(min-width: 600px) {
     main {
-        margin: 16px 10vw !important;
+        margin: 16px $padding !important;
     }
 
     .divided {
         main+aside {
-            margin: 16px 10vw
+            margin: 16px $padding;
         }
     }
 }
@@ -203,7 +205,7 @@ main {
             &+aside {
                 display: block;
                 width: 268px;
-                margin: 16px 10vw;
+                margin: 16px $padding;
                 margin-left: 0;
             }
         }

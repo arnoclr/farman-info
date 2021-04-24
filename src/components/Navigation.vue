@@ -8,7 +8,7 @@
         </section>
 
         <section class="fm-header__top">
-            <a class="fm-header__top-link" title="connexion" @click="login" v-if="!user" login>Connexion</a>
+            <a class="fm-header__top-link fm-link fm-link--white" title="connexion" @click="login" v-if="!user" login>Connexion</a>
             <div a v-else>
                 <a class="fm-header__top-link" @click="logoutModalOpen = true" logout>déconnexion |</a>
                 <span class="fm-header__top-link" @click="userModalOpen = true">

@@ -11,8 +11,8 @@
                             <img src="https://i.imgur.com/pReQ6Mz.jpg" alt="Thomas Pesquet">
                         </div>
                         <div class="fm-card__body">
-                            <span class="fm-card__body-category">évènement en direct</span>
-                            <h1 class="fm-card__body-title">Vivez en direct le décollage de Thomas Pesquet à bord de SpaceX.</h1>
+                            <span class="fm-card__body-category">rediffusion</span>
+                            <h1 class="fm-card__body-title">Revivez en direct le décollage de Thomas Pesquet à bord de SpaceX.</h1>
                             <div class="fm-card__body-content">
                                 <p>L'astronaute français va embarquer à bord de la deuxième mission habitée de SpaceX vers l'ISS. 
                                     Regardez l'évènement sur le YouTube de Farman.</p>
