@@ -4,7 +4,7 @@
             <p>Chargement ...</p>
         </div>
         <div v-else>
-            <a class="button-outlined" :href="mailLink" v-if="mailLink">Envoyer un mail</a>
+            <a class="fm-button" :href="mailLink" v-if="mailLink">Envoyer un mail</a>
             <ul wrapper>
                 <li v-for="(mail, index) in mails" v-bind:key="index">{{ mail.mail }}</li>
             </ul>
