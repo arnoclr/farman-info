@@ -5,4 +5,8 @@
     &--full-height {
         min-height: calc(100vh - 100px); // remove header
     }
+
+    &__centered {
+        display: block;
+    }
 }
