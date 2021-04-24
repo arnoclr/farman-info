@@ -6,6 +6,7 @@
 $primary: #17969C;
 $primary-dark: #116a6e;
 $padding: 20vw;
+$fonts: 'Inter', Arial, Helvetica, sans-serif;
 
 // farman components
 // fm-
@@ -25,7 +26,7 @@ $padding: 20vw;
 }
 
 body {
-    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-family: $fonts;
     background-color: #fff;
 
     main {

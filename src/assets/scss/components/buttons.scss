@@ -10,6 +10,10 @@
     font-weight: 600;
     cursor: pointer;
     user-select: none;
+    font-family: $fonts;
+    font-size: 14px;
+    letter-spacing: .01em;
+    line-height: 20px;
 
     &:hover {
         text-decoration: none !important;
@@ -26,7 +30,16 @@
 
     // styles
     &--outlined {
+        background-color: transparent;
+        color: #000 !important;
 
+        &:hover {
+            background-color: rgba(150, 150, 150, 0.2);
+        }
+
+        &:focus {
+            outline-color: #000;
+        }
     }
 
     // sizes

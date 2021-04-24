@@ -8,7 +8,7 @@
                     <span>désinscription</span>
                     <h1>Quitter la lettre d'informations ?</h1>
                     <p>En cliquant sur le bouton ci-dessous, vous ne recevrez plus de mails d'informations de notre part. Vous continuerez cependant à recevoir des mails de connexion ou de récupération de compte, ainsi que des informations légales si nécéssaire.</p>
-                    <md-button class="md-raised md-accent" @click="signOut">Quitter</md-button>
+                    <button class="fm-button fm-button--outlined" @click="signOut">Quitter</button>
                 </div>
 
                 <div v-else>
@@ -16,9 +16,7 @@
                         md-icon="email"
                         md-label="Vous n'êtes pas inscrit"
                         md-description="Vous n'avez jamais été inscrit ou vous vous êtes desinscrit récemment, pour vous réinscrire, cliquez sur le bouton ci-dessous.">
-                        <router-link to="/?ref=unsubscribe_page">
-                            <md-button class="md-primary md-raised">S'inscrire</md-button>
-                        </router-link>
+                        <router-link class="fm-button" to="/?ref=unsubscribe_page">S'inscrire</router-link>
                     </md-empty-state>
                 </div>
             </main>
