@@ -2,7 +2,7 @@
     <div>
         <app-header></app-header>
 
-        <div class="divided">
+        <div>
             <main>
                 <div v-if="article">
                     <span v-if="!article.published">En cours de traitement ...</span>
@@ -13,7 +13,7 @@
                         à {{ new Date(article.createdAt.seconds*1000).toISOString().substr(11, 5) }}
                     </span>
                     <h1>{{ article.title }}</h1>
-                    <vue-simple-markdown :source="article.content"></vue-simple-markdown>
+                    <vue-simple-markdown :source="article.content" :postrender="rendered()"></vue-simple-markdown>
 
                     <p p>Partager l'article <md-icon>arrow_forward</md-icon></p>
                     <div sl>
@@ -26,10 +26,14 @@
                             <img src="/assets/icons/Farman_Twitter.png" alt="twitter icon" height="24">
                         </a>
                     </div>
+
+                    <div v-if="related">
+                        <ul>
+                            <li v-for="(article, index) in related" :key="index">{{ article.title }}</li>
+                        </ul>
+                    </div>
                 </div>
             </main>
-
-            <app-sidebar></app-sidebar>
         </div>
 
         <app-footer></app-footer>
@@ -71,8 +75,7 @@ import {db} from '../../firebaseConfig'
 export default {
     components: {
         AppFooter: () => import('../Footer.vue'),
-        AppHeader: () => import('../Navigation.vue'),
-        AppSidebar: () => import('../utils/Sidebar.vue')
+        AppHeader: () => import('../Navigation.vue')
     },
     data() {
         return {
@@ -82,6 +85,16 @@ export default {
         }
     },
     methods: {
+        rendered() {
+            setTimeout(() => {
+                document.querySelectorAll('.markdown-body img').forEach(img => {
+                    img.classList.add('lightbox')
+                    img.addEventListener('click', () => {
+                        img.classList.toggle('open')
+                    })
+                })
+            }, 250);
+        },
         fetch() {
             const ref = this.$route.params.ref
             this.$root.$emit('query:loading')
@@ -103,8 +116,11 @@ export default {
             .startAfter(this.article.createdAt)
             .limit(5)
             .get().then(docs => {
+                this.related = []
                 docs.forEach(doc => {
-                    console.log(doc.data())
+                    let buffer = doc.data()
+                    buffer.id = doc.id
+                    this.related.push(buffer)
                 })
             })
             .catch(e => {
@@ -114,6 +130,7 @@ export default {
     },
     mounted() {
         this.fetch()
+        this.fetchRelated()
     }
 }
 </script>
