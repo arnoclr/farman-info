@@ -24,7 +24,10 @@
                     <md-chips v-model="item.tags" md-static></md-chips>
                 </md-table-cell>
                 <md-table-cell md-label="Publié ?">
-                    <md-switch v-model="item.published" @change="triggerPublished(item.id)" class="md-primary"></md-switch>
+                    <md-switch v-model="item.published" @change="triggerItem(item.id)" class="md-primary"></md-switch>
+                </md-table-cell>
+                <md-table-cell md-label="Payant ?">
+                    <md-switch v-model="item.needLogin" @change="triggerItem(item.id)" class="md-primary"></md-switch>
                 </md-table-cell>
                 <md-table-cell md-label="Actions" actions>
                     <md-button class="md-icon-button" @click="$router.push('/article/' + item.id)">
@@ -110,7 +113,7 @@ export default {
                 console.error(err)
             })
         },
-        triggerPublished(id) {
+        triggerItem(id) {
             let item = this.articles.find(o => o.id == id)
             articles.doc(id).update(item).then(() => {
                 this.fetch()

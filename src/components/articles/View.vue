@@ -12,8 +12,24 @@
                         {{ new Date(article.createdAt.seconds*1000).toLocaleDateString("fr-FR", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
                         à {{ new Date(article.createdAt.seconds*1000).toISOString().substr(11, 5) }}
                     </span>
-                    <h1>{{ article.title }}</h1>
-                    <vue-simple-markdown :source="article.content" :postrender="rendered()"></vue-simple-markdown>
+                    <h1>
+                        <md-icon class="lock" v-if="needLogin">
+                            lock<md-tooltip md-direction="top">Disponible après connexion</md-tooltip>
+                        </md-icon>
+                        {{ article.title }}
+                    </h1>
+
+                    <div id="markdown-wrapper" :class="needLogin ? 'restricted' : ''">
+                        <div class="shade"></div>
+                        <vue-simple-markdown :source="article.content" :postrender="rendered()"></vue-simple-markdown>
+                    </div>
+
+                    <div class="fm-box fm-box--centered" v-if="needLogin">
+                        <i class="material-icons fm-box__icon">lock</i>
+                        <h2 class="fm-box__title">Créez un compte pour lire l'article.</h2>
+                        <p class="fm-box__text">Ou connectez-vous.</p>
+                        <router-link to="/login?ref=read_article_need_login_box" class="fm-button">Me connecter</router-link>
+                    </div>
 
                     <p p>Partager l'article <md-icon>arrow_forward</md-icon></p>
                     <div sl>
@@ -42,6 +58,12 @@
 
 <style lang="scss" scoped>
 main {
+    i.lock {
+        margin-right: 16px;
+        color: teal !important;
+        font-size: inherit !important;
+    }
+
     [t] {
         color: #999;
         font-weight: 500;
@@ -66,6 +88,21 @@ main {
             margin-right: 8px;
         }
     }
+
+    .restricted {
+        position: relative;
+        overflow: hidden;
+        max-height: 650px !important;
+        
+        .shade {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 -80vh 80vh -80vh #fff;
+        }
+    }
 }
 </style>
 
@@ -81,7 +118,8 @@ export default {
         return {
             article: null,
             related: null,
-            user: this.$root.user
+            user: this.$root.user,
+            needLogin: false
         }
     },
     methods: {
@@ -103,9 +141,12 @@ export default {
                 this.$root.$emit('query:loaded')
                 this.article = doc.data()
                 this.fetchRelated()
+                if(this.article.needLogin && !this.user) {
+                    this.needLogin = true
+                }
             })
             .catch(err => {
-                alert(err)
+                console.error(err)
             })
         },
         fetchRelated() {
@@ -124,13 +165,12 @@ export default {
                 })
             })
             .catch(e => {
-                this.$root.$emit('alert', e)
+                console.error(e)
             })
         }
     },
     mounted() {
         this.fetch()
-        this.fetchRelated()
     }
 }
 </script>

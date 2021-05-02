@@ -1,0 +1,23 @@
+.fm-box {
+    border: 1px #888 solid;
+    margin: 16px 0;
+    padding: 24px;
+
+    &--centered {
+        text-align: center;
+    }
+
+    &__icon {
+        color: $primary;
+        font-size: 48px !important;
+    }
+
+    &__title {
+
+    }
+
+    &__text {
+        color: #000;
+        font-weight: 600;
+    }
+}
