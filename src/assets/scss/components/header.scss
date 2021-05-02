@@ -51,6 +51,15 @@
         &-link {
             cursor: pointer;
             color: #fff !important;
+
+            i {
+                font-size: 20px;
+            }
+
+            &--right {
+                position: absolute;
+                right: $padding;
+            }
         }
 
         &-avatar {
@@ -122,7 +131,7 @@
                 }
 
                 a {
-                    font-size: 26px;
+                    font-size: 20px;
                     font-weight: 600;
                     text-decoration: none !important;
                     color: #222 !important;

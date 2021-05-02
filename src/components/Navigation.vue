@@ -19,12 +19,12 @@
             </div>
             <a href="#" v-if="!notificationsEnabled" @click="requestNotifications" n>| Activer les notifications <i class="material-icons">notification_add</i></a>
             <span href="#" v-if="offline" n>| mode hors ligne <i class="material-icons">airplanemode_active</i></span>
-            <!-- <router-link to="/articles/submit?ref=navbar_draft_continue" v-if="hasArticleDraft" r>
+            <router-link class="fm-header__top-link fm-header__top-link--right" to="/articles/submit?ref=navbar_draft_continue" v-if="hasArticleDraft" r>
                 <span>Terminer la rédaction de mon article <i rt class="material-icons">arrow_forward</i></span>
             </router-link>
-            <router-link to="/articles/submit?ref=navbar" r v-else>
+            <router-link class="fm-header__top-link fm-header__top-link--right" to="/articles/submit?ref=navbar" r v-else>
                 <span><i lt class="material-icons">edit</i> Proposer un article</span>
-            </router-link> -->
+            </router-link>
         </section>
 
         <section class="fm-header__bottom">
@@ -38,6 +38,9 @@
             <ul class="fm-header__bottom-categories">
                 <li>
                     <router-link to="/?ref=navbar">Accueil</router-link>
+                </li>
+                <li>
+                    <router-link to="/articles?ref=navbar">Articles</router-link>
                 </li>
                 <li>
                     <router-link to="/magazines?ref=navbar">Magazines</router-link>
