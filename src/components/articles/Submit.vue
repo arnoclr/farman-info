@@ -3,7 +3,7 @@
         <app-header :gestion="true"></app-header>
 
         <main>
-            <form>
+            <form @submit.prevent>
                 <md-tabs id="submit-article-tabs">
                     <md-tab md-label="édition">
                         <md-field z>
@@ -11,7 +11,7 @@
                             <md-input md-counter="80" max="80" v-model="article.title" required></md-input>
                         </md-field>
 
-                        <text-editor :content.sync="article.content" :counter="4096"></text-editor>
+                        <text-editor :content.sync="article.content" :counter="4096" ref="textEditor"></text-editor>
                         
                         <md-field>
                             <label for="category" v-if="categories">Catégorie</label>
@@ -31,7 +31,7 @@
                     </md-tab>
                 </md-tabs>
 
-                <md-button class="md-raised md-primary" @click="submit">{{ article.id ? 'Mettre à jour' : 'Soumettre'}}</md-button>
+                <button class="fm-button fm-button--large" @click="submit">{{ article.id ? 'Mettre à jour' : 'Soumettre'}}</button>
                 <span help v-if="article.id">Attention, vos modifications devront être revalidées pour que votre article soit a nouveau visible. Ce processus peut prendre un certain temps.</span>
                 <span help>La première image de votre article sera utilisée en tant que vignette.</span>
                 <span help>En continuant, vous confirmez avoir lu et approuvé nos <a target="_blank" href="https://farman.ga/s/cgu">conditions générales d'utilisation.</a></span>
@@ -163,7 +163,10 @@ export default {
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
                 published: false
             }).then(() => {
-                this.$root.$emit('toast', 'Article mis à jour')
+                this.$root.$emit('toast', 'Article mis à jour, vous allez être redirigé dans quelques secondes.')
+                setTimeout(() => {
+                    this.$router.push('/article/' + this.article.id + '?ref=edit')
+                }, 3000);
             }).catch(err => {
                 this.$root.$emit('alert', err)
                 console.error(err)
@@ -173,6 +176,7 @@ export default {
             articles.doc(id).get().then(doc => {
                 this.article = doc.data()
                 this.article.id = doc.id
+                this.$refs.textEditor.initContent(this.article.content)
                 if(this.article.uid != this.$root.user.uid) {
                     this.$root.$emit('alert', 'Vous ne pouvez pas modifier cet article')
                 }

@@ -113,6 +113,9 @@ export default {
             this.$emit('update:content', this.editableContent)
             localStorage.setItem('submit:draft', this.editableContent)
         },
+        initContent(text, event) {
+            this.editableContent = text
+        },
         imageUploaderClose() {
             this.imageUploaderOpen = false
         },
@@ -209,10 +212,10 @@ export default {
     mounted() {
         this.editableContent = this.content
         let draft = localStorage.getItem('submit:draft')
-        if(draft) {
+        if(draft && this.$route.name !== 'articleEdit') {
             this.editableContent = draft
-            this.updateContent()
         }
+        this.updateContent()
     }
 }
 </script>
