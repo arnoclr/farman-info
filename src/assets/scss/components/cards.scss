@@ -8,7 +8,7 @@
         &-category {
             display: block;
             margin-bottom: 16px;
-            color: #1a1a1a;
+            color: #1a1a1a !important;
             text-transform: uppercase;
             font-weight: 600;
             user-select: none;
@@ -27,17 +27,26 @@
         &-content {
 
         }
+
+        &-date {
+            color: #888;
+        }
     }
 
     &--img &__img {
         overflow: hidden;
         pointer-events: none;
         display: inline-flex;
+        background-color: #555;
 
         img {
             height: 100%;
             object-fit: cover;
             transition: transform 350ms ease, filter 350ms ease;
+        }
+
+        &--limited-height {
+            max-height: 320px;
         }
     }
 
@@ -51,6 +60,8 @@
     }
 
     &:hover {
+        text-decoration: none !important;
+
         img {
             transform: scale(1.05);
             filter: brightness(0.9);

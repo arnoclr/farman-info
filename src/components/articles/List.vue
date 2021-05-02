@@ -16,18 +16,27 @@
 
                 <div v-if="articles">
                     <article v-for="(article, index) in articles" v-bind:key="index">
-                        <router-link :to="'/article/' + article.id + '?ref=feed'">
-                            <img :src="getImageFromContent(article.content)" :alt="article.title">
-                            <div v-if="categories">
-                                <category-label cat
-                                    :category="categories.find(o => o.id == article.category)"
-                                    link-ref="articles_feed">
-                                </category-label>
+                        <router-link :to="'/article/' + article.id + '?ref=feed'"
+                            class="fm-card fm-card--img fm-card--full-width">
+                            <div class="fm-card__img fm-card__img--left fm-card__img--limited-height">
+                                <img :src="getImageFromContent(article.content)" :alt="article.title">
                             </div>
-                            <h1>{{ article.title }}</h1>
+                            <div class="fm-card__body">
+                                <router-link :to="'/articles/category/' + categories.find(o => o.id == article.category).id + '?ref=articles_feed'"
+                                    class="fm-card__body-category" v-if="categories">
+                                    {{ categories.find(o => o.id == article.category).label }}
+                                </router-link>
+                                <h1 class="fm-card__body-title">{{ article.title }}</h1>
+                                <div class="fm-card__body-content">
+                                    <p>{{ removeMdFromContent(article.content).substring(0, 150) }}</p>
+                                </div>
+                                <span class="fm-card__body-date">
+                                    {{ new Date(article.createdAt.seconds*1000).toLocaleDateString("fr-FR", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+                                </span>
+                            </div>
                         </router-link>
                     </article>
-                    <md-button @click="fetch">afficher plus</md-button>
+                    <button class="fm-button" @click="fetch">afficher plus</button>
                 </div>
             </main>
 
@@ -63,6 +72,8 @@ article {
 <script>
 import {db, auth} from '../../firebaseConfig'
 import {getCategories} from '../../assets/js/firestore/getCategories'
+const REGEX_IMG = /!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g
+const REGEX_MD_SYMBOLS = /(\*|[#]+ |_)/g
 
 export default {
     components: {
@@ -86,9 +97,11 @@ export default {
     },
     methods: {
         getImageFromContent(content) {
-            const regex = /!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g
-            let matchs = regex.exec(content)
+            let matchs = REGEX_IMG.exec(content)
             return matchs ? matchs[1] : null
+        },
+        removeMdFromContent(content) {
+            return content.replace(REGEX_IMG, '').replace(REGEX_MD_SYMBOLS, '')
         },
         fetch() {
             let category = this.$route.params.category
