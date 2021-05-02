@@ -31,6 +31,10 @@
         &-date {
             color: #888;
         }
+
+        &--responsive {
+            width: -webkit-fill-available;
+        }
     }
 
     &--img &__img {
@@ -47,6 +51,10 @@
 
         &--limited-height {
             max-height: 320px;
+
+            img {
+                width: 100%;
+            }
         }
     }
 

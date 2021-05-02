@@ -1,6 +1,5 @@
 // Vue Material
 @import 'vue-material.scss';
-@import 'markdown.scss';
 
 // vars
 $primary: #17969C;
@@ -20,6 +19,9 @@ $fonts: 'Inter', Arial, Helvetica, sans-serif;
 @import 'display/typography.scss';
 @import 'display/sections.scss';
 @import 'display/spacing.scss';
+
+// lib
+@import 'lib/markdown.scss';
 
 * {
     box-sizing: border-box;

@@ -37,7 +37,7 @@
             </router-link>
             <ul class="fm-header__bottom-categories">
                 <li>
-                    <router-link to="/?ref=navbar">Accueil</router-link>
+                    <router-link to="/?ref=navbar">À la Une</router-link>
                 </li>
                 <li>
                     <router-link to="/articles?ref=navbar">Articles</router-link>

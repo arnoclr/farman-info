@@ -2,7 +2,7 @@
     <div>
         <app-header></app-header>
 
-        <div class="divided">
+        <div>
             <main>
                 <div class="box">
                     <span>
@@ -21,7 +21,7 @@
                             <div class="fm-card__img fm-card__img--left fm-card__img--limited-height">
                                 <img :src="getImageFromContent(article.content)" :alt="article.title">
                             </div>
-                            <div class="fm-card__body">
+                            <div class="fm-card__body fm-card__body--responsive">
                                 <router-link :to="'/articles/category/' + categories.find(o => o.id == article.category).id + '?ref=articles_feed'"
                                     class="fm-card__body-category" v-if="categories">
                                     {{ categories.find(o => o.id == article.category).label }}
@@ -39,35 +39,11 @@
                     <button class="fm-button" @click="fetch">afficher plus</button>
                 </div>
             </main>
-
-            <app-sidebar></app-sidebar>
         </div>
 
         <app-footer></app-footer>
     </div>
 </template>
-
-<style lang="scss" scoped>
-article {
-    position: relative;
-
-    img {
-        border-radius: 4px;
-        object-fit: cover;
-        height: 240px;
-        width: 480px;
-    }
-
-    [cat] {
-        margin-top: 4px;
-    }
-
-    h1 {
-        font-size: 32px;
-        margin-top: 0;
-    }
-}
-</style>
 
 <script>
 import {db, auth} from '../../firebaseConfig'
@@ -79,7 +55,6 @@ export default {
     components: {
         AppFooter: () => import('../Footer.vue'),
         AppHeader: () => import('../Navigation.vue'),
-        AppSidebar: () => import('../utils/Sidebar.vue'),
         CategoryLabel: () => import('../utils/CategoryLabel')
     },
     data() {
