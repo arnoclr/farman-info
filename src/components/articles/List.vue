@@ -21,7 +21,7 @@
                             <div class="fm-card__img fm-card__img--left fm-card__img--limited-height">
                                 <img :src="getImageFromContent(article.content)" :alt="article.title">
                             </div>
-                            <div class="fm-card__body fm-card__body--responsive">
+                            <div class="fm-card__body fm-card__body--responsive fm-card__body--date">
                                 <router-link :to="'/articles/category/' + categories.find(o => o.id == article.category).id + '?ref=articles_feed'"
                                     class="fm-card__body-category" v-if="categories">
                                     {{ categories.find(o => o.id == article.category).label }}

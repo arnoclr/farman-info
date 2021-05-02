@@ -2,6 +2,7 @@
     margin: 16px 0;
 
     &__body {
+        position: relative;
         background-color: #f4f4f4;
         padding: 24px 16px;
 
@@ -29,7 +30,13 @@
         }
 
         &-date {
+            position: absolute;
+            bottom: 24px;
             color: #888;
+        }
+
+        &--date {
+            padding-bottom: 56px !important;
         }
 
         &--responsive {

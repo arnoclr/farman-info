@@ -40,7 +40,7 @@
                     <router-link to="/?ref=navbar">À la Une</router-link>
                 </li>
                 <li>
-                    <router-link to="/articles?ref=navbar">Articles</router-link>
+                    <router-link to="/articles?ref=navbar">Dernières infos</router-link>
                 </li>
                 <li>
                     <router-link to="/magazines?ref=navbar">Magazines</router-link>
