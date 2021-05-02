@@ -168,7 +168,7 @@
 
     @media screen and(min-width: 800px) {
         &__top, &__bottom {
-            padding: 0 calc(#{$padding} - 16px);
+            padding: 0 #{$padding};
         }
 
         &__bottom-button {
