@@ -48,8 +48,7 @@
 <script>
 import {db, auth} from '../../firebaseConfig'
 import {getCategories} from '../../assets/js/firestore/getCategories'
-const REGEX_IMG = /!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g
-const REGEX_MD_SYMBOLS = /(\*|[#]+ |_)/g
+import {articleCardMixin} from '../../mixins/articlesCard'
 
 export default {
     components: {
@@ -57,6 +56,7 @@ export default {
         AppHeader: () => import('../Navigation.vue'),
         CategoryLabel: () => import('../utils/CategoryLabel')
     },
+    mixins: [articleCardMixin],
     data() {
         return {
             articles: null,
@@ -71,13 +71,6 @@ export default {
         }
     },
     methods: {
-        getImageFromContent(content) {
-            let matchs = REGEX_IMG.exec(content)
-            return matchs ? matchs[1] : null
-        },
-        removeMdFromContent(content) {
-            return content.replace(REGEX_IMG, '').replace(REGEX_MD_SYMBOLS, '')
-        },
         fetch() {
             let category = this.$route.params.category
             let author = this.$route.params.author

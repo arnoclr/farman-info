@@ -6,6 +6,19 @@
         min-height: calc(100vh - 100px); // remove header
     }
 
+    &--scrollable {
+        display: flex;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+        align-items: center;
+
+        .item {
+            display: inline-block;
+            margin-right: 16px;
+        }
+    }
+
     &__centered {
         display: block;
     }

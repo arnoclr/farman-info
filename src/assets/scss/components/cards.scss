@@ -47,8 +47,11 @@
     &--img &__img {
         overflow: hidden;
         pointer-events: none;
-        display: inline-flex;
         background-color: #555;
+
+        &--left, &--right {
+            display: inline-flex;
+        }
 
         img {
             height: 100%;
@@ -71,6 +74,35 @@
 
         .fm-card__body {
             padding: 36px 48px;
+        }
+    }
+
+    &--medium {
+        width: 350px;
+        
+        .fm-card__img {
+            height: 150px;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .fm-card__body {
+            height: 200px;
+
+            &-title {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            &-content p {
+                white-space: normal;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;  
+                overflow: hidden;
+            }
         }
     }
 
