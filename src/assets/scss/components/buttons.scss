@@ -2,6 +2,7 @@
 .fm-button {
     display: inline-flex;
     margin: 8px 0;
+    margin-right: 4px;
     padding: 8px 12px;
     border: none;
     color: #fff !important;
@@ -29,7 +30,7 @@
     }
 
     // styles
-    &--outlined {
+    @mixin --flat {
         background-color: transparent;
         color: #000 !important;
 
@@ -40,6 +41,16 @@
         &:focus {
             outline-color: #000;
         }
+    }
+
+    &--flat {
+        @include --flat;
+    }
+
+    &--outlined {
+        @include --flat;
+
+        border: 1px solid #000;
     }
 
     // sizes
