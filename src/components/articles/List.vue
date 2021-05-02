@@ -7,8 +7,8 @@
                 <div class="box">
                     <span>
                         Articles
-                        {{ $route.params.author ? '> par auteur' : '' }}
-                        {{ $route.params.category ? '> par catégories' : '' }}
+                        {{ $route.params.author ? '> Par auteur' : '' }}
+                        {{ $route.params.category ? '> Categories > ' + categories.find(o => o.id == $route.params.category).label : '' }}
                     </span>
                     <h1>Les derniers articles</h1>
                     <p>Découvrez les derniers articles de la rédaction et des utilisateurs.</p>
