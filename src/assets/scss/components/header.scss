@@ -166,7 +166,7 @@
         position: fixed;
     }
 
-    @media screen and(min-width: 800px) {
+    @media screen and(min-width: 1000px) {
         &__top, &__bottom {
             padding: 0 #{$padding};
         }
@@ -180,7 +180,7 @@
         }
     }
 
-    @media screen and(max-width: 800px) {
+    @media screen and(max-width: 1000px) {
         top: 0;
     
         &__top, &__bottom-categories li, &__top-right {
