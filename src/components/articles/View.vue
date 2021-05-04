@@ -43,30 +43,32 @@
                         </a>
                     </div>
 
-                    <h2>Suggestions</h2>
-                    <div class="fm-section fm-section--scrollable" v-if="related">
-                        <router-link 
-                            class="item" style="text-decoration: none"
-                            :to="'/article/' + article.id + '?ref=article_view_suggestions'"
-                            v-for="(article, index) in related" :key="index">
-                            <div class="fm-card fm-card--img fm-card--medium">
-                                <div class="fm-card__img">
-                                    <img :src="getImageFromContent(article.content)" :alt="article.title">
-                                </div>
-                                <div class="fm-card__body">
-                                    <h1 class="fm-card__body-title">Revivez en direct le décollage de Thomas Pesquet à bord de SpaceX.</h1>
-                                    <div class="fm-card__body-content">
-                                        <p>{{ removeMdFromContent(article.content).substring(0, 150) }}</p>
+                    <div  v-if="related && related.length > 0">
+                        <h2>Suggestions</h2>
+                        <div class="fm-section fm-section--scrollable">
+                            <router-link 
+                                class="item" style="text-decoration: none"
+                                :to="'/article/' + article.id + '?ref=article_view_suggestions'"
+                                v-for="(article, index) in related" :key="index">
+                                <div class="fm-card fm-card--img fm-card--medium">
+                                    <div class="fm-card__img">
+                                        <img :src="getImageFromContent(article.content)" :alt="article.title">
+                                    </div>
+                                    <div class="fm-card__body">
+                                        <h1 class="fm-card__body-title">Revivez en direct le décollage de Thomas Pesquet à bord de SpaceX.</h1>
+                                        <div class="fm-card__body-content">
+                                            <p>{{ removeMdFromContent(article.content).substring(0, 150) }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </router-link>
-                        <div class="item">
-                            <router-link
-                                :to="'/articles/suggestions?tags=' + article.tags"
-                                class="fm-button fm-button--outlined fm-button--square fm-button--grey">
-                                <i class="material-icons">arrow_forward</i>
                             </router-link>
+                            <div class="item">
+                                <router-link
+                                    :to="'/articles/suggestions?tags=' + article.tags"
+                                    class="fm-button fm-button--outlined fm-button--square fm-button--grey">
+                                    <i class="material-icons">arrow_forward</i>
+                                </router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -121,7 +123,7 @@ main {
             left: 0;
             width: 100%;
             height: 100%;
-            box-shadow: inset 0 -80vh 80vh -80vh #fff;
+            box-shadow: inset 0 -650px 650px -450px #fff;
         }
     }
 }
