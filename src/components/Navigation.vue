@@ -36,14 +36,25 @@
                 <img :src="'/assets/logos/' + (gestion ? 'header_logo_admin.png' : 'header_logo.png')" alt="navbar logo">
             </router-link>
             <ul class="fm-header__bottom-categories">
-                <li>
-                    <router-link to="/?ref=navbar">À la Une</router-link>
+                <li class="fm-header__bottom-categories-list">
+                    <router-link class="fm-header__bottom-categories-list-link" to="/?ref=navbar">À la Une</router-link>
                 </li>
-                <li>
-                    <router-link to="/articles?ref=navbar">Dernières infos</router-link>
+                <li class="fm-header__bottom-categories-list">
+                    <router-link class="fm-header__bottom-categories-list-link" to="/articles?ref=navbar">Dernières infos</router-link>
                 </li>
-                <li>
-                    <router-link to="/magazines?ref=navbar">Magazines</router-link>
+                <li class=" fm-header__bottom-categories-list fm-dropdown--anchor" v-if="categories">
+                    <a class="fm-header__bottom-categories-list-link" @click="dropdownOpen = !dropdownOpen">Par thème <md-icon>expand_more</md-icon></a>
+                    <ul :class="'fm-dropdown ' + (dropdownOpen ? 'fm-dropdown--open' : '')">
+                        <li class="fm-dropdown__item">
+                            <router-link class="fm-dropdown__item-text" to="/magazines?ref=navbar_dropdown">Magazines</router-link>
+                        </li>
+                        <li class="fm-dropdown__item" v-for="(categorie, index) in categories" :key="index">
+                            <router-link :to="'/articles/category/' + categorie.id + '?ref=navbar_dropdown'" class="fm-dropdown__item-text">{{ categorie.label }}</router-link>
+                        </li>
+                        <li class="fm-dropdown__item">
+                            <span class="fm-dropdown__item-text" @click="dropdownOpen = false">Fermer</span>
+                        </li>
+                    </ul>
                 </li>
                 <md-button class="md-icon-button fm-header__bottom-categories-menu" @click="showSidepanel = true">
                     <md-icon>menu</md-icon>
@@ -65,7 +76,7 @@
                         <span class="md-list-item-text">Magazines</span>
                     </md-list-item>
                 </router-link>
-                <!-- <router-link to="/articles?ref=drawer">
+                <router-link to="/articles?ref=drawer">
                     <md-list-item>
                         <md-icon>new_releases</md-icon>
                         <span class="md-list-item-text">Dernières infos</span>
@@ -84,7 +95,7 @@
                         link-ref="drawer"
                         style="margin-left:56px">
                     </category-label>
-                </details> -->
+                </details>
                 <md-list-item v-if="!notificationsEnabled" @click="requestNotifications">
                     <md-icon>notification_add</md-icon>
                     <span class="md-list-item-text">Activer les notifications</span>
@@ -121,6 +132,7 @@
 <script>
 const {firebase, db} = require('../firebaseConfig.js')
 import { askForPermissioToReceiveNotifications } from '../assets/js/push-notification';
+import { getCategories } from '../assets/js/firestore/getCategories'
 
 export default {
     props: [
@@ -141,7 +153,8 @@ export default {
             offline: !navigator.onLine,
             userModalOpen: false,
             logoutModalOpen: false,
-            betaDisclaimer: true
+            betaDisclaimer: true,
+            dropdownOpen: false
         }
     },
     methods: {
@@ -164,18 +177,7 @@ export default {
             localStorage.setItem('disclaimer:beta', + new Date())
         },
         fetchCategories() {
-            db.collection('categories').get()
-            .then(docs => {
-                this.categories = []
-                docs.forEach(doc => {
-                    let buffer = doc.data()
-                    buffer.id = doc.id
-                    this.categories.push(buffer)
-                })
-            })
-            .catch(err => {
-                console.log(err)
-            })
+            this.categories = getCategories()
         }
     },
     mounted() {
