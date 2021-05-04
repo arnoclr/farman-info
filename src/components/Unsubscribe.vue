@@ -37,7 +37,7 @@ main {
 </style>
 
 <script>
-const {db, firebase} = require('../firebaseConfig.js')
+const {db, firebase, analytics} = require('../firebaseConfig.js')
 
 export default {
     components: {
@@ -66,7 +66,9 @@ export default {
         signOut() {
             this.snapshot.forEach(doc => {
                 doc.ref.delete().then(r => {
-                    alert('Vous êtes bien désinscrit')
+                    let urlParams = new URLSearchParams('?' + this.$route.fullPath.split('?')[1])
+                    analytics.logEvent('unsubscribe', { from: urlParams.get('ref') || 'unknow'})
+                    this.$root.$emit('alert', 'Vous êtes bien désinscrit')
                     this.userIsSignedIn()
                 }).catch(err => {
                     alert(err)
