@@ -21,6 +21,10 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/service-worker.js')
 }
 
+// ads
+import AutoAdsense from './autoAdsense'
+// AutoAdsense()
+
 // console disclaimers
 console.log('%cAtttention !', 'color: #f00; background: #ff0; font-size: 24px')
 console.log('%cEn utilisant cette console, vous vous exposez au risque que des personnes malveillantes usurpent votre identité et volent vos informations par le biais d\'une attaque appelée Self-XSS.\nNe saisissez pas et ne copiez pas du code que vous ne comprenez pas.', 'font-size: 16px')

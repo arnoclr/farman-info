@@ -20,10 +20,12 @@
     "uuid": "^8.3.2",
     "vue": "^2.6.10",
     "vue-cookie-law": "^1.13.3",
+    "vue-google-adsense": "^1.9.2",
     "vue-material": "^1.0.0-beta-15",
     "vue-pdf": "^4.2.0",
     "vue-pdf-render-event": "^4.0.9",
     "vue-router": "^3.0.3",
+    "vue-script2": "^2.1.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
