@@ -33,11 +33,11 @@
 
                     <p p>Partager l'article <md-icon>arrow_forward</md-icon></p>
                     <div class="mb-64" sl>
-                        <a :href="'https://www.facebook.com/sharer/sharer.php?s=100&p[url]=https://farman.info' + $route.path"
+                        <a :href="'https://www.facebook.com/sharer/sharer.php?s=100&p[url]=https://farman.info' + $route.path  + '?ref=share'"
                             title="Partager sur Facebook" target="_blank">
                             <img src="/assets/icons/Farman_Facebook.png" alt="facebook icon" height="24">
                         </a>
-                        <a :href="'https://twitter.com/intent/tweet?url=https://farman.info' + $route.path" 
+                        <a :href="'https://twitter.com/intent/tweet?url=https://farman.info' + $route.path + '?ref=share'" 
                             title="Tweeter" target="_blank">
                             <img src="/assets/icons/Farman_Twitter.png" alt="twitter icon" height="24">
                         </a>
