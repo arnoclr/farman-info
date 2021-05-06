@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import {auth, analytics} from './firebaseConfig'
 
+const REGEX_REF = /([&?]ref=\w+)/
+
 Vue.use(Router)
 
 const router = new Router({
@@ -140,6 +142,12 @@ router.beforeEach((to, from, next) => {
     type: 'internal',
     click_source: urlParams.get('ref')
   })
+  if (window.history.replaceState) {
+    //prevents browser from storing history with each change:
+    setTimeout(() => {
+      window.history.replaceState('', document.title, to.fullPath.replace(REGEX_REF, ''))
+    }, 250);
+  }
 
   if (requiresAuth && !currentUser) {
     localStorage.setItem('login-from-url', to.fullPath)
