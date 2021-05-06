@@ -61,6 +61,7 @@
                     <div v-for="(category, index) in categories" :key="index">
                         <div v-if="articlesByCategories[category.id].length > 2">
                             <h2>{{ category.label }}</h2>
+                            <p>{{ category.description }}</p>
                             <div class="fm-section fm-section--scrollable">
                                 <router-link 
                                     class="item" style="text-decoration: none"
