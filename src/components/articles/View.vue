@@ -55,7 +55,7 @@
                                         <img :src="getImageFromContent(article.content)" :alt="article.title">
                                     </div>
                                     <div class="fm-card__body">
-                                        <h1 class="fm-card__body-title">Revivez en direct le décollage de Thomas Pesquet à bord de SpaceX.</h1>
+                                        <h1 class="fm-card__body-title">{{ article.title }}</h1>
                                         <div class="fm-card__body-content">
                                             <p>{{ removeMdFromContent(article.content).substring(0, 150) }}</p>
                                         </div>
@@ -64,7 +64,7 @@
                             </router-link>
                             <div class="item">
                                 <router-link
-                                    :to="'/articles/suggestions?tags=' + article.tags"
+                                    :to="'/articles/suggestions?tags=' + article.tags + '&ref=article_view_suggestions'"
                                     class="fm-button fm-button--outlined fm-button--square fm-button--grey">
                                     <i class="material-icons">arrow_forward</i>
                                 </router-link>
