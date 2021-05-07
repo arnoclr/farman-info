@@ -17,12 +17,12 @@
                 </span>
                 <img class="fm-header__top-avatar" :src="user.photoURL ? user.photoURL : 'https://i.stack.imgur.com/34AD2.jpg'" :title="'connecté en tant que : ' + user.displayName" alt="photo de profil" pp>
             </div>
-            <a href="#" v-if="!notificationsEnabled" @click="requestNotifications" n>| Activer les notifications <i class="material-icons">notification_add</i></a>
-            <span href="#" v-if="offline" n>| mode hors ligne <i class="material-icons">airplanemode_active</i></span>
-            <router-link class="fm-header__top-link fm-header__top-link--right" to="/articles/submit?ref=navbar_draft_continue" v-if="hasArticleDraft" r>
+            <a class="fm-header__top-link fm-link fm-link--white ml-4" v-if="!notificationsEnabled" @click="requestNotifications" n>| Activer les notifications <i class="material-icons">notification_add</i></a>
+            <span v-if="offline" n>| mode hors ligne <i class="material-icons">airplanemode_active</i></span>
+            <router-link class="fm-header__top-link fm-header__top-link--right fm-link fm-link--white" to="/articles/submit?ref=navbar_draft_continue" v-if="hasArticleDraft" r>
                 <span>Terminer la rédaction de mon article <i rt class="material-icons">arrow_forward</i></span>
             </router-link>
-            <router-link class="fm-header__top-link fm-header__top-link--right" to="/articles/submit?ref=navbar" r v-else>
+            <router-link class="fm-header__top-link fm-header__top-link--right fm-link fm-link--white" to="/articles/submit?ref=navbar" r v-else>
                 <span><i lt class="material-icons">edit</i> Proposer un article</span>
             </router-link>
         </section>
