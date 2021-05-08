@@ -10,8 +10,8 @@
         <section class="fm-header__top">
             <a class="fm-header__top-link fm-link fm-link--white" title="connexion" @click="login" v-if="!user" login>Connexion</a>
             <div a v-else>
-                <a class="fm-header__top-link" @click="logoutModalOpen = true" logout>déconnexion |</a>
-                <span class="fm-header__top-link" @click="userModalOpen = true">
+                <a class="fm-header__top-link fm-link fm-link--white" @click="logoutModalOpen = true" logout>déconnexion |</a>
+                <span class="fm-header__top-link fm-link fm-link--white" @click="userModalOpen = true">
                     {{ user.displayName || 'Ajouter un nom' }}
                     <md-tooltip md-direction="bottom">Editer mon profil</md-tooltip>
                 </span>

@@ -65,7 +65,7 @@
                             <div class="fm-section fm-section--scrollable">
                                 <router-link 
                                     class="item" style="text-decoration: none"
-                                    :to="'/article/' + article.id + '?ref=article_view_suggestions'"
+                                    :to="'/article/' + article.id + '?ref=landing_page_horizontal_scroll'"
                                     v-for="(article, index) in articlesByCategories[category.id]" :key="index">
                                     <div class="fm-card fm-card--img fm-card--medium">
                                         <div class="fm-card__img">
@@ -88,6 +88,11 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="fm-section fm-section--center" style="height:600px" v-if="articlesHorizontalLoading">
+                    <div class="fm-section__centered-item">
+                        <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
                     </div>
                 </div>
 
@@ -145,6 +150,7 @@ export default {
             mail: '',
             articles: [],
             categories: [],
+            articlesHorizontalLoading: true
         }
     },
     methods: {
@@ -167,8 +173,9 @@ export default {
                 docs.forEach(doc => {
                     this.articles.push({id: doc.id, ...doc.data()})
                 })
+                this.articlesHorizontalLoading = false
             })
-            .catch(e => alert(e))
+            .catch(e => this.articlesHorizontalLoading = false)
         }
     },
     computed: {
