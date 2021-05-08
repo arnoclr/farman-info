@@ -127,6 +127,14 @@ export default {
             error: null
         }
     },
+    metaInfo() {
+        return {
+            title: 'Farman - Les derniers magazines',
+            link: [
+                { rel: 'canonical', href: this.$root.hostname + '/magazines' }
+            ]
+        }
+    },
     created() {
         this.getMagazines()
     },

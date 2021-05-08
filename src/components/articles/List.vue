@@ -64,6 +64,14 @@ export default {
             categories: null
         }
     },
+    metaInfo() {
+        return {
+            title: 'Farman - Les articles',
+            link: [
+                { rel: 'canonical', href: this.$root.hostname + '/articles' }
+            ]
+        }
+    },
     watch: {
         '$route.path': function(val, oldVal) {
             this.articles = this.lastVisible = null

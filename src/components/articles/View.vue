@@ -147,6 +147,18 @@ export default {
             needLogin: false
         }
     },
+    metaInfo() {
+        return {
+            title: this.article ? this.article.title + ' - Farman' : 'Chargement ...',
+            link: [
+                { rel: 'canonical', href: this.$root.hostname + this.$route.path }
+            ],
+            meta: [
+                { name: 'keywords', content: this.article ? this.article.tags : '' },
+                { name: 'description', vmid: 'description', content: this.article ? this.removeMdFromContent(this.article.content).substring(0, 160) : '' }
+            ]
+        }
+    },
     watch: {
         '$route.path': function(val, oldVal) {
             window.scrollTo({top: 0, behavior: 'smooth'})

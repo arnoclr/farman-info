@@ -1,9 +1,15 @@
 import Vue from 'vue'
+import VueMeta from 'vue-meta'
 import App from './App.vue'
 import router from './router'
 import {auth, analytics} from './firebaseConfig.js'
 
 Vue.config.productionTip = false
+Vue.use(VueMeta)
+
+if(window.location.hostname === 'farman.ga') {
+    window.location.href = 'https://farman.info?ref=farman.ga'
+}
 
 // Vue Material
 import VueMaterial from 'vue-material'
@@ -57,7 +63,8 @@ auth.onAuthStateChanged(user => {
                     open: false,
                     value: ''
                 },
-                user: user
+                user: user,
+                hostname: 'https://farman.info'
             },
             el: '#app',
             router,

@@ -117,6 +117,9 @@ p.firebaseui-tospp-full-message {
                 user: this.$root.user
             }
         },
+        metaInfo: {
+            title: 'Connexion à Farman'
+        },
         components: {
             AppFooter: () => import('./Footer.vue'),
             AppHeader: () => import('./Navigation.vue')

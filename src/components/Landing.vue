@@ -153,6 +153,14 @@ export default {
             articlesHorizontalLoading: true
         }
     },
+    metaInfo() {
+        return {
+            title: 'Farman - Actualités aéronautiques',
+            link: [
+                { rel: 'canonical', href: this.$root.hostname }
+            ]
+        }
+    },
     methods: {
         submit() {
             db.collection('mails').add({
