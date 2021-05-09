@@ -7,6 +7,10 @@ import {auth, analytics} from './firebaseConfig.js'
 Vue.config.productionTip = false
 Vue.use(VueMeta)
 
+// device detection
+import device from "vue-device-detector"
+Vue.use(device)
+
 if(window.location.hostname === 'farman.ga') {
     window.location.href = 'https://farman.info?ref=farman.ga'
 }

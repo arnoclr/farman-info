@@ -109,7 +109,7 @@
                                 </button>
                                 <md-menu class="m-4" md-direction="top-end">
                                     <md-button md-menu-trigger class="md-icon-button">
-                                        <md-icon>more_vert</md-icon>
+                                        <md-icon>{{ $device.ios ? 'more_horiz' : 'more_vert' }}</md-icon>
                                     </md-button>
 
                                     <md-menu-content>

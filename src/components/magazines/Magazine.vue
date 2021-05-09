@@ -3,7 +3,7 @@
         <app-header></app-header>
 
         <main class="content">
-            <a @click="back" title="page précédente" class="icon-button fab"><i class="material-icons">arrow_back</i></a>
+            <button v-if="$device.ios" class="fm-button fm-button--outlined" @click="back"><md-icon>arrow_back</md-icon> Retour</button>
 
             <div class="error" v-if="error">
                 <p>Une erreur est survenue : <ins>{{ error }}</ins></p>
@@ -35,7 +35,7 @@
                 <br><small v-if="fileSize">{{ fileSize }}</small>
                 <small v-if="stored" os>Disponible hors-ligne <md-icon oi>done</md-icon></small>
             </template>
-            <div class="center" style="height: 80vh" v-else>
+            <div class="center" style="height: 80vh" v-if="!magazine && !error">
                 <svg class="loader" width="60" height="60" xmlns="http://www.w3.org/2000/svg" >
                     <g>
                         <ellipse ry="25" rx="25" cy="30" cx="30" stroke-width="5" stroke="teal" fill="none"/>

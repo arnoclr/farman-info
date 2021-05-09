@@ -32,13 +32,15 @@
                 </md-tabs>
 
                 <button class="fm-button fm-button--large" @click="submit">{{ article.id ? 'Mettre à jour' : 'Soumettre'}}</button>
+                <button class="fm-button fm-button--outlined fm-button--large" @click="deleteDraft">Supprimer mon brouillon</button>
+
                 <span help v-if="article.id">Attention, vos modifications devront être revalidées pour que votre article soit a nouveau visible. Ce processus peut prendre un certain temps.</span>
                 <span help>La première image de votre article sera utilisée en tant que vignette.</span>
                 <span help>En continuant, vous confirmez avoir lu et approuvé nos <a target="_blank" href="https://farman.ga/s/cgu">conditions générales d'utilisation.</a></span>
             </form>
 
             <div preview-desktop>
-                <vue-simple-markdown v-if="article.content" :source="article.content"></vue-simple-markdown>
+                <vue-simple-markdown v-if="article.content && article.content != template" :source="article.content"></vue-simple-markdown>
                 <md-empty-state v-else
                     md-icon="edit"
                     md-label="Aperçu"
@@ -118,8 +120,19 @@ export default {
                 title: '',
                 content: '',
                 category: null,
-                tags: []
+                tags: [],
             },
+            template: `
+# Ceci est un exemple
+
+Voici un paragraphe et un début de mise en forme pour vous montrer comment fonctionne l'éditeur Farman.
+
+## Chapeau 
+
+Qui ? Quoi ? Où ? Comment ? Pourquoi ?
+
+A vos stylos ...
+`,
             categories: false,
             isMobile: window.matchMedia('only screen and (max-width: 1200px)').matches,
         }
@@ -184,14 +197,22 @@ export default {
                 this.$root.$emit('toast', err)
                 console.error(err)
             })
+        },
+        deleteDraft() {
+            localStorage.removeItem('submit:draft')
+            window.location.reload()
         }
     },
-    created() {
+    mounted() {
         this.categories = getCategories()
 
         const id = this.$route.params.ref
         if(id) {
             this.fetch(id)
+        } else if (!localStorage.getItem('submit:draft')) {
+            setTimeout(() => {
+                this.$refs.textEditor.initContent(this.template)
+            }, 1000);
         }
 
         window.addEventListener('resize', () => {

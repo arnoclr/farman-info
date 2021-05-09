@@ -100,11 +100,11 @@
                     <md-icon>notification_add</md-icon>
                     <span class="md-list-item-text">Activer les notifications</span>
                 </md-list-item>
-                <md-list-item @click="userModalOpen = true">
+                <md-list-item v-if="user" @click="userModalOpen = true">
                     <md-icon>account_circle</md-icon>
                     <span class="md-list-item-text">Mes informations</span>
                 </md-list-item>
-                <md-list-item @click="logoutModalOpen = true">
+                <md-list-item v-if="user" @click="logoutModalOpen = true">
                     <md-icon>phonelink_erase</md-icon>
                     <span class="md-list-item-text">Se déconnecter</span>
                 </md-list-item>
