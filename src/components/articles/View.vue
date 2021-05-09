@@ -161,7 +161,6 @@ export default {
     },
     watch: {
         '$route.path': function(val, oldVal) {
-            window.scrollTo({top: 0, behavior: 'smooth'})
             this.fetch()
         }
     },

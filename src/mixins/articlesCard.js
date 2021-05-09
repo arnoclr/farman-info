@@ -9,6 +9,6 @@ export const articleCardMixin = {
         },
         removeMdFromContent(content) {
             return content.replace(REGEX_IMG, '').replace(REGEX_MD_SYMBOLS, '')
-        },
+        }
     }
 }

@@ -1,6 +1,7 @@
 <template>
     <div>
         <md-progress-bar v-if="$root.loading.state" :md-mode="$root.loading.mode" pb></md-progress-bar>
+        <div class="background" v-if="$root.loading.state"></div>
 
         <md-snackbar md-position="center" :md-duration="5000" :md-active.sync="$root.toast.open" md-persistent>
             <span>{{ $root.toast.value }}</span>
@@ -38,6 +39,17 @@
     width: 100%;
     background-color: #ddd;
     z-index: 3;
+}
+
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    opacity: 0.6;
+    z-index: 9;
 }
 </style>
 

@@ -106,11 +106,16 @@ router.beforeEach((to, from, next) => {
     type: 'internal',
     click_source: urlParams.get('ref')
   })
+
+  // remove ref param from url
   if (window.history.replaceState) {
-    //prevents browser from storing history with each change:
     setTimeout(() => {
       window.history.replaceState('', document.title, to.fullPath.replace(REGEX_REF, ''))
     }, 250);
+  }
+  // scroll to top
+  if (!urlParams.get('no_scroll_top')) {
+    window.scrollTo({top: 0, behavior: 'smooth'})
   }
 
   if (requiresAuth && !currentUser) {
