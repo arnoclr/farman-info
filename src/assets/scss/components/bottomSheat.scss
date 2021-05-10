@@ -1,6 +1,7 @@
 .fm-bottom-sheat {
     position: fixed;
     background-color: #fff;
+    box-shadow: -10px -10px 10px 0px rgba(180, 180, 180, 0.4);
     width: 100vw;
     height: auto;
     max-height: calc(100vh - 320px);
@@ -83,6 +84,6 @@
     top: 0;
     left: 0;
     background-color: #000;
-    opacity: 0.4;
+    opacity: 0.2;
     z-index: 2;
 }
