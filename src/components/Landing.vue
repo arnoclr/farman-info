@@ -37,14 +37,15 @@
                     </div>
                 </div>
 
-                <!-- <h2>Dernières informations</h2>
-                <div class="fm-grid" v-if="articles">
+                <h2>Dernières informations</h2>
+                <div class="row" v-if="articlesByCategories.other">
                     <router-link 
-                        style="text-decoration: none; display: inline-block"
-                        :to="'/article/' + article.id + '?ref=article_view_suggestions'"
-                        v-for="(article, index) in articles" :key="index">
-                        <div class="fm-card fm-card--img fm-card--medium">
-                            <div class="fm-card__img">
+                    class="col s12 l6"
+                    style="text-decoration: none; display: inline-block;"
+                    :to="'/article/' + article.id + '?ref=landing_page_main'"
+                    v-for="(article, index) in articlesByCategories.other" :key="index">
+                        <div class="fm-card fm-card--img fm-card-fullwidth">
+                            <div class="fm-card__img fm-card__img--small">
                                 <img :src="getImageFromContent(article.content)" :alt="article.title">
                             </div>
                             <div class="fm-card__body">
@@ -55,18 +56,18 @@
                             </div>
                         </div>
                     </router-link>
-                </div> -->
+                </div>
                 
                 <div v-if="categories">
                     <div v-for="(category, index) in categories" :key="index">
-                        <div v-if="articlesByCategories[category.id].length > 2">
+                        <div v-if="articlesByCategories[category.id]">
                             <h2>{{ category.label }}</h2>
                             <p>{{ category.description }}</p>
                             <div class="fm-section fm-section--scrollable">
                                 <router-link 
-                                    class="item" style="text-decoration: none"
-                                    :to="'/article/' + article.id + '?ref=landing_page_horizontal_scroll'"
-                                    v-for="(article, index) in articlesByCategories[category.id]" :key="index">
+                                class="item" style="text-decoration: none"
+                                :to="'/article/' + article.id + '?ref=landing_page_horizontal_scroll'"
+                                v-for="(article, index) in articlesByCategories[category.id]" :key="index">
                                     <div class="fm-card fm-card--img fm-card--medium">
                                         <div class="fm-card__img">
                                             <img :src="getImageFromContent(article.content)" :alt="article.title">
@@ -189,9 +190,17 @@ export default {
     computed: {
         articlesByCategories: function() {
             if(this.categories == undefined || this.articles == undefined) return
-            let buffer = {}
+            let buffer = {other: []}
             this.categories.forEach(category => {
-                buffer[category.id] = this.articles.filter(x => x.category === category.id)
+                let buffer2 = this.articles.filter(x => x.category === category.id)
+                if(buffer2.length > 3) {
+                    buffer[category.id] = buffer2
+                } else {
+                    buffer[category.id] = false
+                    buffer2.forEach(i => {
+                        buffer.other.push(i)
+                    })
+                }
             })
             return buffer
         }

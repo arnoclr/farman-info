@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import {analytics} from '../../firebaseConfig'
 const body = document.getElementById('body')
 
 export default {
@@ -92,6 +93,7 @@ export default {
     },
     methods: {
         closeModal() {
+            analytics.logEvent('article_shared')
             this.$emit('update:open', false)
             this.resetSwipe()
             setTimeout(() => {

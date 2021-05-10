@@ -19,6 +19,7 @@ $fonts: 'Inter', Arial, Helvetica, sans-serif;
 @import 'components/textfields.scss';
 
 // display
+@import 'display/grid.scss';
 @import 'display/typography.scss';
 @import 'display/sections.scss';
 @import 'display/spacing.scss';
