@@ -31,16 +31,10 @@
                         <router-link to="/login?ref=read_article_need_login_box" class="fm-button">Me connecter</router-link>
                     </div>
 
-                    <p p>Partager l'article <md-icon>arrow_forward</md-icon></p>
                     <div class="mb-64" sl>
-                        <a :href="'https://www.facebook.com/sharer/sharer.php?s=100&p[url]=https://farman.info' + $route.path  + '?ref=share'"
-                            title="Partager sur Facebook" target="_blank">
-                            <img src="/assets/icons/Farman_Facebook.png" alt="facebook icon" height="24">
-                        </a>
-                        <a :href="'https://twitter.com/intent/tweet?url=https://farman.info' + $route.path + '?ref=share'" 
-                            title="Tweeter" target="_blank">
-                            <img src="/assets/icons/Farman_Twitter.png" alt="twitter icon" height="24">
-                        </a>
+                        <p p>Partager l'article <md-icon>arrow_forward</md-icon></p>
+                        <bottom-share :open.sync="shareDialogOpen" :url="$root.hostname + $route.path + '?ref=share'"></bottom-share>
+                        <button @click="shareDialogOpen = true" class="fm-button">partager</button>
                     </div>
 
                     <div  v-if="related && related.length > 0">
@@ -136,7 +130,8 @@ import {articleCardMixin} from '../../mixins/articlesCard'
 export default {
     components: {
         AppFooter: () => import('../Footer.vue'),
-        AppHeader: () => import('../Navigation.vue')
+        AppHeader: () => import('../Navigation.vue'),
+        BottomShare: () => import('../utils/bottomShare.vue')
     },
     mixins: [articleCardMixin],
     data() {
@@ -144,7 +139,8 @@ export default {
             article: null,
             related: null,
             user: this.$root.user,
-            needLogin: false
+            needLogin: false,
+            shareDialogOpen: false
         }
     },
     metaInfo() {
