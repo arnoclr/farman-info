@@ -29,6 +29,12 @@
         outline-width: 2px;
     }
 
+    i {
+        font-size: 18px !important;
+        height: 18px;
+        color: #fff !important;
+    }
+
     // styles
     @mixin --flat {
         background-color: transparent;
@@ -41,6 +47,10 @@
         &:focus {
             outline-color: #000;
         }
+
+        i {
+            color: #000 !important;
+        }
     }
 
     &--flat {
@@ -50,7 +60,7 @@
     &--outlined {
         @include --flat;
 
-        border: 1px solid #000;
+        box-shadow: 0 0 0 1px #000 inset;
     }
 
     // sizes
