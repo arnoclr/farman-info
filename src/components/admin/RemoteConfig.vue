@@ -17,39 +17,20 @@
                 </md-card-header>
 
                 <md-card-actions>
-                    <md-button @click="remove(index)">supprimer</md-button>
+                    <button class="fm-button fm-button--flat" @click="remove(index)">supprimer</button>
                 </md-card-actions>
             </md-card>
         </div>
 
         <image-uploader :callback="appendImage" :open.sync="imageUploaderOpen"></image-uploader>
-        <md-button @click="addBanner">Ajouter une annonce</md-button>
+        <button class="fm-button" @click="addBanner">Ajouter une annonce</button>
+        <button class="fm-button" @click="generateJson">générer le code <md-icon>code</md-icon></button>
+        <a target="_blank" href="https://console.firebase.google.com/u/0/project/actualites-aeronautiques/config" class="fm-button fm-button--outlined">Ouvrir la console firebase <md-icon>launch</md-icon></a>
+        <a target="_blank" href="https://imgur.com/a/dZ9gBHX" class="fm-button fm-button--flat">Tutoriel <md-icon>launch</md-icon></a>
 
-        <md-card>
-            <md-card-content>
-                <md-field>
-                    <md-textarea v-model="jsonString" onclick="this.select()" readonly></md-textarea>
-                </md-field>
-                <md-button @click="generateJson">générer le code</md-button>
-            </md-card-content>
-        </md-card>
-
-        <md-card mt>
-            <md-card-content>
-                <a target="_blank" href="https://console.firebase.google.com/u/0/project/actualites-aeronautiques/config" class="button">Ouvrir la console firebase</a>
-                
-                <details>
-                    <summary>
-                        <md-list-item>
-                            <md-icon>expand_more</md-icon>
-                            <span class="md-list-item-text">Tutoriel</span>
-                        </md-list-item>
-                    </summary>
-                    <img src="https://i.imgur.com/fCk1eXm.jpg" alt="remote config screen 1">
-                    <img src="https://i.imgur.com/IywofI9.jpg" alt="remote config screen 2">
-                </details>
-            </md-card-content>
-        </md-card>
+        <md-field>
+            <md-textarea v-model="jsonString" onclick="this.select()" readonly></md-textarea>
+        </md-field>
     </div>
 </template>
 

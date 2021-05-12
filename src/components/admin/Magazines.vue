@@ -20,7 +20,7 @@
             <md-table v-model="searched" md-sort="title" md-sort-order="asc" md-card md-fixed-header>
                 <md-table-toolbar>
                     <div class="md-toolbar-section-start">
-                        <button @click="currentEditDialog = true; currentEdit = {url: null, image: null}" class="button" publish>Publier un magazine <i class="material-icons">edit</i></button>
+                        <button @click="currentEditDialog = true; currentEdit = {url: null, image: null}" class="fm-button" publish>Publier un magazine <i class="material-icons">edit</i></button>
                     </div>
 
                     <md-field md-clearable class="md-toolbar-section-end">
@@ -72,7 +72,7 @@
                         <md-textarea v-model="currentEdit.summary"></md-textarea>
                     </md-field>
                     
-                    <button class="button-outlined" @click="imageUploaderOpen = true">{{ currentEdit.image ? "Modifier l'image" : "Insérer une image" }}</button>
+                    <button class="fm-button fm-button--outlined" @click="imageUploaderOpen = true">{{ currentEdit.image ? "Modifier l'image" : "Insérer une image" }}</button>
                     <img height="128" :src="currentEdit.image">
                 </md-dialog-content>
 
