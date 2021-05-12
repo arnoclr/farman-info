@@ -38,9 +38,10 @@
                 </div>
 
                 <h2>Dernières informations</h2>
-                <div class="row" v-if="articlesByCategories.other">
-                    <router-link 
-                    class="col s12 l6"
+                <div 
+                class="fm-grid fm-grid--landing"
+                v-if="articlesByCategories.other">
+                    <router-link
                     style="text-decoration: none; display: inline-block;"
                     :to="'/article/' + article.id + '?ref=landing_page_main'"
                     v-for="(article, index) in articlesByCategories.other" :key="index">
