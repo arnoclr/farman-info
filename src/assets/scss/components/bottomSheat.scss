@@ -39,6 +39,10 @@
             padding: 16px;
             padding-top: 0;
 
+            @media screen and (min-width: 700px) {
+                padding: 16px $padding;
+            }
+
             &-item {
                 display: inline-block;
                 width: 33.33%;
