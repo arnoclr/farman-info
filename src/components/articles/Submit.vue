@@ -4,32 +4,25 @@
 
         <main>
             <form @submit.prevent>
-                <md-tabs id="submit-article-tabs">
-                    <md-tab md-label="édition">
-                        <md-field z>
-                            <label>Titre</label>
-                            <md-input md-counter="80" max="80" v-model="article.title" required></md-input>
-                        </md-field>
+                <md-field z>
+                    <label>Titre</label>
+                    <md-input md-counter="80" max="80" v-model="article.title" required></md-input>
+                </md-field>
 
-                        <text-editor :content.sync="article.content" :counter="4096" ref="textEditor"></text-editor>
-                        
-                        <md-field>
-                            <label for="category" v-if="categories">Catégorie</label>
-                            <md-select v-model="article.category" name="category" id="category" required>
-                                <md-option 
-                                    v-for="(category, id) in categories"
-                                    v-bind:key="id"
-                                    :value="category.id">{{ category.label }}</md-option>
-                            </md-select>
-                        </md-field>
+                <text-editor :content.sync="article.content" :counter="4096" ref="textEditor"></text-editor>
+                
+                <md-field>
+                    <label for="category" v-if="categories">Catégorie</label>
+                    <md-select v-model="article.category" name="category" id="category" required>
+                        <md-option 
+                            v-for="(category, id) in categories"
+                            v-bind:key="id"
+                            :value="category.id">{{ category.label }}</md-option>
+                    </md-select>
+                </md-field>
 
-                        <md-chips class="shake-on-error" v-model="article.tags" :md-limit="10" md-placeholder="Ajouter des tags"></md-chips>
-                        <div class="md-helper-text">Les tags sont nécéssaires pour la recherche, ajoutez des mots simples qui décrivent au mieux votre article.</div>
-                    </md-tab>
-                    <md-tab md-label="prévisualisation" v-if="isMobile">
-                        <vue-simple-markdown v-if="article.content" :source="article.content"></vue-simple-markdown>
-                    </md-tab>
-                </md-tabs>
+                <md-chips class="shake-on-error" v-model="article.tags" :md-limit="10" md-placeholder="Ajouter des tags"></md-chips>
+                <div class="md-helper-text">Les tags sont nécéssaires pour la recherche, ajoutez des mots simples qui décrivent au mieux votre article.</div>
 
                 <button class="fm-button fm-button--large" @click="submit">{{ article.id ? 'Mettre à jour' : 'Soumettre'}}</button>
                 <button class="fm-button fm-button--outlined fm-button--large" @click="deleteDraft">Supprimer mon brouillon</button>
@@ -38,15 +31,6 @@
                 <span help>La première image de votre article sera utilisée en tant que vignette.</span>
                 <span help>En continuant, vous confirmez avoir lu et approuvé nos <a target="_blank" href="https://farman.ga/s/cgu">conditions générales d'utilisation.</a></span>
             </form>
-
-            <div preview-desktop>
-                <vue-simple-markdown v-if="article.content && article.content != template" :source="article.content"></vue-simple-markdown>
-                <md-empty-state v-else
-                    md-icon="edit"
-                    md-label="Aperçu"
-                    md-description="Commencez a écrire pour voir le rendu final de votre article.">
-                </md-empty-state>
-            </div>
         </main>
 
         <app-footer></app-footer>
@@ -69,10 +53,6 @@
 }
 
 main {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 32px;
-
     [z] {
         z-index: 1;
     }
@@ -81,17 +61,6 @@ main {
         display: block;
         margin: 8px;
         color: #555;
-    }
-}
-
-@media screen and(max-width: 1200px) {
-    main {
-        grid-template-columns: 1fr;
-        column-gap: 8px;
-
-        [preview-desktop] {
-            display: none;
-        }
     }
 }
 </style>
