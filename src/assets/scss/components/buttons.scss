@@ -29,6 +29,11 @@
         outline-width: 2px;
     }
 
+    &[disabled] {
+        pointer-events: none;
+        background-color: rgba(150, 150, 150, 0.2);
+    }
+
     i {
         font-size: 18px !important;
         height: 18px;

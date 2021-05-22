@@ -28,9 +28,12 @@
         </section>
 
         <section class="fm-header__bottom">
-            <button class="fm-button fm-button--large fm-header__bottom-button"
+            <button 
+                class="fm-button fm-button--large fm-header__bottom-button"
                 @click="login" v-if="!user">Connexion</button>
-            <router-link class="fm-button fm-button--large fm-header__bottom-button"
+            <router-link 
+                class="fm-button fm-button--large fm-header__bottom-button"
+                :disabled="$route.name === 'articleSubmit'"
                 @click="login" v-else to="/articles/submit?ref=navbar_cta">Publier</router-link>
             <router-link class="fm-header__bottom-logo" to="/?ref=header_logo">
                 <img :src="'/assets/logos/' + (gestion ? 'header_logo_admin.png' : 'header_logo.png')" alt="navbar logo">
