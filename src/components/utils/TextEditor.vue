@@ -2,65 +2,26 @@
     <div>
 
         <div @dragover="dragover" @dragleave="dragleave" @drop="drop">
-            <div :class="overlayActive ? 'active' : ''" id="img-drop-zone">
-                <md-empty-state
-                    md-icon="upload"
-                    md-label="Téléverser l'image"
-                    md-description="Les images doivent être au format .jpg ou .png">
-                </md-empty-state>
-            </div>
-
-            <!-- <md-field>
-                <label>Edition du texte</label>
-                <md-textarea id="te-ta" 
-                    :md-counter="counter" :max="counter" :md-autogrow="true" v-model="editableContent" 
-                    @keyup="updateContent" @paste="pasteImage" required></md-textarea>
-                <span class="md-helper-text">Brouillon enregistré</span>
-            </md-field> -->
-            <div id="quill-editor"></div>
+            <div ref="editor" @paste="pasteImage"></div>
+            <span>{{ editableContent.length }}/{{ counter }}</span>
         </div>
 
-        <md-button @click="imageUploaderOpen = true" class="md-icon-button">
-            <md-icon>add_a_photo</md-icon>
-            <md-tooltip md-delay="300">Ajouter une image</md-tooltip>
-        </md-button>
-
-        <image-uploader ref="uploader" :callback="insertMarkdownImage" :open.sync="imageUploaderOpen"></image-uploader>
+        <image-uploader ref="uploader" :callback="insertHtmlImage" :open.sync="imageUploaderOpen"></image-uploader>
     </div>
 </template>
-
-<style lang="scss">
-#img-drop-zone {
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    z-index: 0;
-    top: 0;
-    left: 0;
-    background-color: #008080CC;
-    opacity: 0;
-    transition: opacity 150ms ease;
-
-    i, strong, p {
-        color: #fff !important;
-    }
-
-    &.active {
-        opacity: 1;
-    }
-
-    #quill-editor {
-        z-index: 1;
-    }
-}
-</style>
 
 <script>
 import * as Quill from 'quill'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
+import * as commonmark from 'commonmark'
+import marked from 'marked'
+import TurndownService from 'turndown'
+
+const tdsv = new TurndownService()
+const reader = new commonmark.Parser();
+const writer = new commonmark.HtmlRenderer();
+const BUCKET_URL = 'https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com'
 
 export default {
     components: {
@@ -91,12 +52,24 @@ export default {
         drop(e) {
             e.preventDefault()
             this.overlayActive = false
-            this.$refs.uploader.compressImage(e.dataTransfer.files[0])
+            let file = e.dataTransfer.files[0]
+            if(file == undefined) return
+            this.$refs.uploader.compressImage(file)
             this.imageUploaderOpen = true
         },
         // clipboard image
         pasteImage(e) {
+            e.stopPropagation()
             const cdata = e.clipboardData || window.clipboardData
+            const html = cdata.getData('text/html') || ''
+            const parsed = new DOMParser().parseFromString(html, 'text/html')
+            const img = parsed.querySelector('img')
+            if(!img) return
+            const url = img.src;
+            if(url.includes(BUCKET_URL)) {
+                // return
+                return this.insertHtmlImage(url)
+            }
             const file = cdata.files[0]
             if(file) {
                 this.$refs.uploader.compressImage(file)
@@ -104,8 +77,14 @@ export default {
             }
         },
         updateContent() {
+            this.editableContent = tdsv.turndown(this.quill.root.innerHTML)
             this.$emit('update:content', this.editableContent)
             localStorage.setItem('submit:draft', this.editableContent)
+        },
+        updateTextEditor(text) {
+            let parsed = reader.parse(text)
+            let result = writer.render(parsed)
+            this.quill.root.innerHTML = result
         },
         initContent(text, event) {
             this.editableContent = text
@@ -113,8 +92,10 @@ export default {
         imageUploaderClose() {
             this.imageUploaderOpen = false
         },
-        insertMarkdownImage(url) {
-            this.appendContent(`\n![texte alternatif](${url})\n`)
+        insertHtmlImage(url) {
+            const range = this.quill.getSelection(true)
+            this.quill.setSelection(range.index + 1)
+            this.quill.insertEmbed(range.index, 'image', url)
         },
         appendContent(text) {
             this.editableContent += text
@@ -123,13 +104,44 @@ export default {
     },
     mounted() {
         this.editableContent = this.content
+
+        this.quill = new Quill(this.$refs.editor, {
+            modules: { 
+                toolbar: {
+                    container: [
+                        [{ header: [1, 2, 3, false] }],
+                        ['bold', 'italic', 'blockquote'],
+                        ['image']
+                    ],
+                }
+            },
+            theme: 'snow'
+        })
+        var toolbar = this.quill.getModule('toolbar')
+        toolbar.addHandler('image', () => {
+            this.imageUploaderOpen = true
+        })
+        this.quill.clipboard.addMatcher('img', () => {
+            throw new Error('prevent image paste')
+            // return error to prevent default image paste
+            // todo: remove console error
+        });
+
+        this.updateTextEditor(this.content)
+
         let draft = localStorage.getItem('submit:draft')
         if(draft && this.$route.name !== 'articleEdit') {
-            this.editableContent = draft
+            this.updateTextEditor(draft)
         }
-        this.updateContent()
-        this.quill = new Quill('#quill-editor', {
-            theme: 'snow'
+
+        const observer = new MutationObserver(mutation => {
+            this.updateContent()
+        })
+        observer.observe(this.$refs.editor, {
+            childList: true,
+            attributes: true,
+            subtree: true,
+            characterData: true
         })
     }
 }
