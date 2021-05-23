@@ -3,10 +3,15 @@
         <app-header :gestion="true"></app-header>
 
         <main>
-            <form @submit.prevent>
+            <div>
                 <md-field z>
                     <label>Titre</label>
-                    <md-input md-counter="80" max="80" v-model="article.title" required></md-input>
+                    <md-input md-counter="100" max="100" v-model="article.title" required></md-input>
+                </md-field>
+
+                <md-field>
+                    <label>Chapeau</label>
+                    <md-textarea md-counter="500" max="500" v-model="article.summary"></md-textarea>
                 </md-field>
 
                 <text-editor :content.sync="article.content" :counter="4096" ref="textEditor"></text-editor>
@@ -30,7 +35,7 @@
                 <span help v-if="article.id">Attention, vos modifications devront être revalidées pour que votre article soit a nouveau visible. Ce processus peut prendre un certain temps.</span>
                 <span help>La première image de votre article sera utilisée en tant que vignette.</span>
                 <span help>En continuant, vous confirmez avoir lu et approuvé nos <a target="_blank" href="https://farman.ga/s/cgu">conditions générales d'utilisation.</a></span>
-            </form>
+            </div>
         </main>
 
         <app-footer></app-footer>
@@ -113,9 +118,10 @@ A vos stylos ...
         submit() {
             if(this.article.id)
                 return this.updateArticle()
-            if(this.article.title && this.article.content && this.article.category && this.article.tags) {
+            if(this.article.title && this.article.summary && this.article.content && this.article.category && this.article.tags) {
                 articles.add({
                     title: this.article.title,
+                    summary: this.article.summary,
                     content: this.article.content,
                     category: this.article.category,
                     tags: this.article.tags,
@@ -125,7 +131,7 @@ A vos stylos ...
                 })
                 .then(doc => {
                     console.log(doc.id)
-                    this.article.title = this.article.content = this.article.category = null
+                    this.article.title = this.article.summary = this.article.content = this.article.category = null
                     localStorage.removeItem('submit:draft')
                     this.$router.push('/article/' + doc.id + '?ref=submit_page')
                 })
@@ -139,6 +145,7 @@ A vos stylos ...
         updateArticle() {
             articles.doc(this.article.id).update({
                 title: this.article.title,
+                summary: this.article.summary,
                 content: this.article.content,
                 category: this.article.category,
                 tags: this.article.tags,
