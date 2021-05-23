@@ -66,6 +66,8 @@
 </style>
 
 <script>
+import {db} from '../../firebaseConfig'
+
 export default {
     props: ['user', 'open'],
     components: {
@@ -92,6 +94,10 @@ export default {
             })
             .catch(err => {
                 this.loading = false
+                this.$root.$emit('alert', err)
+            })
+            db.collection('users').doc(this.user.uid).set(this.editedUser)
+            .catch(e => {
                 this.$root.$emit('alert', err)
             })
         },
