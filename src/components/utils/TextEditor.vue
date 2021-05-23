@@ -2,7 +2,7 @@
     <div>
 
         <div @dragover="dragover" @dragleave="dragleave" @drop="drop">
-            <div ref="editor" @paste="pasteImage"></div>
+            <div ref="editor"></div>
             <span>{{ editableContent.length }}/{{ counter }}</span>
         </div>
 
@@ -14,13 +14,10 @@
 import * as Quill from 'quill'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
-import * as commonmark from 'commonmark'
-import marked from 'marked'
+import {parseMd} from '../../assets/js/utils/mdParse'
 import TurndownService from 'turndown'
 
 const tdsv = new TurndownService()
-const reader = new commonmark.Parser();
-const writer = new commonmark.HtmlRenderer();
 const BUCKET_URL = 'https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com'
 
 export default {
@@ -82,8 +79,8 @@ export default {
             localStorage.setItem('submit:draft', this.editableContent)
         },
         updateTextEditor(text) {
-            let parsed = reader.parse(text)
-            let result = writer.render(parsed)
+            if(text.length === 0) return
+            let result = parseMd(text)
             this.quill.root.innerHTML = result
         },
         initContent(text, event) {
@@ -121,11 +118,6 @@ export default {
         toolbar.addHandler('image', () => {
             this.imageUploaderOpen = true
         })
-        this.quill.clipboard.addMatcher('img', () => {
-            throw new Error('prevent image paste')
-            // return error to prevent default image paste
-            // todo: remove console error
-        });
 
         this.updateTextEditor(this.content)
 
