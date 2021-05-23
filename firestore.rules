@@ -72,7 +72,7 @@ service cloud.firestore {
                 && incomingData().published == false
                 && incomingData().title.size() <= 100
                 && incomingData().summary.size() <= 500
-                && incomingData().content.size() <= 4096
+                && incomingData().content.size() <= 10000
                 && incomingData().createdAt == request.time
 
             allow update:
@@ -83,7 +83,7 @@ service cloud.firestore {
                     && incomingData().published == false
                     && incomingData().title.size() <= 100
                     && incomingData().summary.size() <= 500
-                    && incomingData().content.size() <= 4096
+                    && incomingData().content.size() <= 10000
                     && incomingData().updatedAt == request.time
                 )
                 || isAdmin()

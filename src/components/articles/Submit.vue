@@ -14,7 +14,7 @@
                     <md-textarea md-counter="500" max="500" v-model="article.summary"></md-textarea>
                 </md-field>
 
-                <text-editor :content.sync="article.content" :counter="4096" ref="textEditor"></text-editor>
+                <text-editor :content.sync="article.content" :counter="10000" ref="textEditor"></text-editor>
                 
                 <md-field>
                     <label for="category" v-if="categories">Catégorie</label>
