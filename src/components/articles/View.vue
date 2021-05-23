@@ -22,7 +22,7 @@
 
                     <div id="markdown-wrapper" :class="needLogin ? 'restricted' : ''">
                         <div class="shade"></div>
-                        <vue-simple-markdown :source="article.content" :postrender="rendered()"></vue-simple-markdown>
+                        <div v-html="markdownRender"></div>
                     </div>
 
                     <div class="fm-box fm-box--centered" v-if="needLogin">
@@ -127,6 +127,7 @@ main {
 <script>
 import {db} from '../../firebaseConfig'
 import {articleCardMixin} from '../../mixins/articlesCard'
+import {parseMd} from '../../assets/js/utils/mdParse'
 
 export default {
     components: {
@@ -143,6 +144,11 @@ export default {
             needLogin: false,
             shareDialogOpen: false,
             author: null,
+        }
+    },
+    computed: {
+        markdownRender() {
+            return parseMd(this.article.content)
         }
     },
     metaInfo() {
@@ -163,7 +169,7 @@ export default {
         }
     },
     methods: {
-        rendered() {
+        /*rendered() {
             setTimeout(() => {
                 document.querySelectorAll('.markdown-body img').forEach(img => {
                     img.classList.add('lightbox')
@@ -172,7 +178,7 @@ export default {
                     })
                 })
             }, 250);
-        },
+        },*/
         fetch() {
             const ref = this.$route.params.ref
             this.$root.$emit('query:loading')

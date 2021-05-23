@@ -11,7 +11,7 @@
 
                 <md-field>
                     <label>Chapeau</label>
-                    <md-textarea md-counter="500" max="500" v-model="article.summary"></md-textarea>
+                    <md-textarea md-counter="500" max="500" v-model="article.summary" required></md-textarea>
                 </md-field>
 
                 <text-editor :content.sync="article.content" :counter="10000" ref="textEditor"></text-editor>
@@ -31,7 +31,7 @@
                 <md-chips class="shake-on-error" v-model="article.tags" :md-limit="10" md-placeholder="Ajouter des tags"></md-chips>
                 <div class="md-helper-text">Les tags sont nécéssaires pour la recherche, ajoutez des mots simples qui décrivent au mieux votre article.</div>
 
-                <button class="fm-button fm-button--large" @click="submit">{{ article.id ? 'Mettre à jour' : 'Soumettre'}}</button>
+                <button class="fm-button fm-button--large" @click="submit" :disabled="submitting">{{ article.id ? 'Mettre à jour' : 'Soumettre'}}</button>
                 <button class="fm-button fm-button--outlined fm-button--large" @click="deleteDraft">Supprimer mon brouillon</button>
 
                 <span help v-if="article.id">Attention, vos modifications devront être revalidées pour que votre article soit a nouveau visible. Ce processus peut prendre un certain temps.</span>
@@ -96,8 +96,9 @@ export default {
                 title: '',
                 content: '',
                 category: null,
-                tags: [],
+                tags: []
             },
+            submitting: false,
             template: `
 # Ceci est un exemple
 
@@ -118,6 +119,7 @@ A vos stylos ...
             this.article.content = text
         },
         submit() {
+            this.submitting = true
             if(this.article.id)
                 return this.updateArticle()
             if(this.article.title && this.article.summary && this.article.content && this.article.category && this.article.tags) {
@@ -126,7 +128,7 @@ A vos stylos ...
                     summary: this.article.summary,
                     content: this.article.content,
                     category: this.article.category,
-                    breaking: this.article.breaking,
+                    breaking: this.article.breaking ? true : false,
                     tags: this.article.tags,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     uid: firebase.auth().currentUser.uid,
@@ -140,6 +142,7 @@ A vos stylos ...
                 })
                 .catch(err => {
                     alert(err)
+                    this.submitting = false
                 })
             } else {
                 this.$root.$emit('toast', 'Champs non remplis')
@@ -151,7 +154,7 @@ A vos stylos ...
                 summary: this.article.summary,
                 content: this.article.content,
                 category: this.article.category,
-                breaking: this.article.breaking,
+                breaking: this.article.breaking ? true : false,
                 tags: this.article.tags,
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
                 published: false
@@ -163,6 +166,7 @@ A vos stylos ...
             }).catch(err => {
                 this.$root.$emit('alert', err)
                 console.error(err)
+                this.submitting = false
             })
         },
         fetch(id) {
