@@ -23,6 +23,9 @@
                 <md-table-cell md-label="Tags">
                     <md-chips v-model="item.tags" md-static></md-chips>
                 </md-table-cell>
+                <md-table-cell md-label="A la une ?">
+                    <md-switch v-model="item.breaking" @change="triggerItem(item.id)" class="md-primary"></md-switch>
+                </md-table-cell>
                 <md-table-cell md-label="Publié ?">
                     <md-switch v-model="item.published" @change="triggerItem(item.id)" class="md-primary"></md-switch>
                 </md-table-cell>

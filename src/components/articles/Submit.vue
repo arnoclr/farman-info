@@ -26,6 +26,8 @@
                     </md-select>
                 </md-field>
 
+                <md-switch v-model="article.breaking">A la une</md-switch>
+
                 <md-chips class="shake-on-error" v-model="article.tags" :md-limit="10" md-placeholder="Ajouter des tags"></md-chips>
                 <div class="md-helper-text">Les tags sont nécéssaires pour la recherche, ajoutez des mots simples qui décrivent au mieux votre article.</div>
 
@@ -124,6 +126,7 @@ A vos stylos ...
                     summary: this.article.summary,
                     content: this.article.content,
                     category: this.article.category,
+                    breaking: this.article.breaking,
                     tags: this.article.tags,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     uid: firebase.auth().currentUser.uid,
@@ -148,6 +151,7 @@ A vos stylos ...
                 summary: this.article.summary,
                 content: this.article.content,
                 category: this.article.category,
+                breaking: this.article.breaking,
                 tags: this.article.tags,
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
                 published: false
