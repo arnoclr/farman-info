@@ -5,32 +5,18 @@
         <div r>
             <main>
                 
-                <div class="fm-section fm-section--full-height">
+                <div class="fm-section fm-section--full-height" v-if="breakings">
                     <div class="fm-section__centered">
-                        <div class="fm-card fm-card--img fm-card--full-width">
+                        <div class="fm-card fm-card--img fm-card--full-width" v-for="(article, index) in breakings" :key="index">
                             <div class="fm-card__img fm-card__img--left">
-                                <img loading="lazy" src="https://i.imgur.com/pReQ6Mz.jpg" alt="Thomas Pesquet">
+                                <img loading="lazy" :src="getImageFromContent(article.content)" :alt="article.title">
                             </div>
                             <div class="fm-card__body">
-                                <span class="fm-card__body-category">rediffusion</span>
-                                <h1 class="fm-card__body-title">Revivez en direct le décollage de Thomas Pesquet à bord de SpaceX.</h1>
+                                <span class="fm-card__body-category" v-if="categories">a la une - {{ category }}</span>
+                                <h1 class="fm-card__body-title">{{ article.title }}</h1>
                                 <div class="fm-card__body-content">
-                                    <p>L'astronaute français va embarquer à bord de la deuxième mission habitée de SpaceX vers l'ISS. 
-                                        Regardez l'évènement sur le YouTube de Farman.</p>
-                                    <a role="button" href="https://www.youtube.com/watch?v=irrjR01x31I" class="fm-button">regarder</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="fm-card fm-card--img fm-card--full-width">
-                            <div class="fm-card__img fm-card__img--left">
-                                <img loading="lazy" src="https://i.imgur.com/t6gw80c.jpg" alt="Thomas Pesquet">
-                            </div>
-                            <div class="fm-card__body">
-                                <span class="fm-card__body-category">YouTube</span>
-                                <h1 class="fm-card__body-title">Découvrez Farman sur YouTube</h1>
-                                <div class="fm-card__body-content">
-                                    <a role="button" href="https://farman.ga/s/direct" class="fm-button">regarder</a>
+                                    <p>{{ article.summary }}</p>
+                                    <router-link role="button" class="fm-button" :to="'/article/' + article.id + '?ref=landing_breaking'">lire</router-link>
                                 </div>
                             </div>
                         </div>
@@ -47,12 +33,12 @@
                     v-for="(article, index) in articlesByCategories.other" :key="index">
                         <div class="fm-card fm-card--img fm-card-fullwidth">
                             <div class="fm-card__img fm-card__img--small">
-                                <img :src="getImageFromContent(article.content)" :alt="article.title">
+                                <img loading="lazy" :src="getImageFromContent(article.content)" :alt="article.title">
                             </div>
                             <div class="fm-card__body">
                                 <h1 class="fm-card__body-title">{{ article.title }}</h1>
                                 <div class="fm-card__body-content">
-                                    <p>{{ removeMdFromContent(article.content).substring(0, 150) }}</p>
+                                    <p>{{ article.summary }}</p>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +62,7 @@
                                         <div class="fm-card__body">
                                             <h1 class="fm-card__body-title">{{ article.title }}</h1>
                                             <div class="fm-card__body-content">
-                                                <p>{{ removeMdFromContent(article.content).substring(0, 150) }}</p>
+                                                <p>{{ article.summary }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -151,6 +137,7 @@ export default {
         return {
             mail: '',
             articles: [],
+            breakings: [],
             categories: [],
             articlesHorizontalLoading: true
         }
@@ -186,6 +173,14 @@ export default {
                 this.articlesHorizontalLoading = false
             })
             .catch(e => this.articlesHorizontalLoading = false)
+        },
+        fetchBreaking() {
+            db.collection('articles').where('breaking', '==', true).orderBy('createdAt', 'desc').limit(2).get()
+            .then(docs => {
+                docs.forEach(doc => {
+                    this.breakings.push({id: doc.id, ...doc.data()})
+                })
+            })
         }
     },
     computed: {
@@ -207,6 +202,7 @@ export default {
         }
     },
     mounted() {
+        this.fetchBreaking()
         this.fetchArticles()
         this.categories = getCategories()
     }
