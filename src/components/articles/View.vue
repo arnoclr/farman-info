@@ -10,7 +10,8 @@
                     
                     <span t>
                         {{ new Date(article.createdAt.seconds*1000).toLocaleDateString("fr-FR", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
-                        à {{ new Date(article.createdAt.seconds*1000).toISOString().substr(11, 5) }}
+                        à {{ new Date(article.createdAt.seconds*1000).toISOString().substr(11, 5) }},
+                        <span v-if="author">publié par <router-link :to="'/articles/author/' + article.uid">{{ author.displayName }}</router-link></span>
                     </span>
                     <h1>
                         <md-icon class="lock" v-if="needLogin">
@@ -140,7 +141,8 @@ export default {
             related: null,
             user: this.$root.user,
             needLogin: false,
-            shareDialogOpen: false
+            shareDialogOpen: false,
+            author: null,
         }
     },
     metaInfo() {
@@ -179,6 +181,7 @@ export default {
                 this.$root.$emit('query:loaded')
                 this.article = doc.data()
                 this.fetchRelated()
+                this.fetchAuthor()
                 if(this.article.needLogin && !this.user) {
                     this.needLogin = true
                 }
@@ -204,6 +207,11 @@ export default {
             })
             .catch(e => {
                 console.error(e)
+            })
+        },
+        fetchAuthor() {
+            db.collection('users').doc(this.article.uid).get().then(doc => {
+                this.author = doc.data()
             })
         }
     },
