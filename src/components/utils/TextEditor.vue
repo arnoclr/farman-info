@@ -84,7 +84,7 @@ export default {
             this.quill.root.innerHTML = result
         },
         initContent(text, event) {
-            this.editableContent = text
+            this.updateTextEditor(text)
         },
         imageUploaderClose() {
             this.imageUploaderOpen = false
