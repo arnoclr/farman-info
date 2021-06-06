@@ -5,6 +5,7 @@
         position: relative;
         background-color: #f4f4f4;
         padding: 24px 16px;
+        width: -webkit-fill-available;
 
         &-category {
             display: block;
@@ -59,14 +60,6 @@
             height: 100%;
             object-fit: cover;
             transition: transform 350ms ease, filter 350ms ease;
-        }
-
-        &--limited-height {
-            max-height: 320px;
-
-            img {
-                width: 100%;
-            }
         }
 
         &--small {
@@ -133,6 +126,14 @@
             img {
                 width: fit-content;
                 object-fit: cover;
+            }
+
+            &--limited-height {
+                max-height: 320px;
+    
+                img {
+                    width: 100%;
+                }
             }
         }
 
