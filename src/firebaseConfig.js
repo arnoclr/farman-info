@@ -17,14 +17,6 @@ const firebaseConfig = {
   measurementId: "G-K5R9HDMS6X"
 };
 
-// check cookie consent before init
-const consent = JSON.parse(localStorage.getItem('cookie:accepted'))
-window.consent = consent
-if(consent == false) {
-  // https://developers.google.com/analytics/devguides/collection/ga4/disable-analytics
-  window['ga-disable-' + firebaseConfig.measurementId] = true;
-}
-
 firebase.initializeApp(firebaseConfig)
 
 // firebase utils
@@ -38,6 +30,15 @@ const remoteConfig = firebase.remoteConfig()
 if(firebase.messaging.isSupported()) {
   messaging = firebase.messaging()
 }
+
+// check cookie consent before init
+const consent = JSON.parse(localStorage.getItem('cookie:accepted'))
+window.consent = consent
+analytics.logEvent('rgpd_consent', {
+  consent: consent
+})
+// firebase sdk automatically anonimyze ip
+// https://support.google.com/firebase/answer/9019185?hl=en#zippy=%2Cin-this-article
 
 db.enablePersistence()
   .catch(err => {

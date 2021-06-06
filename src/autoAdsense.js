@@ -1,4 +1,5 @@
-const ADS_SCRIPT = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7307476520007592'
+const CA_PUB_CLIENT = 'ca-pub-7307476520007592'
+const ADS_SCRIPT = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + CA_PUB_CLIENT
 
 const AutoAdsense = () => {
     const head = document.head

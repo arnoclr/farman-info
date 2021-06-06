@@ -37,7 +37,7 @@ if ('serviceWorker' in navigator) {
 
 // ads
 import AutoAdsense from './autoAdsense'
-// AutoAdsense()
+AutoAdsense()
 
 // console disclaimers
 console.log('%cAtttention !', 'color: #f00; background: #ff0; font-size: 24px')
