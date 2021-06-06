@@ -4,7 +4,6 @@
         <install-button mode="banner"></install-button>
 
         <div v-if="article">
-            <img :src="article.thumbnail" :alt="article.tags" class="banner">
             <main>
                 <div>
                     <span v-if="!article.published">En cours de traitement ...</span>
@@ -22,7 +21,8 @@
                         {{ article.title }}
                     </h1>
 
-                    <p>{{ article.summary }}</p>
+                    <p class="summary">{{ article.summary }}</p>
+                    <img :src="article.thumbnail" :alt="article.tags" class="banner">
 
                     <div id="markdown-wrapper" :class="needLogin ? 'restricted' : ''">
                         <div class="shade"></div>
@@ -81,8 +81,12 @@
 <style lang="scss" scoped>
 .banner {
     width: 100%;
-    height: 240px;
-    object-fit: cover;
+    height: auto;
+}
+
+.summary {
+    font-size: 22px;
+    line-height: 26px;
 }
 
 main {
