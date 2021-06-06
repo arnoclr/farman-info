@@ -5,11 +5,12 @@
             <p>Activez les notifications et tenez-vous informé de la sortie de nouveaux magazines ou d'articles importants.</p>
             <button class="fm-button fm-button--large" @click="requestNotifications">Me notifier</button>
         </div>
+        <install-button mode="banner" v-else></install-button>
         
         <div r>
             <main>
                 
-                <div class="fm-section fm-section--full-height" v-if="breakings">
+                <div class="fm-section fm-section--full-height" v-if="breakings.length > 0">
                     <div class="fm-section__centered">
                         <div class="fm-card fm-card--img fm-card--full-width" v-for="(article, index) in breakings" :key="index">
                             <div class="fm-card__img fm-card__img--left">
@@ -24,6 +25,11 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="fm-section fm-section--center" style="height:90vh" v-else>
+                    <div class="fm-section__centered-item">
+                        <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
                     </div>
                 </div>
 
@@ -134,7 +140,7 @@ export default {
         AppFooter: () => import('./Footer.vue'),
         AppHeader: () => import('./Navigation.vue'),
         AppSidebar: () => import('./utils/Sidebar.vue'),
-        LazyImg: () => import('./utils/LazyImage')
+        InstallButton: () => import('./utils/installButton.vue')
     },
     mixins: [notificationsMixin],
     data() {
