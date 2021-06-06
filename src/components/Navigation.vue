@@ -134,10 +134,11 @@
 
 <script>
 const {firebase, db, analytics} = require('../firebaseConfig.js')
-import { askForPermissioToReceiveNotifications } from '../assets/js/push-notification';
 import { getCategories } from '../assets/js/firestore/getCategories'
+import { notificationsMixin } from '../mixins/notifications'
 
 export default {
+    mixins: [notificationsMixin],
     props: [
         'transparent',
         'gestion'
@@ -173,9 +174,6 @@ export default {
                 alert(err)
             })
         },
-        requestNotifications() {
-            askForPermissioToReceiveNotifications()
-        },
         closeDisclaimer() {
             this.betaDisclaimer = false
             localStorage.setItem('disclaimer:beta', + new Date())
@@ -186,14 +184,6 @@ export default {
     },
     mounted() {
         this.fetchCategories()
-        if ('Notification' in window) {
-            if(Notification.permission === "granted") {
-                this.notificationsEnabled = true
-            }
-        } else {
-            // hide button if navigator don't support notifications
-            this.notificationsEnabled = true
-        }
         const disclaimerTimestamp = JSON.parse(localStorage.getItem('disclaimer:beta'))
         // hide disclaimer for 1 day
         if(disclaimerTimestamp + 1e3 * 86400 > + new Date()) {

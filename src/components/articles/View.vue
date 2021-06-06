@@ -56,7 +56,7 @@
                                     <div class="fm-card__body">
                                         <h1 class="fm-card__body-title">{{ article.title }}</h1>
                                         <div class="fm-card__body-content">
-                                            <p>{{ removeMdFromContent(article.content).substring(0, 150) }}</p>
+                                            <p>{{ article.summary.substring(0, 150) }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +140,6 @@ main {
 
 <script>
 import {db, analytics} from '../../firebaseConfig'
-import {articleCardMixin} from '../../mixins/articlesCard'
 import {parseMd} from '../../assets/js/utils/mdParse'
 
 export default {
@@ -150,7 +149,6 @@ export default {
         BottomShare: () => import('../utils/bottomShare.vue'),
         InstallButton: () => import('../utils/installButton.vue')
     },
-    mixins: [articleCardMixin],
     data() {
         return {
             article: null,

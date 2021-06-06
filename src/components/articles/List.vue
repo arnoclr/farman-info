@@ -49,7 +49,6 @@
 <script>
 import {db, auth} from '../../firebaseConfig'
 import {getCategories} from '../../assets/js/firestore/getCategories'
-import {articleCardMixin} from '../../mixins/articlesCard'
 
 export default {
     components: {
@@ -57,7 +56,6 @@ export default {
         AppHeader: () => import('../Navigation.vue'),
         CategoryLabel: () => import('../utils/CategoryLabel')
     },
-    mixins: [articleCardMixin],
     data() {
         return {
             articles: null,

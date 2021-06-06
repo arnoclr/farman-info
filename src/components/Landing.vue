@@ -1,6 +1,10 @@
 <template>
     <div>
         <app-header></app-header>
+        <div class="fm-promotion-banner" v-if="!notificationsEnabled">
+            <p>Activez les notifications et tenez-vous informé de la sortie de nouveaux magazines ou d'articles importants.</p>
+            <button class="fm-button fm-button--large" @click="requestNotifications">Me notifier</button>
+        </div>
         
         <div r>
             <main>
@@ -123,7 +127,7 @@
 <script>
 const {db} = require('../firebaseConfig.js')
 import {getCategories} from '../assets/js/firestore/getCategories'
-import {articleCardMixin} from '../mixins/articlesCard'
+import {notificationsMixin} from '../mixins/notifications'
 
 export default {
     components: {
@@ -132,7 +136,7 @@ export default {
         AppSidebar: () => import('./utils/Sidebar.vue'),
         LazyImg: () => import('./utils/LazyImage')
     },
-    mixins: [articleCardMixin],
+    mixins: [notificationsMixin],
     data() {
         return {
             mail: '',

@@ -14,7 +14,7 @@
                     <div v-for="(item, index) in magazines" v-bind:key="index" :class="index != 0 ? 'grid' : ''">
                         <div class="magazine-last" v-if="index === 0">
                             <h2>Dernier numéro
-                                <md-button @click="requestNotifications" class="md-icon-button" b>
+                                <md-button @click="requestNotifications" class="md-icon-button" v-if="!notificationsEnabled" b>
                                     <md-icon>notification_add</md-icon>
                                     <md-tooltip md-direction="bottom">Activer les notifications</md-tooltip>
                                 </md-button>
@@ -112,9 +112,10 @@
 
 <script>
 const {magazines} = require('../../firebaseConfig.js')
-import { askForPermissioToReceiveNotifications } from '../../assets/js/push-notification';
+import { notifcationsMixin, notificationsMixin } from '../../mixins/notifications';
 
 export default {
+    mixins: [notificationsMixin],
     components: {
         AppFooter: () => import('../Footer.vue'),
         AppHeader: () => import('../Navigation.vue'),
@@ -158,9 +159,6 @@ export default {
                 console.log(err)
                 this.$root.$emit('toast', err)
             })
-        },
-        requestNotifications() {
-            askForPermissioToReceiveNotifications()
         }
     }
 }
