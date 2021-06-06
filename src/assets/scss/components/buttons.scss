@@ -34,12 +34,6 @@
         background-color: rgba(150, 150, 150, 0.2);
     }
 
-    i {
-        font-size: 18px !important;
-        height: 18px;
-        color: #fff !important;
-    }
-
     // styles
     @mixin --flat {
         background-color: transparent;
@@ -84,6 +78,20 @@
 
         i {
             color: #888;
+        }
+    }
+
+    &__icon {
+        font-size: 18px !important;
+        height: 18px;
+        color: #fff !important;
+
+        &--right {
+            margin-left: 4px;
+        }
+
+        &--left {
+            margin-right: 4px;
         }
     }
 }

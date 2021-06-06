@@ -35,7 +35,7 @@
                     <div class="mb-64" sl>
                         <p p>Partager l'article <md-icon>arrow_forward</md-icon></p>
                         <bottom-share :open.sync="shareDialogOpen" :url="$root.hostname + $route.path + '?ref=share'"></bottom-share>
-                        <button @click="shareDialogOpen = true" class="fm-button">partager</button>
+                        <button @click="shareDialogOpen = true" class="fm-button">partager <i class="material-icons fm-button__icon fm-button__icon--right">{{ $device.ios ? 'ios_share' : 'share' }}</i></button>
                     </div>
 
                     <div  v-if="related && related.length > 0">

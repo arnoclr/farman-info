@@ -175,7 +175,7 @@ export default {
             .catch(e => this.articlesHorizontalLoading = false)
         },
         fetchBreaking() {
-            db.collection('articles').where('breaking', '==', true).orderBy('createdAt', 'desc').limit(2).get()
+            db.collection('articles').where('published', '==', true).where('breaking', '==', true).orderBy('createdAt', 'desc').limit(2).get()
             .then(docs => {
                 docs.forEach(doc => {
                     this.breakings.push({id: doc.id, ...doc.data()})
