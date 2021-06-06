@@ -153,7 +153,6 @@ export default {
             hasArticleDraft: localStorage.getItem('submit:draft'),
             showSidepanel: false,
             categories: null,
-            notificationsEnabled: false,
             offline: !navigator.onLine,
             userModalOpen: false,
             logoutModalOpen: false,
