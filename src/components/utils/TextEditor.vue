@@ -80,7 +80,7 @@ export default {
         },
         updateTextEditor(text) {
             if(text.length === 0) return
-            let result = parseMd(text)
+            let result = parseMd(text, true)
             this.quill.clipboard.dangerouslyPasteHTML(result)
         },
         initContent(text, event) {

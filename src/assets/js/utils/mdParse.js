@@ -1,6 +1,6 @@
 // https://codepen.io/kvendrik/pen/Gmefv?editors=0010
 
-const parseMd = (md) => {
+const parseMd = (md, forQuill = false) => {
   
     //ul
     md = md.replace(/^\s*\n\*/gm, '<ul>\n*');
@@ -47,8 +47,15 @@ const parseMd = (md) => {
     
     //p
     md = md.replace(/^\s*(\n)?(.+)/gm, function(m){
-      return  /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) ? m : '<p>'+m+'</p>';
+      return  /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) 
+        ? m 
+        : '<p>'+ m.replace(/\n+/g, '') +'</p>';
     });
+
+    //br
+    if(forQuill) {
+      md = md.replace(/([ +]*\n)+/gm, '<p><br></p>');
+    }
     
     //strip p from pre
     md = md.replace(/(\<pre.+\>)\s*\n\<p\>(.+)\<\/p\>/gm, '$1$2');
