@@ -9,6 +9,10 @@
                     <md-input md-counter="100" max="100" v-model="article.title" required></md-input>
                 </md-field>
 
+                <img height="160" :src="article.thumbnail">
+                <button class="fm-button" @click="imageUploaderOpen = true">{{ article.thumbnail ? 'Modifier la vignette' : 'Ajouter une vignette' }}</button>
+                <image-uploader ref="uploader" :callback="insertThumb" :open.sync="imageUploaderOpen"></image-uploader>
+
                 <md-field>
                     <label>Chapeau</label>
                     <md-textarea md-counter="500" max="500" v-model="article.summary" required></md-textarea>
@@ -35,7 +39,7 @@
                 <button class="fm-button fm-button--outlined fm-button--large" @click="deleteDraft">Supprimer mon brouillon</button>
 
                 <span help v-if="article.id">Attention, vos modifications devront être revalidées pour que votre article soit a nouveau visible. Ce processus peut prendre un certain temps.</span>
-                <span help>La première image de votre article sera utilisée en tant que vignette.</span>
+                <span help>Veuillez porter une attention toute particulière aux fautes d'orthographe et de formulation. Il peut s'agir d'un motif de refus.</span>
                 <span help>En continuant, vous confirmez avoir lu et approuvé nos <a target="_blank" href="https://farman.ga/s/cgu">conditions générales d'utilisation.</a></span>
             </div>
         </main>
@@ -72,28 +76,24 @@ main {
 }
 </style>
 
-<style>
-#submit-article-tabs .md-tabs-navigation {
-    position: sticky;
-    top: 70px;
-    background-color: #fff;
-    z-index: 1;
-}
-#submit-article-tabs .md-tabs-content {
-    height: auto !important;
-}
-</style>
-
 <script>
 import {db, firebase} from '../../firebaseConfig'
 import {getCategories} from '../../assets/js/firestore/getCategories'
 const articles = db.collection('articles')
 
 export default {
+    components: {
+        AppFooter: () => import('../Footer.vue'),
+        AppHeader: () => import('../Navigation.vue'),
+        TextEditor: () => import('../utils/TextEditor.vue'),
+        imageUploader: () => import('../utils/ImageUploader')
+    },
     data() {
         return {
             article: {
                 title: '',
+                thumbnail: null,
+                summary: '',
                 content: '',
                 category: null,
                 tags: []
@@ -111,6 +111,7 @@ Qui ? Quoi ? Où ? Comment ? Pourquoi ?
 A vos stylos ...
 `,
             categories: false,
+            imageUploaderOpen: false,
             isMobile: window.matchMedia('only screen and (max-width: 1200px)').matches,
         }
     },
@@ -118,13 +119,17 @@ A vos stylos ...
         updateContent(text) {
             this.article.content = text
         },
+        insertThumb(url) {
+            this.article.thumbnail = url
+        },
         submit() {
             this.submitting = true
             if(this.article.id)
                 return this.updateArticle()
-            if(this.article.title && this.article.summary && this.article.content && this.article.category && this.article.tags) {
+            if(this.article.title && this.article.thumbnail && this.article.summary && this.article.content && this.article.category && this.article.tags) {
                 articles.add({
                     title: this.article.title,
+                    thumbnail: this.article.thumbnail,
                     summary: this.article.summary,
                     content: this.article.content,
                     category: this.article.category,
@@ -146,11 +151,13 @@ A vos stylos ...
                 })
             } else {
                 this.$root.$emit('toast', 'Champs non remplis')
+                this.submitting = false
             }
         },
         updateArticle() {
             articles.doc(this.article.id).update({
                 title: this.article.title,
+                thumbnail: this.article.thumbnail,
                 summary: this.article.summary,
                 content: this.article.content,
                 category: this.article.category,
@@ -202,11 +209,6 @@ A vos stylos ...
         window.addEventListener('resize', () => {
             this.isMobile = window.matchMedia('only screen and (max-width: 1200px)').matches
         })
-    },
-    components: {
-        AppFooter: () => import('../Footer.vue'),
-        AppHeader: () => import('../Navigation.vue'),
-        TextEditor: () => import('../utils/TextEditor.vue')
     },
 }
 </script>

@@ -70,6 +70,7 @@ service cloud.firestore {
             allow create: if isAuth()
                 && incomingData().uid == request.auth.uid
                 && incomingData().published == false
+                && incomingData().thumbnail.matches('https://.+\\.[a-z]+/.+')
                 && incomingData().title.size() <= 100
                 && incomingData().summary.size() <= 500
                 && incomingData().content.size() <= 10000
@@ -81,6 +82,7 @@ service cloud.firestore {
                     && notModified(['uid', 'createdAt'])
                     && request.auth.uid == actualData().uid
                     && incomingData().published == false
+                    && incomingData().thumbnail.matches('https://.+\\.[a-z]+/.+')
                     && incomingData().title.size() <= 100
                     && incomingData().summary.size() <= 500
                     && incomingData().content.size() <= 10000

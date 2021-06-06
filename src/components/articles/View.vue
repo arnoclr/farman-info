@@ -47,7 +47,7 @@
                                 v-for="(article, index) in related" :key="index">
                                 <div class="fm-card fm-card--img fm-card--medium">
                                     <div class="fm-card__img">
-                                        <img :src="getImageFromContent(article.content)" :alt="article.title">
+                                        <img :src="article.thumbnail" :alt="article.title">
                                     </div>
                                     <div class="fm-card__body">
                                         <h1 class="fm-card__body-title">{{ article.title }}</h1>

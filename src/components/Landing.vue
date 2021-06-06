@@ -9,7 +9,7 @@
                     <div class="fm-section__centered">
                         <div class="fm-card fm-card--img fm-card--full-width" v-for="(article, index) in breakings" :key="index">
                             <div class="fm-card__img fm-card__img--left">
-                                <img loading="lazy" :src="getImageFromContent(article.content)" :alt="article.title">
+                                <img loading="lazy" :src="article.thumbnail" :alt="article.title">
                             </div>
                             <div class="fm-card__body">
                                 <span class="fm-card__body-category" v-if="categories">a la une - {{ category }}</span>
@@ -33,7 +33,7 @@
                     v-for="(article, index) in articlesByCategories.other" :key="index">
                         <div class="fm-card fm-card--img fm-card-fullwidth">
                             <div class="fm-card__img fm-card__img--small">
-                                <img loading="lazy" :src="getImageFromContent(article.content)" :alt="article.title">
+                                <img loading="lazy" :src="article.thumbnail" :alt="article.title">
                             </div>
                             <div class="fm-card__body">
                                 <h1 class="fm-card__body-title">{{ article.title }}</h1>
@@ -57,7 +57,7 @@
                                 v-for="(article, index) in articlesByCategories[category.id]" :key="index">
                                     <div class="fm-card fm-card--img fm-card--medium">
                                         <div class="fm-card__img">
-                                            <img :src="getImageFromContent(article.content)" :alt="article.title">
+                                            <img :src="article.thumbnail" :alt="article.title">
                                         </div>
                                         <div class="fm-card__body">
                                             <h1 class="fm-card__body-title">{{ article.title }}</h1>

@@ -68,7 +68,7 @@ const {storage} = require('../../firebaseConfig.js')
 const images = storage.ref('images')
 
 export default {
-    name: 'ImageUploadDialog',
+    name: 'ImageUploader',
     props: [
         'callback',
         'open',
