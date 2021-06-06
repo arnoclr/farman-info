@@ -17,7 +17,8 @@
                 <div v-if="articles">
                     <article v-for="(article, index) in articles" v-bind:key="index">
                         <router-link :to="'/article/' + article.id + '?ref=feed'"
-                            class="fm-card fm-card--img fm-card--full-width">
+                            class="fm-card fm-card--img fm-card--full-width"
+                            :disabled="!article.published">
                             <div class="fm-card__img fm-card__img--left fm-card__img--limited-height">
                                 <img :src="article.thumbnail" :alt="article.title">
                             </div>
@@ -28,7 +29,7 @@
                                 </router-link>
                                 <h1 class="fm-card__body-title">{{ article.title }}</h1>
                                 <div class="fm-card__body-content">
-                                    <p>{{ removeMdFromContent(article.content).substring(0, 150) }}</p>
+                                    <p>{{ article.summary }}</p>
                                 </div>
                                 <span class="fm-card__body-date">
                                     {{ new Date(article.createdAt.seconds*1000).toLocaleDateString("fr-FR", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
