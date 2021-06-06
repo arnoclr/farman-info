@@ -97,14 +97,25 @@ const router = new Router({
 	]
 })
 
+const getPWADisplayMode = () => {
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+  if (document.referrer.startsWith('android-app://')) {
+    return 'twa';
+  } else if (navigator.standalone || isStandalone) {
+    return 'standalone';
+  }
+  return 'browser';
+}
+
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const currentUser = auth.currentUser
 
   let urlParams = new URLSearchParams('?' + to.fullPath.split('?')[1])
+  window.ref = urlParams.get('ref')
   analytics.logEvent('page_view', { 
-    type: 'internal',
-    click_source: urlParams.get('ref')
+    ref: window.ref,
+    displayMode: getPWADisplayMode()
   })
 
   // remove ref param from url

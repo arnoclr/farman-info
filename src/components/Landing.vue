@@ -12,7 +12,7 @@
                                 <img loading="lazy" :src="article.thumbnail" :alt="article.title">
                             </div>
                             <div class="fm-card__body">
-                                <span class="fm-card__body-category" v-if="categories">a la une - {{ category }}</span>
+                                <span class="fm-card__body-category fm-card__body-category--breaking" v-if="categories">à la une</span>
                                 <h1 class="fm-card__body-title">{{ article.title }}</h1>
                                 <div class="fm-card__body-content">
                                     <p>{{ article.summary }}</p>

@@ -160,9 +160,12 @@ export default {
         },
         savePdfIntoStorage(blob) {
             browserFileStorage.save(this.magazine.ref, blob).then(file => {
-                analytics.logEvent('pdf_downloaded', { name: this.magazine.title})
                 this.$root.$emit('toast', this.magazine.title + ' télechargé avec succès')
                 this.checkIfPdfIsStored()
+                analytics.logEvent('pdf_downloaded', {
+                    name: this.magazine.title,
+                    file_size: blob.size
+                })
             }).catch(error => {
                 console.error('Could not save the pdf :', file)
             })

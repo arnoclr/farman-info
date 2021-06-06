@@ -126,7 +126,7 @@ main {
 </style>
 
 <script>
-import {db} from '../../firebaseConfig'
+import {db, analytics} from '../../firebaseConfig'
 import {articleCardMixin} from '../../mixins/articlesCard'
 import {parseMd} from '../../assets/js/utils/mdParse'
 
@@ -193,6 +193,12 @@ export default {
                 if(this.article.needLogin && !this.user) {
                     this.needLogin = true
                 }
+                analytics.logEvent('read_article', {
+                    ref: window.ref,
+                    article_author: this.article.uid,
+                    article_length: this.article.content.length,
+                    article_tags: this.article.tags
+                })
             })
             .catch(err => {
                 console.error(err)
