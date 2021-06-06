@@ -54,7 +54,7 @@ auth.onAuthStateChanged(user => {
         document.getElementById('load').style.display = 'none'
     }, 350 + 350);
 
-    if(user && window.consent) analytics.setUserId(user.uid)
+    if(user && user.uid) analytics.setUserId(user.uid)
     
     if(!app) {
         app = new Vue({

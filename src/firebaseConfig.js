@@ -34,9 +34,7 @@ if(firebase.messaging.isSupported()) {
 // check cookie consent before init
 const consent = JSON.parse(localStorage.getItem('cookie:accepted'))
 window.consent = consent
-analytics.logEvent('rgpd_consent', {
-  consent: consent
-})
+analytics.setUserProperties({consent: consent})
 // firebase sdk automatically anonimyze ip
 // https://support.google.com/firebase/answer/9019185?hl=en#zippy=%2Cin-this-article
 

@@ -1,3 +1,5 @@
+import { analytics } from './firebaseConfig'
+
 const CA_PUB_CLIENT = 'ca-pub-7307476520007592'
 const ADS_SCRIPT = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + CA_PUB_CLIENT
 
@@ -10,6 +12,9 @@ const AutoAdsense = () => {
         return window.consent
             ? (adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=0
             : (adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=1
+    }
+    s.onerror = (e) => {
+        analytics.setUserProperties({adblock: true})
     }
     head.appendChild(s)
 }
