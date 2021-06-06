@@ -79,7 +79,8 @@ export default {
             },
             scrollState: 0,
             scrollOffset: 0,
-            isSwiping: false
+            isSwiping: false,
+            canceled: true
         }
     },
     computed: {
@@ -102,9 +103,17 @@ export default {
             setTimeout(() => {
                 body.style.removeProperty('overflow')
             }, 250);
+            if(this.canceled) {
+                analytics.logEvent('article_shared', {
+                    canceled: this.canceled,
+                    display_mode: window.PWADisplayMode
+                })
+            }
         },
         logEvent(provider) {
+            this.canceled = false
             analytics.logEvent('article_shared', {
+                canceled: this.canceled,
                 provider: provider,
                 display_mode: window.PWADisplayMode
             })
