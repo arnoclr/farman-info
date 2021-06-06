@@ -77,7 +77,7 @@ main {
 </style>
 
 <script>
-import {db, firebase} from '../../firebaseConfig'
+import {analytics, db, firebase} from '../../firebaseConfig'
 import {getCategories} from '../../assets/js/firestore/getCategories'
 const articles = db.collection('articles')
 
@@ -144,6 +144,7 @@ A vos stylos ...
                     this.article.title = this.article.summary = this.article.content = this.article.category = null
                     localStorage.removeItem('submit:draft')
                     this.$router.push('/article/' + doc.id + '?ref=submit_page')
+                    analytics.logEvent('publish_article')
                 })
                 .catch(err => {
                     alert(err)
@@ -167,6 +168,7 @@ A vos stylos ...
                 published: false
             }).then(() => {
                 this.$root.$emit('toast', 'Article mis à jour, vous allez être redirigé dans quelques secondes.')
+                analytics.logEvent('save_article')
                 setTimeout(() => {
                     this.$router.push('/article/' + this.article.id + '?ref=edit')
                 }, 3000);
@@ -200,10 +202,14 @@ A vos stylos ...
         const id = this.$route.params.ref
         if(id) {
             this.fetch(id)
-        } else if (!localStorage.getItem('submit:draft')) {
-            setTimeout(() => {
-                this.$refs.textEditor.initContent(this.template)
-            }, 1000);
+            analytics.logEvent('edit_article')
+        } else {
+            if (!localStorage.getItem('submit:draft')) {
+                setTimeout(() => {
+                    this.$refs.textEditor.initContent(this.template)
+                }, 1000);
+            }
+            analytics.logEvent('write_article')
         }
 
         window.addEventListener('resize', () => {

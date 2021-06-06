@@ -103,7 +103,7 @@ p.firebaseui-tospp-full-message {
 </style>
 
 <script>
-    const {firebase, auth} = require('../firebaseConfig.js')
+    import {firebase, auth, analytics} from '../firebaseConfig.js';
     import * as firebaseui from '../assets/js/npm__fr';
     import "firebaseui/dist/firebaseui.css";
     
@@ -188,6 +188,7 @@ p.firebaseui-tospp-full-message {
         methods: {
             exitLoginPage() {
                 this.$router.push(this.loginFromUrl)
+                analytics.logEvent('login')
             }
         }
     }

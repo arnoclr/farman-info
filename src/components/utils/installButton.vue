@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import {analytics} from '../../firebaseConfig'
+
 export default {
     props: ['mode'],
     data() {
@@ -40,6 +42,9 @@ export default {
             this.deferredPrompt.userChoice.then(outcome, () => {
                 // Optionally, send analytics event with outcome of user choice
                 console.log(`User response to the install prompt: ${outcome}`)
+                analytics.logEvent('pwa_install', {
+                    outcome: outcome
+                })
             })
             // We've used the prompt, and can't use it again, throw it away
             this.deferredPrompt = null
