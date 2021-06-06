@@ -172,7 +172,7 @@ export default {
             ],
             meta: [
                 { name: 'keywords', content: this.article ? this.article.tags : '' },
-                { name: 'description', vmid: 'description', content: this.article ? this.removeMdFromContent(this.article.content).substring(0, 160) : '' }
+                { name: 'description', vmid: 'description', content: this.article ? this.article.summary.substring(0, 160) : '' }
             ]
         }
     },

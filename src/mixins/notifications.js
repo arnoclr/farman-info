@@ -17,6 +17,8 @@ const askForPermissionToReceiveNotifications = async () => {
             success: false,
             error: error
         })
+
+        return error
     }
 }
 
@@ -28,13 +30,17 @@ export const notificationsMixin = {
     },
     methods: {
         requestNotifications() {
-            askForPermissionToReceiveNotifications().then(() => {
+            askForPermissionToReceiveNotifications()
+            .then(() => {
+                this.checkGrantedStatus()
+            })
+            .catch(error => {
                 this.checkGrantedStatus()
             })
         },
         checkGrantedStatus() {
             if ('Notification' in window) {
-                if(Notification.permission === "granted") {
+                if(Notification.permission === "granted" || Notification.permission === "denied") {
                     this.notificationsEnabled = true
                 } else {
                     this.notificationsEnabled = false

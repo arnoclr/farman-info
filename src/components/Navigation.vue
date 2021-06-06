@@ -1,11 +1,11 @@
 <template>
     <header class="fm-header fm-header--sticky">
-        <section v-if="betaDisclaimer" class="fm-header__disclaimer">
+        <!-- <section v-if="betaDisclaimer" class="fm-header__disclaimer">
             <span>Ce site est en cours de développement et peut contenir des bugs. Les fonctionnalités principales sont deja disponibles et des ajouts arriveront par la suite.</span>
             <md-button @click="closeDisclaimer" class="md-icon-button">
                 <md-icon>close</md-icon>
             </md-button>
-        </section>
+        </section> -->
 
         <section class="fm-header__top">
             <a class="fm-header__top-link fm-link fm-link--white" title="connexion" @click="login" v-if="!user" login>Connexion</a>
