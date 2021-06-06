@@ -1,6 +1,7 @@
 <template>
     <div>
         <app-header></app-header>
+        <install-button mode="banner"></install-button>
 
         <div>
             <main>
@@ -133,7 +134,8 @@ export default {
     components: {
         AppFooter: () => import('../Footer.vue'),
         AppHeader: () => import('../Navigation.vue'),
-        BottomShare: () => import('../utils/bottomShare.vue')
+        BottomShare: () => import('../utils/bottomShare.vue'),
+        InstallButton: () => import('../utils/installButton.vue')
     },
     mixins: [articleCardMixin],
     data() {
