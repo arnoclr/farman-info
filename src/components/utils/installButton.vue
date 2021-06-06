@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!showInstallPromotion">
+    <div v-if="showInstallPromotion">
         <div class="fm-promotion-banner" v-if="mode === 'banner'">
             <img src="/assets/logos/icons-192.png" alt="logo myFarman" class="fm-promotion-banner__logo">
             <p>Installez l'application MyFarman et profitez de vos magazines et articles hors connexion.</p>
