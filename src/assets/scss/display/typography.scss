@@ -67,3 +67,32 @@ p {
 .material-icons, .md-icon-font {
     font-family: 'Material Icons Sharp';
 }
+
+.fm-markdown .ql-snow .ql-editor,
+.fm-markdown {
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+
+    h1 {
+        font-size: 28px;
+    }
+    h2 {
+        font-size: 22px;
+        letter-spacing: -1px;
+    }
+    h3 {
+        font-size: 18px;
+    }
+
+    p, ul, li {
+        font-size: 16px;
+    }
+
+    blockquote {
+        background-color: rgba(150, 150, 150, 0.2);
+        margin: 0;
+        padding: 16px;
+        padding-left: 48px;
+        border-left: 2px solid grey;
+        font-size: 16px;
+    }
+}

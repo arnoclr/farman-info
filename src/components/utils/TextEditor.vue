@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <div @dragover="dragover" @dragleave="dragleave" @drop="drop">
+        <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="fm-markdown">
             <div ref="editor"></div>
             <span>{{ editableContent.length }}/{{ counter }}</span>
         </div>
@@ -81,7 +81,7 @@ export default {
         updateTextEditor(text) {
             if(text.length === 0) return
             let result = parseMd(text)
-            this.quill.root.innerHTML = result
+            this.quill.clipboard.dangerouslyPasteHTML(result)
         },
         initContent(text, event) {
             this.updateTextEditor(text)
@@ -108,7 +108,8 @@ export default {
                     container: [
                         [{ header: [1, 2, 3, false] }],
                         ['bold', 'italic', 'blockquote'],
-                        ['image']
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link' ,'image']
                     ],
                 }
             },

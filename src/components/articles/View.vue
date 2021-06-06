@@ -22,7 +22,7 @@
 
                     <div id="markdown-wrapper" :class="needLogin ? 'restricted' : ''">
                         <div class="shade"></div>
-                        <div v-html="markdownRender"></div>
+                        <div class="fm-markdown" v-html="markdownRender"></div>
                     </div>
 
                     <div class="fm-box fm-box--centered" v-if="needLogin">
