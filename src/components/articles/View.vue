@@ -3,9 +3,10 @@
         <app-header></app-header>
         <install-button mode="banner"></install-button>
 
-        <div>
+        <div v-if="article">
+            <img :src="article.thumbnail" :alt="article.tags" class="banner">
             <main>
-                <div v-if="article">
+                <div>
                     <span v-if="!article.published">En cours de traitement ...</span>
                     <router-link v-if="user && article.uid == user.uid" :to="'/article/' + $route.params.ref + '/edit'">modifier (vous êtes le seul a voir ce message)</router-link>
                     
@@ -20,6 +21,8 @@
                         </md-icon>
                         {{ article.title }}
                     </h1>
+
+                    <p>{{ article.summary }}</p>
 
                     <div id="markdown-wrapper" :class="needLogin ? 'restricted' : ''">
                         <div class="shade"></div>
@@ -76,6 +79,12 @@
 </template>
 
 <style lang="scss" scoped>
+.banner {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
 main {
     i.lock {
         margin-right: 16px;
