@@ -20,7 +20,7 @@
                                 <h1 class="fm-card__body-title">{{ article.title }}</h1>
                                 <div class="fm-card__body-content">
                                     <p>{{ article.summary }}</p>
-                                    <router-link role="button" class="fm-button" :to="'/article/' + article.id + '?ref=landing_breaking'">lire</router-link>
+                                    <router-link role="button" class="fm-button fm-button--large" :to="'/article/' + article.id + '?ref=landing_breaking'">lire</router-link>
                                 </div>
                             </div>
                         </div>

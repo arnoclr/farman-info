@@ -192,6 +192,7 @@ A vos stylos ...
             })
         },
         deleteDraft() {
+            this.article.content = ''
             localStorage.removeItem('submit:draft')
             window.location.reload()
         }

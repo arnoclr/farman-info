@@ -6,10 +6,17 @@ const askForPermissionToReceiveNotifications = async () => {
         await messaging.requestPermission()
         const token = await messaging.getToken()
         console.log('notification token :', token)
+        analytics.logEvent('request_notifications', {
+            success: true
+        })
 
         return token;
     } catch (error) {
         console.error(error)
+        analytics.logEvent('request_notifications', {
+            success: false,
+            error: error
+        })
     }
 }
 
