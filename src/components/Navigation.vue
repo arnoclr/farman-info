@@ -133,7 +133,7 @@
 </style>
 
 <script>
-const {firebase, db} = require('../firebaseConfig.js')
+const {firebase, db, analytics} = require('../firebaseConfig.js')
 import { askForPermissioToReceiveNotifications } from '../assets/js/push-notification';
 import { getCategories } from '../assets/js/firestore/getCategories'
 
@@ -168,6 +168,7 @@ export default {
         logout() {
             firebase.auth().signOut().then(() => {
                 this.$router.go()
+                analytics.logEvent('logout')
             }).catch(err => {
                 alert(err)
             })
