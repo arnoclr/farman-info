@@ -1,7 +1,7 @@
 {
     "short_name": "MyFarman",
     "name": "MyFarman par Farman",
-    "description": "Farman publie des actualités sur les compagnies aériennes, les aéroports, les bons plans pour prendre l'avion et les voyages chaque semaine pour tout savoir sur le transport aérien et l'aviation civile en France.",
+    "description": "Découvrez l'app MyFarman et consultez tout le contenu de presse du site farman.info hors connexion. Farman est un média aéronautique qui met en avant l'innovation et les dernières actualités du moment.",
     "icons": [
         {
             "src": "/assets/logos/icons-192.png",
@@ -21,18 +21,18 @@
     "theme_color": "#009698",
     "screenshots": [
         {
-            "src": "/assets/screenshots/magazines.png",
-            "sizes": "750x1333",
+            "src": "/assets/screenshots/Farman_App_Pres1.png",
+            "sizes": "1080x1920",
             "type": "image/png"
         },
         {
-            "src": "/assets/screenshots/login.png",
-            "sizes": "750x1333",
+            "src": "/assets/screenshots/Farman_App_Pres2.png",
+            "sizes": "1080x1920",
             "type": "image/png"
         },
         {
-            "src": "/assets/screenshots/submit.png",
-            "sizes": "750x1333",
+            "src": "/assets/screenshots/Farman_App_Pres3.png",
+            "sizes": "1080x1920",
             "type": "image/png"
         }
     ],
