@@ -13,6 +13,7 @@
                 <div class="fm-bottom-sheat__body-grid">
                     <a 
                     :href="'https://wa.me/?text=' + url"
+                    @click="logEvent('whatsapp')"
                     target="_blank" rel="noreferrer noopener"
                     class="fm-bottom-sheat__body-grid-item">
                         <img src="/assets/icons/apps/com.whatsapp.webp" class="fm-bottom-sheat__body-grid-item-icon">
@@ -20,6 +21,7 @@
                     </a>
                     <a 
                     :href="'https://twitter.com/intent/tweet?text=' + url"
+                    @click="logEvent('twitter')"
                     target="_blank" rel="noreferrer noopener"
                     class="fm-bottom-sheat__body-grid-item">
                         <img src="/assets/icons/apps/com.twitter.android.webp" class="fm-bottom-sheat__body-grid-item-icon">
@@ -27,6 +29,7 @@
                     </a>
                     <a 
                     :href="'https://www.facebook.com/sharer/sharer.php?s=100&p[url]=' + url"
+                    @click="logEvent('facebook')"
                     target="_blank" rel="noreferrer noopener"
                     class="fm-bottom-sheat__body-grid-item">
                         <img src="/assets/icons/apps/com.facebook.katana.webp" class="fm-bottom-sheat__body-grid-item-icon">
@@ -34,6 +37,7 @@
                     </a>
                     <a 
                     :href="'https://t.me/share/url?url=' + url"
+                    @click="logEvent('telegram')"
                     target="_blank" rel="noreferrer noopener"
                     class="fm-bottom-sheat__body-grid-item">
                         <img src="/assets/icons/apps/org.telegram.messenger.webp" class="fm-bottom-sheat__body-grid-item-icon">
@@ -93,12 +97,17 @@ export default {
     },
     methods: {
         closeModal() {
-            analytics.logEvent('article_shared')
             this.$emit('update:open', false)
             this.resetSwipe()
             setTimeout(() => {
                 body.style.removeProperty('overflow')
             }, 250);
+        },
+        logEvent(provider) {
+            analytics.logEvent('article_shared', {
+                provider: provider,
+                display_mode: window.PWADisplayMode
+            })
         },
         startSwipe(e) {
             this.scrollState = e.clientY || e.touches[0].clientY
@@ -125,6 +134,7 @@ export default {
         nativeShare() {
             try {
                 navigator.share(this.shareData)
+                this.logEvent('native_share')
             } catch(err) {
                 alert(err)
             }
@@ -141,6 +151,7 @@ export default {
             try {
                 document.execCommand('copy')
                 this.$root.$emit('toast', 'Lien copié dans le presse papier')
+                this.logEvent('copy_link')
             } catch {
                 this.$root.$emit('toast', 'Erreur lors de la copie du lien')
             }

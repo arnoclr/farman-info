@@ -106,6 +106,7 @@ const getPWADisplayMode = () => {
   }
   return 'browser';
 }
+window.PWADisplayMode = getPWADisplayMode()
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
@@ -115,7 +116,7 @@ router.beforeEach((to, from, next) => {
   window.ref = urlParams.get('ref')
   analytics.logEvent('page_view', { 
     ref: window.ref,
-    displayMode: getPWADisplayMode()
+    display_mode: window.PWADisplayMode
   })
 
   // remove ref param from url
