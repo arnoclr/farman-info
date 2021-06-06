@@ -90,8 +90,12 @@ service cloud.firestore {
                 )
                 || isAdmin()
 
-            allow delete: if isAuth()
-                && actualData().uid == request.auth.uid
+            allow delete: 
+                if (
+                    isAuth()
+                    && actualData().uid == request.auth.uid
+                )
+                || isAdmin()
         }
 
         match /categories/{cid} {
