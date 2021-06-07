@@ -5,6 +5,7 @@ import 'firebase/storage'
 import 'firebase/auth'
 import 'firebase/messaging'
 import 'firebase/remote-config'
+import 'firebase/app-check'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBzk6MWgJJcmZNP4oKhp_xCfI8PhTdqRGE",
@@ -26,6 +27,10 @@ const auth = firebase.auth()
 const storage = firebase.storage()
 let messaging = null
 const remoteConfig = firebase.remoteConfig()
+
+// app check
+const appCheck = firebase.appCheck()
+appCheck.activate('6LfIehsbAAAAAM1O9-5EWMxKpaY8eiuwcu05DE7q')
 
 if(firebase.messaging.isSupported()) {
   messaging = firebase.messaging()
