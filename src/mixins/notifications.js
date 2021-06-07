@@ -39,7 +39,7 @@ export const notificationsMixin = {
             })
         },
         checkGrantedStatus() {
-            if ('Notification' in window) {
+            if ('Notification' in window && messaging) {
                 if(Notification.permission === "granted" || Notification.permission === "denied") {
                     this.notificationsEnabled = true
                 } else {
