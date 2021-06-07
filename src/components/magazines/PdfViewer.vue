@@ -3,7 +3,7 @@
         <div v-if="!error" class="no-padding">
             <div class="summary" :class="summaryOpen ? 'open' : ''">
                 <div class="scroll" ref="scroll" v-on:scroll.passive="summaryScrolled">
-                    <a @click="$router.push('/magazine/' + $route.params.ref + '?ref=back_button')" class="icon-button">
+                    <a @click="$router.go(-1)" class="icon-button">
                         <i class="material-icons">arrow_back</i>
                     </a>
                     <div

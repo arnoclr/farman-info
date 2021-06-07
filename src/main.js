@@ -96,8 +96,10 @@ auth.onAuthStateChanged(user => {
 
         router.beforeEach((to, from, next) => {
             const noTransition = to.matched.some(x => x.meta.noTransition)
-            if(noTransition === false)
+            if(noTransition === false) {
                 app.loading.state = true
+                window.scrollTo({top: 0, behavior: 'smooth'})
+            }
             app.loading.mode = 'indeterminate'
             next()
         })

@@ -34,4 +34,38 @@
     &__centered {
         display: block;
     }
+
+    &--bottom {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    &--shade {
+        background: rgb(255,255,255);
+        background: linear-gradient(0deg, rgba(255,255,255,1) 75%, rgba(0,0,0,0) 100%);
+    }
+
+    &--mag {
+        display: block;
+
+        .fm-section__img {
+            aspect-ratio: 1/1.414;
+            width: 96px;
+        }
+
+        @media screen and (min-width: 700px) {
+            display: flex;
+
+            .fm-section__img {
+                min-width: 140px;
+            }
+
+            .fm-section__desc {
+                margin-left: 32px;
+            }
+        }
+    }
 }

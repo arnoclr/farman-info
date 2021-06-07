@@ -11,7 +11,7 @@ $fm-bottom-sheat--radius: 24px;
     left: 0;
     border-top-right-radius: $fm-bottom-sheat--radius;
     border-top-left-radius: $fm-bottom-sheat--radius;
-    transform: translateY(calc(100vh - 140px));
+    transform: translateY(calc(100vh - 140px + 20px));
     transition: transform 350ms ease-in-out;
     z-index: 3;
 

@@ -10,82 +10,77 @@
                 <div></div>
             </div>
             <div class="fm-bottom-sheat__body">
-                <div class="error" v-if="error">
-                    <p>Une erreur est survenue : <ins>{{ error }}</ins></p>
-                </div>
-
-                <template id="landing" v-if="magazine && !error">
-                    <img :src="magazine.image" alt="">
-                    <h1>{{ magazine.title }}</h1>
-                    <p v-if="magazine.summary">{{ magazine.summary }}</p>
-                    <div class="info" v-else>
-                        <p>Description non disponible.</p>
+                <div class="fm-bottom-sheat__body-grid">
+                    <div class="error" v-if="error">
+                        <p>Une erreur est survenue : <ins>{{ error }}</ins></p>
                     </div>
 
-                    <div class="fm-section">
-                        <router-link 
-                            :to="{ name: 'PdfViewer', params: { ref: magazine.ref } }"
-                            class="fm-button fm-button--large fm-button--full" id="start-reading"
-                            :disabled="offline && !stored">
-                            {{ continueReading ? 'Continuer a lire' : 'Ouvrir le lecteur' }}    
-                        </router-link>
+                    <template id="landing" v-if="magazine && !error">
+                        <div class="fm-section fm-section--mag">
+                            <img class="fm-section__img" :src="magazine.image" alt="">
+                            <div class="fm-section__desc">
+                                <h1>{{ magazine.title }}</h1>
+                                <p v-if="magazine.summary">{{ magazine.summary }}</p>
+                                <div class="info" v-else>
+                                    <p>Description non disponible.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fm-section fm-section--bottom fm-section--shade p-16">
+                            <!-- downloaded pdf -->
+                            <div class="fm-section" v-if="stored">
+                                <button @click="deletePdfFromStorage"
+                                class="fm-button fm-button--large fm-button--full fm-button--outlined">
+                                    Supprimer
+                                    <md-icon class="fm-button__icon fm-button__icon--right">delete</md-icon>
+                                </button>
+                                <router-link 
+                                    :to="{ name: 'PdfViewer', params: { ref: magazine.ref } }"
+                                    class="fm-button fm-button--large fm-button--full" id="start-reading"
+                                    :disabled="offline && !stored">
+                                    {{ continueReading ? 'Continuer a lire' : 'Lire' }}
+                                </router-link>
+                            </div>
+
+                            <!-- download button -->
+                            <div class="fm-section" v-else-if="canDownload">
+                                <button @click="downloadPdf" :disabled="downloadPdfProgress"
+                                class="fm-button fm-button--large fm-button--full">
+                                    <md-progress-spinner :md-diameter="30" :md-stroke="3" :md-value="downloadPdfProgress" md-mode="determinate" v-if="downloadPdfProgress"></md-progress-spinner>
+                                    <span v-else>Télécharger  • {{ fileSize }}</span>
+                                </button>
+                            </div>
+
+                            <!-- default read button -->
+                            <div class="fm-section" v-else>
+                                <router-link 
+                                    :to="{ name: 'PdfViewer', params: { ref: magazine.ref } }"
+                                    class="fm-button fm-button--large fm-button--full" id="start-reading"
+                                    :disabled="offline && !stored">
+                                    {{ continueReading ? 'Continuer a lire' : 'Lire • ' + fileSize }}    
+                                </router-link>
+                            </div>
+                            <small v-if="stored" os>Disponible hors-ligne <md-icon oi>done</md-icon></small>
+                        </div>
+
+                        <br><small v-if="fileSize">{{ fileSize }}</small>
+                        
+                    </template>
+
+                    <div class="center" style="height: 80vh" v-if="!magazine && !error">
+                        <svg class="loader" width="60" height="60" xmlns="http://www.w3.org/2000/svg" >
+                            <g>
+                                <ellipse ry="25" rx="25" cy="30" cx="30" stroke-width="5" stroke="teal" fill="none"/>
+                            </g>
+                        </svg>
                     </div>
-
-                    <md-button @click="deletePdfFromStorage" class="md-icon-button" v-if="stored">
-                        <md-icon>delete</md-icon>
-                    </md-button>
-                    <md-button @click="downloadPdf" class="md-icon-button" v-if="!stored && !downloadPdfProgress">
-                        <md-icon>download</md-icon>
-                    </md-button>
-                    <md-progress-spinner :md-diameter="30" :md-stroke="3" :md-value="downloadPdfProgress" md-mode="determinate" v-if="downloadPdfProgress"></md-progress-spinner>
-
-                    <br><small v-if="fileSize">{{ fileSize }}</small>
-                    <small v-if="stored" os>Disponible hors-ligne <md-icon oi>done</md-icon></small>
-                </template>
-                <div class="center" style="height: 80vh" v-if="!magazine && !error">
-                    <svg class="loader" width="60" height="60" xmlns="http://www.w3.org/2000/svg" >
-                        <g>
-                            <ellipse ry="25" rx="25" cy="30" cx="30" stroke-width="5" stroke="teal" fill="none"/>
-                        </g>
-                    </svg>
                 </div>
             </div>
         </div>
         <div class="fm-backdrop" @click="closeModal"></div>
     </div>
 </template>
-
-<style scoped>
-.content {
-    position: relative;
-}
-
-.icon-button {
-    position: fixed;
-    top: 86px;
-    left: 16px;
-}
-
-img {
-    width: 50%;
-    max-width: 240px;
-    aspect-ratio: 1/1.414;
-    object-fit: cover;
-    display: block;
-}
-
-.button, .button-outlined {
-    vertical-align: bottom;
-    height: 40px;
-}
-
-[os] {
-    margin-left: 8px;
-}
-[oi] {
-    font-size: small !important;
-}
-</style>
 
 <script>
 import {magazines, storage, analytics} from '../../firebaseConfig.js'
@@ -103,9 +98,10 @@ export default {
             viewer: false,
             stored: false,
             downloadPdfProgress: false,
-            fileSize: null,
+            fileSize: '...',
             continueReading: false,
-            offline: !navigator.onLine
+            offline: !navigator.onLine,
+            canDownload: false
         }
     },
     created() {
@@ -144,8 +140,13 @@ export default {
             const storageKey = this.$route.params.ref + '-progress'
             const lastProgress = localStorage.getItem(storageKey)
             this.continueReading = (lastProgress && lastProgress > 1) ? true : false
-            if(!browserFileStorage._init) {
-                browserFileStorage.init('farman').then(status => {})
+            if(browserFileStorage._init) {
+                this.canDownload = true
+            } else {
+                browserFileStorage.init('farman')
+                .then(status => {
+                    this.canDownload = true
+                })
                 .catch(error => {
                     console.log(error)
                     this.$root.$emit('toast', "Erreur lors de l'initialisation du stockage")

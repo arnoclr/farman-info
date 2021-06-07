@@ -142,9 +142,16 @@ export default {
             ]
         }
     },
+    watch: {
+        "magazineDialogOpen": function(val, old) {
+            if(val === false) {
+                window.history.replaceState('', document.title, '/magazines')
+            }
+        }
+    },
     methods: {
         openMagazine(id, ref) {
-            const route = '/magazine/' + id + '?ref=' + ref + '&no_scroll_top=true'
+            const route = '/magazine/' + id + '?ref=' + ref
             this.magazineDialogOpen = true
             if(this.$route.fullPath === route) return
             this.$router.push(route)

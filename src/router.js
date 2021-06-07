@@ -130,10 +130,6 @@ router.beforeEach((to, from, next) => {
       window.history.replaceState('', document.title, to.fullPath.replace(REGEX_REF, ''))
     }, 250);
   }
-  // scroll to top
-  if (!urlParams.get('no_scroll_top')) {
-    window.scrollTo({top: 0, behavior: 'smooth'})
-  }
 
   if (requiresAuth && !currentUser) {
     localStorage.setItem('login-from-url', to.fullPath)
