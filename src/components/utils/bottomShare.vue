@@ -67,19 +67,17 @@
 
 <script>
 import {analytics} from '../../firebaseConfig'
-const body = document.getElementById('body')
+import {bottomSheatMixin} from '../../mixins/bottomSheat'
 
 export default {
-    props: ['url', 'open'],
+    mixins: [bottomSheatMixin],
+    props: ['url'],
     data() {
         return {
             shareData: {
                 title: document.title,
                 url: this.url,
             },
-            scrollState: 0,
-            scrollOffset: 0,
-            isSwiping: false,
             canceled: true
         }
     },
@@ -88,28 +86,7 @@ export default {
             return navigator.share
         }
     },
-    watch: {
-        open: function (newVal, oldVal) {
-            if(newVal === true) {
-                this.scrollState = window.scrollY
-                body.style.overflow = 'hidden'
-            }
-        }
-    },
     methods: {
-        closeModal() {
-            this.$emit('update:open', false)
-            this.resetSwipe()
-            setTimeout(() => {
-                body.style.removeProperty('overflow')
-            }, 250);
-            if(this.canceled) {
-                analytics.logEvent('article_shared', {
-                    canceled: this.canceled,
-                    display_mode: window.PWADisplayMode
-                })
-            }
-        },
         logEvent(provider) {
             this.canceled = false
             analytics.logEvent('article_shared', {
@@ -117,28 +94,6 @@ export default {
                 provider: provider,
                 display_mode: window.PWADisplayMode
             })
-        },
-        startSwipe(e) {
-            this.scrollState = e.clientY || e.touches[0].clientY
-        },
-        swipe(e) {
-            const scroll = e.clientY || e.touches[0].clientY
-            if(scroll < this.scrollState) return
-            this.scrollOffset = scroll - this.scrollState
-            this.$refs.swipableShareDialog.style.transition = 'transform 0s'
-            this.$refs.swipableShareDialog.style.transform = `translateY(${this.scrollOffset}px)`
-        },
-        endSwipe() {
-            if(this.scrollOffset > 100) {
-                this.closeModal()
-            } else {
-                this.resetSwipe()
-            }
-        },
-        resetSwipe() {
-            this.$refs.swipableShareDialog.style.removeProperty('transform')
-            this.$refs.swipableShareDialog.style.removeProperty('transition')
-            this.scrollState = window.scrollY
         },
         nativeShare() {
             try {

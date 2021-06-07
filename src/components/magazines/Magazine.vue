@@ -1,50 +1,57 @@
 <template>
     <div>
-        <app-header></app-header>
-
-        <main class="content">
-            <button v-if="$device.ios" class="fm-button fm-button--outlined" @click="back"><md-icon>arrow_back</md-icon> Retour</button>
-
-            <div class="error" v-if="error">
-                <p>Une erreur est survenue : <ins>{{ error }}</ins></p>
+        <div
+        v-touch:start="startSwipe"
+        v-touch:moving="swipe"
+        v-touch:end="endSwipe"
+        ref="swipableShareDialog"
+        :class="'fm-bottom-sheat ' + (open ? 'fm-bottom-sheat--open' : '')">
+            <div class="fm-bottom-sheat__pill">
+                <div></div>
             </div>
-
-            <template id="landing" v-if="magazine && !error">
-                <img :src="magazine.image" alt="">
-                <h1>{{ magazine.title }}</h1>
-                <p v-if="magazine.summary">{{ magazine.summary }}</p>
-                <div class="info" v-else>
-                    <p>Description non disponible.</p>
+            <div class="fm-bottom-sheat__body">
+                <div class="error" v-if="error">
+                    <p>Une erreur est survenue : <ins>{{ error }}</ins></p>
                 </div>
 
-                <router-link 
-                    :to="{ name: 'PdfViewer', params: { ref: magazine.ref } }"
-                    class="fm-button fm-button--outlined" id="start-reading"
-                    :disabled="offline && !stored">
-                    {{ continueReading ? 'Continuer a lire' : 'Ouvrir le lecteur' }}    
-                </router-link>
+                <template id="landing" v-if="magazine && !error">
+                    <img :src="magazine.image" alt="">
+                    <h1>{{ magazine.title }}</h1>
+                    <p v-if="magazine.summary">{{ magazine.summary }}</p>
+                    <div class="info" v-else>
+                        <p>Description non disponible.</p>
+                    </div>
 
-                <md-button @click="deletePdfFromStorage" class="md-icon-button" v-if="stored">
-                    <md-icon>delete</md-icon>
-                </md-button>
-                <md-button @click="downloadPdf" class="md-icon-button" v-if="!stored && !downloadPdfProgress">
-                    <md-icon>download</md-icon>
-                </md-button>
-                <md-progress-spinner :md-diameter="30" :md-stroke="3" :md-value="downloadPdfProgress" md-mode="determinate" v-if="downloadPdfProgress"></md-progress-spinner>
+                    <div class="fm-section">
+                        <router-link 
+                            :to="{ name: 'PdfViewer', params: { ref: magazine.ref } }"
+                            class="fm-button fm-button--large fm-button--full" id="start-reading"
+                            :disabled="offline && !stored">
+                            {{ continueReading ? 'Continuer a lire' : 'Ouvrir le lecteur' }}    
+                        </router-link>
+                    </div>
 
-                <br><small v-if="fileSize">{{ fileSize }}</small>
-                <small v-if="stored" os>Disponible hors-ligne <md-icon oi>done</md-icon></small>
-            </template>
-            <div class="center" style="height: 80vh" v-if="!magazine && !error">
-                <svg class="loader" width="60" height="60" xmlns="http://www.w3.org/2000/svg" >
-                    <g>
-                        <ellipse ry="25" rx="25" cy="30" cx="30" stroke-width="5" stroke="teal" fill="none"/>
-                    </g>
-                </svg>
+                    <md-button @click="deletePdfFromStorage" class="md-icon-button" v-if="stored">
+                        <md-icon>delete</md-icon>
+                    </md-button>
+                    <md-button @click="downloadPdf" class="md-icon-button" v-if="!stored && !downloadPdfProgress">
+                        <md-icon>download</md-icon>
+                    </md-button>
+                    <md-progress-spinner :md-diameter="30" :md-stroke="3" :md-value="downloadPdfProgress" md-mode="determinate" v-if="downloadPdfProgress"></md-progress-spinner>
+
+                    <br><small v-if="fileSize">{{ fileSize }}</small>
+                    <small v-if="stored" os>Disponible hors-ligne <md-icon oi>done</md-icon></small>
+                </template>
+                <div class="center" style="height: 80vh" v-if="!magazine && !error">
+                    <svg class="loader" width="60" height="60" xmlns="http://www.w3.org/2000/svg" >
+                        <g>
+                            <ellipse ry="25" rx="25" cy="30" cx="30" stroke-width="5" stroke="teal" fill="none"/>
+                        </g>
+                    </svg>
+                </div>
             </div>
-        </main>
-
-        <app-footer></app-footer>
+        </div>
+        <div class="fm-backdrop" @click="closeModal"></div>
     </div>
 </template>
 
@@ -84,12 +91,10 @@ img {
 import {magazines, storage, analytics} from '../../firebaseConfig.js'
 import browserFileStorage from 'browser-file-storage'
 import FileConvertSize from '../../assets/js/fileConvertSize'
+import {bottomSheatMixin} from '../../mixins/bottomSheat'
 
 export default {
-    components: {
-        AppFooter: () => import('../Footer.vue'),
-        AppHeader: () => import('../Navigation.vue')
-    },
+    mixins: [bottomSheatMixin],
     data() {
         return {
             loading: false,
@@ -105,27 +110,22 @@ export default {
     },
     created() {
         this.getMagazine()
-        const storageKey = this.$route.params.ref + '-progress'
-        const lastProgress = localStorage.getItem(storageKey)
-        this.continueReading = (lastProgress && lastProgress > 1) ? true : false
-        if(!browserFileStorage._init) {
-            browserFileStorage.init('farman').then(status => {})
-            .catch(error => {
-                console.log(error)
-                this.$root.$emit('toast', "Erreur lors de l'initialisation du stockage")
-            })
+        this.initStorage()
+    },
+    watch: {
+        '$route.path': function(val, oldVal) {
+            this.getMagazine()
+            this.initStorage()
         }
     },
     methods: {
         getMagazine() {
             this.magazine = this.error = null
             this.loading = true
-            this.$root.$emit('query:loading')
             const ref = this.$route.params.ref
             magazines.doc(ref).get().then(snapshot => {
                 if (this.$route.params.ref !== ref) return
                 this.loading = false
-                this.$root.$emit('query:loaded')
                 if(snapshot.data()) {
                     this.magazine = snapshot.data()
                     this.magazine.ref = ref
@@ -139,6 +139,18 @@ export default {
             }).catch(err => {
                 this.error = err
             })
+        },
+        initStorage() {
+            const storageKey = this.$route.params.ref + '-progress'
+            const lastProgress = localStorage.getItem(storageKey)
+            this.continueReading = (lastProgress && lastProgress > 1) ? true : false
+            if(!browserFileStorage._init) {
+                browserFileStorage.init('farman').then(status => {})
+                .catch(error => {
+                    console.log(error)
+                    this.$root.$emit('toast', "Erreur lors de l'initialisation du stockage")
+                })
+            }
         },
         downloadPdf() {
             var xhr = new XMLHttpRequest()

@@ -36,8 +36,10 @@ const router = new Router({
     {
       path: '/magazine/:ref',
       name: 'Magazine',
-      component: () => import('@/components/magazines/Magazine'),
-      params: true
+      component: () => import('@/components/magazines/List'),
+      meta: {
+        noTransition: true
+      }
     },
     {
       path: '/magazine/:ref/view',

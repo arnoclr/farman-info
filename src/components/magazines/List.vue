@@ -10,6 +10,8 @@
                     <p>Votre rendez-vous lifestyle culture et voyage bimestriel par Farman disponible gratuitement en 100% numérique depuis notre site internet.</p>
                 </div>
 
+                <single-magazine :open.sync="magazineDialogOpen"></single-magazine>
+
                 <div class="list" v-if="magazines">
                     <div v-for="(item, index) in magazines" v-bind:key="index" :class="index != 0 ? 'grid' : ''">
                         <div class="magazine-last" v-if="index === 0">
@@ -19,21 +21,23 @@
                                     <md-tooltip md-direction="bottom">Activer les notifications</md-tooltip>
                                 </md-button>
                             </h2>
-                            <router-link :to="'/magazine/' + item.id + '?ref=thumb'">
-                                <img :src="item.image" alt="">
-                            </router-link>
+                            <img :src="item.image" @click="openMagazine(item.id, 'thumb')" alt="">
                             <h2>{{ item.title }}</h2>
                             <p v-if="item.summary">{{ item.summary }}</p>
                             <div class="info" v-else>
                                 <p>Description non disponible.</p>
                             </div>
-                            <router-link :to="'/magazine/' + item.id + '?ref=cta'" class="fm-button fm-button--outlined">Lire</router-link>
-                            <a class="fm-button fm-button--outlined" target="_blank" :href="'https://api.whatsapp.com/send?text=https://farman.info/magazines?utm_source=share'">Partager <i class="material-icons">{{ $device.ios ? 'ios_share' : 'share' }}</i></a>
+                            <div class="fm-section">
+                                <a class="fm-button fm-button--large fm-button--full fm-button--outlined" target="_blank" :href="'https://api.whatsapp.com/send?text=https://farman.info/magazines?utm_source=share'">
+                                    Partager <i class="material-icons fm-button__icon fm-button__icon--right">{{ $device.ios ? 'ios_share' : 'share' }}
+                                </i></a>
+                                <button class="fm-button fm-button--large fm-button--full" @click="openMagazine(item.id, 'cta')">
+                                    Lire <i class="material-icons fm-button__icon fm-button__icon--right">launch</i>
+                                </button>
+                            </div>
                         </div>
                         <div class="magazine-box" v-else>
-                            <router-link :to="'/magazine/' + item.id + '?ref=cta'">
-                                <img :src="item.image" alt="">
-                            </router-link>
+                            <img :src="item.image" @click="openMagazine(item.id, 'thumb')" alt="">
                             <h2>{{ item.title }}</h2>
                             <p v-if="item.summary">{{ item.summary }}</p>
                             <div class="info" v-else>
@@ -119,13 +123,15 @@ export default {
     components: {
         AppFooter: () => import('../Footer.vue'),
         AppHeader: () => import('../Navigation.vue'),
-        AppSidebar: () => import('../utils/Sidebar.vue')
+        AppSidebar: () => import('../utils/Sidebar.vue'),
+        SingleMagazine: () => import('./Magazine.vue')
     },
     data() {
         return {
             magazines: null,
             loading: null,
-            error: null
+            error: null,
+            magazineDialogOpen: false
         }
     },
     metaInfo() {
@@ -136,10 +142,13 @@ export default {
             ]
         }
     },
-    created() {
-        this.getMagazines()
-    },
     methods: {
+        openMagazine(id, ref) {
+            const route = '/magazine/' + id + '?ref=' + ref + '&no_scroll_top=true'
+            this.magazineDialogOpen = true
+            if(this.$route.fullPath === route) return
+            this.$router.push(route)
+        },
         getMagazines() {
             this.$root.$emit('query:loading')
             this.magazines = this.error = null
@@ -160,6 +169,11 @@ export default {
                 this.$root.$emit('toast', err)
             })
         }
+    },
+    mounted() {
+        this.getMagazines()
+        if(this.$route.params.ref)
+            this.magazineDialogOpen = true
     }
 }
 </script>

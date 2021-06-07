@@ -95,7 +95,9 @@ auth.onAuthStateChanged(user => {
         })
 
         router.beforeEach((to, from, next) => {
-            app.loading.state = true
+            const noTransition = to.matched.some(x => x.meta.noTransition)
+            if(noTransition === false)
+                app.loading.state = true
             app.loading.mode = 'indeterminate'
             next()
         })

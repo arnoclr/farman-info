@@ -1,13 +1,17 @@
+$fm-bottom-sheat--radius: 24px;
+
 .fm-bottom-sheat {
     position: fixed;
     background-color: #fff;
     box-shadow: -10px -10px 10px 0px rgba(180, 180, 180, 0.4);
     width: 100vw;
     height: auto;
-    max-height: calc(100vh - 320px);
+    max-height: calc(100vh - 140px);
     bottom: 0;
     left: 0;
-    transform: translateY(calc(100vh - 320px));
+    border-top-right-radius: $fm-bottom-sheat--radius;
+    border-top-left-radius: $fm-bottom-sheat--radius;
+    transform: translateY(calc(100vh - 140px));
     transition: transform 350ms ease-in-out;
     z-index: 3;
 
