@@ -43,7 +43,9 @@ const router = new Router({
       path: '/magazine/:ref/view',
       name: 'PdfViewer',
       component: () => import('@/components/magazines/PdfViewer'),
-      params: true
+      meta: {
+        pwaPromotion: false
+      }
     },
     {
       path: '/articles/submit',
@@ -86,7 +88,8 @@ const router = new Router({
       name: 'admin',
       component: () => import('@/components/admin/Main'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        pwaPromotion: false
       }
     },
     {

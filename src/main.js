@@ -31,9 +31,24 @@ import VueSimpleMarkdown from '../src/assets/js/vue-simple-markdown.js'
 Vue.use(VueSimpleMarkdown)
 
 // service worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js')
+if('serviceWorker' in navigator) {
+    if(window.location.hostname === 'localhost') {
+        navigator.serviceWorker.register('/service-worker-dev.js')
+    } else {
+        navigator.serviceWorker.register('/service-worker.js')
+    }
 }
+
+window.showInstallPromotion = false
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault()
+    // Stash the event so it can be triggered later.
+    window.deferredPrompt = e
+    // Update UI notify the user they can install the PWA
+    window.showInstallPromotion = true
+    // Optionally, send analytics event that PWA install promo was shown.
+    console.log(`'beforeinstallprompt' event was fired.`)
+})
 
 // ads
 import AutoAdsense from './autoAdsense'

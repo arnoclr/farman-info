@@ -14,33 +14,19 @@ import {analytics} from '../../firebaseConfig'
 
 export default {
     props: ['mode'],
-    data() {
-        return {
-            // Initialize deferredPrompt for use later to show browser install prompt.
-            deferredPrompt: null,
-            showInstallPromotion: false
+    computed: {
+        showInstallPromotion: function() {
+            return window.showInstallPromotion
         }
-    },
-    mounted() {
-        window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent the mini-infobar from appearing on mobile
-            e.preventDefault()
-            // Stash the event so it can be triggered later.
-            this.deferredPrompt = e
-            // Update UI notify the user they can install the PWA
-            this.showInstallPromotion = true
-            // Optionally, send analytics event that PWA install promo was shown.
-            console.log(`'beforeinstallprompt' event was fired.`)
-        });
     },
     methods: {
         install() {
             // Hide the app provided install promotion
-            this.showInstallPromotion = false
+            window.showInstallPromotion = false
             // Show the install prompt
-            this.deferredPrompt.prompt()
+            window.deferredPrompt.prompt()
             // Wait for the user to respond to the prompt
-            this.deferredPrompt.userChoice.then(outcome, () => {
+            window.deferredPrompt.userChoice.then(outcome, () => {
                 // Optionally, send analytics event with outcome of user choice
                 console.log(`User response to the install prompt: ${outcome}`)
                 analytics.logEvent('pwa_install', {
@@ -48,7 +34,7 @@ export default {
                 })
             })
             // We've used the prompt, and can't use it again, throw it away
-            this.deferredPrompt = null
+            window.deferredPrompt = null
         }
     }
 }
