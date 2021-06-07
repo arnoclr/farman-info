@@ -2,7 +2,11 @@
     <div v-if="showInstallPromotion">
         <div class="fm-promotion-banner" v-if="mode === 'banner'">
             <img src="/assets/logos/icons-192.png" alt="logo myFarman" class="fm-promotion-banner__logo">
-            <p>Installez l'application MyFarman et profitez de vos magazines et articles hors connexion.</p>
+            <p>Installez l'application MyFarman et profitez de vos magazines et articles hors connexion. 
+                <md-icon>info
+                    <md-tooltip md-direction="bottom">Il s'agit d'une application web progressive, le site va s'ajouter sur votre écran d'accueil et vous pourrez l'utiliser en mode hors-ligne.</md-tooltip>
+                </md-icon>
+            </p>
             <button class="fm-button fm-button--large" @click="install">Installer</button>
         </div>
         <button class="fm-button" @click="install" v-else>Installer</button>
