@@ -38,10 +38,14 @@ analytics.setUserProperties({consent: consent})
 // firebase sdk automatically anonimyze ip
 // https://support.google.com/firebase/answer/9019185?hl=en#zippy=%2Cin-this-article
 
-db.enablePersistence()
-  .catch(err => {
-    console.error(err)
-  })
+if (location.hostname === "localhost") {
+  db.useEmulator("localhost", 8088)
+} else {
+  db.enablePersistence()
+    .catch(err => {
+      console.error(err)
+    })
+}
 
 // firebase collections
 const magazines = db.collection('magazines')

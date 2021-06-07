@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "emulators": "firebase emulators:start",
     "build": "vue-cli-service build --modern",
     "deploy": "npm run build && firebase deploy",
     "deploy-beta": "npm run build && firebase hosting:channel:deploy %npm_config_channel%",
