@@ -39,7 +39,7 @@ analytics.setUserProperties({consent: consent})
 // https://support.google.com/firebase/answer/9019185?hl=en#zippy=%2Cin-this-article
 
 if (location.hostname === "localhost") {
-  db.useEmulator("localhost", 8088)
+  //db.useEmulator("localhost", 8088)
 } else {
   db.enablePersistence()
     .catch(err => {

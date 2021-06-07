@@ -12,7 +12,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'Landing Page',
+      name: 'LandingPage',
       component: () => import('@/components/Landing')
     },
 		{
@@ -34,7 +34,7 @@ const router = new Router({
 			component: () => import('@/components/magazines/List')
 		},
     {
-      path: '/magazine/:ref',
+      path: '/magazine/:id',
       name: 'Magazine',
       component: () => import('@/components/magazines/List'),
       meta: {
@@ -42,7 +42,7 @@ const router = new Router({
       }
     },
     {
-      path: '/magazine/:ref/view',
+      path: '/magazine/:id/view',
       name: 'PdfViewer',
       component: () => import('@/components/magazines/PdfViewer'),
       meta: {
@@ -73,12 +73,12 @@ const router = new Router({
       component: () => import('@/components/articles/List')
     },
     {
-      path: '/article/:ref',
+      path: '/article/:id',
       name: 'articleView',
       component: () => import('@/components/articles/View')
     },
     {
-      path: '/article/:ref/edit',
+      path: '/article/:id/edit',
       name: 'articleEdit',
       component: () => import('@/components/articles/Submit'),
       meta: {
@@ -117,23 +117,16 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const currentUser = auth.currentUser
 
-  let urlParams = new URLSearchParams('?' + to.fullPath.split('?')[1])
-  window.ref = urlParams.get('ref')
+  window.ref = to.params.ref
+  console.log(window.ref)
   analytics.logEvent('page_view', { 
     ref: window.ref,
     display_mode: window.PWADisplayMode
   })
 
-  // remove ref param from url
-  if (window.history.replaceState) {
-    setTimeout(() => {
-      window.history.replaceState('', document.title, to.fullPath.replace(REGEX_REF, ''))
-    }, 250);
-  }
-
   if (requiresAuth && !currentUser) {
     localStorage.setItem('login-from-url', to.fullPath)
-    next('/login?ref=auto_redirect')
+    next('/login')
   } else if (requiresAuth && currentUser) {
     next()
   } else {

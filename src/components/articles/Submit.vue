@@ -143,7 +143,7 @@ A vos stylos ...
                     console.log(doc.id)
                     this.article.title = this.article.summary = this.article.content = this.article.category = null
                     localStorage.removeItem('submit:draft')
-                    this.$router.push('/article/' + doc.id + '?ref=submit_page')
+                    this.$router.push({name: 'articleView', params: {id: doc.id, ref: 'submit'}})
                     analytics.logEvent('publish_article')
                 })
                 .catch(err => {
@@ -170,7 +170,7 @@ A vos stylos ...
                 this.$root.$emit('toast', 'Article mis à jour, vous allez être redirigé dans quelques secondes.')
                 analytics.logEvent('save_article')
                 setTimeout(() => {
-                    this.$router.push('/article/' + this.article.id + '?ref=edit')
+                    this.$router.push({name: 'articleView', params: {id: this.article.id, ref: 'edit'}})
                 }, 3000);
             }).catch(err => {
                 this.$root.$emit('alert', err)
@@ -200,7 +200,7 @@ A vos stylos ...
     mounted() {
         this.categories = getCategories()
 
-        const id = this.$route.params.ref
+        const id = this.$route.params.id
         if(id) {
             this.fetch(id)
             analytics.logEvent('edit_article')

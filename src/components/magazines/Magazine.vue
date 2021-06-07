@@ -118,9 +118,9 @@ export default {
         getMagazine() {
             this.magazine = this.error = null
             this.loading = true
-            const ref = this.$route.params.ref
+            const ref = this.$route.params.id
             magazines.doc(ref).get().then(snapshot => {
-                if (this.$route.params.ref !== ref) return
+                if (this.$route.params.id !== ref) return
                 this.loading = false
                 if(snapshot.data()) {
                     this.magazine = snapshot.data()
@@ -137,7 +137,7 @@ export default {
             })
         },
         initStorage() {
-            const storageKey = this.$route.params.ref + '-progress'
+            const storageKey = this.$route.params.id + '-progress'
             const lastProgress = localStorage.getItem(storageKey)
             this.continueReading = (lastProgress && lastProgress > 1) ? true : false
             if(browserFileStorage._init) {
@@ -205,7 +205,7 @@ export default {
             })
         },
         back() {
-            this.$router.push('/magazines?ref=back_button')
+            this.$router.go(-1)
         }
     }
 }

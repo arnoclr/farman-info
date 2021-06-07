@@ -16,7 +16,7 @@
                         md-icon="email"
                         md-label="Vous n'êtes pas inscrit"
                         md-description="Vous n'avez jamais été inscrit ou vous vous êtes desinscrit récemment, pour vous réinscrire, cliquez sur le bouton ci-dessous.">
-                        <router-link class="fm-button" to="/?ref=unsubscribe_page">S'inscrire</router-link>
+                        <router-link class="fm-button" :to="{name: 'LandingPage', params: {ref: 'unsubscribe'}}">S'inscrire</router-link>
                     </md-empty-state>
                 </div>
             </main>

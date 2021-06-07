@@ -21,7 +21,8 @@
                                 <h1 class="fm-card__body-title">{{ article.title }}</h1>
                                 <div class="fm-card__body-content">
                                     <p>{{ article.summary }}</p>
-                                    <router-link role="button" class="fm-button fm-button--large" :to="'/article/' + article.id + '?ref=landing_breaking'">lire</router-link>
+                                    <router-link role="button" class="fm-button fm-button--large"
+                                    :to="{name: 'articleView', params: {id: article.id, ref: 'landing_breaking'}}">lire</router-link>
                                 </div>
                             </div>
                         </div>
@@ -39,7 +40,7 @@
                 v-if="articlesByCategories.other">
                     <router-link
                     style="text-decoration: none; display: inline-block;"
-                    :to="'/article/' + article.id + '?ref=landing_page_main'"
+                    :to="{name: 'articleView', params: {id: article.id, ref: 'landing_page_main'}}"
                     v-for="(article, index) in articlesByCategories.other" :key="index">
                         <div class="fm-card fm-card--img fm-card-fullwidth">
                             <div class="fm-card__img fm-card__img--small">
@@ -63,7 +64,7 @@
                             <div class="fm-section fm-section--scrollable">
                                 <router-link 
                                 class="item" style="text-decoration: none"
-                                :to="'/article/' + article.id + '?ref=landing_page_horizontal_scroll'"
+                                :to="{name: 'articleView', params: {id: article.id, ref: 'landing_page_category_scroll'}}"
                                 v-for="(article, index) in articlesByCategories[category.id]" :key="index">
                                     <div class="fm-card fm-card--img fm-card--medium">
                                         <div class="fm-card__img">
@@ -79,7 +80,7 @@
                                 </router-link>
                                 <div class="item">
                                     <router-link
-                                        :to="'/articles/category/' + category.id + '?ref=landing_page_horizontal_scroll'"
+                                        :to="{name: 'articleListCategory', params: {category: category.id, ref: 'landing_page_category_scroll'}}"
                                         class="fm-button fm-button--outlined fm-button--square fm-button--grey">
                                         <i class="material-icons">arrow_forward</i>
                                     </router-link>
@@ -114,7 +115,7 @@
                                         <a target="_blank" href="https://farman.ga/s/newsletter">
                                             <md-menu-item>En savoir plus</md-menu-item>
                                         </a>
-                                        <router-link to="/unsubscribe?ref=landing_page" title="Vous devez être connecté">
+                                        <router-link :to="{name: 'Unsubscribe', params: {ref: 'landing'}}" title="Vous devez être connecté">
                                             <md-menu-item>Se désinscrire</md-menu-item>
                                         </router-link>
                                     </md-menu-content>

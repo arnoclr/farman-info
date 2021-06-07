@@ -371,7 +371,7 @@ export default {
         }
     },
     created() {
-        this.storageKey = this.$route.params.ref + '-progress'
+        this.storageKey = this.$route.params.id + '-progress'
         if(!browserFileStorage._init) {
             browserFileStorage.init('farman').then(status => {
                 this.checkIfPdfIsStored()
@@ -453,7 +453,7 @@ export default {
             })
         },
         checkIfPdfIsStored() {
-            browserFileStorage.load(this.$route.params.ref).then(file => {
+            browserFileStorage.load(this.$route.params.id).then(file => {
                 this.$root.$emit('toast', 'Chargé depuis le stockage interne')
                 let url = file.createURL()
                 this.setSrc(url)
@@ -463,9 +463,9 @@ export default {
         },
         getMagazine() {
             this.src = this.error = null
-            const ref = this.$route.params.ref
+            const ref = this.$route.params.id
             magazines.doc(ref).get().then(snapshot => {
-                if (this.$route.params.ref !== ref) return
+                if (this.$route.params.id !== ref) return
                 if(snapshot.data()) {
                     document.title = snapshot.data().title
                     this.setSrc(snapshot.data().url)

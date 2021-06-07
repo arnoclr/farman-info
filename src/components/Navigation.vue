@@ -19,10 +19,10 @@
             </div>
             <a class="fm-header__top-link fm-link fm-link--white ml-4" v-if="!notificationsEnabled" @click="requestNotifications" n>| Activer les notifications <i class="material-icons">notification_add</i></a>
             <span v-if="offline" n>| mode hors ligne <i class="material-icons">airplanemode_active</i></span>
-            <router-link class="fm-header__top-link fm-header__top-link--right fm-link fm-link--white" to="/articles/submit?ref=navbar_draft_continue" v-if="hasArticleDraft" r>
+            <router-link class="fm-header__top-link fm-header__top-link--right fm-link fm-link--white" :to="{name: 'articleSubmit', params: {ref: 'draft_continue'}}" v-if="hasArticleDraft" r>
                 <span>Terminer la rédaction de mon article <i rt class="material-icons">arrow_forward</i></span>
             </router-link>
-            <router-link class="fm-header__top-link fm-header__top-link--right fm-link fm-link--white" to="/articles/submit?ref=navbar" r v-else>
+            <router-link class="fm-header__top-link fm-header__top-link--right fm-link fm-link--white" :to="{name: 'articleSubmit', params: {ref: 'navbar'}}" r v-else>
                 <span><i lt class="material-icons">edit</i> Proposer un article</span>
             </router-link>
         </section>
@@ -34,25 +34,26 @@
             <router-link 
                 class="fm-button fm-button--large fm-header__bottom-button"
                 :disabled="$route.name === 'articleSubmit'"
-                @click="login" v-else to="/articles/submit?ref=navbar_cta">Publier</router-link>
-            <router-link class="fm-header__bottom-logo" to="/?ref=header_logo">
+                @click="login" v-else 
+                :to="{name: 'articleSubmit', params: {ref: 'cta'}}">Publier</router-link>
+            <router-link class="fm-header__bottom-logo" :to="{name: 'LandingPage', params: {ref: 'header_logo'}}">
                 <img :src="'/assets/logos/' + (gestion ? 'header_logo_admin.png' : 'header_logo.png')" alt="navbar logo">
             </router-link>
             <ul class="fm-header__bottom-categories">
                 <li class="fm-header__bottom-categories-list">
-                    <router-link class="fm-header__bottom-categories-list-link" to="/?ref=navbar">À la Une</router-link>
+                    <router-link class="fm-header__bottom-categories-list-link" :to="{name: 'LandingPage', params: {ref: 'navbar'}}">À la Une</router-link>
                 </li>
                 <li class="fm-header__bottom-categories-list">
-                    <router-link class="fm-header__bottom-categories-list-link" to="/articles?ref=navbar">Dernières infos</router-link>
+                    <router-link class="fm-header__bottom-categories-list-link" :to="{name: 'articleList', params: {ref: 'navbar'}}">Dernières infos</router-link>
                 </li>
                 <li class=" fm-header__bottom-categories-list fm-dropdown--anchor" v-if="categories">
                     <a class="fm-header__bottom-categories-list-link" @click="dropdownOpen = !dropdownOpen">Par thème <md-icon>expand_more</md-icon></a>
                     <ul :class="'fm-dropdown ' + (dropdownOpen ? 'fm-dropdown--open' : '')">
                         <li class="fm-dropdown__item">
-                            <router-link class="fm-dropdown__item-text" to="/magazines?ref=navbar_dropdown">Magazines</router-link>
+                            <router-link class="fm-dropdown__item-text" :to="{name: 'Magazines', params: {ref: 'navbar_dropdown'}}">Magazines</router-link>
                         </li>
-                        <li class="fm-dropdown__item" v-for="(categorie, index) in categories" :key="index">
-                            <router-link :to="'/articles/category/' + categorie.id + '?ref=navbar_dropdown'" class="fm-dropdown__item-text">{{ categorie.label }}</router-link>
+                        <li class="fm-dropdown__item" v-for="(category, index) in categories" :key="index">
+                            <router-link :to="{name: 'articleListCategory', params: {category: category.id, ref: 'navbar_dropdown'}}" class="fm-dropdown__item-text">{{ category.label }}</router-link>
                         </li>
                         <li class="fm-dropdown__item">
                             <span class="fm-dropdown__item-text" @click="dropdownOpen = false">Fermer</span>
@@ -67,19 +68,19 @@
 
         <md-drawer class="fm-header__drawer md-right" :md-active.sync="showSidepanel">
             <md-list dl>
-                <router-link to="/?ref=drawer">
+                <router-link :to="{name: 'LandingPage', params: {ref: 'drawer'}}">
                     <md-list-item>
                         <md-icon>home</md-icon>
                         <span class="md-list-item-text">Accueil</span>
                     </md-list-item>
                 </router-link>
-                <router-link to="/magazines?ref=drawer">
+                <router-link :to="{name: 'Magazines', params: {ref: 'drawer'}}">
                     <md-list-item>
                         <md-icon>luggage</md-icon>
                         <span class="md-list-item-text">Magazines</span>
                     </md-list-item>
                 </router-link>
-                <router-link to="/articles?ref=drawer">
+                <router-link :to="{name: 'articleList', params: {ref: 'drawer'}}">
                     <md-list-item>
                         <md-icon>new_releases</md-icon>
                         <span class="md-list-item-text">Dernières infos</span>
@@ -163,7 +164,7 @@ export default {
     methods: {
         login() {
             localStorage.setItem('login-from-url', window.location.href)
-            this.$router.push('/login?ref=navbar')
+            this.$router.push('/login')
         },
         logout() {
             firebase.auth().signOut().then(() => {

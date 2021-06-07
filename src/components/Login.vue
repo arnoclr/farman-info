@@ -128,7 +128,7 @@ p.firebaseui-tospp-full-message {
             if(localStorage) {
                 this.loginFromUrl = localStorage.getItem('login-from-url')
                 let path = this.loginFromUrl.split('?')[0]
-                this.loginFromUrl += '?ref=login_page'
+                this.loginFromUrl
                 this.$root.$emit('toast', 'Vous serez redirigé vers ' + path)
             }
             if(this.user) {

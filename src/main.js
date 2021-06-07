@@ -16,7 +16,7 @@ import Vue2TouchEvents from 'vue2-touch-events'
 Vue.use(Vue2TouchEvents)
 
 if(window.location.hostname === 'farman.ga') {
-    window.location.href = 'https://farman.info?ref=farman.ga'
+    window.location.href = 'https://farman.info?utm_source=farman.ga&utm_medium=direct'
 }
 
 // Vue Material

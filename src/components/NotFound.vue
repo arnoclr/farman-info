@@ -4,9 +4,9 @@
         <h1>Page non trouvée</h1>
 
         <div l>
-            <router-link to="/?ref=404">Page d'accueil</router-link>
-            <router-link to="/magazines?ref=404">Nos magazines</router-link>
-            <router-link to="/articles?ref=404">Derniers articles</router-link>
+            <router-link :to="{name: 'LandingPage', params: {ref: '404'}}">Page d'accueil</router-link>
+            <router-link :to="{name: 'Magazines', params: {ref: '404'}}">Nos magazines</router-link>
+            <router-link :to="{name: 'articleList', params: {ref: '404'}}">Derniers articles</router-link>
         </div>
     </div>
 </template>

@@ -16,14 +16,15 @@
 
                 <div v-if="articles">
                     <article v-for="(article, index) in articles" v-bind:key="index">
-                        <router-link :to="'/article/' + article.id + '?ref=feed'"
+                        <router-link :to="{name: 'articleView', params: {id: article.id, ref: 'feed'}}"
                             class="fm-card fm-card--img fm-card--full-width"
                             :disabled="!article.published">
                             <div class="fm-card__img fm-card__img--left fm-card__img--limited-height">
                                 <img :src="article.thumbnail" :alt="article.title">
                             </div>
                             <div class="fm-card__body fm-card__body--responsive fm-card__body--date">
-                                <router-link :to="'/articles/category/' + article.category + '?ref=articles_feed'"
+                                <router-link 
+                                    :to="{name: 'articleListCategory', params: {category: article.category, ref: 'articles_feed'}}"
                                     class="fm-card__body-category" v-if="categories">
                                     {{ categories.find(o => o.id == article.category) ? categories.find(o => o.id == article.category).label : '' }}
                                 </router-link>

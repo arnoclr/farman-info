@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link l :to="'/articles/category/' + category.id + '?ref=' + linkRef">
+        <router-link l :to="{name: 'articleListCategory', params: {category: category.id, ref: linkRef}}">
             <div pastille>
                 <div wrapper 
                     v-bind:style="{background: category.color + '20'}">

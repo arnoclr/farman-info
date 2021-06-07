@@ -151,10 +151,9 @@ export default {
     },
     methods: {
         openMagazine(id, ref) {
-            const route = '/magazine/' + id + '?ref=' + ref
             this.magazineDialogOpen = true
-            if(this.$route.fullPath === route) return
-            this.$router.push(route)
+            if(this.$route.params.id === id) return
+            this.$router.push({name: 'Magazine', params: {id, ref}})
         },
         getMagazines() {
             this.$root.$emit('query:loading')
@@ -179,7 +178,7 @@ export default {
     },
     mounted() {
         this.getMagazines()
-        if(this.$route.params.ref)
+        if(this.$route.params.id)
             this.magazineDialogOpen = true
     }
 }

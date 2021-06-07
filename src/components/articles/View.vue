@@ -33,7 +33,7 @@
                         <i class="material-icons fm-box__icon">lock</i>
                         <h2 class="fm-box__title">Créez un compte pour lire l'article.</h2>
                         <p class="fm-box__text">Ou connectez-vous.</p>
-                        <router-link to="/login?ref=read_article_need_login_box" class="fm-button">Me connecter</router-link>
+                        <router-link :to="{name: 'Login', params: {ref: 'need_login_box'}}" class="fm-button">Me connecter</router-link>
                     </div>
 
                     <div class="mb-64" sl>
@@ -47,7 +47,7 @@
                         <div class="fm-section fm-section--scrollable">
                             <router-link 
                                 class="item" style="text-decoration: none"
-                                :to="'/article/' + article.id + '?ref=article_view_suggestions'"
+                                :to="{name: 'articleView', params: {id: article.id, ref: 'suggestions'}}"
                                 v-for="(article, index) in related" :key="index">
                                 <div class="fm-card fm-card--img fm-card--medium">
                                     <div class="fm-card__img">
@@ -193,7 +193,7 @@ export default {
             }, 250);
         },*/
         fetch() {
-            const ref = this.$route.params.ref
+            const ref = this.$route.params.id
             this.$root.$emit('query:loading')
             db.collection('articles').doc(ref).get()
             .then(doc => {
