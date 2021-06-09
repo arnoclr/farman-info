@@ -2,7 +2,7 @@
 
 Farman publishes news on airlines, airports, travel tips and travel tips every week to find out all about air transport and civil aviation in France.
 
-[![install](https://i.imgur.com/RPOS6Bo.png)](https://farman.info?utm_source=github_readme)
+[![install](https://i.imgur.com/RPOS6Bo.png)](https://farman.info?ref=github_readme)
 
 ## Screenshots
 
