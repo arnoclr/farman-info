@@ -61,31 +61,11 @@
                         <div v-if="articlesByCategories[category.id]">
                             <h2>{{ category.label }}</h2>
                             <p>{{ category.description }}</p>
-                            <div class="fm-section fm-section--scrollable">
-                                <router-link 
-                                class="item" style="text-decoration: none"
-                                :to="{name: 'articleView', params: {id: article.id, ref: 'landing_page_category_scroll'}}"
-                                v-for="(article, index) in articlesByCategories[category.id]" :key="index">
-                                    <div class="fm-card fm-card--img fm-card--medium">
-                                        <div class="fm-card__img">
-                                            <img :src="article.thumbnail" :alt="article.title">
-                                        </div>
-                                        <div class="fm-card__body">
-                                            <h1 class="fm-card__body-title">{{ article.title }}</h1>
-                                            <div class="fm-card__body-content">
-                                                <p>{{ article.summary }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </router-link>
-                                <div class="item">
-                                    <router-link
-                                        :to="{name: 'articleListCategory', params: {category: category.id, ref: 'landing_page_category_scroll'}}"
-                                        class="fm-button fm-button--outlined fm-button--square fm-button--grey">
-                                        <i class="material-icons">arrow_forward</i>
-                                    </router-link>
-                                </div>
-                            </div>
+                            <articles-slider
+                                ga_ref="landing_category"
+                                :button_link="{name: 'articleListCategory', params: {category: category.id, ref: 'landing_page_category_scroll'}}"
+                                :articles="articlesByCategories[category.id]">
+                            </articles-slider>
                         </div>
                     </div>
                 </div>
@@ -141,7 +121,8 @@ export default {
         AppFooter: () => import('./Footer.vue'),
         AppHeader: () => import('./Navigation.vue'),
         AppSidebar: () => import('./utils/Sidebar.vue'),
-        InstallButton: () => import('./utils/installButton.vue')
+        InstallButton: () => import('./utils/installButton.vue'),
+        ArticlesSlider: () => import('./articles/Slider.vue')
     },
     mixins: [notificationsMixin],
     data() {

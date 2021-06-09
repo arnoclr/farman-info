@@ -18,6 +18,21 @@
             display: inline-block;
             margin-right: 16px;
         }
+
+        &-snap-scroll {
+            scroll-snap-type: x mandatory;
+
+            .item {
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+            }
+        }
+    }
+
+    &__fixed-end {
+        position: sticky;
+        right: 16px;
+        scroll-snap-align: start;
     }
 
     &--center {

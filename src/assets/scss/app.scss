@@ -41,28 +41,14 @@ body {
     }
 }
 
-.icon-button {
-    height: 48px;
-    width: 48px;
-    border-radius: 50%;
-    display: flex;
-    text-decoration: none;
-    color: #000;
-    align-items: center;
-    justify-content: center;
+.fm-morphing-icon {
+    position: absolute;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    &:hover {
-        background-color: rgba(150, 150, 150, 0.2);
-    }
-
-    &.fab {
-        box-shadow: 5px 5px 10px 0 rgba(150, 150, 150, 0.2);
-        background: #fff;
-        z-index: 2;
-
-        &:hover {
-            background: #eee;
-        }
+    &[morphed] {
+        transform: translate(0) rotate(0deg) scale(1) !important;
+        opacity: 1;
     }
 }
 

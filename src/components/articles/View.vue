@@ -42,33 +42,11 @@
                         <button @click="shareDialogOpen = true" class="fm-button">partager <i class="material-icons fm-button__icon fm-button__icon--right">{{ $device.ios ? 'ios_share' : 'share' }}</i></button>
                     </div>
 
-                    <div  v-if="related && related.length > 0">
+                    <div v-if="related && related.length > 0">
                         <h2>Suggestions</h2>
-                        <div class="fm-section fm-section--scrollable">
-                            <router-link 
-                                class="item" style="text-decoration: none"
-                                :to="{name: 'articleView', params: {id: article.id, ref: 'suggestions'}}"
-                                v-for="(article, index) in related" :key="index">
-                                <div class="fm-card fm-card--img fm-card--medium">
-                                    <div class="fm-card__img">
-                                        <img :src="article.thumbnail" :alt="article.title">
-                                    </div>
-                                    <div class="fm-card__body">
-                                        <h1 class="fm-card__body-title">{{ article.title }}</h1>
-                                        <div class="fm-card__body-content">
-                                            <p>{{ article.summary.substring(0, 150) }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </router-link>
-                            <div class="item">
-                                <router-link
-                                    :to="'/articles/suggestions?tags=' + article.tags + '&ref=article_view_suggestions'"
-                                    class="fm-button fm-button--outlined fm-button--square fm-button--grey">
-                                    <i class="material-icons">arrow_forward</i>
-                                </router-link>
-                            </div>
-                        </div>
+                        <articles-slider
+                        :button_link="'/articles/suggestions?tags=' + article.tags + '&ref=article_view_suggestions'"
+                        ga_ref="suggestions" :articles="related"></articles-slider>
                     </div>
                 </div>
             </main>
@@ -147,7 +125,8 @@ export default {
         AppFooter: () => import('../Footer.vue'),
         AppHeader: () => import('../Navigation.vue'),
         BottomShare: () => import('../utils/bottomShare.vue'),
-        InstallButton: () => import('../utils/installButton.vue')
+        InstallButton: () => import('../utils/installButton.vue'),
+        ArticlesSlider: () => import('./Slider.vue')
     },
     data() {
         return {
