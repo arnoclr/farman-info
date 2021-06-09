@@ -79,7 +79,19 @@ main {
 <script>
 import {analytics, db, firebase} from '../../firebaseConfig'
 import {getCategories} from '../../assets/js/firestore/getCategories'
+
 const articles = db.collection('articles')
+const EDITOR_TEMPLATE = `
+# Ceci est un exemple
+
+Voici un paragraphe et un début de mise en forme pour vous montrer comment fonctionne l'éditeur Farman.
+
+## Chapeau 
+
+Qui ? Quoi ? Où ? Comment ? Pourquoi ?
+
+A vos stylos ...
+`
 
 export default {
     components: {
@@ -99,20 +111,9 @@ export default {
                 tags: []
             },
             submitting: false,
-            template: `
-# Ceci est un exemple
-
-Voici un paragraphe et un début de mise en forme pour vous montrer comment fonctionne l'éditeur Farman.
-
-## Chapeau 
-
-Qui ? Quoi ? Où ? Comment ? Pourquoi ?
-
-A vos stylos ...
-`,
+            template: EDITOR_TEMPLATE,
             categories: false,
-            imageUploaderOpen: false,
-            isMobile: window.matchMedia('only screen and (max-width: 1200px)').matches,
+            imageUploaderOpen: false
         }
     },
     methods: {
@@ -192,7 +193,8 @@ A vos stylos ...
             })
         },
         deleteDraft() {
-            this.article.content = ''
+            if(!confirm('Supprimer le brouillon ?')) return
+            this.$refs.textEditor.initContent(' ')
             localStorage.removeItem('submit:draft')
             window.location.reload()
         }
@@ -212,10 +214,6 @@ A vos stylos ...
             }
             analytics.logEvent('write_article')
         }
-
-        window.addEventListener('resize', () => {
-            this.isMobile = window.matchMedia('only screen and (max-width: 1200px)').matches
-        })
     },
 }
 </script>
