@@ -36,21 +36,42 @@
                         <router-link :to="{name: 'Login', params: {ref: 'need_login_box'}}" class="fm-button">Me connecter</router-link>
                     </div>
 
-                    <div class="mb-64" sl>
+                    <div class="mb-64">
                         <p p>Partager l'article <md-icon>arrow_forward</md-icon></p>
                         <bottom-share :open.sync="shareDialogOpen" :url="$root.hostname + $route.path + '?ref=share'"></bottom-share>
                         <button @click="shareDialogOpen = true" class="fm-button">partager <i class="material-icons fm-button__icon fm-button__icon--right">{{ $device.ios ? 'ios_share' : 'share' }}</i></button>
                     </div>
 
-                    <div v-if="related && related.length > 0">
-                        <h2>Suggestions</h2>
-                        <articles-slider
-                        :button_link="'/articles/suggestions?tags=' + article.tags + '&ref=article_view_suggestions'"
-                        ga_ref="suggestions" :articles="related"></articles-slider>
+                    <div v-observe-visibility="{
+                        callback: fetchRelated,
+                        once: true,
+                        throttle: 500,
+                        }">
+                        <!-- has suggestions -->
+                        <div v-if="related && related.length > 0">
+                            <h2>Suggestions</h2>
+                            <articles-slider
+                            :button_link="'/articles/suggestions?tags=' + article.tags + '&ref=article_view_suggestions'"
+                            ga_ref="suggestions" :articles="related"></articles-slider>
+                        </div>
+                        <!-- no suggestions -->
+                        <md-empty-state
+                            v-else-if="related && related.length === 0"
+                            md-icon="auto_fix_off"
+                            md-label="Pas de suggestions"
+                            md-description="Nous n'avons trouvé aucun autre article similaire.">
+                            <router-link class="fm-button fm-button--large"
+                            :to="{name: 'articleList', params: {ref: 'suggestions'}}">Voir les derniers articles</router-link>
+                        </md-empty-state>
+                        <!-- loading -->
+                        <div v-else class="fm-section fm-section--center" style="height: 450px">
+                            <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+                        </div>
                     </div>
                 </div>
             </main>
         </div>
+        <div v-else style="height: 100vh"></div>
 
         <app-footer></app-footer>
     </div>
@@ -91,14 +112,6 @@ main {
         }
     }
 
-    [sl] {
-        img {
-            height: 24px;
-            width: 24px;
-            margin-right: 8px;
-        }
-    }
-
     .restricted {
         position: relative;
         overflow: hidden;
@@ -135,7 +148,7 @@ export default {
             user: this.$root.user,
             needLogin: false,
             shareDialogOpen: false,
-            author: null,
+            author: null
         }
     },
     computed: {
@@ -178,7 +191,6 @@ export default {
             .then(doc => {
                 this.$root.$emit('query:loaded')
                 this.article = doc.data()
-                this.fetchRelated()
                 this.fetchAuthor()
                 if(this.article.needLogin && !this.user) {
                     this.needLogin = true
@@ -194,7 +206,9 @@ export default {
                 console.error(err)
             })
         },
-        fetchRelated() {
+        fetchRelated(isVisible) {
+            if(!isVisible) return
+            console.log('load suggestions')
             db.collection('articles')
             .orderBy('createdAt', 'desc')
             .where('published', '==', true)

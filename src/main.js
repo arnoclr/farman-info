@@ -11,6 +11,10 @@ Vue.use(VueMeta)
 import device from "vue-device-detector"
 Vue.use(device)
 
+// viewport detection
+import VueObserveVisibility from 'vue-observe-visibility'
+Vue.use(VueObserveVisibility)
+
 // mobile gestures
 import Vue2TouchEvents from 'vue2-touch-events'
 Vue.use(Vue2TouchEvents)
