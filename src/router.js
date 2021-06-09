@@ -117,7 +117,9 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const currentUser = auth.currentUser
 
-  window.ref = to.params.ref
+  const urlParams = new URLSearchParams('?' + to.fullPath.split('?')[1])
+
+  window.ref = to.params.ref || urlParams.get('ref') || 'none'
   console.log(window.ref)
   analytics.logEvent('page_view', { 
     ref: window.ref,

@@ -41,7 +41,7 @@
             "name": "Dernières actualités",
             "short_name": "Articles",
             "description": "Découvrez les derniers articles de la rédaction et des utilisateurs",
-            "url": "/articles?utm_source=jumplist&utm_medium=shortcut",
+            "url": "/articles?ref=pwa_jumplist",
             "icons": [
                 {
                     "src": "/assets/logos/news.png",
@@ -53,7 +53,7 @@
             "name": "Ecrire un article",
             "short_name": "Poster",
             "description": "Ecrire une actualité sur le site",
-            "url": "/articles/submit?utm_source=jumplist&utm_medium=shortcut",
+            "url": "/articles/submit?ref=pwa_jumplist",
             "icons": [
                 {
                     "src": "/assets/logos/publish.png",
