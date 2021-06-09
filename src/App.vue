@@ -14,6 +14,8 @@
 
         <router-view/>
 
+        <notifications-overlay></notifications-overlay>
+
         <cookie-law
             button-text="Accepter" button-class="fm-button" 
             :button-decline="true" button-decline-text="Tout refuser" button-decline-class="fm-button fm-button--flat">
@@ -56,11 +58,13 @@
 <script>
     import Navigation from './components/Navigation.vue'
     import CookieLaw from 'vue-cookie-law'
+    import notificationsOverlay from './components/utils/notificationsOverlay.vue'
     
     export default {
         components: {
             CookieLaw,
-            Navigation
+            Navigation,
+            notificationsOverlay
         }
     }
 </script>

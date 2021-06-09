@@ -30,6 +30,7 @@ export const notificationsMixin = {
     },
     methods: {
         requestNotifications() {
+            document.getElementById('notificationsOverlay').style.display = 'block'
             askForPermissionToReceiveNotifications()
             .then(() => {
                 this.checkGrantedStatus()
@@ -39,6 +40,7 @@ export const notificationsMixin = {
             })
         },
         checkGrantedStatus() {
+            document.getElementById('notificationsOverlay').style.display = 'none'
             if ('Notification' in window && messaging) {
                 if(Notification.permission === "granted" || Notification.permission === "denied") {
                     this.notificationsEnabled = true
