@@ -2,8 +2,8 @@
     <div id="notificationsOverlay">
         <!-- android chrome bottom popup -->
         <div class="chrome-android" v-if="this.$device.android">
-            <p>Cliquez ci-dessous et selectionnez autoriser</p>
             <md-icon>south</md-icon>
+            <p>Cliquez sur détails et selectionnez autoriser</p>
         </div>
     </div>
 </template>
