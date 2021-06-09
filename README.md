@@ -6,9 +6,9 @@ Farman publishes news on airlines, airports, travel tips and travel tips every w
 
 ## Screenshots
 
-![](https://i.imgur.com/xvE1TLbl.jpg)
-![](https://i.imgur.com/4aBRVbul.jpg)
-![](https://i.imgur.com/DO99Xrml.jpg)
+![](https://i.imgur.com/xvE1TLbm.jpg)
+![](https://i.imgur.com/4aBRVbum.jpg)
+![](https://i.imgur.com/DO99Xrmm.jpg)
 
 *Farman web application is built with vuejs and google firebase.*
 
