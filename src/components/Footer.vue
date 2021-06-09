@@ -21,7 +21,8 @@
             </div>
             <div class="fm-footer__links">
                 <p></p>
-                <p><router-link class="fm-link" :to="{name: 'LandingPage', params: {ref: 'footer_copyright'}}">©{{ new Date().getFullYear() }} Farman</router-link></p>
+                <p><router-link class="fm-link" :to="{name: 'LandingPage', params: {ref: 'footer_copyright'}}">©{{ new Date().getFullYear() }} Farman</router-link>
+                , mis à jour {{ buildDate }}</p>
                 <p><a class="fm-link" href="https://farman.ga/s/cgu">Informations juridiques</a></p>
                 <p></p>
             </div>
@@ -30,7 +31,13 @@
 </template>
 
 <script>
+import { format } from '../assets/js/utils/timeago'
+
 export default {
-    
+    data() {
+        return {
+            buildDate: format(document.documentElement.dataset.buildTimestampUtc, 'fr_FR')
+        }
+    }
 }
 </script>
