@@ -55,7 +55,7 @@ export default {
             const w = this.$refs.slider.scrollWidth
             const s = this.$refs.slider.scrollLeft
             const ow = this.$refs.slider.offsetWidth
-            this.scrollEnd = (w-s) === ow
+            this.scrollEnd = (w-s) <= ow + 100
         }
     },
     mounted() {
