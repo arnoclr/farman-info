@@ -148,7 +148,9 @@ export default {
             user: this.$root.user,
             needLogin: false,
             shareDialogOpen: false,
-            author: null
+            author: null,
+            readTime: 0,
+            interval: null
         }
     },
     computed: {
@@ -195,12 +197,6 @@ export default {
                 if(this.article.needLogin && !this.user) {
                     this.needLogin = true
                 }
-                analytics.logEvent('read_article', {
-                    ref: window.ref,
-                    article_author: this.article.uid,
-                    article_length: this.article.content.length,
-                    article_tags: this.article.tags
-                })
             })
             .catch(err => {
                 console.error(err)
@@ -220,21 +216,43 @@ export default {
                 docs.forEach(doc => {
                     let buffer = doc.data()
                     buffer.id = doc.id
-                    this.related.push(buffer)
+                    if(doc.id != this.article.id) {
+                        this.related.push(buffer)
+                    }
                 })
             })
             .catch(e => {
                 console.error(e)
+            })
+            // log event when article is readed
+            if(this.readTime < 20) return
+            const wordCount = this.article.content.match(/(\w+)/g).length;
+            analytics.logEvent('read_article', {
+                value: wordCount / this.readTime, // words/s
+                ref: window.ref,
+                tags: this.article.tags,
+                article_author: this.article.uid,
+                article_length: this.article.content.length,
+                article_words: wordCount,
+                article_tags: this.article.tags,
+                read_time: this.readTime // seconds
             })
         },
         fetchAuthor() {
             db.collection('users').doc(this.article.uid).get().then(doc => {
                 this.author = doc.data()
             })
+        },
+        timer() {
+            this.readTime++
         }
     },
     mounted() {
         this.fetch()
+        this.interval = setInterval(this.timer, 1000)
+    },
+    beforeDestroy() {
+        clearInterval(this.interval)
     }
 }
 </script>
