@@ -44,8 +44,7 @@
 
                     <div v-observe-visibility="{
                         callback: fetchRelated,
-                        once: true,
-                        throttle: 500,
+                        throttle: 700,
                         }">
                         <!-- has suggestions -->
                         <div v-if="related && related.length > 0">
@@ -145,6 +144,7 @@ export default {
         return {
             article: null,
             related: null,
+            relatedLoaded: false,
             user: this.$root.user,
             needLogin: false,
             shareDialogOpen: false,
@@ -173,6 +173,10 @@ export default {
     watch: {
         '$route.path': function(val, oldVal) {
             this.fetch()
+            this.related = null,
+            this.relatedLoaded = false,
+            this.author = null,
+            this.readTime = 0
         }
     },
     methods: {
@@ -204,6 +208,8 @@ export default {
         },
         fetchRelated(isVisible) {
             if(!isVisible) return
+            if(this.relatedLoaded) return
+            this.relatedLoaded = true
             console.log('load suggestions')
             db.collection('articles')
             .orderBy('createdAt', 'desc')
@@ -225,6 +231,7 @@ export default {
                 console.error(e)
             })
             // log event when article is readed
+            console.log(this.readTime)
             if(this.readTime < 20) return
             const wordCount = this.article.content.match(/(\w+)/g).length;
             analytics.logEvent('read_article', {
