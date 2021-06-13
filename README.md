@@ -30,3 +30,9 @@ Test firestore rules :
 ```sh
 firebase emulators:exec --only firestore "npm run test-firestore"
 ```
+
+Deploy live :
+```sh
+npm run deploy --m="commit message"
+npm run deploy-beta --channel="channel name"
+```
