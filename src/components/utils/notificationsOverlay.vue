@@ -1,7 +1,7 @@
 <template>
     <div id="notificationsOverlay">
         <!-- android chrome bottom popup -->
-        <div class="chrome-android" v-if="this.$device.android">
+        <div class="chrome-android" v-if="$browserDetect.isChrome && $device.android">
             <md-icon>south</md-icon>
             <p>Cliquez sur détails et selectionnez autoriser</p>
         </div>
@@ -60,6 +60,6 @@
 
 <script>
 export default {
-    
+
 }
 </script>

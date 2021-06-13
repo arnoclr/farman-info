@@ -7,9 +7,11 @@ import {auth, analytics} from './firebaseConfig.js'
 Vue.config.productionTip = false
 Vue.use(VueMeta)
 
-// device detection
+// device & browser detection
 import device from "vue-device-detector"
+import browserDetect from "vue-browser-detect-plugin"
 Vue.use(device)
+Vue.use(browserDetect)
 
 // viewport detection
 import VueObserveVisibility from 'vue-observe-visibility'

@@ -23,6 +23,7 @@
     "turndown": "^7.0.0",
     "uuid": "^8.3.2",
     "vue": "^2.6.10",
+    "vue-browser-detect-plugin": "^0.1.13",
     "vue-cookie-law": "^1.13.3",
     "vue-device-detector": "^1.1.6",
     "vue-google-adsense": "^1.9.2",
