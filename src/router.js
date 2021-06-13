@@ -15,6 +15,11 @@ const router = new Router({
       name: 'LandingPage',
       component: () => import('@/components/Landing')
     },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: () => import('@/components/Contact')
+    },
 		{
 			path: '/login',
 			name: 'Login',
