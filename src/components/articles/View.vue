@@ -67,6 +67,11 @@
                             <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
                         </div>
                     </div>
+                    
+                    <!-- comments -->
+                    <button class="fm-button" @click="commentsOpen = true">commentaires</button>
+                    <comments-bottom-sheat :doc="doc" :open.sync="commentsOpen"></comments-bottom-sheat>
+
                 </div>
             </main>
         </div>
@@ -138,7 +143,8 @@ export default {
         AppHeader: () => import('../Navigation.vue'),
         BottomShare: () => import('../utils/bottomShare.vue'),
         InstallButton: () => import('../utils/installButton.vue'),
-        ArticlesSlider: () => import('./Slider.vue')
+        ArticlesSlider: () => import('./Slider.vue'),
+        CommentsBottomSheat: () => import('./CommentsBottomSheat.vue')
     },
     data() {
         return {
@@ -150,7 +156,9 @@ export default {
             shareDialogOpen: false,
             author: null,
             readTime: 0,
-            interval: null
+            interval: null,
+            commentsOpen: false,
+            doc: null
         }
     },
     computed: {
@@ -193,7 +201,8 @@ export default {
         fetch() {
             const ref = this.$route.params.id
             this.$root.$emit('query:loading')
-            db.collection('articles').doc(ref).get()
+            this.doc = db.collection('articles').doc(ref)
+            this.doc.get()
             .then(doc => {
                 this.$root.$emit('query:loaded')
                 this.article = doc.data()

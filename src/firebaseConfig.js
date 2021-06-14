@@ -23,6 +23,7 @@ firebase.initializeApp(firebaseConfig)
 // firebase utils
 const analytics = firebase.analytics()
 const db = firebase.firestore()
+const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp()
 const auth = firebase.auth()
 const storage = firebase.storage()
 let messaging = null
@@ -65,6 +66,7 @@ remoteConfig.defaultConfig = {
 export {
   analytics,
   db,
+  serverTimestamp,
   auth,
   storage,
   magazines,

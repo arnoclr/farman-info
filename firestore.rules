@@ -98,6 +98,35 @@ service cloud.firestore {
                 || isAdmin()
         }
 
+        match /{collection}/{articleId}/comments/{id} {
+            allow get: if true
+
+            allow list: if request.query.limit <= 10
+
+            allow create: if isAuth()
+                && (collection == 'articles' || collection == 'magazines')
+                && incomingData().uid == request.auth.uid
+                && incomingData().photoURL.matches('https://.+\\.[a-z]+/.+')
+                && incomingData().displayName.size() <= 128
+                && incomingData().content.size() <= 2048
+                && incomingData().createdAt == request.time
+
+            allow update: if isAuth()
+                && notModified(['uid', 'createdAt'])
+                && request.auth.uid == actualData().uid
+                && incomingData().photoURL.matches('https://.+\\.[a-z]+/.+')
+                && incomingData().displayName.size() <= 128
+                && incomingData().content.size() <= 2048
+                && incomingData().updatedAt == request.time
+
+            allow delete:
+                if (
+                    isAuth()
+                    && actualData().uid == request.auth.uid
+                )
+                || isAdmin()
+        }
+
         match /categories/{cid} {
             allow read: if true
         }
