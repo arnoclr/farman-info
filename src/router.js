@@ -100,6 +100,11 @@ const router = new Router({
       }
     },
     {
+      path: '/feed/rss',
+      name: 'rss',
+      component: () => import('@/components/articles/Rss')
+    },
+    {
       path: '*',
       name: 'NotFound',
       component: () => import('@/components/NotFound')
