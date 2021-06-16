@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
 
     <channel>
-        <lastBuildDate>Wed, 16 Jun 2021 12:05:23 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 16 Jun 2021 12:39:46 GMT</lastBuildDate>
         <title>Farman</title>
         <link>https://farman.info</link>
         <description>Farman publie des actualités sur les compagnies aériennes, les aéroports, les bons plans pour prendre l'avion et les voyages chaque semaine pour tout savoir sur le transport aérien et l'aviation civile en France.</description>
@@ -13,7 +13,7 @@
             <description>C'est une première mondiale, ce mardi, un avion de loisir DR107 a atterrit à l'aérodrome de Reims-Prunay (Marne) alimenté avec un carburants issu de betteraves conçu par Global Bioenergies.</description>
             <link>https://farman.info/article/hwR3P5ZVGkjPrJyvhYtc</link>
             <guid isPermaLink="true">https://farman.info/article/hwR3P5ZVGkjPrJyvhYtc</guid>
-            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Faf2de086-4e65-48e7-b1a8-690c55848be6?alt=media&token=15d69234-7e0e-44f4-9366-ec3df70d7507" />
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Faf2de086-4e65-48e7-b1a8-690c55848be6?alt=media&amp;token=15d69234-7e0e-44f4-9366-ec3df70d7507" />
             <content:encoded>
                 <![CDATA[<p><i>Le pilote Bastien Le Roux et son DR107 © Corbis - Aurélie Jacquand</i></p>
 <p>  L'appareil s'est posé en toute sécurité sur l'aérodrome de Reims-Prunay après être parti plus d'une heure auparavant depuis Sarrebruck en Allemagne.</p>
@@ -46,7 +46,7 @@
             <description>La principauté d'Andorre a annoncé mercredi dernier l'abandon de son projet d'aéroport international en plein cœur du massif pyrénéen après un rapport donnant un avis défavorable de l'Organisation de l'Aviation Civile Internationale (OACI).</description>
             <link>https://farman.info/article/ak0JmWEwLlD4PKbqvQ2y</link>
             <guid isPermaLink="true">https://farman.info/article/ak0JmWEwLlD4PKbqvQ2y</guid>
-            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F9e982300-8e25-481b-bfb3-3fb7f6946088?alt=media&token=bd6307f7-2361-4484-a72d-384fe2a24404" />
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F9e982300-8e25-481b-bfb3-3fb7f6946088?alt=media&amp;token=bd6307f7-2361-4484-a72d-384fe2a24404" />
             <content:encoded>
                 <![CDATA[<p>L'aéroport international d'Andorre, situé près du Pas de la Case, devait être le plus haut d'Europe avec 2 000 mètres d'altitude en plein cœur du massif montagneux des Pyrénées. Il devait être conçu pour fonctionner avec une piste de 1 800 mètres de long et 45 mètres de large.</p>
 
@@ -72,7 +72,7 @@
             <description>La compagnie nationale a dévoilé son programme de vols de cet été en lien avec la levée des restrictions sanitaires dans le monde. Elle proposera notamment des vols centrés sur la France métropolitaine, les Outre-mer, l'Europe et l'Afrique du nord.</description>
             <link>https://farman.info/article/8LNnkkzS8jtpADPat9ld</link>
             <guid isPermaLink="true">https://farman.info/article/8LNnkkzS8jtpADPat9ld</guid>
-            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F3c4a386e-9975-4703-89a4-f12d68f30578?alt=media&token=e0c6c438-dee4-4093-8597-0008916164ba" />
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F3c4a386e-9975-4703-89a4-f12d68f30578?alt=media&amp;token=e0c6c438-dee4-4093-8597-0008916164ba" />
             <content:encoded>
                 <![CDATA[<p><i>Un Airbus A320 d'Air France à l'aéroport de Barcelone El Prat ©Wikipedia / Magic Aviation</i></p>
 <p>  Air France a annoncé ce vendredi 11 juin son programme de vols de cet été susceptible d'évoluer en fonction des dernières mesures gouvernementales. Centré principalement sur l'Europe, l'Afrique du nord et les Outre-mer, le programme de vols représentera 65% des capacités déployées par rapport à 2019, contre 40% en mai dernier.</p>
@@ -124,7 +124,7 @@
             <description>L'avionneur américain Boeing a pour la première fois dans l'histoire ravitaillé un autre avion de chasse de l'US Navy à l'aide d'un drone (sans équipage et piloté à distance).</description>
             <link>https://farman.info/article/AlNC33wfpAVVlhFezTA3</link>
             <guid isPermaLink="true">https://farman.info/article/AlNC33wfpAVVlhFezTA3</guid>
-            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fddbf2998-a25e-45f0-b259-d2df5e13a571?alt=media&token=b3c7d45c-33fe-41a9-bd16-fc84126abef0" />
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fddbf2998-a25e-45f0-b259-d2df5e13a571?alt=media&amp;token=b3c7d45c-33fe-41a9-bd16-fc84126abef0" />
             <content:encoded>
                 <![CDATA[<p><i>Le drone MQ-25 Stingray connecté via son ancre flottante à la sonde de</i> <i>ravitaillement</i> <i>du F/A-18 de l'US Navy. ©Boeing / Twitter</i></p>
 <p>  Boeing a réussi l'exploit de ravitailler en carburant un avion de chasse F/A-18 de l'US Navy depuis un drone MQ-25 T1 Le drone nommé "Stingray" avait effectué son premier vol d'essai le 19 septembre 2020 et a pu réaliser ce nouvel exploit ce vendredi 4 juin.</p>
@@ -157,7 +157,7 @@
             <description>L'association de sauvetage aérien allemande ADAC Luftrettung a fait voler ce dimanche le premier hélicoptère ravitaillé en biocarburants (SAF) fabriqués par TotalEnergies avec AirbusHelicopters et Safran Helicopter Engines.</description>
             <link>https://farman.info/article/xZb9GGAk00nxKhHtCpFI</link>
             <guid isPermaLink="true">https://farman.info/article/xZb9GGAk00nxKhHtCpFI</guid>
-            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F716f5d8e-79a9-4e84-b76a-c85bf0f6120e?alt=media&token=93c58ae3-ebc6-40db-98bd-56ba64ca24d4" />
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F716f5d8e-79a9-4e84-b76a-c85bf0f6120e?alt=media&amp;token=93c58ae3-ebc6-40db-98bd-56ba64ca24d4" />
             <content:encoded>
                 <![CDATA[<p><i>©ADAC Presse / Jochen Oesterle</i></p>
 <p>    Ce dimanche 6 juin à Munich en Allemagne, un Airbus H145 d'AirbusHelicopter a volé pour la première fois à l'aide de kérozène mélangé à des biocarburants issus de l'économie circulaire produits par TotalEnergies en France.</p>
@@ -205,7 +205,7 @@
             <description>La compagnie américaine United Airlines a annoncé ce jeudi 3 juin avoir conclu un accord avec l'avionneur Boom Supersonic pour l'achat de 15 avions supersoniques "Overture" qui pourraient entrer en service d'ici 2029.</description>
             <link>https://farman.info/article/kcFiSlloi2pr0Ml99atH</link>
             <guid isPermaLink="true">https://farman.info/article/kcFiSlloi2pr0Ml99atH</guid>
-            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fced5374d-b339-4a4f-8325-c16c75cb7445?alt=media&token=d8330a72-cc30-4e06-bde5-4789464b2e10" />
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fced5374d-b339-4a4f-8325-c16c75cb7445?alt=media&amp;token=d8330a72-cc30-4e06-bde5-4789464b2e10" />
             <content:encoded>
                 <![CDATA[<img src="https://www.ft.com/<b>origami/service/image/v2/images/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2Ffa90b13c-a6b2-49e0-9de4-c052d9cdde09.jpg?fit=scale-down&source=next&width=700" alt="https://www.ft.com/</b>origami/service/image/v2/images/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2Ffa90b13c-a6b2-49e0-9de4-c052d9cdde09.jpg?fit=scale-down&amp;source=next&amp;width=700" />© United Airlines / Boom Supersonic
 
@@ -239,7 +239,7 @@
 </description>
             <link>https://farman.info/article/2S1zi5mRqGl25qFfdW7p</link>
             <guid isPermaLink="true">https://farman.info/article/2S1zi5mRqGl25qFfdW7p</guid>
-            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F6979c6ef-83ea-49c1-96b5-daec579cd3f0?alt=media&token=8d5f0c6d-bc81-4de0-83f1-a09b874ab8dd" />
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F6979c6ef-83ea-49c1-96b5-daec579cd3f0?alt=media&amp;token=8d5f0c6d-bc81-4de0-83f1-a09b874ab8dd" />
             <content:encoded>
                 <![CDATA[<img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F10752a5f-e5c7-4f51-bbd9-a77f531fae48?alt=media&token=9879d7dc-99a9-403e-80ed-b2cb1a44bfd2" alt="texte alternatif" />©Air France
 
@@ -279,7 +279,7 @@
 </description>
             <link>https://farman.info/article/XCsEXMd6W7daqg4zsRL9</link>
             <guid isPermaLink="true">https://farman.info/article/XCsEXMd6W7daqg4zsRL9</guid>
-            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F5ad57a2b-d946-4613-8f04-e72c021f8af9?alt=media&token=0dca66c1-68f0-4fbd-a223-32cf64dbbed9" />
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F5ad57a2b-d946-4613-8f04-e72c021f8af9?alt=media&amp;token=0dca66c1-68f0-4fbd-a223-32cf64dbbed9" />
             <content:encoded>
                 <![CDATA[<h3>   </h3>
 
@@ -323,7 +323,7 @@
 </description>
             <link>https://farman.info/article/Av9ePXeUvMtM1ORZJwK2</link>
             <guid isPermaLink="true">https://farman.info/article/Av9ePXeUvMtM1ORZJwK2</guid>
-            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F7fe0d830-435f-49d9-9cbb-bc6ad0a19855?alt=media&token=2a8f9936-edd2-45d4-ad2d-869d3e12f3c2" />
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F7fe0d830-435f-49d9-9cbb-bc6ad0a19855?alt=media&amp;token=2a8f9936-edd2-45d4-ad2d-869d3e12f3c2" />
             <content:encoded>
                 <![CDATA[<h3>   </h3>
 
@@ -356,7 +356,7 @@
 </description>
             <link>https://farman.info/article/2SH7hrOSh6mvIB9jiiZ5</link>
             <guid isPermaLink="true">https://farman.info/article/2SH7hrOSh6mvIB9jiiZ5</guid>
-            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F68eaeba6-9812-4a07-9884-fedfcb464be5?alt=media&token=ea522a2c-9d0a-4a2a-a464-189ea1e9db9f" />
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F68eaeba6-9812-4a07-9884-fedfcb464be5?alt=media&amp;token=ea522a2c-9d0a-4a2a-a464-189ea1e9db9f" />
             <content:encoded>
                 <![CDATA[<img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fe36b3daf-a4ea-42b8-ba99-ec6e88274360?alt=media&token=19f90a20-eebe-4883-9b65-17a67c2b5927" alt="texte alternatif" /><i>©Dassault Aviation</i>Le nouvel appareil présenté par l'avionneur se veut confortable et polyvalent, en proposant notamment une distance franchissable de 13 890 km, soit la distance d'un vol Hong-Kong - New-York.
 
@@ -389,7 +389,7 @@
 </description>
             <link>https://farman.info/article/uVGeCcevPfm4EDAiY1NE</link>
             <guid isPermaLink="true">https://farman.info/article/uVGeCcevPfm4EDAiY1NE</guid>
-            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fb186707d-e013-4736-8df1-181b16781da4?alt=media&token=418c6486-7210-4142-8869-3a49b81992a2" />
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fb186707d-e013-4736-8df1-181b16781da4?alt=media&amp;token=418c6486-7210-4142-8869-3a49b81992a2" />
             <content:encoded>
                 <![CDATA[<img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fa9246d1f-5801-4137-9461-afa08d9ed01b?alt=media&token=4a21963c-2691-44d1-92e9-65040fa07acd" alt="texte alternatif" />© Groupe ADP / Twitter
 
@@ -417,7 +417,7 @@
 </description>
             <link>https://farman.info/article/VSSSZCbke9Z3RPIPFRFr</link>
             <guid isPermaLink="true">https://farman.info/article/VSSSZCbke9Z3RPIPFRFr</guid>
-            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Ffc6032f0-6271-436f-a364-51abb09809e5?alt=media&token=b6e9f452-c3cf-4a75-944e-cd27965742ed" />
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Ffc6032f0-6271-436f-a364-51abb09809e5?alt=media&amp;token=b6e9f452-c3cf-4a75-944e-cd27965742ed" />
             <content:encoded>
                 <![CDATA[<h3>   </h3>
 
