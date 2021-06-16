@@ -1,84 +1,452 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
 
-<channel>
-<title>Farman</title>
-<link>https://farman.info</link>
-<description>Farman publie des actualités sur les compagnies aériennes, les aéroports, les bons plans pour prendre l'avion et les voyages chaque semaine pour tout savoir sur le transport aérien et l'aviation civile en France.</description>
-    
-    <item>
-        <title>Andorre abandonne son projet d'aéroport international</title>
-        <link>https://farman.info/article/ak0JmWEwLlD4PKbqvQ2y</link>
-        <description>La principauté d'Andorre a annoncé mercredi dernier l'abandon de son projet d'aéroport international en plein cœur du massif pyrénéen après un rapport donnant un avis défavorable de l'Organisation de l'Aviation Civile Internationale (OACI).</description>
-    </item>
-    
-    <item>
-        <title>Air France proposera jusqu'à 200 destinations cet été</title>
-        <link>https://farman.info/article/8LNnkkzS8jtpADPat9ld</link>
-        <description>La compagnie nationale a dévoilé son programme de vols de cet été en lien avec la levée des restrictions sanitaires dans le monde. Elle proposera notamment des vols centrés sur la France métropolitaine, les Outre-mer, l'Europe et l'Afrique du nord.</description>
-    </item>
-    
-    <item>
-        <title>Premier ravitaillement d'un avion de chasse par un drone de Boeing</title>
-        <link>https://farman.info/article/AlNC33wfpAVVlhFezTA3</link>
-        <description>L'avionneur américain Boeing a pour la première fois dans l'histoire ravitaillé un autre avion de chasse de l'US Navy à l'aide d'un drone (sans équipage et piloté à distance).</description>
-    </item>
-    
-    <item>
-        <title>Premier vol d'un hélicoptère aux biocarburants</title>
-        <link>https://farman.info/article/xZb9GGAk00nxKhHtCpFI</link>
-        <description>L'association de sauvetage aérien allemande ADAC Luftrettung a fait voler ce dimanche le premier hélicoptère ravitaillé en biocarburants (SAF) fabriqués par TotalEnergies avec AirbusHelicopters et Safran Helicopter Engines.</description>
-    </item>
-    
-    <item>
-        <title>United veut faire voler un nouvel avion supersonique </title>
-        <link>https://farman.info/article/kcFiSlloi2pr0Ml99atH</link>
-        <description>La compagnie américaine United Airlines a annoncé ce jeudi 3 juin avoir conclu un accord avec l'avionneur Boom Supersonic pour l'achat de 15 avions supersoniques "Overture" qui pourraient entrer en service d'ici 2029.</description>
-    </item>
-    
-    <item>
-        <title>Air France: premier vol long-courrier aux biocarburants français</title>
-        <link>https://farman.info/article/2S1zi5mRqGl25qFfdW7p</link>
-        <description>Mardi dernier, la compagnie Air France a effectué son premier vol long-courrier vers Montréal en A350 alimenté en biocarburants (SAF) à 16% produits en France par Total.
+    <channel>
+        <lastBuildDate>Wed, 16 Jun 2021 12:05:23 GMT</lastBuildDate>
+        <title>Farman</title>
+        <link>https://farman.info</link>
+        <description>Farman publie des actualités sur les compagnies aériennes, les aéroports, les bons plans pour prendre l'avion et les voyages chaque semaine pour tout savoir sur le transport aérien et l'aviation civile en France.</description>
+        
+        <item>
+            <pubDate>Wed, 16 Jun 2021 11:47:01 GMT</pubDate>
+            <title>Reims: un avion de loisir vole avec 97% d'essence de betterave depuis l'Allemagne</title>
+            <description>C'est une première mondiale, ce mardi, un avion de loisir DR107 a atterrit à l'aérodrome de Reims-Prunay (Marne) alimenté avec un carburants issu de betteraves conçu par Global Bioenergies.</description>
+            <link>https://farman.info/article/hwR3P5ZVGkjPrJyvhYtc</link>
+            <guid isPermaLink="true">https://farman.info/article/hwR3P5ZVGkjPrJyvhYtc</guid>
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Faf2de086-4e65-48e7-b1a8-690c55848be6?alt=media&token=15d69234-7e0e-44f4-9366-ec3df70d7507" />
+            <content:encoded>
+                <![CDATA[<p><i>Le pilote Bastien Le Roux et son DR107 © Corbis - Aurélie Jacquand</i></p>
+<p>  L'appareil s'est posé en toute sécurité sur l'aérodrome de Reims-Prunay après être parti plus d'une heure auparavant depuis Sarrebruck en Allemagne.</p>
+
+  
+
+  
+
+<h1>Une essence végétale à 97%</h1>
+<p>  Le DR107, piloté par Bastien Le Roux, a volé à une vitesse de croisière de 260 km/h pendant près d'une heure avec un carburant issu de betteraves et fabriqué dans la région.</p>
+<p>  C'est une véritable alternative à l'Avgas100LL, le carburant actuellement utilisé pour les avions de loisir à hauteur de 100 millions de litres par an en Europe contre 900 millions aux États-Unis.</p>
+<p>  La betterave utilisée dans ce carburant est transformée dans les laboratoires de Global Bioenergie et ARD en sucre dont est extrait de l’isubotène à l'aide de bactéries génétiquement modifiées.</p>
+<p>  Le but étant de réduire les émissions carbone des carburants pour atteindre "la neutralité carbone" dans les prochaines décennies.</p>
+
+  
+
+<blockquote> "A première vue, l'analyse du vol est plutôt bonne. D'un point de vue technique, l'avion est muni de sonde qui permettent de mesurer les températures, les pressions etc et il n'y a aucune différence notable avec le carburant que l'on utilisait entre guillemets hier. Donc ce carburant me semble être une très bonne alternative même si, bien sûr, il va falloir avoir plus de recul pour déterminer si la longévité du moteur peut être impacté par ce carburant. Au niveau des performances en tout cas, sur cet avion que je connais très bien, je n'ai noté aucune différence."</blockquote>
+
+  
+
+<blockquote> Bastien Le Roux, pilote du DR107 interrogé par FR3 Grand-Est.</blockquote>
+<p>  Aujourd'hui, la législation européenne permet l'utilisation de 50% de biocarburants au maximum mélangés avec du kérozène.</p>
+<p>  Néanmoins, l'utilisation des biocarburants (SAF) comme alternative aux carburants traditionnels reste très couteuse et longue à produire.</p>]]>
+            </content:encoded>
+        </item>
+        
+        <item>
+            <pubDate>Mon, 14 Jun 2021 19:45:06 GMT</pubDate>
+            <title>Andorre abandonne son projet d'aéroport international</title>
+            <description>La principauté d'Andorre a annoncé mercredi dernier l'abandon de son projet d'aéroport international en plein cœur du massif pyrénéen après un rapport donnant un avis défavorable de l'Organisation de l'Aviation Civile Internationale (OACI).</description>
+            <link>https://farman.info/article/ak0JmWEwLlD4PKbqvQ2y</link>
+            <guid isPermaLink="true">https://farman.info/article/ak0JmWEwLlD4PKbqvQ2y</guid>
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F9e982300-8e25-481b-bfb3-3fb7f6946088?alt=media&token=bd6307f7-2361-4484-a72d-384fe2a24404" />
+            <content:encoded>
+                <![CDATA[<p>L'aéroport international d'Andorre, situé près du Pas de la Case, devait être le plus haut d'Europe avec 2 000 mètres d'altitude en plein cœur du massif montagneux des Pyrénées. Il devait être conçu pour fonctionner avec une piste de 1 800 mètres de long et 45 mètres de large.</p>
+
+  
+
+<img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F5a6fc96b-c5d2-4509-9903-d89b0147c2db?alt=media&token=accc2c19-99ec-4a8a-a49a-621768e55f0f" alt="" />©CCIS Andorra
+<p>    Un rapport publié par l'Organisation de l'Aviation Civile Internationale juge l'installation trop dangereuse en cas de remise de gaz en phase d'atterrissage, l'appareil pouvant percuter la montagne et n'ayant pas le temps de reprendre de l'altitude.</p>
+
+  
+
+<blockquote> « Le rapport indique que les opérations ne seraient pas viables du point de vue de la sécurité, car, entre autres, la visibilité de la piste à partir du point où il faut décider d’effectuer ou non l’atterrissage ne peut être garantie »</blockquote>
+
+<blockquote> Principauté d'Andorre</blockquote>
+<p>  Le projet d'aéroport international était avant tout une question de souveraineté nationale pour le gouvernement andorran qui dépend aujourd'hui des aéroports de Barcelone et de Toulouse pour les touristes internationaux.</p>
+<p>  Cet aéroport était aussi un moyen pour la principauté de développer le tourisme de luxe avec des clients venus de Russie, des monarchies du Golf ou d'Asie.</p>
+<p>  Plusieurs associations écologistes s'étaient aussi consternées à l'annonce de ce projet en mars et dénonçaient des menaces pour la faune et la flore.</p>]]>
+            </content:encoded>
+        </item>
+        
+        <item>
+            <pubDate>Sat, 12 Jun 2021 10:04:01 GMT</pubDate>
+            <title>Air France proposera jusqu'à 200 destinations cet été</title>
+            <description>La compagnie nationale a dévoilé son programme de vols de cet été en lien avec la levée des restrictions sanitaires dans le monde. Elle proposera notamment des vols centrés sur la France métropolitaine, les Outre-mer, l'Europe et l'Afrique du nord.</description>
+            <link>https://farman.info/article/8LNnkkzS8jtpADPat9ld</link>
+            <guid isPermaLink="true">https://farman.info/article/8LNnkkzS8jtpADPat9ld</guid>
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F3c4a386e-9975-4703-89a4-f12d68f30578?alt=media&token=e0c6c438-dee4-4093-8597-0008916164ba" />
+            <content:encoded>
+                <![CDATA[<p><i>Un Airbus A320 d'Air France à l'aéroport de Barcelone El Prat ©Wikipedia / Magic Aviation</i></p>
+<p>  Air France a annoncé ce vendredi 11 juin son programme de vols de cet été susceptible d'évoluer en fonction des dernières mesures gouvernementales. Centré principalement sur l'Europe, l'Afrique du nord et les Outre-mer, le programme de vols représentera 65% des capacités déployées par rapport à 2019, contre 40% en mai dernier.</p>
+<p>  Pour assurer ces dessertes, Air France va mobiliser 181 avions dont 22 avions qui vont être déstockés pour l'occasion (long-courrier et moyen-courrier confondus).</p>
+
+  
+
+<h1>Programme de vols</h1>
+<p>  Le programme de vols comprend les vols au départ des aéroports de Paris-Charles de Gaulle et Paris-Orly pour les mois de juillet et août 2021:</p>
+
+  
+
+<h3> France</h3>
+<p>  Ajaccio, Aurillac, Bastia, Biarritz, Bordeaux, Brest, Brive, Calvi, Castres, Clermont Ferrand, Figari, Lourdes/Tarbes, Lyon, Marseille, Montpellier, Nantes, Nice, Pau, Perpignan, Rennes, Toulouse.</p>
+
+  
+
+<h3> Europe</h3>
+<p>  Alicante, Amsterdam, Athènes, Bâle/Mulhouse, Barcelone, Bari, Belgrade, Bergen, Berlin, Bilbao, Billund, Birmingham, Bologne, Bucarest  Budapest, Cagliari, Catane, Copenhague,  Corfou (nouveau),  Cork, Dublin, Dubrovnik, Düsseldorf, Edinbourg, Erevan, Faro, Florence, Francfort, Genève, Göteborg, Hambourg, Hanovre,  Helsinki (nouveau), Héraklion, Ibiza, Istanbul, Kiev, Krakow,  Las Palmas (nouveau), Lisbonne, Ljubljana, Londres, Madrid, Malaga,  Malte (nouveau), Manchester, Milan, Moscou, Munich, Mykonos, Naples, Newcastle, Nuremberg, Olbia, Oslo, Palerme, Palma De Mallorca, Pise (nouveau), Porto, Prague,  Rhodes (nouveau),  Rome, Santorin, Séville, Sofia, Split, St. Pétersbourg, Stockholm, Stuttgart, Tbilissi, Thessalonique, Turin, Valence, Varsovie, Venise, Vienne, Zagreb, Zurich</p>
+
+  
+
+<h3> Afrique du Nord</h3>
+<p>  Agadir (nouveau), Alger, Casablanca, Djerba, Monastir (nouveau), Oran, Marrakech, Rabat, Tanger (nouveau), Tunis</p>
+
+  
+
+<h3> Outre-mer</h3>
+<p>  Cayenne, Fort-de-France, Papeete, Pointe-à-Pitre, Saint-Denis de la Réunion, Saint-Martin</p>
+<p>    ===</p>
+
+<h1>Politique de remboursement</h1>
+<p>  Durant cette période de Covid, la compagnie propose des billets modifiables quels que soient ses conditions tarifaires jusqu'au jour du départ pour tous voyages jusqu'au 31 décembre 2021. En revanche, si le billet coûte plus cher, la différence reste à la charge du client.</p>
+<p>  Si le passager ne souhaite plus voyager, il peut modifier son billet avec les mêmes conditions citées précédemment ou le transformer en avoir, aussi remboursable jusqu'au jour du départ (même si le billet n'autorisait pas un remboursement).</p>
+<p>  Enfin, si le vol est annulé par la compagnie, le passager peut reporter son voyage, demander un remboursement intégral de son billet ou bénéficier d'un avoir, également remboursable si non utilisé.</p>
+
+  
+
+<h1>Situation sanitaire</h1>
+<p>  La compagnie rappelle aussi à tous les voyageurs de vérifier les conditions d'accès dans le pays de destination. Elles peuvent être consultées via le site Internet traveldoc.aero.</p>
+<p>  Pour rejoindre la Corse, il est nécessaire de présenter un justificatif de vaccination ou un test PCR réalisé dans les 72 heures précédant le départ via l'application TousAntiCovid. La vaccination concerne toute personne majeure et le test PCR toute personne à partir de 11 ans.</p>
+<p>  A bord des avions d'Air France, le port du masque chirurgical reste obligatoire durant toute la durée du vol en complément de l'application des gestes barrières.</p>]]>
+            </content:encoded>
+        </item>
+        
+        <item>
+            <pubDate>Tue, 08 Jun 2021 18:56:40 GMT</pubDate>
+            <title>Premier ravitaillement d'un avion de chasse par un drone de Boeing</title>
+            <description>L'avionneur américain Boeing a pour la première fois dans l'histoire ravitaillé un autre avion de chasse de l'US Navy à l'aide d'un drone (sans équipage et piloté à distance).</description>
+            <link>https://farman.info/article/AlNC33wfpAVVlhFezTA3</link>
+            <guid isPermaLink="true">https://farman.info/article/AlNC33wfpAVVlhFezTA3</guid>
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fddbf2998-a25e-45f0-b259-d2df5e13a571?alt=media&token=b3c7d45c-33fe-41a9-bd16-fc84126abef0" />
+            <content:encoded>
+                <![CDATA[<p><i>Le drone MQ-25 Stingray connecté via son ancre flottante à la sonde de</i> <i>ravitaillement</i> <i>du F/A-18 de l'US Navy. ©Boeing / Twitter</i></p>
+<p>  Boeing a réussi l'exploit de ravitailler en carburant un avion de chasse F/A-18 de l'US Navy depuis un drone MQ-25 T1 Le drone nommé "Stingray" avait effectué son premier vol d'essai le 19 septembre 2020 et a pu réaliser ce nouvel exploit ce vendredi 4 juin.</p>
+
+  
+
+<h1>Une manœuvre délicate</h1>
+<p>  L'opération de transfert de carburant a été très délicate dans la mesure où les deux appareils devaient être très stables et à une distance minimum de 20 pieds. La vitesse et l'altitude des deux appareils devaient elles aussi être coordonnées pour pourvoir raccorder l'ancre flottante.</p>
+<p>  Une fois stabilisé, le drone a pu déployer son ancre flottante et le pilote du F/A 18 est venu se positionner pour connecter sa sonde de ravitaillement et recevoir le chargement de carburant prévu.</p>
+<p>  Boeing assure dans son communiqué que "le MQ-25 Stingray a étendu avec succès le tuyau et la drogue de son magasin de ravitaillement en vol (ARS) émis par l'US Navy et a transféré en toute sécurité du carburéacteur à un F/A-18 Super Hornet".</p>
+
+  
+
+<blockquote> « Cet événement historique est tout à l'honneur de notre équipe conjointe de Boeing et de la Marine qui s'efforce de fournir dès que possible la capacité critique de ravitaillement en vol du MQ-25 à la flotte » </blockquote>
+
+<blockquote> Leanne Caret, présidente et chef de la direction de Boeing Defence, Espace & Sécurité</blockquote>
+
+  
+
+<h1>Un drone en cours de déploiement</h1>
+<p>  Après avoir réalisé 25 vols d'essais et de nombreuses simulations pour tester "l'aérodynamisme de l'avion et de l'ARS sur l'ensemble du domaine de vol", le MQ-25 Stingray va poursuivre ses essais en vol et sera envoyé cette année à Norfolk, en Virginie , pour des essais de manutention de pont à bord d'un porte-avions de la marine américaine.</p>
+<p>  Pour Boeing, l'utilisation des drones MQ-25 permettra "une meilleure utilisation des chasseurs de combat" en aidant "à étendre la portée de l'escadre aérienne du porte-avions".</p>
+<p>  Il est aussi prévu que le drone soit utilisé pour effectuer des missions de surveillance à l'aide de capteurs spécifiques.</p>]]>
+            </content:encoded>
+        </item>
+        
+        <item>
+            <pubDate>Mon, 07 Jun 2021 16:31:57 GMT</pubDate>
+            <title>Premier vol d'un hélicoptère aux biocarburants</title>
+            <description>L'association de sauvetage aérien allemande ADAC Luftrettung a fait voler ce dimanche le premier hélicoptère ravitaillé en biocarburants (SAF) fabriqués par TotalEnergies avec AirbusHelicopters et Safran Helicopter Engines.</description>
+            <link>https://farman.info/article/xZb9GGAk00nxKhHtCpFI</link>
+            <guid isPermaLink="true">https://farman.info/article/xZb9GGAk00nxKhHtCpFI</guid>
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F716f5d8e-79a9-4e84-b76a-c85bf0f6120e?alt=media&token=93c58ae3-ebc6-40db-98bd-56ba64ca24d4" />
+            <content:encoded>
+                <![CDATA[<p><i>©ADAC Presse / Jochen Oesterle</i></p>
+<p>    Ce dimanche 6 juin à Munich en Allemagne, un Airbus H145 d'AirbusHelicopter a volé pour la première fois à l'aide de kérozène mélangé à des biocarburants issus de l'économie circulaire produits par TotalEnergies en France.</p>
+
+  
+
+<h1>Des carburants alternatifs français</h1>
+<p>  Les biocarburants qui ont été utilisés pour ce premier vol ont été produits sur des sites industriels en France à La Mède (13) et Oudalle (76). TotalEnergies désire implanter un autre site en Seine-et-Marne à Grandpuits d'ici 2024.</p>
+<p>  Utilisés à 40% de kérozène mélangés, ces biocarburants permettront à l'association de sauvetage d'économiser 6 000 tonnes de CO2 sur leurs vols soit plus de 33% des émissions carbones totales. 90% d'émissions CO2 ont pu être économisées sur ce vol.</p>
+<p>  TotalEnergies, AirbusHelicopter et Safran Helicopter Engine sont trois entreprises françaises pionnières dans le domaine de l'aviation durable et des biocarburants. Ceux-ci ont pour objectif de se détourner des combustibles polluants pour atteindre la neutralité carbone.</p>
+<p>  Ils sont principalement issus de biomasse (déchets de graisses animales et végétales) et récoltés dans des points de collecte en France.</p>
+
+  
+
+<blockquote> « Nous voulons être un pionnier dans la réduction des émissions de CO2 dans le sauvetage aérien avec du kérosène respectueux de l'environnement. Et nous voulons l'utiliser pour développer davantage le sauvetage aérien sur le plan technologique afin de le rendre évolutif à long terme. Pour y parvenir, nous avons à nos côtés des partenaires solides."</blockquote>
+
+  
+
+<blockquote> Frédéric Bruder, directeur général d'ADAC Luftrettung</blockquote>
+
+  
+
+  
+
+<h1>Une intégration progressive</h1>
+<p>  Après avoir effectué un premier vol de test aux biocarburants, l'association souhaite progressivement intégrer ces biocarburants dans leurs hélicoptères jusqu'à 100%.</p>
+<p>  La législation en vigueur n'autorise cependant que jusqu'à 50% de biocarburants mélangés au kérozène embarqué.</p>
+<p>  A côté de cela, ADAC Luftrettung réfléchit aussi à l'intégration de carburants électriques synthétique, couramment appelé kérozène liquide, pour les années à venir.</p>
+<p>  Des tests seront effectués cet été pour connaître les effets à long-terme de l'utilisation de ces biocarburants.</p>
+
+  
+
+<blockquote> « Safran est le leader de l'industrie des moteurs pour réduire les émissions de CO2 des hélicoptères. \\\[...\\\] Tous nos moteurs sont certifiés pour fonctionner avec jusqu'à 50 % de consommation de carburant durable, y compris le biocarburant. Notre objectif est d'atteindre 100 pour cent. »</blockquote>
+
+  
+
+<blockquote> Franck Saudo, PDG de Safran Helicopter Engines</blockquote>
+<p>  Néanmoins, l'utilisation et la production des biocarburants reste un processus disponible en petite quantité et cher en coût de production.</p>]]>
+            </content:encoded>
+        </item>
+        
+        <item>
+            <pubDate>Fri, 04 Jun 2021 09:01:06 GMT</pubDate>
+            <title>United veut faire voler un nouvel avion supersonique </title>
+            <description>La compagnie américaine United Airlines a annoncé ce jeudi 3 juin avoir conclu un accord avec l'avionneur Boom Supersonic pour l'achat de 15 avions supersoniques "Overture" qui pourraient entrer en service d'ici 2029.</description>
+            <link>https://farman.info/article/kcFiSlloi2pr0Ml99atH</link>
+            <guid isPermaLink="true">https://farman.info/article/kcFiSlloi2pr0Ml99atH</guid>
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fced5374d-b339-4a4f-8325-c16c75cb7445?alt=media&token=d8330a72-cc30-4e06-bde5-4789464b2e10" />
+            <content:encoded>
+                <![CDATA[<img src="https://www.ft.com/<b>origami/service/image/v2/images/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2Ffa90b13c-a6b2-49e0-9de4-c052d9cdde09.jpg?fit=scale-down&source=next&width=700" alt="https://www.ft.com/</b>origami/service/image/v2/images/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2Ffa90b13c-a6b2-49e0-9de4-c052d9cdde09.jpg?fit=scale-down&amp;source=next&amp;width=700" />© United Airlines / Boom Supersonic
+
+  
+
+<h1>Un nouveau concorde</h1>
+<p>C'est bien l'ambition de United Airlines qui souhaite donner un nouveau coup de pouce dans le développement de la filière d'avions supersoniques.</p>
+<p>L'avion supersonique baptisé "Overture" aura une vitesse de 1.7 March, soit à peu près 2000 km/h.</p>
+<p>Il pourra relier très rapidement les grandes capitales mondiales avec un temps de vol de New-York (Newark) à Londres de 3h30 minutes avec 30 minutes de plus pour relier Francfort. On annonce aussi San Francisco Tokyo en moins de 6 heures.</p>
+<p>L'objectif de United et de Boom Supersonic étant de faire voler l'appareil avec 100% de biocarburants (SAF)</p>
+
+<blockquote> « Le premier accord d'achat au monde pour un avion supersonique à zéro carbone marque une étape importante vers notre mission de créer un monde plus accessible » Blake Scholl, fondateur et PDG de Boom Supersonic</blockquote>
+
+<blockquote> United continue sur sa trajectoire pour construire une compagnie aérienne plus innovante et durable et les progrès technologiques d'aujourd'hui rendent plus viable l'inclusion des avions supersoniques. La vision de Boom pour l'avenir de l'aviation commerciale, combinée au réseau de routes le plus robuste de l'industrie dans le monde, donnera aux voyageurs d'affaires et de loisirs l'accès à une expérience de vol exceptionnelle » Scott Kirby, PDG de United</blockquote>
+<p>\\===</p>
+
+  
+
+<h1>Un projet à risques</h1>
+<p>Même si la compagnie annonce des investissements solides pour le projet (Bessemer Venture Partners, Prime Movers Lab, Emerson Collective ou encore American Express Ventures), il se pourrait bien que celui-ci finisse comme le Aerion AS2 qui s'est vu arrêté brutalement il y a quelques semaines faute de nouveaux investissements.</p>
+<p>Ce projet rappel aussi celui du Concorde, qui lui aussi a fini par s'arrêter en 2003 suite à un tragique accident et une rentabilité très faible.</p>
+<p>Les coûts d'exploitation étant très élevés et le nombre de places à bord réduit, l'avion supersonique est donc un modèle commercial à risque pour les compagnies aériennes qui l'exploitent.</p>
+<p>Actuellement, le premier vol d'essai d' "Overture" est prévu pour 2026 et une autre version appelée "Baby-Boom" (XB-1) qui doit normalement effectuer un vol d'essai au courant de cette année. Par ailleurs, United Airlines prévoit déjà l'achat de 35 modèle supplémentaires.</p>]]>
+            </content:encoded>
+        </item>
+        
+        <item>
+            <pubDate>Sun, 23 May 2021 09:13:05 GMT</pubDate>
+            <title>Air France: premier vol long-courrier aux biocarburants français</title>
+            <description>Mardi dernier, la compagnie Air France a effectué son premier vol long-courrier vers Montréal en A350 alimenté en biocarburants (SAF) à 16% produits en France par Total.
 </description>
-    </item>
-    
-    <item>
-        <title>Le rover chinois sur Mars dévoile ses premières photos</title>
-        <link>https://farman.info/article/XCsEXMd6W7daqg4zsRL9</link>
-        <description>Deuxième nation à poser un rover sur la Mars avec la mission Tianwen-1, la Chine et son Administration spatiale nationale chinoise (CNAS) a publié ce 20 mai des clichés inédits de la planète rouge.
+            <link>https://farman.info/article/2S1zi5mRqGl25qFfdW7p</link>
+            <guid isPermaLink="true">https://farman.info/article/2S1zi5mRqGl25qFfdW7p</guid>
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F6979c6ef-83ea-49c1-96b5-daec579cd3f0?alt=media&token=8d5f0c6d-bc81-4de0-83f1-a09b874ab8dd" />
+            <content:encoded>
+                <![CDATA[<img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F10752a5f-e5c7-4f51-bbd9-a77f531fae48?alt=media&token=9879d7dc-99a9-403e-80ed-b2cb1a44bfd2" alt="texte alternatif" />©Air France
+
+<h2>Un carburant 100% français</h2>
+<p>Le géant du pétrole qui avait implanté son usine à La Mède récemment, vient de faire décoller le premier long courrier Air France avec ses huiles de cuisson usagées et végétales en A350-900 de Paris CDG vers Montréal.</p>
+<p>Produit sur deux sites en France à la Mède (13) et Oudalle (76), ce carburant provient principalement « de déchets et de résidus provenant de l’économie circulaire », tel que de l'huile de cuisson animale ou végétale.</p>
+<p>Les huiles sont récoltées par Total dans des points de collecte comme celui-ci dessous.</p>
+
+<img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F32882b21-a700-48f8-9c63-b7fe4eb7c9e9?alt=media&token=53f7f9e6-9b85-49d0-8e27-9d3eda9c20f7" alt="texte alternatif" />Point de collecte d'huile en Espagne ©Annalibera (Creative Commons)
+<p>Ces SAF pour <i>Sustainable Aviation Fuel</i>, "doivent permettre de diminuer de façon significative les émissions de CO2 du transport aérien" toujours selon Air France-KLM.</p>
+<p>La compagnie juge que l'utilisation à 16% de biocarburants sur ce vol Paris-Montréal aura permis d'économiser 20 tonnes de CO2 sur l totalité des émissions CO2 produites.</p>
+<p>En utilisant ces biocarburants, Air France souhaite développer la filière française de production de SAF avec tous ses partenaires engagés: Total, Groupe ADP et Airbus.</p>
+<p>De son côté, Total souhaite continuer sur cette voix et va implanter un troisième site de fabrication de SAF en Seine-et-Marne à Grandpuits dès 2024.</p>
+
+  
+
+<h2>Décarboner l'aviation</h2>
+<p>Véritable enjeux pour le secteur aérien, la décarbonisation s'inscrit comme indispensable pour continuer de développer la croissance dans les décennies à venir.</p>
+<p>Même si les SAF sont peu rentables actuellement, ils constituent un axe majeur de la politique de développement durable imposée par les Nations Unies.</p>
+<p>La législation française imposera dès le 1er janvier 2022 un minimum de 1% de biocarburants embarqués à bord de tous les vols au départ de la France. Cela pourra aller jusqu'à 5% d'ici 2030.</p>
+
+<blockquote> "Le Groupe Air France-KLM, est engagé de longue date dans la réduction de son empreinte environnementale. Les carburants aériens durables constituent, avec le renouvellement de notre flotte, le principal levier accessible à moyen terme pour réduire de moitié nos émissions de CO2 par passager/km d’ici à 2030. Ils sont donc au cœur de notre démarche, aux côtés de l’éco-pilotage et de la neutralité carbone de nos opérations au sol."</blockquote>
+<p>Benjamin Smith, Directeur Général d’Air France-KLM</p>
+<p>Ce premier vol de test a été effectué en Airbus A350-900 de nouvelle génération qui consomme 25% de moins de CO2 que les appareils d'ancienne génération.</p>
+<p>Côté opérations au sol, l'appareil a été ravitaillé via un camion ravitailleur électrique et des engins zéro émission carbone.</p>
+<p>Par ailleurs, Airbus continue de développer des appareils pouvant transporter plus de SAF et va faire certifier son avion pouvant voler avec 100% de ce type de carburant (pour l'instant mélangé à 50% de kérozène).</p>
+
+<blockquote> "Les carburants durables sont un levier majeur pour atteindre nos objectifs de décarbonation du secteur aérien, et Airbus soutient toutes les initiatives qui concourent à leur développement et leur utilisation sur les vols commerciaux. Une action coordonnée de tous les acteurs est nécessaire afin d’augmenter la part de ces carburants durables qui peuvent dès aujourd’hui être utilisés à hauteur de 50% sur nos avions, sans aucune modification ou impact opérationnel, et réduisant d’autant leur empreinte environnementale”.</blockquote>
+<p>Guillaume Faury, PDG d’Airbus</p>]]>
+            </content:encoded>
+        </item>
+        
+        <item>
+            <pubDate>Fri, 21 May 2021 09:46:44 GMT</pubDate>
+            <title>Le rover chinois sur Mars dévoile ses premières photos</title>
+            <description>Deuxième nation à poser un rover sur la Mars avec la mission Tianwen-1, la Chine et son Administration spatiale nationale chinoise (CNAS) a publié ce 20 mai des clichés inédits de la planète rouge.
 </description>
-    </item>
-    
-    <item>
-        <title>Un accord trouvé pour le futur avion de combat européen (SCAF)</title>
-        <link>https://farman.info/article/Av9ePXeUvMtM1ORZJwK2</link>
-        <description>Les responsables politiques du projet de Système de Combat Aérien du Futur (SCAF) mené par la France, l'Allemagne et l'Espagne ont conclu un accord ce vendredi 14 mai concernant les droits de propriétés intellectuelles des industriels et d'autres variables concernant le financement.
+            <link>https://farman.info/article/XCsEXMd6W7daqg4zsRL9</link>
+            <guid isPermaLink="true">https://farman.info/article/XCsEXMd6W7daqg4zsRL9</guid>
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F5ad57a2b-d946-4613-8f04-e72c021f8af9?alt=media&token=0dca66c1-68f0-4fbd-a223-32cf64dbbed9" />
+            <content:encoded>
+                <![CDATA[<h3>   </h3>
+
+<img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fdbd2e53f-a4b6-4288-a38e-a45b768fa691?alt=media&token=df5c1423-5827-43e5-b6c6-516af3dd1a16" alt="texte alternatif" /><i>Les rampes pour poser le rover Zhurong sur Mars. © CNSA</i>
+
+  
+
+<h1>Des photos inédites</h1>
+
+  
+
+<img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fb9607ca2-34fd-4caa-aa3c-d1a43520766a?alt=media&token=36dfed8c-3499-45e3-9be5-c5312d0249ac" alt="texte alternatif" /><i>En blanc et au centre, l'antenne de Zhurong est déployée. © CNSA</i>
+<p>  Atterrit ce vendredi 14 mai, il aura nécessité 5 jours à l'agence spatiale chinoise pour partager ces clichés spectaculaire du rover Zhurong envoyé le 23 juillet 2020 depuis Wenchang.</p>
+<p>  Deux autres courtes vidéos ont été filmées lors de l'atterrissage et publiées sur le compte Twitter de l'agence spatiale chinoise.</p>
+<p>  La première photo en noir et blanc a été photographiée par la caméra de détection d'obstacles située à l'avant du rover.</p>
+<p>  On y voit clairement les deux rampes qui vont servir au rover pour descendre sur le sol martien. Aussi, le rendu incurvé de celle-ci est due à la caméra et sa prise grand-angle.</p>
+<p>  L'autre image, en couleur, a été photographiée par une caméra de navigation située à l'arrière du rover Zhurong.</p>
+<p>On peut déjà apercevoir au premier plan le rover et ses panneaux solaires avec l'antenne robot dépliée.</p>
+<p>Au second plan on reconnaît le sol martien orange et quelques rochers épars.</p>
+
+  
+
+<img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fcb693475-dc77-4b87-9417-61a8f1ffeac5?alt=media&token=5a7e01dc-5f57-4e6e-8fba-93772a75074a" alt="texte alternatif" /><img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F95908736-e72c-402d-b74c-5659065ccf58?alt=media&token=27d34bd9-14c9-4eb2-8fb9-700bbde7f3a4" alt="texte alternatif" /><i>Capture des deux vidéos enregistrées par l'atterrisseur chinois pendant la phase d'approche. ©CNSA</i>
+<p>  La zone d'atterrissage n'a quant à elle pas été choisie au hasard. Des ingénieurs ont travailler pour trouver une zone où se poser et la plaine d’Utopia Planitia, proche de l'équateur, a été choisie.</p>
+<p>  Fonctionnant à l'aide de panneaux solaires, il fallait donc choisir une zone éclairée le plus souvent possible.</p>
+
+  
+
+<h1>Les objectifs de la mission Tianwen-1</h1>
+<p>  Les principaux objectifs de la mission sont d'effectuer des études topographiques et géologiques de la surface de Mars.</p>
+<p>  Un autre volet important est celui qui concerne la recherche de glace, qui attesterait des formes de vie antérieure sur la planète.</p>
+<p>  L'agence spatiale souhaite aussi effectuer des examens concernant les caractéristiques de l'atmosphère martienne via leur rover.</p>
+<p>    Pour cela, le rover n'a que trois mois à compter de son atterrissage, après quoi il sera inutilisable. En effet, contrairement aux autres rovers américains, celui-ci ne possède pas de batterie nucléaire au plutonium.</p>]]>
+            </content:encoded>
+        </item>
+        
+        <item>
+            <pubDate>Tue, 18 May 2021 12:51:58 GMT</pubDate>
+            <title>Un accord trouvé pour le futur avion de combat européen (SCAF)</title>
+            <description>Les responsables politiques du projet de Système de Combat Aérien du Futur (SCAF) mené par la France, l'Allemagne et l'Espagne ont conclu un accord ce vendredi 14 mai concernant les droits de propriétés intellectuelles des industriels et d'autres variables concernant le financement.
 </description>
-    </item>
-    
-    <item>
-        <title>Dassault Aviation présente le Falcon 10X</title>
-        <link>https://farman.info/article/2SH7hrOSh6mvIB9jiiZ5</link>
-        <description>L'avionneur militaire et d'affaire Dassault Aviation a présenté ce 6 mai son nouveau projet de jet privé Falcon 10X, présenté comme "le plus avancé et le plus spacieux des avions d’affaires".
+            <link>https://farman.info/article/Av9ePXeUvMtM1ORZJwK2</link>
+            <guid isPermaLink="true">https://farman.info/article/Av9ePXeUvMtM1ORZJwK2</guid>
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F7fe0d830-435f-49d9-9cbb-bc6ad0a19855?alt=media&token=2a8f9936-edd2-45d4-ad2d-869d3e12f3c2" />
+            <content:encoded>
+                <![CDATA[<h3>   </h3>
+
+<img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Ff22929c8-1378-4c33-a1cc-a052427b9ed4?alt=media&token=8c719150-0fab-4c62-881f-182f0c11f490" alt="texte alternatif" /><i>©ERIDIA Studio / Dassault Aviation</i>
+
+  
+
+<h2>Un accord longuement négocié</h2>
+<p>  C'était le point majeur des discussions concernant le SCAF. Négocié ce vendredi 14 mai, l'accord sera présenté au Parlement allemand avant les élections de juin prochain.</p>
+<p>  Les responsables Florence Parly, ministre des Armées de la France, Annegret Kramp-Karrenbauer, ministre de la Défense d'Allemagne, et Margarita Robles, ministre de la Défense d'Espagne ont donc enclenché la phase 1B du projet qui prévoit la conception de l'appareil de 2021 à 2024.</p>
+<p>  Les arrangements de chaque États correspondants sont désormais prêts à suivre les processus administratifs nationaux en vue d'une validation formelle.</p>
+<p>  Le projet à pour but de renforcer la cohésion entre les armées des trois pays pour mettre en commun les données tactiques militaires.</p>
+<p>  Les pays qui ont obtenu "un accord équilibré", souhaitent encore discuter en ce qui concerne la répartition budgétaire, aujourd'hui estimée à hauteur de 3,5 milliards d'euros.</p>
+
+  
+
+<h2>Des technologies de pointe</h2>
+<p>  L'appareil sera conçu par quatre des plus grands avionneurs et industriels aéronautiques.</p>
+<p>  Dassault Aviation et Airbus développeront l'appareil et Safran et MTU s'occuperont de la motorisation. Le moteur prévu pour le SCAF est un M88, le même qui est utilisé sur les Rafales.</p>
+<p>  Dassault Aviation et Airbus se repartiront aussi les tâches dans les différents piliers du projet.</p>
+<p>  L'autre phase 2 du SCAF prévoit aussi l'intégration de remote-carriers: des drones missiles complémentaires à l'appareil pour une action renforcée.</p>
+<p>    D'après un communiqué du Ministère de la Défense, les premiers prototype et la mise en vol sont prévus pour 2026-2027.</p>]]>
+            </content:encoded>
+        </item>
+        
+        <item>
+            <pubDate>Sun, 16 May 2021 12:22:14 GMT</pubDate>
+            <title>Dassault Aviation présente le Falcon 10X</title>
+            <description>L'avionneur militaire et d'affaire Dassault Aviation a présenté ce 6 mai son nouveau projet de jet privé Falcon 10X, présenté comme "le plus avancé et le plus spacieux des avions d’affaires".
 </description>
-    </item>
-    
-    <item>
-        <title> EasyJet accueille deux Airbus A321neo à Roissy CDG</title>
-        <link>https://farman.info/article/uVGeCcevPfm4EDAiY1NE</link>
-        <description>En période d'épidémie, la compagnie low-cost EasyJet a reçu ce 11 mai deux nouveaux Airbus A321neo qui seront basés à Roissy Charles-de-Gaulle en juin prochain pour venir moderniser sa flotte et accompagner la reprise du trafic cet été en France métropolitaine.*
+            <link>https://farman.info/article/2SH7hrOSh6mvIB9jiiZ5</link>
+            <guid isPermaLink="true">https://farman.info/article/2SH7hrOSh6mvIB9jiiZ5</guid>
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F68eaeba6-9812-4a07-9884-fedfcb464be5?alt=media&token=ea522a2c-9d0a-4a2a-a464-189ea1e9db9f" />
+            <content:encoded>
+                <![CDATA[<img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fe36b3daf-a4ea-42b8-ba99-ec6e88274360?alt=media&token=19f90a20-eebe-4883-9b65-17a67c2b5927" alt="texte alternatif" /><i>©Dassault Aviation</i>Le nouvel appareil présenté par l'avionneur se veut confortable et polyvalent, en proposant notamment une distance franchissable de 13 890 km, soit la distance d'un vol Hong-Kong - New-York.
+
+<blockquote> « Aujourd’hui, nous présentons la nouvelle référence des jets d’affaires, a déclaré Éric Trappier, le président-directeur général de Dassault Aviation. Le Falcon 10X offrira une expérience passager sans équivalent sur les vols de courte comme de longue durée, ainsi que des systèmes de sécurité innovants issus des technologies utilisées sur nos avions de combat. »</blockquote>
+
+<h1>D'importantes avancées technologiques</h1>
+<p>C'est une révolution numérique qui va s'imposer dans le cockpit du Falcon 10X avec un système de commandes de vol numérique de nouvelle génération.</p>
+<p>Toutes les commandes de vol seront accessibles via des écrans tactiles et les manettes de gaz remplacées par une commande intelligente connectée aux informations de vol.</p>
+<p>Côté motorisation, l'appareil sera équipé Rolls-Royce Pearl® 10X de la série Pearl, qui délivrent une puissance de 18 000 livres.</p>
+<p>Le fuselage de l'appareil sera composé de matériaux composites type fibre de carbone ce qui permet d'alléger de poids de l'appareil et donc réduire sa consommation de carburant. La fibre de carbone, plus avantageuse, est déjà utilisée sur d'autre appareils.</p>
+
+<blockquote> « Nous avons mis la barre très haut avec notre nouveau Falcon. Je peux affirmer sans hésiter que nous avons placé cet avion au sommet du marché ».</blockquote>
+
+<h1><img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F48049d6f-7738-4762-a0ff-36d70e52d111?alt=media&token=72037682-9254-4acc-a555-eb0a156633c9" alt="texte alternatif" /><i>© Dassault Aviation</i>Un nouveau système de cabines "modulables"</h1>
+<p>La grande révolution de cet appareil passe aussi par sa cabine, qui permet de moduler l'espace en fonction des goûts du client.</p>
+<p>Ainsi, plusieurs configurations de cabines sont disponibles avec quatre espaces de dimension égale où la salle de conférence ou à manger pourront être redimensionnées.</p>
+<p>Une suite privative avec douche ou un espace détente pourront aussi être ajouté en fonction de la configuration choisie.</p>
+
+<blockquote> « Le Falcon 10X sera plus qu’un nouveau grand pas en avant dans l’aviation d’affaires. Il sera sans conteste le meilleur business jet dans la catégorie des appareils à très long rayon d’action, et il le restera pendant longtemps »</blockquote>
+
+<img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2F5fed8a40-ec25-435e-8a4d-efad82f9c680?alt=media&token=6293955d-33f4-4d14-8838-4e47930f7b93" alt="texte alternatif" /><i>© Dassault Aviation</i>La mise en service de l'appareil est prévue pour 2025.]]>
+            </content:encoded>
+        </item>
+        
+        <item>
+            <pubDate>Fri, 14 May 2021 19:54:24 GMT</pubDate>
+            <title> EasyJet accueille deux Airbus A321neo à Roissy CDG</title>
+            <description>En période d'épidémie, la compagnie low-cost EasyJet a reçu ce 11 mai deux nouveaux Airbus A321neo qui seront basés à Roissy Charles-de-Gaulle en juin prochain pour venir moderniser sa flotte et accompagner la reprise du trafic cet été en France métropolitaine.*
 
 </description>
-    </item>
-    
-    <item>
-        <title>Un avion à l'hydrogène atterrit en urgence dans un champ pendant un vol d'essai</title>
-        <link>https://farman.info/article/VSSSZCbke9Z3RPIPFRFr</link>
-        <description>Ce 29 avril, un aéronef Piper Malibu Mirage équipé d'une motorisation à l'hydrogène développé par l'avionneur britannique ZeroAvia a atterrit en urgence dans un champ vers l'aéroport de Cranfield près de Londres pendant un vol d'essai.
+            <link>https://farman.info/article/uVGeCcevPfm4EDAiY1NE</link>
+            <guid isPermaLink="true">https://farman.info/article/uVGeCcevPfm4EDAiY1NE</guid>
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fb186707d-e013-4736-8df1-181b16781da4?alt=media&token=418c6486-7210-4142-8869-3a49b81992a2" />
+            <content:encoded>
+                <![CDATA[<img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fa9246d1f-5801-4137-9461-afa08d9ed01b?alt=media&token=4a21963c-2691-44d1-92e9-65040fa07acd" alt="texte alternatif" />© Groupe ADP / Twitter
+
+<h1>Une efficacité opérationnelle inédite</h1>
+<p>C'est une première pour la compagnie britannique qui accueille deux nouveaux Airbus A321neo sur l'aéroport de Roissy Charles-de-Gaulle.</p>
+<p>Les deux appareils de nouvelle génération sont équipés de deux moteurs CFM Leap 1-A et leur capacité de remplissage est supérieur à celle des A320 avec 235 sièges.</p>
+<p>D'un point de vue environnemental, la compagnie mise tout sur ces nouveaux Airbus et visent une réduction de la consommation de kérozène de 15 à 20%.</p>
+<p>Les nuisances sonores sont aussi réduites de moitié dans les phases de décollage et d'atterrissage.</p>
+<p>Le but étant de remplacer des anciens appareils plus polluants par ces avions de nouvelle génération.</p>
+
+  
+
+<h1>La France, l'atout majeur d'EasyJet</h1>
+<p>Forte de ses 7 bases françaises (Paris Orly, Paris CDG, Lyon, Nice, Toulouse, Bordeaux et Nantes), la compagnie souhaite encore plus développé ses activités en France avec l'ouverture de six nouvelles lignes pour cet été dont deux en France métropolitaine: Toulon et Calvi.</p>
+<p>EasyJet veux avant tout ciblé une clientèle de vacanciers attirés par les grandes capitales et les plages en Europe.</p>
+<p>Pour cela, elle opte pour "un modèle flexible" qui s'établira en fonction des dernières mesures de déconfinement pour assurer des vols durant l'été, comme l'assure son président des régions France et Pays-Bas Bertrand GODINOT.</p>
+<p>Aujourd'hui, EasyJet occupe la deuxième place des compagnies aériennes françaises et attire toujours plus de clients grâce à son modèle low-cost, ce qui lui permet d'investir dans une flotte plus moderne et d'optimiser ses coûts opérationnels.</p>]]>
+            </content:encoded>
+        </item>
+        
+        <item>
+            <pubDate>Thu, 13 May 2021 12:24:31 GMT</pubDate>
+            <title>Un avion à l'hydrogène atterrit en urgence dans un champ pendant un vol d'essai</title>
+            <description>Ce 29 avril, un aéronef Piper Malibu Mirage équipé d'une motorisation à l'hydrogène développé par l'avionneur britannique ZeroAvia a atterrit en urgence dans un champ vers l'aéroport de Cranfield près de Londres pendant un vol d'essai.
 </description>
-    </item>
-    
-</channel>
+            <link>https://farman.info/article/VSSSZCbke9Z3RPIPFRFr</link>
+            <guid isPermaLink="true">https://farman.info/article/VSSSZCbke9Z3RPIPFRFr</guid>
+            <media:content url="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Ffc6032f0-6271-436f-a364-51abb09809e5?alt=media&token=b6e9f452-c3cf-4a75-944e-cd27965742ed" />
+            <content:encoded>
+                <![CDATA[<h3>   </h3>
+
+<h2><img src="https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images%2Fa42895d4-4d8d-4273-8e8f-bb4410396c64?alt=media&token=fe4bb7e5-1de8-4419-9322-c72f7fa608f6" alt="texte alternatif" /></h2>
+
+  
+
+<h1>Aucun blessé mais une aile endommagée</h1>
+<p>  L'appareil est venu se poser en urgence dans un champ d'herbe plate à quelques centaines de mètres de l'aéroport.</p>
+<p>  Les dégâts visibles ont été causé par l'aile gauche qui est venu percuté le terrain accidenté après que le train principal gauche s'est écrasé.</p>
+<p>  L'entreprise assure que "toutes les personnes impliquées sont en sécurité et sans blessure". Par ailleurs, immédiatement après l'incident, celui-ci a été signalé auprès des autorités aériennes.</p>
+<p>  Une enquête interne de responsables qui ne sont pas liés au projet HyFlyer I a été ouverte pour déterminer précisément les causes de l'incident.</p>
+
+  
+
+<h1>L'incident n'a pas été causé par la motorisation</h1>
+<p>  Dans un communiqué publié le jour même, l'avionneur affirme qu'"il n'y a eu aucun dégagement d'hydrogène ou d'électricité involontaire et aucun incendie".</p>
+<p>  Après l'atterrissage mouvementé, l'équipage a pu libérer tout l'hydrogène présent dans les batteries comme le veux le protocole de sécurité en cas d'accident.</p>
+<p>  Aucune trace de fuite de liquide n'a été observée de la part des équipes présentes sur place le jour de l'incendient.</p>
+<p>  Par ailleurs, toutes les données enregistrées dans les carnets de bord seront utilisées pour l'enquête.</p>
+
+  
+
+<blockquote> Nous continuerons à travailler avec l'AAIB pour assurer la livraison d'une enquête complète et détaillée de l'incident. Comme pour toute enquête, cela prendra du temps. Il est primordial de suivre la procédure et de ne pas précipiter le processus. Nous fournirons des mises à jour selon nos possibilités.</blockquote>
+<p><i>Communiqué de presse</i></p>
+<p>  Les vols d'essai réalisés par l'avionneur servent à certifier le projet HyFlyer qui vise à commercialiser des appareils à l'hydrogène de 10 à 20 sièges d'ici la prochaine décennie.</p>]]>
+            </content:encoded>
+        </item>
+        
+    </channel>
 </rss>
         
