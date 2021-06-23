@@ -47,8 +47,8 @@ Le site web est open source, et le code source est disponible à cette adresse :
 progress {width: 100%; height: 5px; appearance: none;}
 progress::-webkit-progress-bar {background: #ddd;}
 progress::-webkit-progress-value {background-color: teal; transition: width 350ms ease-out;}
-#progress {position: fixed;bottom: 10vh;left: 50%;transform: translate(-50%, 0); width: 250px; opacity: 1; transition: all 500ms ease;}
-#load.out #progress {transform: translate(-50%, 150px); opacity: 0;}
+#progress {position: fixed;bottom: 10vh;left: 50%;transform: translate(-50%, 0); width: 250px; opacity: 1; transition: opacity 250ms ease 500ms;}
+#load.out #progress {opacity: 0;}
 
 #sky {height: 100vh;width: 100vw;background-color: #fff;cursor: progress; opacity: 1; transition: opacity 500ms ease-in;}
 #load.out #sky {opacity: 0;}
