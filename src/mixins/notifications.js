@@ -29,15 +29,11 @@ export const notificationsMixin = {
         }
     },
     methods: {
-        requestNotifications() {
+        async requestNotifications() {
             document.getElementById('notificationsOverlay').style.display = 'block'
-            askForPermissionToReceiveNotifications()
-            .then(() => {
-                this.checkGrantedStatus()
-            })
-            .catch(error => {
-                this.checkGrantedStatus()
-            })
+            const token = await askForPermissionToReceiveNotifications()
+            this.checkGrantedStatus()
+            return token
         },
         checkGrantedStatus() {
             document.getElementById('notificationsOverlay').style.display = 'none'

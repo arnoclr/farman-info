@@ -9,6 +9,7 @@ $fm-bottom-sheat--radius: 24px;
     max-height: calc(100vh - 140px);
     bottom: 0;
     left: 0;
+    overflow-y: scroll;
     border-top-right-radius: $fm-bottom-sheat--radius;
     border-top-left-radius: $fm-bottom-sheat--radius;
     transform: translateY(calc(100vh - 140px + 20px));

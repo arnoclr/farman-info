@@ -69,8 +69,8 @@
                     </div>
                     
                     <!-- comments -->
-                    <!-- <button class="fm-button" @click="commentsOpen = true">commentaires</button>
-                    <comments-bottom-sheat :doc="doc" :open.sync="commentsOpen"></comments-bottom-sheat> -->
+                    <button class="fm-button" @click="commentsOpen = true">commentaires</button>
+                    <comments-bottom-sheat :doc="doc" :open.sync="commentsOpen"></comments-bottom-sheat>
 
                 </div>
             </main>
