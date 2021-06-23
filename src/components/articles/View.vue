@@ -7,7 +7,7 @@
             <main>
                 <div>
                     <span v-if="!article.published">En cours de traitement ...</span>
-                    <router-link v-if="user && article.uid == user.uid" :to="'/article/' + $route.params.ref + '/edit'">modifier (vous êtes le seul a voir ce message)</router-link>
+                    <router-link v-if="user && article.uid == user.uid" :to="'/article/' + $route.params.id + '/edit'">modifier (vous êtes le seul a voir ce message)</router-link>
                     
                     <span t>
                         {{ new Date(article.createdAt.seconds*1000).toLocaleDateString("fr-FR", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}

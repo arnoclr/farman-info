@@ -60,7 +60,14 @@ const parseMd = (md, forQuill = false) => {
     // youtube link
     if(!forQuill) {
       md = md.replace(/(https?:\/\/)?(www.)?youtube.(com|be)\/(watch\?v=)?([a-zA-Z0-9_-]+)/g,
-        '<div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/$5" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>');
+        '<div class="video-container"><iframe class="skeleton" width="560" height="315" src="https://www.youtube.com/embed/$5" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>');
+    }
+
+    // twitter embed
+    if(!forQuill) {
+      md = md.replace(/(https?:\/\/)twitter.com\/[a-zA-Z0-9_]{0,15}\/status\/(\d+)/g, url => {
+        return `<div class="video-container"><iframe border=0 frameborder=0 height=250 width=550 src="https://twitframe.com/show?url=${url}"></iframe></div>`
+      })
     }
     
     //strip p from pre
