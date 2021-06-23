@@ -125,20 +125,6 @@ select {
     }
 }
 
-// progress
-progress {
-    width: 100%;
-    height: 5px;
-    appearance: none;
-
-    &::-webkit-progress-bar {
-        background: #ddd;
-    }
-    &::-webkit-progress-value {
-        background-color: teal;
-    }
-}
-
 // loaders
 .center {
     width: 100%;

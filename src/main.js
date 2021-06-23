@@ -67,13 +67,14 @@ console.log('%cLe code du site est open source → https://github.com/Aryqs-Ipsu
 
 let app
 
-document.getElementById('splash-message').innerText = "Authentification ..."
+document.getElementById('progress').value = 1
 
 auth.onAuthStateChanged(user => {
+    document.getElementById('progress').value = 2
     document.getElementById('load').classList.add('out')
     setTimeout(() => {
         document.getElementById('load').style.display = 'none'
-    }, 350 + 350);
+    }, 500);
 
     if(user && user.uid) analytics.setUserId(user.uid)
     
