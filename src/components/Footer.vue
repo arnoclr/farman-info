@@ -23,7 +23,7 @@
                 <p></p>
                 <p><router-link class="fm-link" :to="{name: 'LandingPage', params: {ref: 'footer_copyright'}}">
                     ©{{ new Date().getFullYear() }} Farman</router-link>, mis à jour {{ buildDate }}</p>
-                <p><a class="fm-link" href="https://farman.ga/s/cgu">Informations juridiques</a></p>
+                <p><a class="fm-link" href="https://farman.ga/s/cgu">Informations juridiques <i class="material-icons">open_in_new</i></a></p>
                 <p><router-link class="fm-link" :to="{name: 'contact', params: {ref: 'footer'}}">Contact</router-link></p>
                 <p></p>
             </div>
