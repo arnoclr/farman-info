@@ -52,6 +52,33 @@ body {
     }
 }
 
+.video-container { 
+    overflow: hidden; 
+    padding-bottom: 56.25%; 
+    position: relative; 
+    height: 0;
+
+    iframe {
+        left: 0; 
+        top: 0; 
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background: linear-gradient(90deg,#f2f2f2 25%,#dadada 37%,#f2f2f2 63%);
+        background-size: 400% 100%;
+        animation: skeleton-loading 1.4s ease infinite;
+    }
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
 // select
 select {
     height: 48px;

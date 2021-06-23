@@ -56,6 +56,12 @@ const parseMd = (md, forQuill = false) => {
     if(forQuill) {
       md = md.replace(/([ +]*\n)+/gm, '<p><br></p>');
     }
+
+    // youtube link
+    if(!forQuill) {
+      md = md.replace(/(https?:\/\/)?(www.)?youtube.(com|be)\/(watch\?v=)?([a-zA-Z0-9_-]+)/g,
+        '<div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/$5" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>');
+    }
     
     //strip p from pre
     md = md.replace(/(\<pre.+\>)\s*\n\<p\>(.+)\<\/p\>/gm, '$1$2');
