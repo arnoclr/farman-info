@@ -2,7 +2,7 @@
     <div>
         <app-header :gestion="true"></app-header>
 
-        <main>
+        <div style="padding: 32px;">
             <md-field>
                 <label for="section">Page</label>
                 <md-select v-model="section" name="section" id="section">
@@ -17,7 +17,7 @@
             <admin-magazines v-if="section == 'magazines'"></admin-magazines>
             <admin-articles v-if="section == 'articles'"></admin-articles>
             <admin-remote-config  v-if="section == 'remoteConfig'"></admin-remote-config>
-        </main>
+        </div>
 
         <app-footer></app-footer>
     </div>
