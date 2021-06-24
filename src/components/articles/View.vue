@@ -37,9 +37,22 @@
                     </div>
 
                     <div class="mb-64">
-                        <p p>Partager l'article <md-icon>arrow_forward</md-icon></p>
+                        <p p>Vous avez aimé ? <md-icon>arrow_forward</md-icon></p>
                         <bottom-share :open.sync="shareDialogOpen" :url="$root.hostname + $route.path + '?ref=share'"></bottom-share>
-                        <button @click="shareDialogOpen = true" class="fm-button">partager <i class="material-icons fm-button__icon fm-button__icon--right">{{ $device.ios ? 'ios_share' : 'share' }}</i></button>
+                        <button @click="shareDialogOpen = true" class="fm-button">
+                            partager <i class="material-icons fm-button__icon fm-button__icon--right">{{ $device.ios ? 'ios_share' : 'share' }}</i>
+                        </button>
+                        <button class="fm-button fm-button--outlined" @click="openComments('button')">
+                        Lire les commentaires</button>
+                        <a class="fm-button fm-button--outlined"
+                            href="https://news.google.com/publications/CAAqBwgKMJ2KpwswhZW_Aw" 
+                            target="_blank" rel="nofollow noopener" title="Google News">
+                            S'abonner sur <img height="72" width="72" src="/assets/icons/google-news.svg" alt="">
+                        </a>
+                        <div class="youtube-banner">
+                            <p>Farman, le média aéro innovation, trafic et éco sur vos réseaux sociaux et farman.info.</p>
+                            <div id="ytbtn" class="g-ytsubscribe" data-channelid="UC9oYwEaRK3Bv68G-bKe-l_Q" data-layout="full" data-count="default"></div>
+                        </div>
                     </div>
 
                     <div v-observe-visibility="{
@@ -67,13 +80,21 @@
                             <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
                         </div>
                     </div>
-                    
-                    <!-- comments -->
-                    <button class="fm-button" @click="commentsOpen = true">commentaires</button>
-                    <comments-bottom-sheat :doc="doc" :open.sync="commentsOpen"></comments-bottom-sheat>
 
                 </div>
             </main>
+
+            <!-- comments -->
+            <div class="comments-banner fm-main-padding" 
+            @click="openComments('banner')" v-if="$root.user">
+                <img :src="this.$root.user.photoURL" alt="photo de profil">
+                <span>Ajouter un commentaire...</span>
+            </div>
+            <div class="comments-banner fm-main-padding" 
+            @click="openComments('banner')" v-else>
+                <span>Lire les commentaires</span>
+            </div>
+            <comments-bottom-sheat :doc="doc" :open.sync="commentsOpen" :loaded="commentsDialogLoaded"></comments-bottom-sheat>
         </div>
         <div v-else style="height: 100vh"></div>
 
@@ -90,6 +111,30 @@
 .summary {
     font-size: 22px;
     line-height: 26px;
+}
+
+.youtube-banner {
+    padding: 8px 16px 32px 16px;
+    background: #eee;
+}
+
+.comments-banner {
+    position: sticky;
+    bottom: 0;
+    background: #eee;
+    padding: 16px;
+
+    img {
+        width: 32px;
+        height: 32px;
+        margin-right: 16px;
+        border-radius: 50%;
+    }
+
+    span {
+        color: #666;
+        font-size: 16px;
+    }
 }
 
 main {
@@ -154,6 +199,7 @@ export default {
             user: this.$root.user,
             needLogin: false,
             shareDialogOpen: false,
+            commentsDialogLoaded: false,
             author: null,
             readTime: 0,
             interval: null,
@@ -184,7 +230,8 @@ export default {
             this.related = null,
             this.relatedLoaded = false,
             this.author = null,
-            this.readTime = 0
+            this.readTime = 0,
+            this.commentsDialogLoaded = false
         }
     },
     methods: {
@@ -219,7 +266,6 @@ export default {
             if(!isVisible) return
             if(this.relatedLoaded) return
             this.relatedLoaded = true
-            console.log('load suggestions')
             db.collection('articles')
             .orderBy('createdAt', 'desc')
             .where('published', '==', true)
@@ -240,7 +286,6 @@ export default {
                 console.error(e)
             })
             // log event when article is readed
-            console.log(this.readTime)
             if(this.readTime < 20) return
             const wordCount = this.article.content.match(/(\w+)/g).length;
             analytics.logEvent('read_article', {
@@ -261,11 +306,24 @@ export default {
         },
         timer() {
             this.readTime++
+        },
+        openComments(ref) {
+            analytics.logEvent('open_comments', {
+                ref: ref
+            })
+            localStorage.setItem('login-from-url', this.$route.fullPath)
+            this.commentsOpen = true
+            this.commentsDialogLoaded = true
         }
     },
     mounted() {
         this.fetch()
         this.interval = setInterval(this.timer, 1000)
+        this.$loadScript('https://apis.google.com/js/platform.js').then(() => {
+            setTimeout(() => {
+                window.gapi.ytsubscribe.go('#ytbtn')
+            }, 1000);
+        })
     },
     beforeDestroy() {
         clearInterval(this.interval)

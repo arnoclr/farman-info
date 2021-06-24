@@ -130,7 +130,7 @@ router.beforeEach((to, from, next) => {
   const urlParams = new URLSearchParams('?' + to.fullPath.split('?')[1])
 
   window.ref = to.params.ref || urlParams.get('ref') || 'none'
-  console.log(window.ref)
+  // console.log(window.ref)
   analytics.logEvent('page_view', { 
     ref: window.ref,
     display_mode: window.PWADisplayMode

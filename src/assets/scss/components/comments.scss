@@ -1,0 +1,86 @@
+.fm-comments {
+    margin: 10px 0;
+    padding: 0;
+    list-style-type: none;
+
+    &--nested {
+        margin-top: -8px;
+        margin-left: 32px;
+    }
+
+    &__form {
+        padding: 16px;
+        
+        &-input {
+            margin-bottom: 12px;
+        }
+
+        &-buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}
+
+.fm-comment {
+    display: flex;
+    padding: 4px 16px;
+
+    &:focus, &:hover {
+        background-color: #fafafa;
+    }
+
+    &__avatar {
+        height: 40px !important;
+        width: 40px;
+        margin-right: 8px;
+        margin-top: 4px;
+        border-radius: 50%;
+    }
+
+    &__body {
+        display: block;
+        position: relative;
+        width: 100%;
+
+        &-name {
+            font-weight: 600;
+        }
+
+        &-time {
+            margin-left: 4px;
+            color: #777;
+            font-size: 12px;
+        }
+
+        &-content {
+            display: block;
+            margin: 4px 0;
+            color: #000;
+            font-size: 16px;
+        }
+
+        &-actions {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        
+        &:hover &-actions {
+            display: block;
+        }
+
+        &-reply {
+            &-form {
+                &-input {
+                    margin-bottom: 12px;
+                }
+
+                button {
+                    float: right;
+                }
+            }
+        }
+    }
+}

@@ -4,13 +4,13 @@
         v-touch:start="startSwipe"
         v-touch:moving="swipe"
         v-touch:end="endSwipe"
-        ref="swipableShareDialog"
+        ref="swipableDialog"
         :class="'fm-bottom-sheat ' + (open ? 'fm-bottom-sheat--open' : '')">
             <div class="fm-bottom-sheat__pill">
                 <div></div>
             </div>
-            <div class="fm-bottom-sheat__body">
-                <comments :doc="doc" v-if="open"></comments>
+            <div ref="bodyDialog" class="fm-bottom-sheat__body">
+                <comments :doc="doc" v-if="loaded"></comments>
             </div>
         </div>
         <div class="fm-backdrop" @click="closeModal"></div>
@@ -22,9 +22,9 @@ import {bottomSheatMixin} from '../../mixins/bottomSheat'
 
 export default {
     mixins: [bottomSheatMixin],
-    props: ['doc'],
+    props: ['doc', 'loaded'],
     components: {
-        Comments: () => import('./../utils/Comments.vue')
+        Comments: () => import('../Comments/Comments.vue')
     }
 }
 </script>

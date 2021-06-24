@@ -21,6 +21,10 @@ Vue.use(VueObserveVisibility)
 import Vue2TouchEvents from 'vue2-touch-events'
 Vue.use(Vue2TouchEvents)
 
+// load scripts
+import LoadScript from 'vue-plugin-load-script'
+Vue.use(LoadScript)
+
 if(window.location.hostname === 'farman.ga') {
     window.location.href = 'https://farman.info?utm_source=farman.ga&utm_medium=direct'
 }
@@ -52,8 +56,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
     window.deferredPrompt = e
     // Update UI notify the user they can install the PWA
     window.showInstallPromotion = true
-    // Optionally, send analytics event that PWA install promo was shown.
-    console.log(`'beforeinstallprompt' event was fired.`)
 })
 
 // ads

@@ -4,7 +4,7 @@
         v-touch:start="startSwipe"
         v-touch:moving="swipe"
         v-touch:end="endSwipe"
-        ref="swipableShareDialog"
+        ref="swipableDialog"
         :class="'fm-bottom-sheat ' + (open ? 'fm-bottom-sheat--open' : '')">
             <div class="fm-bottom-sheat__pill">
                 <div></div>

@@ -188,7 +188,9 @@ p.firebaseui-tospp-full-message {
         methods: {
             exitLoginPage() {
                 this.$router.push(this.loginFromUrl)
-                analytics.logEvent('login')
+                analytics.logEvent('login', {
+                    ref: window.ref
+                })
             }
         }
     }

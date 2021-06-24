@@ -7,6 +7,7 @@ export const bottomSheatMixin = {
             scrollState: 0,
             scrollOffset: 0,
             isSwiping: false,
+            scrollTop: true
         }
     },
     watch: {
@@ -27,13 +28,18 @@ export const bottomSheatMixin = {
         },
         startSwipe(e) {
             this.scrollState = e.clientY || e.touches[0].clientY
+            if(this.$refs.bodyDialog && this.$refs.bodyDialog.scrollTop != 0) {
+                this.scrollTop = false
+            } else {
+                this.scrollTop = true
+            }
         },
         swipe(e) {
             const scroll = e.clientY || e.touches[0].clientY
-            if(scroll < this.scrollState) return
+            if(scroll < this.scrollState || !this.scrollTop) return
             this.scrollOffset = scroll - this.scrollState
-            this.$refs.swipableShareDialog.style.transition = 'transform 0s'
-            this.$refs.swipableShareDialog.style.transform = `translateY(${this.scrollOffset}px)`
+            this.$refs.swipableDialog.style.transition = 'transform 0s'
+            this.$refs.swipableDialog.style.transform = `translateY(${this.scrollOffset}px)`
         },
         endSwipe() {
             if(this.scrollOffset > 100) {
@@ -41,10 +47,11 @@ export const bottomSheatMixin = {
             } else {
                 this.resetSwipe()
             }
+            this.scrollOffset = 0
         },
         resetSwipe() {
-            this.$refs.swipableShareDialog.style.removeProperty('transform')
-            this.$refs.swipableShareDialog.style.removeProperty('transition')
+            this.$refs.swipableDialog.style.removeProperty('transform')
+            this.$refs.swipableDialog.style.removeProperty('transition')
             this.scrollState = window.scrollY
         },
     }

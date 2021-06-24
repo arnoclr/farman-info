@@ -32,6 +32,7 @@
     "vue-observe-visibility": "^1.0.0",
     "vue-pdf": "^4.2.0",
     "vue-pdf-render-event": "^4.0.9",
+    "vue-plugin-load-script": "^1.3.2",
     "vue-router": "^3.0.3",
     "vue-script2": "^2.1.0",
     "vue2-touch-events": "^3.2.2",

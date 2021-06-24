@@ -13,6 +13,7 @@ $fonts: 'Inter', Arial, Helvetica, sans-serif;
 @import 'components/box.scss';
 @import 'components/buttons.scss';
 @import 'components/cards.scss';
+@import 'components/comments.scss';
 @import 'components/dropdown.scss';
 @import 'components/footer.scss';
 @import 'components/header.scss';
@@ -193,7 +194,7 @@ main {
 }
 
 @media screen and(min-width: 700px) {
-    main {
+    main, .fm-main-padding {
         margin: 16px $padding !important;
     }
 
