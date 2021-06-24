@@ -39,7 +39,7 @@ $fm-bottom-sheat--radius: 24px;
 
     &__body {
         overflow-y: scroll;
-        height: calc(100vh - 140px - 28px);
+        max-height: calc(100vh - 140px - 28px);
 
         &-grid {
             display: block;

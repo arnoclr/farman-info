@@ -48,6 +48,11 @@
             outline-color: #000;
         }
 
+        &:disabled {
+            background-color: transparent;
+            color: #999 !important;
+        }
+
         i {
             color: #000 !important;
         }

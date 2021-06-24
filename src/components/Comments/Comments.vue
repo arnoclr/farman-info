@@ -5,8 +5,10 @@
                 <md-textarea v-model="editableComment" placeholder="Ajouter un commentaire public..." md-counter="2048" md-autogrow></md-textarea>
             </md-field>
             <div class="fm-comments__form-buttons">
-                <button class="fm-button fm-button--flat" @click="editableComment = ''">Annuler</button>
-                <button class="fm-button" @click="send">Ajouter un commentaire</button>
+                <button class="fm-button fm-button--flat" @click="editableComment = ''"
+                :disabled="editableComment.length == 0">Annuler</button>
+                <button class="fm-button" @click="send" 
+                :disabled="editableComment.length < 5 || editableComment.length > 2048">Ajouter un commentaire</button>
             </div>
         </div>
         <ul class="fm-comments" v-if="comments">

@@ -14,7 +14,8 @@
                     <md-field class="fm-comment__body-reply-form-input">
                         <md-textarea v-model="editableReply" placeholder="Ajouter une réponse publique" md-counter="2048" md-autogrow></md-textarea>
                     </md-field>
-                    <button class="fm-button" @click="reply(comment.id)">Répondre</button>
+                    <button class="fm-button" @click="reply(comment.id)"
+                    :disabled="editableReply.length < 5 || editableReply.length > 2048">Répondre</button>
                     <button class="fm-button fm-button--flat" @click="displayReply = null">Annuler</button>
                 </div>
             </div>
