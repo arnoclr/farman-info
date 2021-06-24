@@ -125,3 +125,27 @@
         }
     }
 }
+
+.fm-button-bloc {
+    padding: 32px;
+    background: #eee;
+    display: grid;
+    place-items: center;
+    border: 1px solid transparent;
+    cursor: pointer;
+
+    &:hover {
+        border: 1px dotted #999;
+    }
+
+    i {
+        display: block;
+        color: #666;
+        font-size: 28px;
+    }
+
+    &__label {
+        display: block;
+        color: #555;
+    }
+}

@@ -2,47 +2,74 @@
     <div>
         <app-header :gestion="true"></app-header>
 
-        <main>
+        <div>
             <div>
-                <md-field z>
-                    <label>Titre</label>
-                    <md-input md-counter="100" max="100" v-model="article.title" required></md-input>
-                </md-field>
+                <md-steppers :md-active-step.sync="currentStep" md-linear>
+                    <md-step id="general" md-label="Informatrions générales" 
+                    :md-error="(!article.title || !article.thumbnail || !article.summary) && currentStep != 'general' ? 'Champs non remplis' : false">
+                        <div class="fm-main-padding">
+                            <md-field z>
+                                <label>Titre</label>
+                                <md-input md-counter="100" max="100" v-model="article.title" required></md-input>
+                            </md-field>
 
-                <img height="160" :src="article.thumbnail">
-                <button class="fm-button" @click="imageUploaderOpen = true">{{ article.thumbnail ? 'Modifier la vignette' : 'Ajouter une vignette' }}</button>
-                <image-uploader ref="uploader" :callback="insertThumb" :open.sync="imageUploaderOpen"></image-uploader>
+                            <img height="160" :src="article.thumbnail">
+                            <button class="fm-button" @click="imageUploaderOpen = true" v-if="article.thumbnail">Modifier la vignette</button>
+                            <div class="fm-button-bloc" @click="imageUploaderOpen = true" v-else>
+                                <md-icon>add</md-icon>
+                                <span class="fm-button-bloc__label">Ajouter une image</span>
+                            </div>
+                            <image-uploader ref="uploader" :callback="insertThumb" :open.sync="imageUploaderOpen"></image-uploader>
 
-                <md-field>
-                    <label>Chapeau</label>
-                    <md-textarea md-counter="500" max="500" v-model="article.summary" required></md-textarea>
-                </md-field>
+                            <md-field>
+                                <label>Chapeau</label>
+                                <md-textarea md-counter="500" max="500" v-model="article.summary" required></md-textarea>
+                            </md-field>
 
-                <text-editor :content.sync="article.content" :counter="10000" ref="textEditor"></text-editor>
-                
-                <md-field>
-                    <label for="category" v-if="categories">Catégorie</label>
-                    <md-select v-model="article.category" name="category" id="category" required>
-                        <md-option 
-                            v-for="(category, id) in categories"
-                            v-bind:key="id"
-                            :value="category.id">{{ category.label }}</md-option>
-                    </md-select>
-                </md-field>
+                            <div class="fm-button" @click="currentStep = 'content'">
+                                Suivant <i class="material-icons fm-button__icon fm-button__icon-right">arrow_forward</i>
+                            </div>
+                        </div>
+                    </md-step>
 
-                <md-switch v-model="article.breaking">A la une</md-switch>
+                    <md-step id="content" md-label="Corps de l'article">
+                        <div class="fm-main-padding">
+                            <text-editor :content.sync="article.content" :counter="10000" ref="textEditor"></text-editor>
+                            <button class="fm-button fm-button--outlined" @click="deleteDraft">Supprimer mon brouillon</button>
 
-                <md-chips class="shake-on-error" v-model="article.tags" :md-limit="10" md-placeholder="Ajouter des tags"></md-chips>
-                <div class="md-helper-text">Les tags sont nécéssaires pour la recherche, ajoutez des mots simples qui décrivent au mieux votre article.</div>
+                            <div class="fm-button" @click="currentStep = 'seo'">
+                                Suivant <i class="material-icons fm-button__icon fm-button__icon-right">arrow_forward</i>
+                            </div>
+                        </div>
+                    </md-step>
 
-                <button class="fm-button fm-button--large" @click="submit" :disabled="submitting">{{ article.id ? 'Mettre à jour' : 'Soumettre'}}</button>
-                <button class="fm-button fm-button--outlined fm-button--large" @click="deleteDraft">Supprimer mon brouillon</button>
+                    <md-step id="seo" md-label="Référencement">
+                        <div class="fm-main-padding">
+                            <md-field>
+                                <label for="category" v-if="categories">Catégorie</label>
+                                <md-select v-model="article.category" name="category" id="category" required>
+                                    <md-option 
+                                        v-for="(category, id) in categories"
+                                        v-bind:key="id"
+                                        :value="category.id">{{ category.label }}</md-option>
+                                </md-select>
+                            </md-field>
 
-                <span help v-if="article.id">Attention, vos modifications devront être revalidées pour que votre article soit a nouveau visible. Ce processus peut prendre un certain temps.</span>
-                <span help>Veuillez porter une attention toute particulière aux fautes d'orthographe et de formulation. Il peut s'agir d'un motif de refus.</span>
-                <span help>En continuant, vous confirmez avoir lu et approuvé nos <a target="_blank" href="https://farman.ga/s/cgu">conditions générales d'utilisation.</a></span>
+                            <md-switch v-model="article.breaking">A la une</md-switch>
+
+                            <md-chips class="shake-on-error" v-model="article.tags" :md-limit="10" md-placeholder="Ajouter des tags"></md-chips>
+                            <div class="md-helper-text">Les tags sont nécéssaires pour la recherche, ajoutez des mots simples qui décrivent au mieux votre article.</div>
+
+                            <button class="fm-button fm-button--large fm-button--full" @click="submit" :disabled="submitting">{{ article.id ? 'Mettre à jour' : 'Soumettre'}}</button>
+
+                            <span help v-if="article.id">Attention, vos modifications devront être revalidées pour que votre article soit a nouveau visible. Ce processus peut prendre un certain temps.</span>
+                            <span help>Veuillez porter une attention toute particulière aux fautes d'orthographe et de formulation. Il peut s'agir d'un motif de refus.</span>
+                            <span help>En continuant, vous confirmez avoir lu et approuvé nos <a target="_blank" href="https://farman.ga/s/cgu">conditions générales d'utilisation.</a></span>
+                        </div>
+                    </md-step>
+                </md-steppers>
             </div>
-        </main>
+        </div>
 
         <app-footer></app-footer>
     </div>
@@ -110,6 +137,7 @@ export default {
                 category: null,
                 tags: []
             },
+            currentStep: 'general',
             submitting: false,
             template: EDITOR_TEMPLATE,
             categories: false,
