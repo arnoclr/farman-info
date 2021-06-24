@@ -39,16 +39,24 @@
                     <div class="mb-64">
                         <p p>Vous avez aimé ? <md-icon>arrow_forward</md-icon></p>
                         <bottom-share :open.sync="shareDialogOpen" :url="$root.hostname + $route.path + '?ref=share'"></bottom-share>
-                        <button @click="shareDialogOpen = true" class="fm-button">
-                            partager <i class="material-icons fm-button__icon fm-button__icon--right">{{ $device.ios ? 'ios_share' : 'share' }}</i>
-                        </button>
-                        <button class="fm-button fm-button--outlined" @click="openComments('button')">
-                        Lire les commentaires</button>
-                        <a class="fm-button fm-button--outlined"
-                            href="https://news.google.com/publications/CAAqBwgKMJ2KpwswhZW_Aw" 
-                            target="_blank" rel="nofollow noopener" title="Google News">
-                            S'abonner sur <img height="72" width="72" src="/assets/icons/google-news.svg" alt="">
-                        </a>
+                        <div class="fm-section fm-section--scrollable fm-section--scrollable--no-gap">
+                            <div class="item">
+                                <button @click="shareDialogOpen = true" class="fm-button">
+                                    partager <i class="material-icons fm-button__icon fm-button__icon--right">{{ $device.ios ? 'ios_share' : 'share' }}</i>
+                                </button>
+                            </div>
+                            <div class="item">
+                                <button class="fm-button fm-button--outlined" @click="openComments('button')">
+                                Lire les commentaires</button>
+                            </div>
+                            <div class="item">
+                                <a class="fm-button fm-button--outlined"
+                                href="https://news.google.com/publications/CAAqBwgKMJ2KpwswhZW_Aw" 
+                                target="_blank" rel="nofollow noopener" title="Google News">
+                                    S'abonner sur <img height="72" width="72" src="/assets/icons/google-news.svg" alt="">
+                                </a>
+                            </div>
+                        </div>
                         <div class="youtube-banner">
                             <p>Farman, le média aéro innovation, trafic et éco sur vos réseaux sociaux et farman.info.</p>
                             <div id="ytbtn" class="g-ytsubscribe" data-channelid="UC9oYwEaRK3Bv68G-bKe-l_Q" data-layout="full" data-count="default"></div>
