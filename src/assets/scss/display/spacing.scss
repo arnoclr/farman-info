@@ -12,7 +12,7 @@ $spacing-settings: (
         "left"        : "l",
     )
 );
-$sizes: (4, 8, 16, 32, 64, 128);
+$sizes: (0, 4, 8, 16, 32, 64, 128);
 
 @each $space-key, $space in map_get($spacing-settings, "spaces") {
     @each $position-key, $position in map_get($spacing-settings, "positions") {

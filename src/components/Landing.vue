@@ -58,9 +58,9 @@
                 
                 <div v-if="categories">
                     <div v-for="(category, index) in categories" :key="index">
-                        <div v-if="articlesByCategories[category.id]">
-                            <h2>{{ category.label }}</h2>
-                            <p>{{ category.description }}</p>
+                        <div v-if="articlesByCategories[category.id]" class="fm-outlined">
+                            <h2 class="mb-0">{{ category.label }}</h2>
+                            <p class="mb-0">{{ category.description }}</p>
                             <articles-slider
                                 ga_ref="landing_category"
                                 :button_link="{name: 'articleListCategory', params: {category: category.id, ref: 'landing_page_category_scroll'}}"
