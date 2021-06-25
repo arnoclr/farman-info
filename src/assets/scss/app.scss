@@ -197,6 +197,10 @@ main {
     height: 100vh;
 }
 
+.md-ripple {
+    z-index: inherit !important;
+}
+
 .divided {
     aside {
         margin: 0 16px;
