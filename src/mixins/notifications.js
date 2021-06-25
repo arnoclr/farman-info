@@ -1,7 +1,7 @@
 import {messaging, analytics} from '../firebaseConfig'
 
 const askForPermissionToReceiveNotifications = async () => {
-    if (!messaging) return alert('navigateur non compatible')
+    if (!messaging) return false
     try {
         await messaging.requestPermission()
         const token = await messaging.getToken()
