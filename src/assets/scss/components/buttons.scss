@@ -28,6 +28,7 @@
         outline-color: $primary-dark;
         outline-offset: 2px;
         outline-width: 2px;
+        box-shadow: 1px 1px 5px 5px inset rgba(0, 0, 0, 0.2);
     }
 
     &[disabled] {
