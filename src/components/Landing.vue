@@ -5,7 +5,6 @@
             <p>Activez les notifications et tenez-vous informé de la sortie de nouveaux magazines ou d'articles importants.</p>
             <button class="fm-button fm-button--large" @click="requestNotifications">Me notifier</button>
         </div>
-        <install-button mode="banner" v-else></install-button>
         
         <div r>
             <main>
@@ -106,6 +105,8 @@
                 </div>
             </main>
         </div>
+
+        <install-button mode="banner" style="position:sticky;bottom:0"></install-button>
 
         <app-footer></app-footer>
     </div>
