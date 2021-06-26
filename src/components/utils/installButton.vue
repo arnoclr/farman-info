@@ -2,7 +2,9 @@
     <div v-if="showInstallPromotion">
         <div class="fm-promotion-banner" v-if="mode === 'banner'">
             <img src="/assets/logos/icons-192.png" alt="logo myFarman" class="fm-promotion-banner__logo">
-            <p>Installez l'application MyFarman et profitez de vos magazines et articles hors connexion. </p>
+            <div class="fm-promotion-banner__text">
+                <p>Installez l'application MyFarman et profitez de vos magazines et articles hors connexion. </p>
+            </div>
             <button class="fm-button fm-button--large" @click="install">
                 Installer <i class="material-icons fm-button__icon fm-button__icon--right">get_app</i>
             </button>

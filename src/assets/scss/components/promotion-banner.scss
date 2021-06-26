@@ -14,7 +14,14 @@
         background-color: #fff;
     }
 
-    p {
+    &__text {
         margin-right: 8px;
+        max-height: 56px;
+        overflow-y: scroll;
+
+        p {
+            margin: 0;
+            white-space: break-word;
+        }
     }
 }
