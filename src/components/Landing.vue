@@ -57,7 +57,7 @@
                 
                 <div v-if="categories">
                     <div v-for="(category, index) in categories" :key="index">
-                        <div v-if="articlesByCategories[category.id]" class="fm-outlined">
+                        <div v-if="articlesByCategories[category.id]" class="fm-hoverable">
                             <h2 class="mb-0">{{ category.label }}</h2>
                             <p class="mb-0">{{ category.description }}</p>
                             <articles-slider

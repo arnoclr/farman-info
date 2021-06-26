@@ -177,13 +177,14 @@ select {
     }
 }
 
-.fm-outlined {
+.fm-hoverable {
     &:hover, &:focus, &:active {
         outline: auto;
-        outline-style: solid;
+        outline-style: dotted;
         outline-color: #ddd;
         outline-offset: 16px;
-        outline-width: 2px;
+        outline-width: 1px;
+        -moz-outline-radius: 4px;
     }
 }
 
