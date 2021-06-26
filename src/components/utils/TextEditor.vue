@@ -10,7 +10,7 @@
             <span>{{ editableContent.length }}/{{ counter }}</span>
         </div>
 
-        <image-uploader ref="uploader" :callback="insertHtmlImage" :open.sync="imageUploaderOpen"></image-uploader>
+        <image-uploader ref="uploader" :callback="false" :open.sync="imageUploaderOpen"></image-uploader>
     </div>
 </template>
 
@@ -51,10 +51,6 @@ export default {
         },
         imageUploaderClose() {
             this.imageUploaderOpen = false
-        },
-        insertHtmlImage(url) {
-            this.editableContent += `![](${url})`
-            this.updateTextEditor()
         },
         async onImageUpload(blob, callback) {
             this.imageUploaderOpen = true
