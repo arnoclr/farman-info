@@ -91,26 +91,37 @@ export default {
         },
         hasChanged() {
             let img = document.getElementById('img-input').files[0]
-            this.compressImage(img)
+            this.publishImage(img)
         },
         setBufferPercentage(percentage) {
             this.bufferValue = percentage
         },
-        compressImage(img) {
+        async publishImage(blob) {
+            const compressedImg = await this.compressImage(blob)
+            this.uploadImage(compressedImg)
+        },
+        async getImageUrl(blob) {
+            const compressedImg = await this.compressImage(blob)
+            const imageUrl = await this.uploadImage(compressedImg, true)
+            return imageUrl
+        },
+        async compressImage(img) {
             this.progressMode = 'buffer'
             this.uploading = true
-            imageCompression(img, {
-                maxSizeMB: 0.5,
-                maxWidthOrHeight: this.size || 1920,
-                useWebWorker: true,
-                initialQuality: 0.5,
-                onProgress: this.setBufferPercentage
-            }).then(img => {
-                this.uploadImage(img)
-            }).catch(err => {
-                this.error = err
+            try {
+                const compressedImg = await imageCompression(img, {
+                    maxSizeMB: 0.5,
+                    maxWidthOrHeight: this.size || 1920,
+                    useWebWorker: true,
+                    initialQuality: 0.5,
+                    onProgress: this.setBufferPercentage
+                })
+                return compressedImg
+            } catch(err) {
                 this.uploading = false
-            })
+                this.error = err
+                return err
+            }
         },
         getBlob(url) {
             this.progressMode = 'query'
@@ -118,37 +129,42 @@ export default {
             fetch(url).then(res => {
                 return res.blob();
             }).then(blob => {
-                this.compressImage(blob)
+                this.publishImage(blob)
             }).catch(err => {
                 this.error = err
                 this.uploading = false
             })
         },
-        uploadImage(img) {
-            this.progressMode = 'determinate'
-            let ref = images.child(uuidv4())
-            let uploadTask = ref.put(img)
+        async uploadImage(blob, getUrl = false) {
+            return new Promise((resolve, reject) => {
+                this.progressMode = 'determinate'
+                let ref = images.child(uuidv4())
+                let uploadTask = ref.put(blob)
 
-            // Listen for state changes, errors, and completion of the upload.
-            uploadTask.on('state_changed',
-                (snapshot) => {
-                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                    this.progressValue = (snapshot.bytesTransferred / snapshot.totalBytes)
-                }, 
-                (error) => {
-                    this.error = error
-                    this.uploading = false
-                }, 
-                () => {
-                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                // Listen for state changes, errors, and completion of the upload.
+                uploadTask.on('state_changed',
+                    (snapshot) => {
+                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                        this.progressValue = (snapshot.bytesTransferred / snapshot.totalBytes)
+                    }, 
+                    (error) => {
+                        this.error = error
+                        this.uploading = false
+                        reject()
+                    }, 
+                    async () => {
+                        const downloadURL = await uploadTask.snapshot.ref.getDownloadURL()
                         this.uploading = false
                         this.fromUrl = null
                         this.closeModal()
                         this.$root.$emit('toast', 'Image ajoutée')
-                        this.callback(downloadURL)
-                    })
-                }
-            )
+                        if(!getUrl) {
+                            this.callback(downloadURL)
+                        }
+                        resolve(downloadURL)
+                    }
+                )
+            })
         },
     }
 }
