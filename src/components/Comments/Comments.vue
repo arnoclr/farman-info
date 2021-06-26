@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="fm-main-padding">
         <div class="fm-comments__form" v-if="$root.user">
             <md-field class="fm-comments__form-input">
                 <md-textarea v-model="editableComment" placeholder="Ajouter un commentaire public..." md-counter="2048" md-autogrow></md-textarea>
