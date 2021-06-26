@@ -68,10 +68,15 @@ p {
     font-family: 'Material Icons Sharp';
 }
 
-.fm-markdown .ql-snow .ql-editor,
+.fm-markdown .toastui-editor-contents,
 .fm-markdown {
     font-family: 'Inter', Arial, Helvetica, sans-serif;
 
+    @for $i from 1 through 6 {
+        h#{$i} {
+            border-bottom: none;
+        }
+    }
     h1 {
         font-size: 28px;
         line-height: 28px;

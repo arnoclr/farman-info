@@ -1,8 +1,13 @@
 <template>
     <div>
 
-        <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="fm-markdown">
-            <div ref="editor"></div>
+        <div class="fm-markdown">
+            <editor 
+                @change="updateContent"
+                @paste="pasteImage"
+                initialEditType="wysiwyg"
+                :options="editorOptions"
+                ref="toastuiEditor" />
             <span>{{ editableContent.length }}/{{ counter }}</span>
         </div>
 
@@ -11,18 +16,15 @@
 </template>
 
 <script>
-import * as Quill from 'quill'
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import {parseMd} from '../../assets/js/utils/mdParse'
-import TurndownService from 'turndown'
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/vue-editor';
 
-const tdsv = new TurndownService()
 const BUCKET_URL = 'https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com'
 
 export default {
     components: {
-        imageUploader: () => import('../utils/ImageUploader')
+        imageUploader: () => import('../utils/ImageUploader'),
+        editor: Editor
     },
     props: [
         'content',
@@ -33,7 +35,9 @@ export default {
             imageUploaderOpen: false,
             editableContent: '',
             overlayActive: false,
-            quill: null,
+            editorOptions: {
+                hideModeSwitch: true
+            }
         }
     },
     methods: {
@@ -74,51 +78,37 @@ export default {
             }
         },
         updateContent() {
-            this.editableContent = tdsv.turndown(this.quill.root.innerHTML)
+            this.editableContent = this.$refs.toastuiEditor.invoke('getMarkdown')
             this.$emit('update:content', this.editableContent)
             localStorage.setItem('submit:draft', this.editableContent)
+            this.replaceBase64()
         },
-        updateTextEditor(text) {
-            if(text.length === 0) return
-            let result = parseMd(text, true)
-            this.quill.clipboard.dangerouslyPasteHTML(result)
-        },
-        initContent(text, event) {
-            this.updateTextEditor(text)
+        updateTextEditor() {
+            if(this.editableContent.length === 0) return
+            this.$refs.toastuiEditor.invoke('setMarkdown', this.editableContent)
         },
         imageUploaderClose() {
             this.imageUploaderOpen = false
         },
+        // TODO: fix double image replacement
+        replaceBase64() {
+            this.editableContent = this.editableContent.replace(/!\[.+\]\((data:image\/png;base64,.+)\)/g, (md, g1) => {
+                fetch(g1)
+                .then(res => res.blob())
+                .then(res => {
+                    this.$refs.uploader.compressImage(res)
+                    this.imageUploaderOpen = true
+                })
+                return ''
+            })
+        },
         insertHtmlImage(url) {
-            const range = this.quill.getSelection(true)
-            this.quill.setSelection(range.index + 1)
-            this.quill.insertEmbed(range.index, 'image', url)
-        },
-        appendContent(text) {
-            this.editableContent += text
-            this.updateContent()
-        },
+            this.editableContent += `![](${url})`
+            this.updateTextEditor()
+        }
     },
     mounted() {
         this.editableContent = this.content
-
-        this.quill = new Quill(this.$refs.editor, {
-            modules: { 
-                toolbar: {
-                    container: [
-                        [{ header: [1, 2, 3, false] }],
-                        ['bold', 'italic', 'blockquote'],
-                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                        ['link' ,'image']
-                    ],
-                }
-            },
-            theme: 'snow'
-        })
-        var toolbar = this.quill.getModule('toolbar')
-        toolbar.addHandler('image', () => {
-            this.imageUploaderOpen = true
-        })
 
         this.updateTextEditor(this.content)
 
@@ -126,16 +116,6 @@ export default {
         if(draft && this.$route.name !== 'articleEdit') {
             this.updateTextEditor(draft)
         }
-
-        const observer = new MutationObserver(mutation => {
-            this.updateContent()
-        })
-        observer.observe(this.$refs.editor, {
-            childList: true,
-            attributes: true,
-            subtree: true,
-            characterData: true
-        })
     }
 }
 </script>
