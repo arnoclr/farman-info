@@ -6,6 +6,22 @@
         min-height: calc(100vh - 100px); // remove header
     }
 
+    &--sticky {
+        position: sticky;
+        background-color: #fff;
+        z-index: 2;
+
+        &--top {
+            top: 72px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        &--bottom {
+            bottom: 0;
+            border-top: 1px solid #ddd;
+        }
+    }
+
     &--scrollable {
         position: relative;
         display: flex;

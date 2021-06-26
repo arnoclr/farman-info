@@ -106,7 +106,7 @@
             </main>
         </div>
 
-        <install-button mode="banner" style="position:sticky;bottom:0"></install-button>
+        <install-button mode="banner" class="fm-section--sticky fm-section--sticky--bottom"></install-button>
 
         <app-footer></app-footer>
     </div>

@@ -36,9 +36,9 @@
                         <router-link :to="{name: 'Login', params: {ref: 'need_login_box'}}" class="fm-button">Me connecter</router-link>
                     </div>
 
-                    <div class="mb-64">
-                        <p p>Vous avez aimé ? <md-icon>arrow_forward</md-icon></p>
-                        <bottom-share :open.sync="shareDialogOpen" :url="$root.hostname + $route.path + '?ref=share'"></bottom-share>
+                    <p p>Vous avez aimé ? <md-icon>arrow_forward</md-icon></p>
+                    <bottom-share :open.sync="shareDialogOpen" :url="$root.hostname + $route.path + '?ref=share'"></bottom-share>
+                    <div class="fm-section--sticky fm-section--sticky--top">
                         <div class="fm-section fm-section--scrollable fm-section--scrollable--no-gap">
                             <div class="item">
                                 <button @click="shareDialogOpen = true" class="fm-button">
@@ -57,16 +57,18 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="youtube-banner">
-                            <p>Farman, le média aéro innovation, trafic et éco sur vos réseaux sociaux et farman.info.</p>
-                            <div id="ytbtn" class="g-ytsubscribe" data-channelid="UC9oYwEaRK3Bv68G-bKe-l_Q" data-layout="full" data-count="default"></div>
-                        </div>
+                    </div>
+                    <div class="youtube-banner">
+                        <p>Farman, le média aéro innovation, trafic et éco sur vos réseaux sociaux et farman.info.</p>
+                        <div id="ytbtn" class="g-ytsubscribe" data-channelid="UC9oYwEaRK3Bv68G-bKe-l_Q" data-layout="full" data-count="default"></div>
                     </div>
 
-                    <div v-observe-visibility="{
+                    <div 
+                    class="mt-64"
+                    v-observe-visibility="{
                         callback: fetchRelated,
                         throttle: 700,
-                        }">
+                    }">
                         <!-- has suggestions -->
                         <div v-if="related && related.length > 0">
                             <h2>Suggestions</h2>
@@ -93,12 +95,12 @@
             </main>
 
             <!-- comments -->
-            <div class="comments-banner fm-main-padding" 
+            <div class="comments-banner fm-main-padding fm-section--sticky fm-section--sticky--bottom" 
             @click="openComments('banner')" v-if="$root.user">
                 <img :src="this.$root.user.photoURL" alt="photo de profil">
                 <span>Ajouter un commentaire...</span>
             </div>
-            <div class="comments-banner fm-main-padding" 
+            <div class="comments-banner fm-main-padding fm-section--sticky fm-section--sticky--bottom" 
             @click="openComments('banner')" v-else>
                 <span>Lire les commentaires</span>
             </div>
@@ -127,8 +129,6 @@
 }
 
 .comments-banner {
-    position: sticky;
-    bottom: 0;
     background: #eee;
     padding: 16px;
 
