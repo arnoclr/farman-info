@@ -5,6 +5,7 @@
             <editor 
                 @change="updateContent"
                 initialEditType="wysiwyg"
+                height="calc(100vh - 300px)"
                 :options="editorOptions"
                 ref="toastuiEditor" />
             <span>{{ editableContent.length }}/{{ counter }}</span>
@@ -17,6 +18,8 @@
 <script>
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/vue-editor';
+
+const BUCKET_URL = 'https://firebasestorage.googleapis.com/v0/b/actualites-aeronautiques.appspot.com/o/images'
 
 export default {
     components: {
@@ -35,7 +38,8 @@ export default {
             overlayActive: false,
             editorOptions: {
                 usageStatistics: false,
-                hideModeSwitch: true
+                hideModeSwitch: true,
+                minHeight: '250px',
             },
         }
     },
@@ -56,6 +60,8 @@ export default {
             this.imageUploaderOpen = true
             const imageUrl = await this.$refs.uploader.getImageUrl(blob)
             callback(imageUrl, '')
+            this.editableContent = this.editableContent.replaceAll(BUCKET_URL + '/', BUCKET_URL + '%2F')
+            this.updateTextEditor()
         }
     },
     mounted() {

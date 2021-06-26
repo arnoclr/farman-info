@@ -4,8 +4,9 @@
 
         <div>
             <div>
-                <md-steppers :md-active-step.sync="currentStep" md-linear>
-                    <md-step id="general" md-label="Informatrions générales" 
+                <md-steppers md-dynamic-height :md-active-step.sync="currentStep" md-linear>
+                    <md-step 
+                    id="general" md-label="Informatrions générales"
                     :md-error="(!article.title || !article.thumbnail || !article.summary) && currentStep != 'general' ? 'Champs non remplis' : false">
                         <div class="fm-main-padding">
                             <md-field z>
@@ -32,7 +33,8 @@
                         </div>
                     </md-step>
 
-                    <md-step id="content" md-label="Corps de l'article">
+                    <md-step 
+                    id="content" md-label="Corps de l'article">
                         <div class="fm-main-padding">
                             <text-editor :content.sync="article.content" :counter="10000" ref="textEditor"></text-editor>
                             <button class="fm-button fm-button--outlined" @click="deleteDraft">Supprimer mon brouillon</button>
@@ -43,7 +45,8 @@
                         </div>
                     </md-step>
 
-                    <md-step id="seo" md-label="Référencement">
+                    <md-step 
+                    id="seo" md-label="Référencement">
                         <div class="fm-main-padding">
                             <md-field>
                                 <label for="category" v-if="categories">Catégorie</label>
