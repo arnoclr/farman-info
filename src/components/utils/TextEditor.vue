@@ -53,6 +53,10 @@ export default {
             if(this.editableContent.length === 0) return
             this.$refs.toastuiEditor.invoke('setMarkdown', this.editableContent)
         },
+        initContent(markdown) {
+            this.editableContent = markdown
+            this.updateTextEditor()
+        },
         imageUploaderClose() {
             this.imageUploaderOpen = false
         },

@@ -18,7 +18,7 @@
                     <article v-for="(article, index) in articles" v-bind:key="index">
                         <router-link :to="{name: 'articleView', params: {id: article.id, ref: 'feed'}}"
                             class="fm-card fm-card--img fm-card--full-width"
-                            :disabled="!article.published">
+                            :disabled="!article.published" style="pointer-events: inherit">
                             <div class="fm-card__img fm-card__img--left fm-card__img--limited-height">
                                 <img :src="article.thumbnail" :alt="article.title">
                             </div>

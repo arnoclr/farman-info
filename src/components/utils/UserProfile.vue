@@ -14,6 +14,9 @@
                     <img :src="editedUser.photoURL">
                     <md-icon>edit</md-icon>
                 </div>
+
+                <router-link :to="{ name: 'articleListAuthor', params: { ref: 'userEdition', author: $root.user.uid } }"
+                class="fm-button fm-button--outlined">Mes articles</router-link>
             </md-dialog-content>
 
             <md-dialog-actions>
