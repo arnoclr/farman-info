@@ -27,7 +27,7 @@
                             </md-field>
 
                             <div class="fm-button" @click="currentStep = 'content'">
-                                Suivant <i class="material-icons fm-button__icon fm-button__icon-right">arrow_forward</i>
+                                Suivant <i class="material-icons fm-button__icon fm-button__icon--right">arrow_forward</i>
                             </div>
                         </div>
                     </md-step>
@@ -38,7 +38,7 @@
                             <button class="fm-button fm-button--outlined" @click="deleteDraft">Supprimer mon brouillon</button>
 
                             <div class="fm-button" @click="currentStep = 'seo'">
-                                Suivant <i class="material-icons fm-button__icon fm-button__icon-right">arrow_forward</i>
+                                Suivant <i class="material-icons fm-button__icon fm-button__icon--right">arrow_forward</i>
                             </div>
                         </div>
                     </md-step>
