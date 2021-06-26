@@ -11,12 +11,14 @@ $fm-bottom-sheat--radius: 24px;
     left: 0;
     border-top-right-radius: $fm-bottom-sheat--radius;
     border-top-left-radius: $fm-bottom-sheat--radius;
+    transform-origin: bottom;
+    transition: transform 350ms cubic-bezier(.56,.01,0,1.38);
     transform: translateY(calc(100vh - 140px + 20px));
-    transition: transform 350ms ease-in-out;
     z-index: 4;
 
     &--open {
         transform: translateY(0);
+        animation: bounce-open 350ms linear;
 
         &+.fm-backdrop {
             display: block;
@@ -97,4 +99,18 @@ $fm-bottom-sheat--radius: 24px;
     background-color: #000;
     opacity: 0.2;
     z-index: 3;
+}
+
+@keyframes bounce-open {
+    0% {
+        transform: translateY(calc(100vh - 140px + 20px)) scale(1);
+        animation-timing-function: cubic-bezier(.58,.59,0,1);
+    }
+    75% {
+        transform: translateY(0) scale(1, 1.02);
+        animation-timing-function: cubic-bezier(.37,0,.47,.9);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+    }
 }
