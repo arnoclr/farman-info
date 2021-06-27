@@ -265,6 +265,12 @@ export default {
                 if(this.article.needLogin && !this.user) {
                     this.needLogin = true
                 }
+                analytics.logEvent('open_article', {
+                    ref: window.ref,
+                    article_author: this.article.uid,
+                    article_length: this.article.content.length,
+                    article_tags: this.article.tags
+                })
             })
             .catch(err => {
                 console.error(err)
@@ -299,7 +305,6 @@ export default {
             analytics.logEvent('read_article', {
                 value: wordCount / this.readTime, // words/s
                 ref: window.ref,
-                tags: this.article.tags,
                 article_author: this.article.uid,
                 article_length: this.article.content.length,
                 article_words: wordCount,

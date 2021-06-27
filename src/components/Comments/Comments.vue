@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import {serverTimestamp} from '../../firebaseConfig'
+import {serverTimestamp, analytics} from '../../firebaseConfig'
 import {notificationsMixin} from '../../mixins/notifications'
 const COLLECTION_NAME = 'comments'
 const FETCH_NUM = 5
@@ -141,6 +141,10 @@ export default {
                 createdAt: serverTimestamp,
             }
             await this.collection.add(comment)
+            analytics.logEvent('write_comment', {
+                isReply: replyId ? true : false,
+                length: text.length
+            })
             return comment
         },
         async deleteComment(id, replyId = false) {
