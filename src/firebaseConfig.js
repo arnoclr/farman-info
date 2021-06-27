@@ -46,12 +46,11 @@ analytics.setUserProperties({consent: consent})
 
 if (location.hostname === "localhost") {
   //db.useEmulator("localhost", 8088)
-} else {
-  db.enablePersistence()
-    .catch(err => {
-      console.error(err)
-    })
 }
+db.enablePersistence()
+  .catch(err => {
+    console.error(err)
+  })
 
 // firebase collections
 const magazines = db.collection('magazines')

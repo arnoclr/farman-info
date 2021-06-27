@@ -41,13 +41,7 @@ import VueSimpleMarkdown from '../src/assets/js/vue-simple-markdown.js'
 Vue.use(VueSimpleMarkdown)
 
 // service worker
-if('serviceWorker' in navigator) {
-    if(window.location.hostname === 'localhost') {
-        navigator.serviceWorker.register('/service-worker-dev.js')
-    } else {
-        navigator.serviceWorker.register('/service-worker.js')
-    }
-}
+import './assets/js/registerServiceWorker'
 
 window.showInstallPromotion = false
 window.addEventListener('beforeinstallprompt', (e) => {
