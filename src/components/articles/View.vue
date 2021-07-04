@@ -27,7 +27,6 @@
                     <div id="markdown-wrapper" :class="needLogin ? 'restricted' : ''">
                         <div class="shade"></div>
                         <div class="fm-markdown fm-markdown--commentable" v-html="markdownRender"></div>
-                        <button @click="commentPrefilled = 'test'">prefilled debug</button>
                     </div>
 
                     <div class="fm-box fm-box--centered" v-if="needLogin">
