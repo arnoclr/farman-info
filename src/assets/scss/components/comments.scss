@@ -26,10 +26,6 @@
     display: flex;
     padding: 4px 16px;
 
-    &:focus, &:hover {
-        background-color: #fafafa;
-    }
-
     &__avatar {
         height: 40px !important;
         width: 40px;
@@ -58,6 +54,13 @@
             margin: 4px 0;
             color: #000;
             font-size: 16px;
+
+            &-quote {
+                padding-bottom: 12px;
+                margin-bottom: 16px;
+                color: #888;
+                border-bottom: 1px solid #aaa;
+            }
         }
 
         &-actions {

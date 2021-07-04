@@ -10,7 +10,7 @@
                 <div></div>
             </div>
             <div ref="bodyDialog" class="fm-bottom-sheat__body">
-                <comments :doc="doc" v-if="loaded"></comments>
+                <comments :doc="doc" :prefilled="prefilled" v-if="loaded"></comments>
             </div>
         </div>
         <div class="fm-backdrop" @click="closeModal"></div>
@@ -22,7 +22,7 @@ import {bottomSheatMixin} from '../../mixins/bottomSheat'
 
 export default {
     mixins: [bottomSheatMixin],
-    props: ['doc', 'loaded'],
+    props: ['doc', 'loaded', 'prefilled'],
     components: {
         Comments: () => import('../Comments/Comments.vue')
     }

@@ -26,7 +26,8 @@
 
                     <div id="markdown-wrapper" :class="needLogin ? 'restricted' : ''">
                         <div class="shade"></div>
-                        <div class="fm-markdown" v-html="markdownRender"></div>
+                        <div class="fm-markdown fm-markdown--commentable" v-html="markdownRender"></div>
+                        <button @click="commentPrefilled = 'test'">prefilled debug</button>
                     </div>
 
                     <div class="fm-box fm-box--centered" v-if="needLogin">
@@ -104,7 +105,7 @@
             @click="openComments('banner')" v-else>
                 <span>Lire les commentaires</span>
             </div>
-            <comments-bottom-sheat :doc="doc" :open.sync="commentsOpen" :loaded="commentsDialogLoaded"></comments-bottom-sheat>
+            <comments-bottom-sheat :prefilled="commentPrefilled" :doc="doc" :open.sync="commentsOpen" :loaded="commentsDialogLoaded"></comments-bottom-sheat>
         </div>
         <div v-else style="height: 100vh"></div>
 
@@ -208,6 +209,7 @@ export default {
             needLogin: false,
             shareDialogOpen: false,
             commentsDialogLoaded: false,
+            commentPrefilled: '',
             author: null,
             readTime: 0,
             interval: null,
@@ -243,16 +245,22 @@ export default {
         }
     },
     methods: {
-        /*rendered() {
-            setTimeout(() => {
-                document.querySelectorAll('.markdown-body img').forEach(img => {
-                    img.classList.add('lightbox')
-                    img.addEventListener('click', () => {
-                        img.classList.toggle('open')
-                    })
+        appendCommentsButtons() {
+            const p = document.querySelectorAll('.fm-markdown>p')
+            p.forEach(p => {
+                const text = p.innerText
+                p.innerHTML += 
+                `<button title="Commenter ce paragraphe"
+                class="comment-button fm-button fm-button--fab fm-button--fab--primary">
+                    <i class="material-icons">add_comment</i>
+                </button>`
+                const button = p.querySelector('button')
+                console.log(button)
+                button.addEventListener('click', () => {
+                    this.openComments('inline_button', '> ' + text + '\n\n')
                 })
-            }, 250);
-        },*/
+            })
+        },
         fetch() {
             const ref = this.$route.params.id
             this.$root.$emit('query:loading')
@@ -262,6 +270,9 @@ export default {
                 this.$root.$emit('query:loaded')
                 this.article = doc.data()
                 this.fetchAuthor()
+                setTimeout(() => {
+                    this.appendCommentsButtons()
+                }, 1000);
                 if(this.article.needLogin && !this.user) {
                     this.needLogin = true
                 }
@@ -320,11 +331,12 @@ export default {
         timer() {
             this.readTime++
         },
-        openComments(ref) {
+        openComments(ref, text = '') {
             analytics.logEvent('open_comments', {
                 ref: ref
             })
             localStorage.setItem('login-from-url', this.$route.fullPath)
+            this.commentPrefilled = text
             this.commentsOpen = true
             this.commentsDialogLoaded = true
         }

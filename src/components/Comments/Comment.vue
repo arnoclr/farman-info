@@ -6,7 +6,7 @@
         <div class="fm-comment__body">
             <span class="fm-comment__body-name">{{ comment.displayName }}</span>
             <span class="fm-comment__body-time">{{ timeAgo(comment.createdAt) }}</span>
-            <span class="fm-comment__body-content">{{ comment.content }}</span>
+            <span class="fm-comment__body-content" v-html="render(comment.content)"></span>
             
             <div class="fm-comment__body-reply" v-if="form && $root.user">
                 <button class="fm-button fm-button--flat" @click="displayReply = comment.id">Répondre</button>
@@ -56,6 +56,18 @@ export default {
     methods: {
         timeAgo(time) {
             return format(new Date(time.seconds * 1000), 'fr_FR')
+        },
+        render(text) {
+            text = text.replaceAll(/[<=]/g, '')
+            return text.replace(/> ?(.+)/g, (text, group) => {
+                return `<details class="fm-comment__body-content-quote">
+                    <summary>
+                        <i class="material-icons">reply</i>
+                        ${group.slice(0, 45)}...
+                    </summary>
+                    ${group}
+                </details>`
+            })
         },
         async reply(id) {
             await this.$parent.reply(this.editableReply, id)

@@ -60,7 +60,7 @@ export default {
     components: {
         Comment: () => import('./Comment.vue')
     },
-    props: ['doc'],
+    props: ['doc', 'prefilled'],
     data() {
         return {
             collection: this.doc.collection(COLLECTION_NAME),
@@ -72,7 +72,17 @@ export default {
             loadedReply: []
         }
     },
+    watch: {
+        prefilled: function() {
+            this.prefillComment()
+        }
+    },
     methods: {
+        prefillComment() {
+            if(this.prefilled) {
+                this.editableComment = this.prefilled
+            }
+        },
         fetchMore(replyId) {
             const lastComment = replyId
                 ? this.replys[replyId][this.replys[replyId].length - 1]
@@ -164,6 +174,7 @@ export default {
     mounted() {
         console.log(this.collection)
         this.fetchComments()
+        this.prefillComment()
     }
 }
 </script>
