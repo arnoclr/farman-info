@@ -74,7 +74,9 @@ p {
 
     @for $i from 1 through 6 {
         h#{$i} {
-            border-bottom: none;
+            margin-top: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #ddd;
         }
     }
     h1 {
@@ -92,18 +94,19 @@ p {
         line-height: 18px;
     }
 
-    p, ul, li {
-        font-size: 16px;
+    p, ul, li, blockquote {
+        font-size: 20px;
+        line-height: 26px;
+        color: #333;
         overflow-wrap: break-word;
     }
 
     blockquote {
-        background-color: rgba(150, 150, 150, 0.2);
+        background-color: rgba(150, 150, 150, 0.1);
         margin: 0;
         padding: 16px;
         padding-left: 48px;
         border-left: 2px solid grey;
-        font-size: 16px;
     }
 
     img {
@@ -113,6 +116,7 @@ p {
         &+p {
             margin-top: 0;
             padding-bottom: 16px;
+            color: #999;
             border-bottom: 1px solid rgba(150, 150, 150, 0.5);
             font-style: oblique;
         }
