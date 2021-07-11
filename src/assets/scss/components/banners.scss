@@ -45,8 +45,14 @@
 
         img {
             width: 100%;
-            aspect-ratio: 1920 / 300;
+            aspect-ratio: 1920 / 150;
             object-fit: cover;
+        }
+
+        @media screen and (max-width: 750px) {
+            img {
+                aspect-ratio: 742 / 150;
+            }
         }
     }
 
@@ -59,10 +65,14 @@
         right: 0;
         
         &-bar {
+            display: none;
             height: 2px;
-            background: rgba(200, 200, 200, 0.6);
+            background: #000;
+            opacity: 0.6;
+            mix-blend-mode: screen;
 
             &.js-animated {
+                display: block;
                 animation: fm-horizontal-banners-progress 8s ease-out infinite;
             }
         }
