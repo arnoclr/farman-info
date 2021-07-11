@@ -5,6 +5,7 @@
             <p>Activez les notifications et tenez-vous informé de la sortie de nouveaux magazines ou d'articles importants.</p>
             <button class="fm-button fm-button--large" @click="requestNotifications">Me notifier</button>
         </div>
+        <horizontal-banner></horizontal-banner>
         
         <div r>
             <main>
@@ -123,7 +124,8 @@ export default {
         AppHeader: () => import('./Navigation.vue'),
         AppSidebar: () => import('./utils/Sidebar.vue'),
         InstallButton: () => import('./utils/installButton.vue'),
-        ArticlesSlider: () => import('./articles/Slider.vue')
+        ArticlesSlider: () => import('./articles/Slider.vue'),
+        HorizontalBanner: () => import('./utils/HorizontalBanner.vue')
     },
     mixins: [notificationsMixin],
     data() {

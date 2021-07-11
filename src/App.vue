@@ -12,9 +12,9 @@
             :md-content="$root.alert.value"
             md-confirm-text="OK" />
 
-        <router-view/>
-
         <notifications-overlay></notifications-overlay>
+
+        <router-view/>
 
         <cookie-law
             button-text="Accepter" button-class="fm-button" 
@@ -65,6 +65,6 @@
             CookieLaw,
             Navigation,
             notificationsOverlay
-        }
+        },
     }
 </script>

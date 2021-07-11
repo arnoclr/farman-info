@@ -9,6 +9,7 @@ $fonts: 'Inter', Arial, Helvetica, sans-serif;
 
 // farman components
 // fm-
+@import 'components/banners.scss';
 @import 'components/bottomSheat.scss';
 @import 'components/box.scss';
 @import 'components/buttons.scss';
@@ -17,7 +18,6 @@ $fonts: 'Inter', Arial, Helvetica, sans-serif;
 @import 'components/dropdown.scss';
 @import 'components/footer.scss';
 @import 'components/header.scss';
-@import 'components/promotion-banner.scss';
 @import 'components/textfields.scss';
 
 // display

@@ -1,6 +1,7 @@
 <template>
     <div>
         <app-header></app-header>
+        <horizontal-banner></horizontal-banner>
         <install-button mode="banner"></install-button>
 
         <div v-if="article">
@@ -197,7 +198,8 @@ export default {
         BottomShare: () => import('../utils/bottomShare.vue'),
         InstallButton: () => import('../utils/installButton.vue'),
         ArticlesSlider: () => import('./Slider.vue'),
-        CommentsBottomSheat: () => import('./CommentsBottomSheat.vue')
+        CommentsBottomSheat: () => import('./CommentsBottomSheat.vue'),
+        HorizontalBanner: () => import('../utils/HorizontalBanner.vue')
     },
     data() {
         return {
@@ -254,7 +256,6 @@ export default {
                     <i class="material-icons">add_comment</i>
                 </button>`
                 const button = p.querySelector('button')
-                console.log(button)
                 button.addEventListener('click', () => {
                     this.openComments('inline_button', '> ' + text + '\n\n')
                 })

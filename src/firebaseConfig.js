@@ -57,7 +57,7 @@ const magazines = db.collection('magazines')
 
 // remote config
 const sidebar_banners = {}
-remoteConfig.settings.minimumFetchIntervalMillis = 3600000
+remoteConfig.settings.minimumFetchIntervalMillis = 0//3600000
 remoteConfig.defaultConfig = {
   "sidebar_banners": JSON.stringify(sidebar_banners)
 }
