@@ -1,7 +1,7 @@
 <template>
     <div class="fm-horizontal-banners" ref="scroller" v-if="banners.length > 0">
         <div class="fm-horizontal-banners__slide" v-for="(banner, index) in banners" :key="index">
-            <a :href="referencer(banner.link)" :disabled="!banner.link">
+            <a :href="banner.link" :disabled="!banner.link" @click.prevent.stop="openLink(banner.link)">
                 <img :src="smallDevice ? banner.image_small : banner.image" alt="">
             </a>
         </div>
@@ -24,10 +24,15 @@ export default {
         }
     },
     methods: {
-        referencer(url) {
+        openLink(url) {
             if(url == undefined) return
-            let ref = 'ref=horizontal_banner'
-            return url += url.includes('?') ? '&' + ref : '?' + ref
+            if(url.includes('farman.info')) {
+                const path = url.split('farman.info')[1]
+                if(path != this.$route.path)
+                    this.$router.push({path, query: {ref: 'horizontal_banner'}})
+            } else {
+                window.location.href = url
+            }
         },
         nextSlide() {
             this.calculScroll()
