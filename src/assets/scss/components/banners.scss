@@ -47,6 +47,7 @@
             width: 100%;
             aspect-ratio: 1920 / 150;
             object-fit: cover;
+            border: 1px solid #bbb;
         }
 
         @media screen and (max-width: 750px) {
