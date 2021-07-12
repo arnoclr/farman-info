@@ -95,8 +95,8 @@ p {
     }
 
     p, ul, li, blockquote {
-        font-size: 20px;
-        line-height: 26px;
+        font-size: 18px;
+        line-height: 22px;
         color: #333;
         overflow-wrap: break-word;
     }
@@ -114,11 +114,11 @@ p {
         height: auto;
 
         &+p {
+            font-size: 12px;
             margin-top: 0;
-            padding-bottom: 16px;
+            padding-bottom: 8px;
             color: #999;
-            border-bottom: 1px solid rgba(150, 150, 150, 0.5);
-            font-style: oblique;
+            border-bottom: 1px solid rgba(150, 150, 150, 0.2);
         }
     }
 
