@@ -1,6 +1,6 @@
 <template>
     <div ref="slider"
-    class="fm-section fm-section--scrollable fm-section--overflow-hidden fm-section--scrollable-snap-scroll">
+    class="fm-section fm-section--scrollable fm-section--hide-scrollbar fm-section--scrollable-snap-scroll">
         <router-link
         draggable="false"
         class="item" style="text-decoration: none"

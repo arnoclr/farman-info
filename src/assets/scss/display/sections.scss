@@ -55,6 +55,12 @@
         overflow: hidden;
     }
 
+    &--hide-scrollbar {
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
     &__fixed-start {
         position: sticky;
         right: calc(100% - 16px - 52px);
