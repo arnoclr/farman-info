@@ -51,6 +51,16 @@
         }
     }
 
+    &--overflow-hidden {
+        overflow: hidden;
+    }
+
+    &__fixed-start {
+        position: sticky;
+        right: calc(100% - 16px - 52px);
+        scroll-snap-align: start;
+    }
+
     &__fixed-end {
         position: sticky;
         right: 16px;

@@ -1,7 +1,8 @@
 <template>
     <div ref="slider"
-    class="fm-section fm-section--scrollable fm-section--scrollable-snap-scroll">
-        <router-link 
+    class="fm-section fm-section--scrollable fm-section--overflow-hidden fm-section--scrollable-snap-scroll">
+        <router-link
+        draggable="false"
         class="item" style="text-decoration: none"
         :to="{name: 'articleView', params: {id: article.id, ref: 'slider_' + ga_ref}}"
         v-for="(article, index) in articles" :key="index">
@@ -17,6 +18,14 @@
                 </div>
             </div>
         </router-link>
+        <div class="fm-section__fixed-start">
+            <button
+                @click="scrollLeft"
+                :hidden="scrollStart"
+                class="fm-button fm-button--square fm-button--fab">
+                <i class="material-icons">arrow_backward</i>
+            </button>
+        </div>
         <div class="fm-section__fixed-end">
             <button
                 @click="scrollRight"
@@ -39,10 +48,17 @@ export default {
     props: ['articles', 'ga_ref', 'button_link'],
     data() {
         return {
-            scrollEnd: false
+            scrollEnd: false,
+            scrollStart: true
         }
     },
     methods: {
+        scrollLeft() {
+            this.$refs.slider.scrollTo({
+                left: this.$refs.slider.scrollLeft - CARD_WIDTH,
+                behavior: 'smooth'
+            })
+        },
         scrollRight() {
             if(this.scrollEnd)
                 return this.$router.push(this.button_link)
@@ -56,6 +72,7 @@ export default {
             const s = this.$refs.slider.scrollLeft
             const ow = this.$refs.slider.offsetWidth
             this.scrollEnd = (w-s) <= ow + 100
+            this.scrollStart = s == 0
         }
     },
     mounted() {
