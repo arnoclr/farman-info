@@ -41,7 +41,7 @@ const parseMd = (md, forQuill = false) => {
   md = md.replace(/\!\[([^\]]*)\]\(([^\)]+)\)/g, '<img src="$2" alt="$1" />');
   
   //links
-  md = md.replace(/[\[]{1}([^\]]+)[\]]{1}[\(]{1}([^\)\"]+)(\"(.+)\")?[\)]{1}/g, '<a href="$2" title="$4">$1</a>');
+  md = md.replace(/[\[]{1}([^\]]+)[\]]{1}[\(]{1}([^\)\"]+)(\"(.+)\")?[\)]{1}/g, '<a href="$2" title="$2">$1</a>');
   
   //pre
   md = md.replace(/^\s*\n\`\`\`(([^\s]+))?/gm, '<pre class="$2">');
