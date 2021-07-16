@@ -72,7 +72,7 @@ export default {
             const s = this.$refs.slider.scrollLeft
             const ow = this.$refs.slider.offsetWidth
             this.scrollEnd = (w-s) <= ow + 100
-            this.scrollStart = s == 0
+            this.scrollStart = s < CARD_WIDTH / 2
         }
     },
     mounted() {
