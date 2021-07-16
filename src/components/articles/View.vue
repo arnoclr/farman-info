@@ -220,6 +220,7 @@ export default {
     },
     computed: {
         markdownRender() {
+            console.log(this.article.content)
             return parseMd(this.article.content)
         }
     },

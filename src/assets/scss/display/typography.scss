@@ -122,6 +122,10 @@ p {
         }
     }
 
+    .fm-md-checkbox {
+        pointer-events: none;
+    }
+
     &--commentable {
         p {
             position: relative;

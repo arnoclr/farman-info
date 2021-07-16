@@ -2,6 +2,11 @@
 
 const parseMd = (md, forQuill = false) => {
 
+  // checklist
+  md = md.replace(/\* \[(x| )\]/g, function(string, cross) {
+    return `<input type="checkbox" class="fm-md-checkbox" ${cross == 'x' ? 'checked' : ''}>`;
+  });
+
   //font styles
   md = md.replace(/[\*\_]{2}([^\*\_]+)[\*\_]{2}/g, '<b>$1</b>');
   md = md.replace(/[\*\_]{1}([^\*\_]+)[\*\_]{1}/g, '<i>$1</i>');
