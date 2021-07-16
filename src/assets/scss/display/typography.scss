@@ -74,8 +74,8 @@ p {
 
     @for $i from 1 through 6 {
         h#{$i} {
-            margin-top: 32px;
-            padding-bottom: 16px;
+            padding: 16px 0;
+            margin: 16px 0;
             border-bottom: 1px solid #ddd;
         }
     }
@@ -92,6 +92,15 @@ p {
     h3 {
         font-size: 18px;
         line-height: 18px;
+    }
+
+    @media screen and (min-height: 600px) {
+        h1, h2 {
+            position: sticky;
+            top: 72px;
+            background: #fff;
+            z-index: 1;
+        }
     }
 
     p, ul, li, blockquote {
