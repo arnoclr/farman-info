@@ -12,6 +12,14 @@ if ("serviceWorker" in navigator) {
             window.location.reload();
         });
 
+        wb.addEventListener('installed', event => {
+            if (event.isUpdate) {
+                if (confirm(`Nouvelle version disponible, cliquez sur OK pour l'installer`)) {
+                    window.location.reload();
+                }
+            }
+        });        
+
         wb.register();
     }
 } else {
