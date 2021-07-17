@@ -27,7 +27,7 @@
 
                     <div id="markdown-wrapper" :class="needLogin ? 'restricted' : ''">
                         <div class="shade"></div>
-                        <div class="fm-markdown fm-markdown--commentable" v-html="markdownRender"></div>
+                        <viewer v-if="!loading" class="fm-markdown fm-markdown--commentable" :initialValue="viewerText" />
                     </div>
 
                     <div class="fm-box fm-box--centered" v-if="needLogin">
@@ -190,6 +190,8 @@ main {
 <script>
 import {db, analytics} from '../../firebaseConfig'
 import {parseMd} from '../../assets/js/utils/mdParse'
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+import { Viewer } from '@toast-ui/vue-editor';
 
 export default {
     components: {
@@ -199,11 +201,13 @@ export default {
         InstallButton: () => import('../utils/installButton.vue'),
         ArticlesSlider: () => import('./Slider.vue'),
         CommentsBottomSheat: () => import('./CommentsBottomSheat.vue'),
-        HorizontalBanner: () => import('../utils/HorizontalBanner.vue')
+        HorizontalBanner: () => import('../utils/HorizontalBanner.vue'),
+        viewer: Viewer
     },
     data() {
         return {
             article: null,
+            loading: false,
             related: null,
             relatedLoaded: false,
             user: this.$root.user,
@@ -219,7 +223,7 @@ export default {
         }
     },
     computed: {
-        markdownRender() {
+        viewerText() {
             console.log(this.article.content)
             return parseMd(this.article.content)
         }
@@ -248,7 +252,7 @@ export default {
     },
     methods: {
         appendCommentsButtons() {
-            const p = document.querySelectorAll('.fm-markdown>p')
+            const p = document.querySelectorAll('.fm-markdown div>p')
             p.forEach(p => {
                 const text = p.innerText
                 p.innerHTML += 
@@ -264,11 +268,13 @@ export default {
         },
         fetch() {
             const ref = this.$route.params.id
+            this.loading = true
             this.$root.$emit('query:loading')
             this.doc = db.collection('articles').doc(ref)
             this.doc.get()
             .then(doc => {
                 this.$root.$emit('query:loaded')
+                this.loading = false
                 this.article = doc.data()
                 this.fetchAuthor()
                 setTimeout(() => {
@@ -285,6 +291,7 @@ export default {
                 })
             })
             .catch(err => {
+                this.loading = false
                 console.error(err)
             })
         },

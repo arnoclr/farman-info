@@ -3,83 +3,20 @@
 const parseMd = (md, forQuill = false) => {
 
   // checklist
-  md = md.replace(/\* \[(x| )\]/g, function(string, cross) {
-    return `<input type="checkbox" class="fm-md-checkbox" ${cross == 'x' ? 'checked' : ''}>`;
-  });
-
-  //font styles
-  md = md.replace(/[\*\_]{2}([^\*\_]+)[\*\_]{2}/g, '<b>$1</b>');
-  md = md.replace(/[\*\_]{1}([^\*\_]+)[\*\_]{1}/g, '<i>$1</i>');
-  md = md.replace(/[\~]{2}([^\~]+)[\~]{2}/g, '<del>$1</del>');
-
-  //ul
-  md = md.replace(/^\s*\n\*/gm, '<ul>\n*');
-  md = md.replace(/^(\*.+)\s*\n([^\*])/gm, '$1\n</ul>\n\n$2');
-  md = md.replace(/^\*(.+)/gm, '<li>$1</li>');
-  
-  //ol
-  md = md.replace(/^\s*\n\d\./gm, '<ol>\n1.');
-  md = md.replace(/^(\d\..+)\s*\n([^\d\.])/gm, '$1\n</ol>\n\n$2');
-  md = md.replace(/^\d\.(.+)/gm, '<li>$1</li>');
-  
-  //blockquote
-  md = md.replace(/^\>(.+)/gm, '<blockquote>$1</blockquote>');
-  
-  //h
-  md = md.replace(/[\#]{6}(.+)/g, '<h6>$1</h6>');
-  md = md.replace(/[\#]{5}(.+)/g, '<h5>$1</h5>');
-  md = md.replace(/[\#]{4}(.+)/g, '<h4>$1</h4>');
-  md = md.replace(/[\#]{3}(.+)/g, '<h3>$1</h3>');
-  md = md.replace(/[\#]{2}(.+)/g, '<h2>$1</h2>');
-  md = md.replace(/[\#]{1}(.+)/g, '<h1>$1</h1>');
-  
-  //alt h
-  md = md.replace(/^(.+)\n\=+/gm, '<h1>$1</h1>');
-  md = md.replace(/^(.+)\n\-+/gm, '<h2>$1</h2>');
-  
-  //images
-  md = md.replace(/\!\[([^\]]*)\]\(([^\)]+)\)/g, '<img src="$2" alt="$1" />');
-  
-  //links
-  md = md.replace(/[\[]{1}([^\]]+)[\]]{1}[\(]{1}([^\)\"]+)(\"(.+)\")?[\)]{1}/g, '<a href="$2" title="$2">$1</a>');
-  
-  //pre
-  md = md.replace(/^\s*\n\`\`\`(([^\s]+))?/gm, '<pre class="$2">');
-  md = md.replace(/^\`\`\`\s*\n/gm, '</pre>\n\n');
-  
-  //code
-  md = md.replace(/[\`]{1}([^\`]+)[\`]{1}/g, '<code>$1</code>');
-  
-  //p
-  md = md.replace(/^\s*(\n)?(.+)/gm, function(m){
-    return  /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) 
-      ? m 
-      : '<p>'+ m.replace(/\n+/g, '') +'</p>';
-  });
-
-  //br
-  if(forQuill) {
-    md = md.replace(/([ +]*\n)+/gm, '<p><br></p>');
-  }
+  // md = md.replace(/\* \[(x| )\]/g, function(string, cross) {
+  //   return `<input type="checkbox" class="fm-md-checkbox" ${cross == 'x' ? 'checked' : ''}>`;
+  // });
 
   // youtube link
-  if(!forQuill) {
-    md = md.replace(/(https?:\/\/)?(www.)?youtube.(com|be)\/(watch\?v=)?([a-zA-Z0-9_-]+)/g,
-      '<div class="video-container"><iframe class="skeleton" width="560" height="315" src="https://www.youtube.com/embed/$5" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>');
-  }
+  md = md.replace(/(https?:\/\/)?(www.)?youtube.(com|be)\/(watch\?v=)?([a-zA-Z0-9_-]+)/g,
+    '<div class="video-container"><iframe class="skeleton" width="560" height="315" src="https://www.youtube.com/embed/$5" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>');
 
   // twitter embed
-  if(!forQuill) {
-    md = md.replace(/(https?:\/\/)twitter.com\/[a-zA-Z0-9_]{0,15}\/status\/(\d+)/g, url => {
-      return `<div class="video-container"><iframe border=0 frameborder=0 height=250 width=550 src="https://twitframe.com/show?url=${url}"></iframe></div>`
-    })
-  }
-  
-  //strip p from pre
-  md = md.replace(/(\<pre.+\>)\s*\n\<p\>(.+)\<\/p\>/gm, '$1$2');
+  md = md.replace(/(https?:\/\/)twitter.com\/[a-zA-Z0-9_]{0,15}\/status\/(\d+)/g, url => {
+    return `<div class="video-container"><iframe border=0 frameborder=0 height=250 width=550 src="https://twitframe.com/show?url=${url}"></iframe></div>`
+  })
   
   return md;
-    
 }
 
 export {parseMd}
