@@ -15,6 +15,9 @@
                     <div class="fm-card__body-content">
                         <p>{{ article.summary }}</p>
                     </div>
+                    <span class="fm-card__body-date">
+                        {{ new Date(article.createdAt.seconds*1000).toLocaleDateString("fr-FR", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+                    </span>
                 </div>
             </div>
         </router-link>

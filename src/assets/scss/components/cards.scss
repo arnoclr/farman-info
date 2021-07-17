@@ -1,9 +1,11 @@
+$card-bg-color: #f4f4f4;
+
 .fm-card {
     margin: 16px 0;
 
     &__body {
         position: relative;
-        background-color: #f4f4f4;
+        background-color: $card-bg-color;
         padding: 24px 16px;
         width: -webkit-fill-available;
 
@@ -40,6 +42,21 @@
             position: absolute;
             bottom: 24px;
             color: #888;
+        }
+
+        &-date-wrapper {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 24px;
+            padding-top: 56px;
+            background: $card-bg-color;
+            background: linear-gradient(0deg, #{$card-bg-color} 65%, rgba(0,0,0,0) 100%);
+
+            &-text {
+                color: #888;
+            }
         }
 
         &--date {

@@ -12,7 +12,10 @@
                 
                 <div class="fm-section fm-section--full-height" v-if="breakings.length > 0">
                     <div class="fm-section__centered">
-                        <div class="fm-card fm-card--img fm-card--full-width" v-for="(article, index) in breakings" :key="index">
+                        <router-link
+                        :to="{name: 'articleView', params: {id: article.id, ref: 'landing_breaking'}}"
+                        class="fm-card fm-card--img fm-card--full-width"
+                        v-for="(article, index) in breakings" :key="index">
                             <div class="fm-card__img fm-card__img--left">
                                 <img loading="lazy" :src="article.thumbnail" :alt="article.title">
                             </div>
@@ -21,11 +24,12 @@
                                 <h1 class="fm-card__body-title">{{ article.title }}</h1>
                                 <div class="fm-card__body-content">
                                     <p>{{ article.summary }}</p>
-                                    <router-link role="button" class="fm-button fm-button--large"
-                                    :to="{name: 'articleView', params: {id: article.id, ref: 'landing_breaking'}}">lire</router-link>
                                 </div>
+                                <span class="fm-card__body-date">
+                                    {{ new Date(article.createdAt.seconds*1000).toLocaleDateString("fr-FR", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+                                </span>
                             </div>
-                        </div>
+                        </router-link>
                     </div>
                 </div>
                 <div class="fm-section fm-section--center" style="height:90vh" v-else>
@@ -50,6 +54,11 @@
                                 <h1 class="fm-card__body-title">{{ article.title }}</h1>
                                 <div class="fm-card__body-content">
                                     <p>{{ article.summary }}</p>
+                                </div>
+                                <div class="fm-card__body-date-wrapper">
+                                    <span class="fm-card__body-date-wrapper-text">
+                                        {{ new Date(article.createdAt.seconds*1000).toLocaleDateString("fr-FR", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+                                    </span>
                                 </div>
                             </div>
                         </div>
