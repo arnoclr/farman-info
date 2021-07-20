@@ -105,6 +105,11 @@ const router = new Router({
       component: () => import('@/components/articles/Rss')
     },
     {
+      path: '/about/account',
+      name: 'aboutAccount',
+      component: () => import('@/components/pages/about/Account')
+    },
+    {
       path: '*',
       name: 'NotFound',
       component: () => import('@/components/NotFound')

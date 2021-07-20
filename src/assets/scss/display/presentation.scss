@@ -1,0 +1,50 @@
+.fm-presentation {
+    &__img {
+        height: 80vh;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    &__cta {
+        &-desc {
+            display: flex;
+            margin-bottom: 24px;
+
+            &-icon {
+                margin-right: 16px;
+                color: #fff;
+                font-size: 48px !important;
+            }
+
+            &-text {
+                margin: 0;
+                color: #fff;
+                font-weight: 600;
+            }
+        }
+    }
+
+    &__title {
+        font-size: 32px;
+
+        &-important {
+            font-size: 36px;
+        }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 24px;
+
+        &-item {
+            &-icon {
+                color: $primary;
+            }
+
+            &-text {
+
+            }
+        }
+    }
+}

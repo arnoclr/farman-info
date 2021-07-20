@@ -22,9 +22,10 @@ $fonts: 'Inter', Arial, Helvetica, sans-serif;
 
 // display
 @import 'display/grid.scss';
-@import 'display/typography.scss';
+@import 'display/presentation.scss';
 @import 'display/sections.scss';
 @import 'display/spacing.scss';
+@import 'display/typography.scss';
 
 // lib
 @import 'lib/markdown.scss';

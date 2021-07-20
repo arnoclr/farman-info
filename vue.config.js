@@ -7,5 +7,15 @@ module.exports = {
             swSrc: 'src/sw.js'
             // ...other Workbox options...
         }
-    }
+    },
+    // css: {
+    //     requireModuleExtension: false,
+    //     loaderOptions: {
+    //         css: {
+    //             modules: {
+    //                 localIdentName: '[hash:6]'
+    //             }
+    //         }
+    //     }
+    // }
 }
