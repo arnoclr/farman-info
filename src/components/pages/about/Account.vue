@@ -21,13 +21,16 @@
                             </p>
                         </div>
                         <div class="fm-presentation__cta-btn">
-                            <router-link :to="{name: 'Login', params: {ref: 'about_account'}}"
-                            class="fm-button fm-button--large fm-button--shadow">
+                            <router-link 
+                            :to="{name: 'Login', params: {ref: 'about_account'}}"
+                            class="fm-button fm-button--large"
+                            :disabled="$root.user">
                                 Créer mon compte
+                                <i v-if="$root.user" class="material-icons fm-button__icon fm-button__icon--right">done</i>
                             </router-link>
-                            <a href="" class="fm-button fm-button--large fm-button--white fm-button--shadow">
+                            <button @click="scrollDown" class="fm-button fm-button--large fm-button--white fm-button--shadow">
                                 Découvrir l'offre
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -118,9 +121,22 @@
                     </div>
                 </div>
 
-                <p>Tout utilisateur dispose d’un droit d’accès, de rectification et d’opposition aux données personnelles le concernant, en effectuant sa demande écrite et signée, accompagnée d’une preuve d’identité. Le site ne recueille pas d’informations personnelles, et n’est pas assujetti à déclaration à la CNIL.</p>
+                <div class="fm-presentation__cta-bottom">
+                    <h1>Faites le pas, rejoignez la communauté du ciel <i class="material-icons">cloud</i></h1>
+                    <router-link 
+                    :to="{name: 'Login', params: {ref: 'about_account'}}"
+                    class="fm-button fm-button--large"
+                    :disabled="$root.user">
+                        Créer mon compte
+                        <i v-if="$root.user" class="material-icons fm-button__icon fm-button__icon--right">done</i>
+                    </router-link>
+                </div>
+
+                <p class="fm-presentation__legal-disclaimer">Tout utilisateur dispose d’un droit d’accès, de rectification et d’opposition aux données personnelles le concernant, en effectuant sa demande écrite et signée, accompagnée d’une preuve d’identité. Le site ne recueille pas d’informations personnelles, et n’est pas assujetti à déclaration à la CNIL.</p>
             </main>
         </div>
+
+        <app-footer :transparent="true" :reduced="true"></app-footer>
     </div>
 </template>
 
@@ -131,5 +147,10 @@ export default {
         AppHeader: () => import('../../Navigation.vue'),
         LazyImage: () => import('../../utils/LazyImage.vue')
     },
+    methods: {
+        scrollDown() {
+            window.scroll({top: window.innerHeight, behavior: 'smooth'})
+        }
+    }
 }
 </script>
