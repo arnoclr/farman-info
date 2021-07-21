@@ -1,11 +1,40 @@
 .fm-presentation {
+    $imageHeight: 90vh;
+    $imageOffset: 110px;
+
+    &--offset-top {
+        margin-top: -$imageOffset;
+    }
+
+    &--absolute {
+        position: absolute;
+        top: 172px;
+        height: calc(#{$imageHeight} - #{$imageOffset});
+    }
+
     &__img {
-        height: 80vh;
+        height: $imageHeight !important;
         width: 100%;
         object-fit: cover;
     }
 
+    &__title {
+        font-size: 32px;
+        margin-bottom: 72px;
+
+        h1, h4 {
+            color: #fff;
+        }
+
+        &-important {
+            font-size: 36px;
+        }
+    }
+
     &__cta {
+        position: absolute;
+        bottom: 16px;
+
         &-desc {
             display: flex;
             margin-bottom: 24px;
@@ -24,27 +53,49 @@
         }
     }
 
-    &__title {
-        font-size: 32px;
-
-        &-important {
-            font-size: 36px;
-        }
-    }
-
     &__grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-gap: 24px;
+        padding: 16px 0;
+
+        @media screen and (max-width: 768px) {
+            grid-template-columns: 1fr;
+        }
 
         &-item {
+            $gridIconSize: 5vw;
+            display: grid;
+            grid-template-columns: $gridIconSize 1fr;
+            column-gap: 16px;
+
             &-icon {
                 color: $primary;
+                font-size: $gridIconSize !important;
+            }
+
+            &-img {
+                height: $gridIconSize;
+                width: $gridIconSize;
             }
 
             &-text {
-
+                h2 {
+                    margin-top: 0;
+                }
             }
+        }
+    }
+
+    &__tiles {
+        display: grid;
+        row-gap: 24px;
+        padding: 16px 0;
+
+        &-duo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 24px;
         }
     }
 }

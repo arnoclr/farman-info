@@ -4,6 +4,7 @@
 // vars
 $primary: #17969C;
 $primary-dark: #116a6e;
+$primary-light: #E8F6F6;
 $padding: 20vw;
 $fonts: 'Inter', Arial, Helvetica, sans-serif;
 
@@ -19,6 +20,7 @@ $fonts: 'Inter', Arial, Helvetica, sans-serif;
 @import 'components/footer.scss';
 @import 'components/header.scss';
 @import 'components/textfields.scss';
+@import 'components/tiles.scss';
 
 // display
 @import 'display/grid.scss';
