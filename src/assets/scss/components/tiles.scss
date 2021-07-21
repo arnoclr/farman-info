@@ -23,6 +23,11 @@
                 color: $primary;
             }
         }
+
+        &--small {
+            font-size: 24px;
+            line-height: 22px;
+        }
     }
 
     &__big-text {

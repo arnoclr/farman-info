@@ -108,13 +108,13 @@
 
                     <div class="fm-presentation__tiles-duo">
                         <div class="fm-tile">
-                            <h2 class="fm-tile__title">Le <i class="material-icons fm-tile__title-icon fm-tile__title-icon-colored">add_circle_outline</i> du compte Farman</h2>
+                            <h2 class="fm-tile__title fm-tile__title--small">Le <i class="material-icons fm-tile__title-icon fm-tile__title-icon-colored">add_circle_outline</i> du compte Farman</h2>
                             <h1 class="fm-tile__big-text"><ins>Des services</ins> qui vous suivent partout, <ins>pour vous</ins> <i class="material-icons">arrow_forwards</i></h1>
                             <small class="fm-tile__small-text">Une application dédiée pour naviguer hors-connexion et lire vos articles préférés.</small>
                         </div>
 
                         <div class="fm-tile">
-                            <h2 class="fm-tile__title">Le <i class="material-icons fm-tile__title-icon fm-tile__title-icon-colored">add_circle_outline</i> du compte Farman</h2>
+                            <h2 class="fm-tile__title fm-tile__title--small">Le <i class="material-icons fm-tile__title-icon fm-tile__title-icon-colored">add_circle_outline</i> du compte Farman</h2>
                             <h1 class="fm-tile__big-text">Une information <ins>vraie</ins> et <ins>participative</ins> <i class="material-icons">arrow_forwards</i></h1>
                             <small class="fm-tile__small-text">Le compte Farman vous permet d’apporter des modifications à des articles.</small>
                         </div>
