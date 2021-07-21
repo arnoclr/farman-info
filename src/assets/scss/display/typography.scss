@@ -29,6 +29,13 @@ p {
     line-height: 22px;
 }
 
+.fm-p {
+    &--disabled {
+        color: rgba(150, 150, 150, 0.6);
+        user-select: none;
+    }
+}
+
 .fm-link {
     text-decoration: none;
     color: inherit !important;
