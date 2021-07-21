@@ -1,7 +1,7 @@
 <template>
     <div class="no-padding">
-        <footer class="fm-footer">
-            <div class="fm-footer__container">
+        <footer :class="transparent ? 'fm-footer fm-footer--transparent' : 'fm-footer'">
+            <div class="fm-footer__container" v-if="!reduced">
                 <h2>Retrouvez-nous sur <i class="material-icons">arrow_forward</i></h2>
                 <p>Toute l'actualité aérienne française à découvrir sur vos réseaux sociaux.</p>
                 <div class="fm-footer__container-social">
@@ -35,6 +35,7 @@
 import { format } from '../assets/js/utils/timeago'
 
 export default {
+    props: ['transparent', 'reduced'],
     data() {
         return {
             buildDate: format(document.documentElement.dataset.buildTimestampUtc, 'fr_FR')

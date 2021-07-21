@@ -49,6 +49,19 @@
         }
     }
 
+    &--transparent {
+        .fm-footer {
+            &__links {
+                background-color: transparent;
+                border-top: 1px solid rgba(150, 150, 150, 0.3);
+
+                p {
+                    color: #555;
+                }
+            }
+        }
+    }
+
     @media (min-width: 600px) {
         &__links {
             padding: 0;
