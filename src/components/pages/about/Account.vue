@@ -23,7 +23,7 @@
                         <div class="fm-presentation__cta-btn">
                             <router-link 
                             :to="{name: 'Login', params: {ref: 'about_account'}}"
-                            class="fm-button fm-button--large"
+                            class="fm-button fm-button--large fm-button--shadow"
                             :disabled="$root.user">
                                 Créer mon compte
                                 <i v-if="$root.user" class="material-icons fm-button__icon fm-button__icon--right">done</i>
