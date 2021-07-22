@@ -28,7 +28,10 @@
                                     class="fm-card__body-category" v-if="categories">
                                     {{ categories.find(o => o.id == article.category) ? categories.find(o => o.id == article.category).label : '' }}
                                 </router-link>
-                                <h1 class="fm-card__body-title">{{ article.title }}</h1>
+                                <h1 class="fm-card__body-title">
+                                    <i class="material-icons fm-card__body-title-icon fm-card__body-title-icon--colored" v-if="article.needLogin">lock</i>
+                                    {{ article.title }}
+                                </h1>
                                 <div class="fm-card__body-content">
                                     <p>{{ article.summary }}</p>
                                 </div>

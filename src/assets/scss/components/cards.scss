@@ -28,6 +28,15 @@ $card-bg-color: #f4f4f4;
             font-size: 32px;
             line-height: 30px;
 
+            &-icon {
+                font-size: inherit !important;
+                vertical-align: bottom !important;
+
+                &--colored {
+                    color: $primary;
+                }
+            }
+
             &--small {
                 letter-spacing: -0.75pt;
                 font-size: 24px;
