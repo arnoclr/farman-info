@@ -108,7 +108,7 @@
 
                     <div class="fm-tile fm-tile--colored fm-tile--centered">
                         <h2 class="fm-tile__title">Farman, le choix d’une éthique journalistique bénévole et citoyenne.</h2>
-                        <p>Farman, c’est l’oeuvre d’une coopération de passionés d’aviation qui travaillent bénévolement sur la recherche de l’information et le développement de la communication numérique.</p>
+                        <p>Farman, c’est l’oeuvre d’une coopération de passionnés d’aviation qui travaillent bénévolement sur la recherche de l’information et le développement de la communication numérique.</p>
                         <p>L’éthique journalistique est au coeur de notre ligne éditoriale avec la volonté de conserver une neutralité systématique sur les informations que nous délivrons.</p>
                     </div>
 
