@@ -173,7 +173,7 @@ main {
     .restricted {
         position: relative;
         overflow: hidden;
-        max-height: 650px !important;
+        max-height: 450px !important;
         
         .shade {
             position: absolute;
@@ -182,6 +182,7 @@ main {
             width: 100%;
             height: 100%;
             box-shadow: inset 0 -650px 650px -450px #fff;
+            z-index: 1;
         }
     }
 }
