@@ -339,6 +339,11 @@ export default {
         timer() {
             this.readTime++
         },
+        appendDataToClipborad(event) {
+            const pagelink = `\n\nEn savoir plus sur ${document.location.href}`
+            event.clipboardData.setData('text', document.getSelection() + pagelink)
+            event.preventDefault()
+        },
         openComments(ref, text = '') {
             analytics.logEvent('open_comments', {
                 ref: ref
@@ -357,9 +362,11 @@ export default {
                 window.gapi.ytsubscribe.go('#ytbtn')
             }, 1000);
         })
+        document.addEventListener('copy', this.appendDataToClipborad)
     },
     beforeDestroy() {
         clearInterval(this.interval)
+        document.removeEventListener('copy', this.appendDataToClipborad)
     }
 }
 </script>
