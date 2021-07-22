@@ -35,7 +35,16 @@
 import { format } from '../assets/js/utils/timeago'
 
 export default {
-    props: ['transparent', 'reduced'],
+    props: {
+        reduced: {
+            type: Boolean,
+            default: false
+        },
+        transparent: {
+            type: Boolean,
+            default: true
+        }
+    },
     data() {
         return {
             buildDate: format(document.documentElement.dataset.buildTimestampUtc, 'fr_FR')

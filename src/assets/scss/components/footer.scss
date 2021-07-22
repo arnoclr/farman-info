@@ -51,6 +51,12 @@
 
     &--transparent {
         .fm-footer {
+            &__container {
+                h2 {
+                    border-color: rgba(150, 150, 150, 0.3);
+                }
+            }
+            
             &__links {
                 background-color: transparent;
                 border-top: 1px solid rgba(150, 150, 150, 0.3);
