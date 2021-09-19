@@ -181,13 +181,10 @@ select {
 }
 
 .fm-hoverable {
+    border-bottom: 2px dotted transparent;
+
     &:hover, &:focus, &:active {
-        outline: auto;
-        outline-style: dotted;
-        outline-color: #ddd;
-        outline-offset: 16px;
-        outline-width: 1px;
-        -moz-outline-radius: 4px;
+        border-color: #ddd;
     }
 }
 
