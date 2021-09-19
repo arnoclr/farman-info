@@ -8,7 +8,7 @@
     border: none;
     color: #fff !important;
     background-color: $primary;
-    text-decoration: none;
+    text-decoration: none !important;
     font-weight: 600;
     cursor: pointer;
     user-select: none;
@@ -98,7 +98,7 @@
     }
 
     &--full {
-        width: 100%;
+        width: -webkit-fill-available;
         justify-content: center;
     }
 
@@ -147,6 +147,7 @@
         font-size: 18px !important;
         height: 18px;
         color: #fff !important;
+        font-style: normal !important;
 
         &--right {
             margin-left: 4px;

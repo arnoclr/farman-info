@@ -27,7 +27,7 @@
 
                     <div id="markdown-wrapper" :class="needLogin ? 'restricted' : ''">
                         <div class="shade"></div>
-                        <viewer v-if="!loading" class="fm-markdown fm-markdown--commentable" :initialValue="viewerText" />
+                        <viewer v-if="!loading" class="fm-markdown fm-markdown--commentable" :initialValue="article.content" ref="viewer" />
                     </div>
 
                     <div class="fm-box fm-box--centered" v-if="needLogin">
@@ -223,12 +223,6 @@ export default {
             doc: null
         }
     },
-    computed: {
-        viewerText() {
-            console.log(this.article.content)
-            return parseMd(this.article.content)
-        }
-    },
     metaInfo() {
         return {
             title: this.article ? this.article.title + ' - Farman' : 'Chargement ...',
@@ -256,6 +250,8 @@ export default {
             const p = document.querySelectorAll('.fm-markdown div>p')
             p.forEach(p => {
                 const text = p.innerText
+                let HTML = p.innerHTML
+                p.innerHTML = parseMd(HTML)
                 p.innerHTML += 
                 `<button title="Commenter ce paragraphe"
                 class="comment-button fm-button fm-button--fab fm-button--fab--primary">

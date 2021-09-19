@@ -8,8 +8,19 @@ const parseMd = (md, forQuill = false) => {
   // });
 
   // youtube link
-  md = md.replace(/(https?:\/\/)?(www.)?youtube.(com|be)\/(watch\?v=)?([a-zA-Z0-9_-]+)/g,
-    '<div class="video-container"><iframe class="skeleton" width="560" height="315" src="https://www.youtube.com/embed/$5" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>');
+  md = md.replace(/(https?:\/\/)?(www.)?youtube.(com|be)\/(watch\?v=)?([a-zA-Z0-9_-]+)(\&.+)?/g,
+    `<div class="fm-section--video-with-button">
+      <div class="video-container">
+        <iframe class="skeleton" width="560" height="315" 
+          src="https://www.youtube.com/embed/$5" frameborder="0" 
+          allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen>
+        </iframe>
+      </div>
+      <a class="fm-button fm-button--full"
+        href="https://youtu.be/$5" target="_blank" title="Ouvrir sur youtube.com">
+        Regarder sur youtube <i class="material-icons fm-button__icon fm-button__icon--right">play_arrow</i>
+      </a>
+    </div>`);
 
   // twitter embed
   md = md.replace(/(https?:\/\/)twitter.com\/[a-zA-Z0-9_]{0,15}\/status\/(\d+)/g, url => {
