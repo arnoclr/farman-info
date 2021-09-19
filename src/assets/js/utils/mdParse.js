@@ -24,7 +24,17 @@ const parseMd = (md, forQuill = false) => {
 
   // twitter embed
   md = md.replace(/(https?:\/\/)twitter.com\/[a-zA-Z0-9_]{0,15}\/status\/(\d+)/g, url => {
-    return `<div class="video-container"><iframe border=0 frameborder=0 height=250 width=550 src="https://twitframe.com/show?url=${url}"></iframe></div>`
+    return `
+      <div class="fm-section--video-with-button">
+        <div class="video-container">
+          <iframe border=0 frameborder=0 height=250 width=550 src="https://twitframe.com/show?url=${url}"></iframe>
+        </div>
+        <a class="fm-button fm-button--full"
+          href="https://twitter.com/intent/follow?original_referer=https%3A%2F%2Ffarman.info%2F&screen_name=ActualitsArona1"
+          target="_blank" title="Suivre Farman sur Twitter">
+          Suivre Farman sur Twitter
+        </a>
+      </div>`
   })
   
   return md;
