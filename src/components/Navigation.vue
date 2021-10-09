@@ -46,17 +46,23 @@
                 <li class="fm-header__bottom-categories-list">
                     <router-link class="fm-header__bottom-categories-list-link" :to="{name: 'articleList', params: {ref: 'navbar'}}">Dernières infos</router-link>
                 </li>
-                <li class=" fm-header__bottom-categories-list fm-dropdown--anchor" v-if="categories">
-                    <a class="fm-header__bottom-categories-list-link" @click="dropdownOpen = !dropdownOpen">Par thème <md-icon>expand_more</md-icon></a>
+                <li class=" fm-header__bottom-categories-list fm-dropdown--anchor" v-click-outside="closeDropdownIfOpen" v-if="categories">
+                    <a class="fm-header__bottom-categories-list-link" @click="dropdownOpen = !dropdownOpen">Par thème 
+                        <span style="margin-top: -22px;margin-left: 6px;">
+                            <i class="material-icons fm-morphing-icon"
+                                style="transform: rotate(-90deg) scale(1.6)"
+                                :morphed="!dropdownOpen">expand_more</i>
+                            <i class="material-icons fm-morphing-icon"
+                                style="transform: rotate(90deg) scale(0.8)"
+                                :morphed="dropdownOpen">close</i>
+                        </span>
+                    </a>
                     <ul :class="'fm-dropdown ' + (dropdownOpen ? 'fm-dropdown--open' : '')">
                         <li class="fm-dropdown__item">
                             <router-link class="fm-dropdown__item-text" :to="{name: 'Magazines', params: {ref: 'navbar_dropdown'}}">Magazines</router-link>
                         </li>
                         <li class="fm-dropdown__item" v-for="(category, index) in categories" :key="index">
                             <router-link :to="{name: 'articleListCategory', params: {category: category.id, ref: 'navbar_dropdown'}}" class="fm-dropdown__item-text">{{ category.label }}</router-link>
-                        </li>
-                        <li class="fm-dropdown__item">
-                            <span class="fm-dropdown__item-text" @click="dropdownOpen = false">Fermer</span>
                         </li>
                     </ul>
                 </li>
@@ -162,6 +168,11 @@ export default {
         }
     },
     methods: {
+        closeDropdownIfOpen() {
+            if(this.dropdownOpen) {
+                this.dropdownOpen = false
+            }
+        },
         login() {
             localStorage.setItem('login-from-url', window.location.href)
             this.$router.push('/login')
