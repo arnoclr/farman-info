@@ -1,11 +1,11 @@
-import firebase from 'firebase/app'
-import 'firebase/analytics'
-import 'firebase/firestore'
-import 'firebase/storage'
-import 'firebase/auth'
-import 'firebase/messaging'
-import 'firebase/remote-config'
-import 'firebase/app-check'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/analytics'
+import 'firebase/compat/firestore'
+import 'firebase/compat/storage'
+import 'firebase/compat/auth'
+import 'firebase/compat/messaging'
+import 'firebase/compat/remote-config'
+import 'firebase/compat/app-check'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBzk6MWgJJcmZNP4oKhp_xCfI8PhTdqRGE",
