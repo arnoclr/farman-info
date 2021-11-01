@@ -1,10 +1,10 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics, logEvent, setUserId, setUserProperties } from 'firebase/analytics'
-import { getFirestore, collection, addDoc, serverTimestamp, enableIndexedDbPersistence } from 'firebase/firestore'
+import { getFirestore, serverTimestamp, enableIndexedDbPersistence } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { getMessaging, isSupported } from 'firebase/messaging'
-import { getRemoteConfig, defaultConfig, minimumFetchIntervalMillis } from 'firebase/remote-config'
+import { getRemoteConfig } from 'firebase/remote-config'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBzk6MWgJJcmZNP4oKhp_xCfI8PhTdqRGE",
@@ -19,6 +19,7 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig)
 const analyticsInstance = getAnalytics(firebaseApp)
+const storage = getStorage(firebaseApp)
 const auth = getAuth(firebaseApp)
 const db = getFirestore(firebaseApp)
 const remoteConfig = getRemoteConfig(firebaseApp)
@@ -70,5 +71,7 @@ export {
   logEvent,
   // firestore
   db,
-  serverTimestamp
+  serverTimestamp,
+  // storage
+  storage
 }

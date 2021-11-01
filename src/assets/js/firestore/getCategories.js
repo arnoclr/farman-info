@@ -1,16 +1,18 @@
-import {db} from '../../../firebaseConfig'
+import { db } from '../../../firebaseConfig'
+import { getDocs, collection, query } from 'firebase/firestore'
 
-const getCategories = () => {
+const getCategories = async () => {
     let categories = []
-    db.collection('categories').get().then(query => {
-        query.forEach(doc => {
-            let buffer = doc.data()
-            buffer.id = doc.id
-            categories.push(buffer)
-        })
-    }).catch(err => {
-        alert(err)
+
+    const q = query(collection(db, 'categories'))
+    const querySnapshot = await getDocs(q)
+
+    querySnapshot.forEach(doc => {
+        let buffer = doc.data()
+        buffer.id = doc.id
+        categories.push(buffer)
     })
+    
     return categories
 }
 

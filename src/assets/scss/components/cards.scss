@@ -43,10 +43,6 @@ $card-bg-color: #f4f4f4;
             }
         }
 
-        &-content {
-
-        }
-
         &-date {
             position: absolute;
             bottom: 24px;
@@ -133,6 +129,33 @@ $card-bg-color: #f4f4f4;
                 -webkit-line-clamp: 3;
                 -webkit-box-orient: vertical;  
                 overflow: hidden;
+            }
+        }
+    }
+
+    &--unavailable {
+        .fm-card {
+            &__body {
+                cursor: default;
+                pointer-events: none;
+                user-select: none;
+                background: #fef7e0;
+                border-bottom: 2px solid #b05a00;
+                opacity: 0.3;
+    
+                &-title {
+                    color: #b05a00;
+                }
+            }
+
+            &__legend {
+                color: #b05a00;
+
+                .md-icon {
+                    color: #b05a00;
+                    font-size: 20px !important;
+                    vertical-align: sub;
+                }
             }
         }
     }

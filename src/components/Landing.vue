@@ -90,7 +90,7 @@
                     </div>
                 </div>
 
-                <div class="fm-card fm-card--fullwidth">
+                <div class="fm-card fm-card--fullwidth fm-card--unavailable">
                     <div class="fm-card__body">
                         <h1 class="fm-card__body-title fm-card__body-title--small">S’inscrire à notre lettre d’information</h1>
                         <div class="fm-card__body-content">
@@ -118,6 +118,7 @@
                             </form>
                         </div>
                     </div>
+                    <span class="fm-card__legend"><md-icon>error</md-icon> Temporairement indisponible</span>
                 </div>
             </main>
         </div>
@@ -129,9 +130,12 @@
 </template>
 
 <script>
-const {db} = require('../firebaseConfig.js')
-import {getCategories} from '../assets/js/firestore/getCategories'
+import { db } from './../firebaseConfig'
+import { collection, query, where, limit, orderBy, getDocs } from "firebase/firestore";
+import { getCategories } from '../assets/js/firestore/getCategories'
 import {notificationsMixin} from '../mixins/notifications'
+
+const articlesCollection = collection(db, "articles")
 
 export default {
     components: {
@@ -161,35 +165,34 @@ export default {
         }
     },
     methods: {
-        submit() {
-            db.collection('mails').add({
-                mail: this.mail
+        // submit() {
+        //     db.collection('mails').add({
+        //         mail: this.mail
+        //     })
+        //     .then(() => {
+        //         this.mail = ''
+        //         this.$root.$emit('alert', 'Merci ! Vous serez informé lorsque le site sera disponible.')
+        //     })
+        //     .catch(error => {
+        //         console.error('Error adding document: ', error)
+        //         this.$root.$emit('alert', 'Oops, une erreur est survenue.')
+        //     })
+        // },
+        async fetchArticles() {
+            const q = query(articlesCollection, where('published', '==', true), orderBy('createdAt', 'desc'), limit(15))
+            const docs = await getDocs(q)
+
+            docs.forEach(doc => {
+                this.articles.push({id: doc.id, ...doc.data()})
             })
-            .then(() => {
-                this.mail = ''
-                this.$root.$emit('alert', 'Merci ! Vous serez informé lorsque le site sera disponible.')
-            })
-            .catch(error => {
-                console.error('Error adding document: ', error)
-                this.$root.$emit('alert', 'Oops, une erreur est survenue.')
-            })
+            this.articlesHorizontalLoading = false
         },
-        fetchArticles() {
-            db.collection('articles').orderBy('createdAt', 'desc').where('published', '==', true).limit(15).get()
-            .then(docs => {
-                docs.forEach(doc => {
-                    this.articles.push({id: doc.id, ...doc.data()})
-                })
-                this.articlesHorizontalLoading = false
-            })
-            .catch(e => this.articlesHorizontalLoading = false)
-        },
-        fetchBreaking() {
-            db.collection('articles').where('published', '==', true).where('breaking', '==', true).orderBy('createdAt', 'desc').limit(2).get()
-            .then(docs => {
-                docs.forEach(doc => {
-                    this.breakings.push({id: doc.id, ...doc.data()})
-                })
+        async fetchBreaking() {
+            const q = query(articlesCollection, where('published', '==', true), where('breaking', '==', true), orderBy('createdAt', 'desc'), limit(2))
+            const docs = await getDocs(q)
+
+            docs.forEach(doc => {
+                this.breakings.push({id: doc.id, ...doc.data()})
             })
         }
     },
@@ -211,10 +214,10 @@ export default {
             return buffer
         }
     },
-    mounted() {
+    async mounted() {
         this.fetchBreaking()
         this.fetchArticles()
-        this.categories = getCategories()
+        this.categories = await getCategories()
     }
 }
 </script>
