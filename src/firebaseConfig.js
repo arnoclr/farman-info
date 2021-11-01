@@ -1,11 +1,10 @@
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/analytics'
-import 'firebase/compat/firestore'
-import 'firebase/compat/storage'
-import 'firebase/compat/auth'
-import 'firebase/compat/messaging'
-import 'firebase/compat/remote-config'
-import 'firebase/compat/app-check'
+import { initializeApp } from 'firebase/app'
+import { getAnalytics, logEvent, setUserId, setUserProperties } from 'firebase/analytics'
+import { getFirestore, collection, addDoc, serverTimestamp, enableIndexedDbPersistence } from 'firebase/firestore'
+import { getStorage } from 'firebase/storage'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { getMessaging, isSupported } from 'firebase/messaging'
+import { getRemoteConfig, defaultConfig, minimumFetchIntervalMillis } from 'firebase/remote-config'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBzk6MWgJJcmZNP4oKhp_xCfI8PhTdqRGE",
@@ -18,42 +17,39 @@ const firebaseConfig = {
   measurementId: "G-K5R9HDMS6X"
 };
 
-firebase.initializeApp(firebaseConfig)
+const firebaseApp = initializeApp(firebaseConfig)
+const analyticsInstance = getAnalytics(firebaseApp)
+const auth = getAuth(firebaseApp)
+const db = getFirestore(firebaseApp)
+const remoteConfig = getRemoteConfig(firebaseApp)
 
-// firebase utils
-const analytics = firebase.analytics()
-const db = firebase.firestore()
-const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp()
-const auth = firebase.auth()
-const storage = firebase.storage()
 let messaging = null
-const remoteConfig = firebase.remoteConfig()
-
-// app check
-const appCheck = firebase.appCheck()
-appCheck.activate('6LfIehsbAAAAAM1O9-5EWMxKpaY8eiuwcu05DE7q')
-
-if(firebase.messaging.isSupported()) {
-  messaging = firebase.messaging()
+if(isSupported()) {
+  messaging = getMessaging(firebaseApp)
 }
 
 // check cookie consent before init
 const consent = JSON.parse(localStorage.getItem('cookie:accepted'))
 window.consent = consent
-analytics.setUserProperties({consent: consent})
+setUserProperties(analyticsInstance ,{consent: consent})
 // firebase sdk automatically anonimyze ip
 // https://support.google.com/firebase/answer/9019185?hl=en#zippy=%2Cin-this-article
 
 if (location.hostname === "localhost") {
   //db.useEmulator("localhost", 8088)
 }
-db.enablePersistence()
-  .catch(err => {
-    console.error(err)
-  })
-
-// firebase collections
-const magazines = db.collection('magazines')
+enableIndexedDbPersistence(db)
+  .catch((err) => {
+    if (err.code == 'failed-precondition') {
+      // Multiple tabs open, persistence can only be enabled
+      // in one tab at a a time.
+      // ...
+    } else if (err.code == 'unimplemented') {
+      // The current browser does not support all of the
+      // features required to enable persistence
+      // ...
+    }
+  });
 
 // remote config
 const sidebar_banners = {}
@@ -63,13 +59,16 @@ remoteConfig.defaultConfig = {
 }
 
 export {
-  analytics,
-  db,
-  serverTimestamp,
+  // app
+  firebaseApp,
+  // auth
   auth,
-  storage,
-  magazines,
-  messaging,
-  remoteConfig,
-  firebase
+  onAuthStateChanged,
+  // analytics
+  analyticsInstance,
+  setUserId,
+  logEvent,
+  // firestore
+  db,
+  serverTimestamp
 }

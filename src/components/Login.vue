@@ -88,27 +88,7 @@
 }
 </style>
 
-<style lang="scss">
-.firebaseui-page-provider-sign-in {
-    background: transparent;
-}
-
-p.firebaseui-tospp-full-message {
-    color: #eee;
-
-    a.firebaseui-link {
-        color: #eee;
-    }
-}
-</style>
-
 <script>
-    import {firebase, auth, analytics} from '../firebaseConfig.js';
-    import * as firebaseui from '../assets/js/npm__fr';
-    import "firebaseui/dist/firebaseui.css";
-    
-    const ui = new firebaseui.auth.AuthUI(auth);
-
     export default {
         name: 'login',
         data() {
