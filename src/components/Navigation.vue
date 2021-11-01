@@ -140,7 +140,8 @@
 </style>
 
 <script>
-const {firebase, db, analytics} = require('../firebaseConfig.js')
+import { analyticsInstance, logEvent, auth } from '../firebaseConfig'
+import { signOut } from 'firebase/auth'
 import { getCategories } from '../assets/js/firestore/getCategories'
 import { notificationsMixin } from '../mixins/notifications'
 
@@ -178,9 +179,9 @@ export default {
             this.$router.push('/login')
         },
         logout() {
-            firebase.auth().signOut().then(() => {
+            signOut(auth).then(() => {
+                logEvent(analyticsInstance, 'logout')
                 this.$router.go()
-                analytics.logEvent('logout')
             }).catch(err => {
                 alert(err)
             })
@@ -189,8 +190,8 @@ export default {
             this.betaDisclaimer = false
             localStorage.setItem('disclaimer:beta', + new Date())
         },
-        fetchCategories() {
-            this.categories = getCategories()
+        async fetchCategories() {
+            this.categories = await getCategories()
         }
     },
     mounted() {
