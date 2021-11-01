@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "emulators": "firebase emulators:start",
-    "build": "vue-cli-service build --modern",
+    "build": "vue-cli-service build --modern && gulp build",
     "deploy": "npm run build && firebase deploy",
     "deploy-beta": "npm run build && firebase hosting:channel:deploy %npm_config_channel%",
     "deploy-rules": "firebase deploy --only firestore:rules",
@@ -44,6 +44,8 @@
     "@vue/cli-service": "^4.5.13",
     "firebase-admin": "^9.5.0",
     "firebase-tools": "^9.21.0",
+    "gulp": "^4.0.2",
+    "gulp-minify-css-names": "^2.0.0",
     "mocha": "^8.3.2",
     "node-sass": "^4.9.0",
     "sass-loader": "^10.1.1",
