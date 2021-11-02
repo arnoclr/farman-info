@@ -13,9 +13,38 @@
                         <md-icon>place</md-icon>
                         Étretat, Seine-Maritime, France
                     </span>
-                    <div class="fm-section">
-                        <button class="fm-button fm-button--flat fm-button--large" @click="sendLoginWithEmail">Email</button>
-                        <button class="fm-button fm-button--large" @click="loginWithGoogle">Continuer avec Google</button>
+                    <div class="fm-section fm-section--center">
+                        <div v-if="showEmailForm" class="fm-card fm-card--shadow" style="width: 360px">
+                            <div class="fm-card__body p-32">
+                                <div v-if="emailSent">
+                                    <svg class="fm-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                        <circle class="fm-checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                                        <path class="fm-checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                                    </svg>
+                                    <p class="fm-text-small">Nous vous avons envoyé un lien pour vous connecter par email.</p>
+                                </div>
+                                <div v-else>
+                                    <h2>Etape 1</h2>
+                                    <p class="fm-text-small">Entrez votre email et nous vous enverrons un lien pour vous connecter. Vous n'avez pas besoin de mot de passe.</p>
+                                    <div class="fm-textfield fm-textfield--fullwidth">
+                                        <input id="email" type="email" class="fm-textfield__input fm-textfield__input--filled" placeholder=" " v-model="email">
+                                        <label class="fm-textfield__label" for="email">Adresse email</label>
+                                    </div>
+                                    <button class="fm-button" @click="sendLoginWithEmail" :disabled="!isValidEmail || emailSending">Envoyer</button>
+                                    <a href="javascript:void()" @click="showEmailForm = false" class="fm-link ml-16">retour</a>
+                                </div>
+                                <div v-if="errorCode">
+                                    <p class="fm-error">{{ errorCode }} :</p>
+                                    <p class="fm-error">{{ errorMessage }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else class="fm-section">
+                            <button class="fm-button fm-button--large fm-button--shadow" @click="showEmailForm = true">
+                                <md-icon class="fm-button__icon fm-button__icon--left">email</md-icon> Email</button>
+                            <button class="fm-button fm-button--white fm-button--large fm-button--shadow" @click="loginWithGoogle">
+                                <img class="fm-button__icon fm-button__icon--left" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/24px-Google_%22G%22_Logo.svg.png" alt=""> Continuer avec Google</button>
+                        </div>
                     </div>
                 </div>
             </main>
@@ -24,10 +53,6 @@
         <app-footer></app-footer>
     </div>
 </template>
-
-<style>
-
-</style>
 
 <style lang="scss" scoped>
 [root] {
@@ -101,7 +126,13 @@ export default {
     data() {
         return {
             loginFromUrl: null,
-            user: this.$root.user
+            user: this.$root.user,
+            showEmailForm: false,
+            email: '',
+            emailSent: false,
+            emailSending: false,
+            errorMessage: null,
+            errorCode: null
         }
     },
     metaInfo: {
@@ -110,6 +141,11 @@ export default {
     components: {
         AppFooter: () => import('./Footer.vue'),
         AppHeader: () => import('./Navigation.vue')
+    },
+    computed: {
+        isValidEmail: function() {
+            return this.email.match(/.+@[a-z0-9-]+\.[a-z]{2,5}/g)
+        },
     },
     methods: {
         loginWithGoogle() {
@@ -135,6 +171,10 @@ export default {
             });
         },
         sendLoginWithEmail() {
+            this.emailSending = true
+            this.errorCode = null
+            this.errorMessage = null
+
             const actionCodeSettings = {
                 // URL you want to redirect back to. The domain (www.example.com) for this
                 // URL must be in the authorized domains list in the Firebase Console.
@@ -144,20 +184,19 @@ export default {
                 dynamicLinkDomain: 'farman.ga'
             }
 
-            const email = prompt('email')
-
-            sendSignInLinkToEmail(auth, email, actionCodeSettings)
+            sendSignInLinkToEmail(auth, this.email, actionCodeSettings)
             .then(() => {
                 // The link was successfully sent. Inform the user.
                 // Save the email locally so you don't need to ask the user for it again
                 // if they open the link on the same device.
-                window.localStorage.setItem('emailForSignIn', email);
-                // ...
+                window.localStorage.setItem('emailForSignIn', this.email);
+                this.emailSent = true
+                this.emailSending = false
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ...
+                this.errorCode = error.code;
+                this.errorMessage = error.message;
+                this.emailSending = false
             })
         },
         verifyLoginWithEmail() {
