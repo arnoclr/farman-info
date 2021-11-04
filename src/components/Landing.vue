@@ -133,7 +133,7 @@
 import { db } from './../firebaseConfig'
 import { collection, query, where, limit, orderBy, getDocs } from "firebase/firestore";
 import { getCategories } from '../assets/js/firestore/getCategories'
-import {notificationsMixin} from '../mixins/notifications'
+import { notificationsMixin } from '../mixins/notifications'
 
 const articlesCollection = collection(db, "articles")
 
