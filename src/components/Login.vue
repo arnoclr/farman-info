@@ -31,7 +31,7 @@
                                         <label class="fm-textfield__label" for="email">Adresse email</label>
                                     </div>
                                     <button class="fm-button" @click="sendLoginWithEmail" :disabled="!isValidEmail || emailSending">Envoyer</button>
-                                    <a href="javascript:void()" @click="showEmailForm = false" class="fm-link ml-16">retour</a>
+                                    <a href="javascript:void(0);" @click="showEmailForm = false" class="fm-link ml-16">retour</a>
                                 </div>
                                 <div v-if="errorCode">
                                     <p class="fm-error">{{ errorCode }} :</p>
