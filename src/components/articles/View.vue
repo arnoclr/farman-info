@@ -1,7 +1,6 @@
 <template>
     <div>
         <app-header></app-header>
-        <horizontal-banner></horizontal-banner>
         <install-button mode="banner"></install-button>
 
         <div v-if="article">
@@ -189,10 +188,12 @@ main {
 </style>
 
 <script>
-import {db, analytics} from '../../firebaseConfig'
-import {parseMd} from '../../assets/js/utils/mdParse'
-import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-import { Viewer } from '@toast-ui/vue-editor';
+import { db, analyticsInstance } from '../../firebaseConfig'
+import { doc, getDoc, collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore'
+import { logEvent } from 'firebase/analytics'
+import { parseMd } from '../../assets/js/utils/mdParse'
+import '@toast-ui/editor/dist/toastui-editor-viewer.css'
+import { Viewer } from '@toast-ui/vue-editor'
 
 export default {
     components: {
@@ -202,7 +203,6 @@ export default {
         InstallButton: () => import('../utils/installButton.vue'),
         ArticlesSlider: () => import('./Slider.vue'),
         CommentsBottomSheat: () => import('./CommentsBottomSheat.vue'),
-        HorizontalBanner: () => import('../utils/HorizontalBanner.vue'),
         viewer: Viewer
     },
     data() {
@@ -263,16 +263,18 @@ export default {
                 })
             })
         },
-        fetch() {
+        async fetch() {
             const ref = this.$route.params.id
             this.loading = true
             this.$root.$emit('query:loading')
-            this.doc = db.collection('articles').doc(ref)
-            this.doc.get()
-            .then(doc => {
+
+            const docRef = doc(db, "articles", ref)
+            const docSnap = await getDoc(docRef)
+            
+            if (docSnap.exists()) {
                 this.$root.$emit('query:loaded')
                 this.loading = false
-                this.article = doc.data()
+                this.article = docSnap.data()
                 this.fetchAuthor()
                 setTimeout(() => {
                     this.appendCommentsButtons()
@@ -280,45 +282,43 @@ export default {
                 if(this.article.needLogin && !this.user) {
                     this.needLogin = true
                 }
-                analytics.logEvent('open_article', {
+                logEvent(analyticsInstance, 'open_article', {
                     ref: window.ref,
                     article_author: this.article.uid,
                     article_length: this.article.content.length,
                     article_tags: this.article.tags
                 })
-            })
-            .catch(err => {
+            } else {
                 this.loading = false
-                console.error(err)
-            })
+                this.$root.$emit('toast', "Un problème est survenu lors du chargement de l'article")
+            }
         },
-        fetchRelated(isVisible) {
+        async fetchRelated(isVisible) {
             if(!isVisible) return
             if(this.relatedLoaded) return
             this.relatedLoaded = true
-            db.collection('articles')
-            .orderBy('createdAt', 'desc')
-            .where('published', '==', true)
-            .where('tags', 'array-contains-any', this.article.tags)
-            .startAfter(this.article.createdAt)
-            .limit(5)
-            .get().then(docs => {
-                this.related = []
-                docs.forEach(doc => {
-                    let buffer = doc.data()
-                    buffer.id = doc.id
-                    if(doc.id != this.article.id) {
-                        this.related.push(buffer)
-                    }
-                })
+
+            const q = query(
+                collection(db, "articles"),
+                orderBy('createdAt', 'desc'),
+                where('published', '==', true),
+                where('tags', 'array-contains-any', this.article.tags),
+                limit(5)
+            )
+            const docs = await getDocs(q)
+            this.related = []
+            docs.forEach(doc => {
+                let buffer = doc.data()
+                buffer.id = doc.id
+                if(doc.id != this.article.id) {
+                    this.related.push(buffer)
+                }
             })
-            .catch(e => {
-                console.error(e)
-            })
+
             // log event when article is readed
             if(this.readTime < 20) return
             const wordCount = this.article.content.match(/(\w+)/g).length;
-            analytics.logEvent('read_article', {
+            logEvent(analyticsInstance, 'read_article', {
                 value: wordCount / this.readTime, // words/s
                 ref: window.ref,
                 article_author: this.article.uid,
@@ -328,10 +328,13 @@ export default {
                 read_time: this.readTime // seconds
             })
         },
-        fetchAuthor() {
-            db.collection('users').doc(this.article.uid).get().then(doc => {
+        async fetchAuthor() {
+            const userRef = doc(db, "users", this.article.uid)
+            const userSnap = await getDoc(userRef)
+
+            if (userSnap.exists()) {
                 this.author = doc.data()
-            })
+            }
         },
         timer() {
             this.readTime++
@@ -342,7 +345,7 @@ export default {
             event.preventDefault()
         },
         openComments(ref, text = '') {
-            analytics.logEvent('open_comments', {
+            logEvent(analyticsInstance, 'open_comments', {
                 ref: ref
             })
             localStorage.setItem('login-from-url', this.$route.fullPath)
