@@ -20,11 +20,13 @@ $fonts: 'Inter', Arial, Helvetica, sans-serif;
 @import 'components/dropdown.scss';
 @import 'components/footer.scss';
 @import 'components/header.scss';
+@import 'components/options.scss';
 @import 'components/textfields.scss';
 @import 'components/tiles.scss';
 
 // display
 @import 'display/grid.scss';
+@import 'display/login.scss';
 @import 'display/presentation.scss';
 @import 'display/sections.scss';
 @import 'display/spacing.scss';

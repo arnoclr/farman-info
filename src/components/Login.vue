@@ -1,120 +1,57 @@
 <template>
-    <div>
-        <div root id="login-background">
-            <app-header class="fm-header--transparent" transparent="true"></app-header>
-
-            <main>
-                <div id="login">
-                    <div class="centered">
-                        <h1>Connexion</h1>
-                        <p>Connectez-vous à votre espace MyFarman pour commenter et poster des articles.</p>
+    <div class="fm-login">
+        <div class="fm-section fm-section--center">
+            <div class="fm-card fm-card--white fm-card--shadow" style="width: 360px">
+                <div class="fm-card__body fm-login__card-body">
+                    <div class="fm-login__card-header">
+                        <img class="fm-login__logo" src="/assets/logos/header_logo.png" alt="Logo Farman">
+                        <h2>Connexion</h2>
                     </div>
-                    <span class="loc">
-                        <md-icon>place</md-icon>
-                        Étretat, Seine-Maritime, France
-                    </span>
-                    <div class="fm-section fm-section--center">
-                        <div v-if="showEmailForm" class="fm-card fm-card--shadow" style="width: 360px">
-                            <div class="fm-card__body p-32">
-                                <div v-if="emailSent">
-                                    <svg class="fm-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                                        <circle class="fm-checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                                        <path class="fm-checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                                    </svg>
-                                    <p class="fm-text-small">Nous vous avons envoyé un lien pour vous connecter par email.</p>
-                                </div>
-                                <div v-else>
-                                    <h2>Etape 1</h2>
-                                    <p class="fm-text-small">Entrez votre email et nous vous enverrons un lien pour vous connecter. Vous n'avez pas besoin de mot de passe.</p>
-                                    <div class="fm-textfield fm-textfield--fullwidth">
-                                        <input id="email" type="email" class="fm-textfield__input fm-textfield__input--filled" placeholder=" " v-model="email">
-                                        <label class="fm-textfield__label" for="email">Adresse email</label>
-                                    </div>
-                                    <button class="fm-button" @click="sendLoginWithEmail" :disabled="!isValidEmail || emailSending">Envoyer</button>
-                                    <a href="javascript:void(0);" @click="showEmailForm = false" class="fm-link ml-16">retour</a>
-                                </div>
-                                <div v-if="errorCode">
-                                    <p class="fm-error">{{ errorCode }} :</p>
-                                    <p class="fm-error">{{ errorMessage }}</p>
-                                </div>
+
+                    <div v-if="showEmailForm" class="fm-login__card-form">
+                        <div v-if="emailSent">
+                            <svg class="fm-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                <circle class="fm-checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                                <path class="fm-checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                            </svg>
+                            <p class="fm-text-small">Nous vous avons envoyé un lien pour vous connecter par email.</p>
+                        </div>
+                        <div v-else>
+                            <p class="fm-text-small">Entrez votre email et nous vous enverrons un lien pour vous connecter. Vous n'avez pas besoin de mot de passe.</p>
+                            <div class="fm-textfield fm-textfield--fullwidth">
+                                <input id="email" type="email" class="fm-textfield__input fm-textfield__input--filled" placeholder=" " v-model="email">
+                                <label class="fm-textfield__label" for="email">Adresse email</label>
                             </div>
+                            <button class="fm-button" @click="sendLoginWithEmail" :disabled="!isValidEmail || emailSending">Envoyer</button>
+                            <a href="javascript:void(0);" @click="showEmailForm = false" class="fm-link ml-16">retour</a>
                         </div>
-                        <div v-else class="fm-section">
-                            <button class="fm-button fm-button--large fm-button--shadow" @click="showEmailForm = true">
-                                <md-icon class="fm-button__icon fm-button__icon--left">email</md-icon> Email</button>
-                            <button class="fm-button fm-button--white fm-button--large fm-button--shadow" @click="loginWithGoogle">
-                                <img class="fm-button__icon fm-button__icon--left" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/24px-Google_%22G%22_Logo.svg.png" alt=""> Continuer avec Google</button>
+                        <div v-if="errorCode">
+                            <p class="fm-error">{{ errorCode }} :</p>
+                            <p class="fm-error">{{ errorMessage }}</p>
                         </div>
+                    </div>
+
+                    <div v-else class="fm-section">
+                        <ul class="fm-options pb-32">
+                            <li class="fm-options__action" @click="showEmailForm = true">
+                                <div class="fm-options__action-icon">email</div>
+                                <span class="fm-options__action-label">Me connecter avec mon adresse email</span>
+                            </li>
+                            <li class="fm-options__action" @click="loginWithGoogle">
+                                <div class="fm-options__action-icon">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/24px-Google_%22G%22_Logo.svg.png" alt="Logo Google">
+                                </div>
+                                <span class="fm-options__action-label">Continuer avec Google</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
 
-        <app-footer></app-footer>
+        <a href="https://farman.ga/s/cgu" class="fm-link fm-login__link">Conditions d'utilisation</a>
     </div>
 </template>
-
-<style lang="scss" scoped>
-[root] {
-    // background: url('https://i.imgur.com/4HZI65g.webp');
-    background: url('https://i.imgur.com/4HZI65gm.webp');
-    background-color: #91AFDE;
-    background-size: cover !important;
-    background-attachment: fixed !important;
-    background-repeat-y: no-repeat !important;
-    animation: background-down 1s ease-out;
-
-    #login {
-        padding: 16px;
-        min-height: calc(100vh - 120px);
-        display: grid;
-        justify-content: center;
-        position: relative;
-
-        .centered {
-            text-align: center;
-            max-width: 380px;
-
-            h1, p {
-                color: #fff;
-            }
-        }
-
-        .loc {
-            position: fixed;
-            bottom: 16px;
-            left: 10vw;
-            color: #fff;
-
-            i {
-                color: #fff;
-            }
-        }
-
-        @media screen and(max-width: 600px) {
-            .loc {
-                display: none;
-            }
-        }
-
-        #firebaseui-auth-container {
-            padding: 8px 0;
-        }
-    }
-}
-
-@keyframes background-down {
-    0% {
-        background-position-y: 105px;
-    }
-    25% {
-        background-position-y: 105px;
-    }
-    100% {
-        background-position-y: 0;
-    }
-}
-</style>
 
 <script>
 import { analyticsInstance, auth } from '../firebaseConfig'

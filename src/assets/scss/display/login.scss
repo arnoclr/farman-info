@@ -1,0 +1,36 @@
+.fm-login {
+    height: 100vh;
+    width: 100vw;
+    background: url('https://i.imgur.com/GpmcEjG.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: grid;
+    place-items: center;
+
+    &__card-body {
+        padding: 0;
+    }
+
+    &__card-header {
+        padding: 32px;
+        padding-bottom: 0;
+    }
+
+    &__card-form {
+        padding: 32px;
+        padding-top: 0;
+    }
+
+    &__logo {
+        pointer-events: none;
+        user-select: none;
+        height: 32px !important;
+    }
+
+    &__link {
+        position: absolute;
+        bottom: 8px;
+        right: 16px;
+    }
+}
