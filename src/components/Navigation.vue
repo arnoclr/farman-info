@@ -175,7 +175,7 @@ export default {
             }
         },
         login() {
-            localStorage.setItem('login-from-url', window.location.href)
+            localStorage.setItem('login-from-url', window.location.pathname)
             this.$router.push('/login')
         },
         logout() {

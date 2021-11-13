@@ -18,6 +18,10 @@ $action_icon_size: 24px;
             background: $primary-light;
         }
 
+        &:focus, &:active {
+            outline: 1px dashed black;
+        }
+
         &-icon {
             width: $action_icon_size;
             font-family: 'Material Icons Sharp';

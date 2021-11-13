@@ -8,8 +8,25 @@
     display: grid;
     place-items: center;
 
+    @media screen and (max-width: 560px) {
+        &__card {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100% !important;
+            margin: 0;
+
+            &-body {
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+    
     &__card-body {
-        padding: 0;
+        padding: 0 !important;
     }
 
     &__card-header {

@@ -1,7 +1,7 @@
 <template>
     <div class="fm-login">
         <div class="fm-section fm-section--center">
-            <div class="fm-card fm-card--white fm-card--shadow" style="width: 360px">
+            <div class="fm-card fm-card--white fm-card--shadow fm-login__card" style="width: 360px">
                 <div class="fm-card__body fm-login__card-body">
                     <div class="fm-login__card-header">
                         <img class="fm-login__logo" src="/assets/logos/header_logo.png" alt="Logo Farman">
@@ -147,22 +147,25 @@ export default {
                 if (!email) {
                     // User opened the link on a different device. To prevent session fixation
                     // attacks, ask the user to provide the associated email again. For example:
-                    email = window.prompt('Please provide your email for confirmation');
+
+                    // TODO: interface to ask for email
+                    email = window.prompt("Nous avons besoin d'une vérification supplémentaire, renseignez à nouveau votre mail :");
                 }
                 // The client SDK will parse the code from the link for you.
                 signInWithEmailLink(auth, email, window.location.href)
                 .then((result) => {
-                // Clear email from storage.
-                window.localStorage.removeItem('emailForSignIn');
-                // You can access the new user via result.user
-                // Additional user info profile not available via:
-                // result.additionalUserInfo.profile == null
-                // You can check if the user is new or existing:
-                // result.additionalUserInfo.isNewUser
+                    // Clear email from storage.
+                    window.localStorage.removeItem('emailForSignIn');
+                    this.exitLoginPage()
+                    // You can access the new user via result.user
+                    // Additional user info profile not available via:
+                    // result.additionalUserInfo.profile == null
+                    // You can check if the user is new or existing:
+                    // result.additionalUserInfo.isNewUser
                 })
                 .catch((error) => {
-                // Some error occurred, you can inspect the code: error.code
-                // Common errors could be invalid email and invalid or expired OTPs.
+                    // Some error occurred, you can inspect the code: error.code
+                    // Common errors could be invalid email and invalid or expired OTPs.
                 });
             }
         },
@@ -181,14 +184,6 @@ export default {
             this.$root.$emit('toast', 'Vous serez redirigé vers ' + path)
         }
         if(this.user) return this.exitLoginPage()
-
-        // image loading
-        let downloadingImage = new Image()
-        let imageSrc = 'https://i.imgur.com/4HZI65g.webp'
-        downloadingImage.onload = () => {
-            document.getElementById('login-background').style.background = `url('${imageSrc}')`  
-        }
-        downloadingImage.src = imageSrc
 
         // if coming from a signin link
         let params = (new URL(window.location.href)).searchParams;
