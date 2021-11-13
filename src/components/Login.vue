@@ -95,6 +95,7 @@ export default {
                 const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
+                window.location.reload()
                 // ...
             }).catch((error) => {
                 // Handle Errors here.
