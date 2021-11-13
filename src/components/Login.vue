@@ -156,7 +156,7 @@ export default {
                 .then((result) => {
                     // Clear email from storage.
                     window.localStorage.removeItem('emailForSignIn');
-                    this.exitLoginPage()
+                    window.location.reload()
                     // You can access the new user via result.user
                     // Additional user info profile not available via:
                     // result.additionalUserInfo.profile == null
