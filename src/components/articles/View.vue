@@ -269,6 +269,7 @@ export default {
             this.$root.$emit('query:loading')
 
             const docRef = doc(db, "articles", ref)
+            this.doc = docRef
             const docSnap = await getDoc(docRef)
             
             if (docSnap.exists()) {
