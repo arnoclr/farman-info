@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve",
     "emulators": "firebase emulators:start",
     "build": "vue-cli-service build --modern && gulp build",
     "deploy": "npm run build && firebase deploy",
