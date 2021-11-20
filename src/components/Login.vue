@@ -43,6 +43,12 @@
                                 </div>
                                 <span class="fm-options__action-label">Continuer avec Google</span>
                             </li>
+                            <router-link :to="{ name: 'aboutAccount', params: { ref: 'login_page' } }">
+                                <li class="fm-options__action">
+                                    <div class="fm-options__action-icon">arrow_forward</div>
+                                    <span class="fm-options__action-label">Découvrir les avantages</span>
+                                </li>
+                            </router-link>
                         </ul>
                     </div>
                 </div>

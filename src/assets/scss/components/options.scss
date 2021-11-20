@@ -9,6 +9,7 @@ $action_icon_size: 24px;
     &__action {
         padding: 8px 32px;
         width: 100%;
+        min-height: 56px;
         display: flex;
         align-items: center;
         gap: 1.2rem;
@@ -36,6 +37,11 @@ $action_icon_size: 24px;
 
         &-label {
             font-size: 16px;
+            color: #000;
         }
+    }
+
+    a:hover {
+        text-decoration: none;
     }
 }
