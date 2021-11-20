@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import {analytics} from '../../firebaseConfig'
+import { analyticsInstance } from '../../firebaseConfig'
+import { logEvent } from 'firebase/analytics'
 
 export default {
     props: ['mode'],
@@ -33,7 +34,7 @@ export default {
             window.deferredPrompt.userChoice.then(outcome, () => {
                 // Optionally, send analytics event with outcome of user choice
                 console.log(`User response to the install prompt: ${outcome}`)
-                analytics.logEvent('pwa_install', {
+                logEvent(analyticsInstance, 'pwa_install', {
                     outcome: outcome
                 })
             })
