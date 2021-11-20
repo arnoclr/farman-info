@@ -58,9 +58,9 @@
                         </span>
                     </a>
                     <ul :class="'fm-dropdown ' + (dropdownOpen ? 'fm-dropdown--open' : '')">
-                        <li class="fm-dropdown__item">
+                        <!-- <li class="fm-dropdown__item">
                             <router-link class="fm-dropdown__item-text" :to="{name: 'Magazines', params: {ref: 'navbar_dropdown'}}">Magazines</router-link>
-                        </li>
+                        </li> -->
                         <li class="fm-dropdown__item" v-for="(category, index) in categories" :key="index">
                             <router-link :to="{name: 'articleListCategory', params: {category: category.id, ref: 'navbar_dropdown'}}" class="fm-dropdown__item-text">{{ category.label }}</router-link>
                         </li>
