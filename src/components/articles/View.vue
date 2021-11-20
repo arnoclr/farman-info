@@ -298,22 +298,27 @@ export default {
             if(this.relatedLoaded) return
             this.relatedLoaded = true
 
-            const q = query(
-                collection(db, "articles"),
-                orderBy('createdAt', 'desc'),
-                where('published', '==', true),
-                where('tags', 'array-contains-any', this.article.tags),
-                limit(5)
-            )
-            const docs = await getDocs(q)
-            this.related = []
-            docs.forEach(doc => {
-                let buffer = doc.data()
-                buffer.id = doc.id
-                if(doc.id != this.article.id) {
-                    this.related.push(buffer)
-                }
-            })
+            try {
+                const q = query(
+                    collection(db, "articles"),
+                    orderBy('createdAt', 'desc'),
+                    where('published', '==', true),
+                    where('tags', 'array-contains-any', this.article.tags),
+                    limit(5)
+                )
+                const docs = await getDocs(q)
+                this.related = []
+                docs.forEach(doc => {
+                    let buffer = doc.data()
+                    buffer.id = doc.id
+                    if(doc.id != this.article.id) {
+                        this.related.push(buffer)
+                    }
+                })
+            } catch(e) {
+                console.log(e)
+                this.related = []
+            }
 
             // log event when article is readed
             if(this.readTime < 20) return
