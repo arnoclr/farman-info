@@ -66,8 +66,9 @@
 </template>
 
 <script>
-import {analytics} from '../../firebaseConfig'
-import {bottomSheatMixin} from '../../mixins/bottomSheat'
+import { analyticsInstance } from '../../firebaseConfig'
+import { logEvent } from 'firebase/analytics'
+import { bottomSheatMixin } from '../../mixins/bottomSheat'
 
 export default {
     mixins: [bottomSheatMixin],
@@ -89,7 +90,7 @@ export default {
     methods: {
         logEvent(provider) {
             this.canceled = false
-            analytics.logEvent('article_shared', {
+            logEvent(analyticsInstance, 'article_shared', {
                 canceled: this.canceled,
                 provider: provider,
                 display_mode: window.PWADisplayMode

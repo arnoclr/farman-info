@@ -24,8 +24,10 @@ div {
 </style>
 
 <script>
-const {db} = require('../../firebaseConfig.js')
-const mails = db.collection('mails')
+import { db } from '../../firebaseConfig.js'
+import { getDocs, collection } from 'firebase/firestore'
+
+const mails = collection(db, 'mails')
 
 export default {
     data() {
@@ -40,20 +42,18 @@ export default {
         this.getMails()
     },
     methods: {
-        getMails() {
+        async getMails() {
             this.mails = this.error = null
             this.loading = true
-            mails.get().then(snapshot => {
-                this.loading = false
-                this.mails = []
-                snapshot.forEach(doc => {
-                    this.mails.push(doc.data())
-                    this.mailLink += `&bcc=${doc.data().mail}`
-                })
-            })
-            .catch(err => {
-                console.log(err)
-                this.error = err
+
+            const mailsSnapshot = await getDocs(mails)
+                
+            this.loading = false
+            this.mails = []
+            
+            mailsSnapshot.forEach(doc => {
+                this.mails.push(doc.data())
+                this.mailLink += `&bcc=${doc.data().mail}`
             })
         },
     }

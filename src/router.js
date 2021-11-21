@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import {auth, analytics} from './firebaseConfig'
-
-const REGEX_REF = /([&?]ref=\w+)/
+import {auth, logEvent, analyticsInstance} from './firebaseConfig'
 
 Vue.use(Router)
 
@@ -136,7 +134,7 @@ router.beforeEach((to, from, next) => {
 
   window.ref = to.params.ref || urlParams.get('ref') || 'none'
   // console.log(window.ref)
-  analytics.logEvent('page_view', { 
+  logEvent(analyticsInstance, 'page_view', { 
     ref: window.ref,
     display_mode: window.PWADisplayMode
   })

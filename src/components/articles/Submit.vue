@@ -107,10 +107,12 @@ main {
 </style>
 
 <script>
-import {analytics, db, firebase} from '../../firebaseConfig'
-import {getCategories} from '../../assets/js/firestore/getCategories'
+import { analyticsInstance, db } from '../../firebaseConfig'
+import { doc, setDoc, updateDoc, getDoc, serverTimestamp } from 'firebase/firestore'
+import { logEvent } from 'firebase/analytics'
+import { getCategories } from '../../assets/js/firestore/getCategories'
+import { string_to_slug } from '../../assets/js/utils/slug'
 
-const articles = db.collection('articles')
 const EDITOR_TEMPLATE = `
 # Ceci est un exemple
 
@@ -144,7 +146,8 @@ export default {
             submitting: false,
             template: EDITOR_TEMPLATE,
             categories: false,
-            imageUploaderOpen: false
+            imageUploaderOpen: false,
+            user: this.$root.user
         }
     },
     methods: {
@@ -154,12 +157,44 @@ export default {
         insertThumb(url) {
             this.article.thumbnail = url
         },
-        submit() {
+        async submit() {
             this.submitting = true
             if(this.article.id)
                 return this.updateArticle()
             if(this.article.title && this.article.thumbnail && this.article.summary && this.article.content && this.article.category && this.article.tags) {
-                articles.add({
+                try {
+                    const _id = string_to_slug(this.article.title)
+                    await setDoc(doc(db, "articles", _id), {
+                        title: this.article.title,
+                        thumbnail: this.article.thumbnail,
+                        summary: this.article.summary,
+                        content: this.article.content,
+                        category: this.article.category,
+                        breaking: this.article.breaking ? true : false,
+                        tags: this.article.tags,
+                        createdAt: serverTimestamp(),
+                        uid: this.user.uid,
+                        published: false
+                    })
+                    console.log(_id)
+                    this.article.title = this.article.summary = this.article.content = this.article.category = null
+                    localStorage.removeItem('submit:draft')
+                    this.$router.push({name: 'articleView', params: {id: _id, ref: 'submit'}})
+                    logEvent(analyticsInstance, 'publish_article')
+                } catch(e) {
+                    this.$root.$emit('alert', e)
+                    console.log(e)
+                }
+            } else {
+                this.$root.$emit('toast', 'Champs non remplis')
+                this.submitting = false
+            }
+        },
+        async updateArticle() {
+            try {
+                const articleRef = doc(db, "articles", this.article.id);
+                
+                await updateDoc(articleRef, {
                     title: this.article.title,
                     thumbnail: this.article.thumbnail,
                     summary: this.article.summary,
@@ -167,61 +202,32 @@ export default {
                     category: this.article.category,
                     breaking: this.article.breaking ? true : false,
                     tags: this.article.tags,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                    uid: firebase.auth().currentUser.uid,
+                    updatedAt: serverTimestamp(),
                     published: false
                 })
-                .then(doc => {
-                    console.log(doc.id)
-                    this.article.title = this.article.summary = this.article.content = this.article.category = null
-                    localStorage.removeItem('submit:draft')
-                    this.$router.push({name: 'articleView', params: {id: doc.id, ref: 'submit'}})
-                    analytics.logEvent('publish_article')
-                })
-                .catch(err => {
-                    alert(err)
-                    this.submitting = false
-                })
-            } else {
-                this.$root.$emit('toast', 'Champs non remplis')
+                this.$root.$emit('toast', 'Article mis à jour')
+                logEvent(analyticsInstance, 'save_article')
+                this.$router.push({name: 'articleView', params: {id: this.article.id, ref: 'edit'}})
+            } catch(e) {
+                this.$root.$emit('alert', e)
+                console.error(e)
                 this.submitting = false
             }
         },
-        updateArticle() {
-            articles.doc(this.article.id).update({
-                title: this.article.title,
-                thumbnail: this.article.thumbnail,
-                summary: this.article.summary,
-                content: this.article.content,
-                category: this.article.category,
-                breaking: this.article.breaking ? true : false,
-                tags: this.article.tags,
-                updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                published: false
-            }).then(() => {
-                this.$root.$emit('toast', 'Article mis à jour, vous allez être redirigé dans quelques secondes.')
-                analytics.logEvent('save_article')
-                setTimeout(() => {
-                    this.$router.push({name: 'articleView', params: {id: this.article.id, ref: 'edit'}})
-                }, 3000);
-            }).catch(err => {
-                this.$root.$emit('alert', err)
-                console.error(err)
-                this.submitting = false
-            })
-        },
-        fetch(id) {
-            articles.doc(id).get().then(doc => {
-                this.article = doc.data()
-                this.article.id = doc.id
+        async fetch(id) {
+            const docRef = doc(db, "articles", id)
+            const docSnap = await getDoc(docRef)
+
+            if (docSnap.exists()) {
+                this.article = docSnap.data()
+                this.article.id = id
                 this.$refs.textEditor.initContent(this.article.content)
                 if(this.article.uid != this.$root.user.uid) {
                     this.$root.$emit('alert', 'Vous ne pouvez pas modifier cet article')
                 }
-            }).catch(err => {
-                this.$root.$emit('toast', err)
-                console.error(err)
-            })
+            } else {
+                this.$root.$emit('toast', "Impossible de charger l'article")
+            }
         },
         deleteDraft() {
             if(!confirm('Supprimer le brouillon ?')) return
@@ -230,20 +236,20 @@ export default {
             window.location.reload()
         }
     },
-    mounted() {
-        this.categories = getCategories()
+    async mounted() {
+        this.categories = await getCategories()
 
         const id = this.$route.params.id
         if(id) {
             this.fetch(id)
-            analytics.logEvent('edit_article')
+            logEvent(analyticsInstance, 'edit_article')
         } else {
             if (!localStorage.getItem('submit:draft')) {
                 setTimeout(() => {
                     this.$refs.textEditor.initContent(this.template)
                 }, 1000);
             }
-            analytics.logEvent('write_article')
+            logEvent(analyticsInstance, 'write_article')
         }
     },
 }

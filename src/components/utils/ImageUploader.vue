@@ -64,8 +64,8 @@
 import { v4 as uuidv4 } from 'uuid'
 import imageCompression from 'browser-image-compression'
 
-const {storage} = require('../../firebaseConfig.js')
-const images = storage.ref('images')
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebaseConfig"
 
 export default {
     name: 'ImageUploader',
@@ -138,8 +138,8 @@ export default {
         async uploadImage(blob, getUrl = false) {
             return new Promise((resolve, reject) => {
                 this.progressMode = 'determinate'
-                let ref = images.child(uuidv4())
-                let uploadTask = ref.put(blob)
+                const storageRef = ref(storage, 'images/' + uuidv4());
+                let uploadTask = uploadBytesResumable(storageRef, blob)
 
                 // Listen for state changes, errors, and completion of the upload.
                 uploadTask.on('state_changed',
@@ -153,7 +153,7 @@ export default {
                         reject()
                     }, 
                     async () => {
-                        const downloadURL = await uploadTask.snapshot.ref.getDownloadURL()
+                        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
                         this.uploading = false
                         this.fromUrl = null
                         this.closeModal()

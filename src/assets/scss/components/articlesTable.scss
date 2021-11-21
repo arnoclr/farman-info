@@ -1,0 +1,58 @@
+.fm-articles-table {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 24px;
+
+    @media screen and (min-width: 900px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (min-width: 1400px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    &__panel {
+        margin: 16px 0;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+        &-thumbnail {
+            height: 240px !important;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        &-title {
+            padding: 0 16px;
+            font-size: 2.2rem;
+            margin-bottom: 0;
+        }
+
+        &-subtitle {
+            padding: 16px;
+            font-size: 0.8rem;
+        }
+
+        &-buttons {
+            padding: 0 16px;
+        }
+
+        &-tags {
+            padding: 16px;
+            opacity: 0.8;
+
+            &::before, &::after {
+                height: 0px;
+            }
+        }
+    }
+}
+
+.fm-articles-toolbar {
+    position: sticky;
+    padding: 8px 0;
+    top: 72px;
+    z-index: 12;
+    background-color: #fff;
+}

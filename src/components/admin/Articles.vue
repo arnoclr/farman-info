@@ -1,138 +1,120 @@
 <template>
     <div>
-        <md-table v-model="searched" md-sort="title" md-sort-order="asc" md-card md-fixed-header>
-            <md-table-toolbar>
-                <div class="md-toolbar-section-start">
-                    <h1 class="md-title">Articles</h1>
-                    <md-button class="md-icon-button" @click="fetch">
-                        <md-icon>refresh</md-icon>
+        <h1 class="md-title">Articles</h1>
+        <div class="fm-articles-toolbar">
+            <md-button title="rafraîchir" class="md-icon-button" @click="fetch(false)">
+                <md-icon>refresh</md-icon>
+            </md-button>
+            <md-button title="page précedente" class="md-icon-button" @click="fetch('prev')">
+                <md-icon>chevron_left</md-icon>
+            </md-button>
+            <md-button title="page suivante" class="md-icon-button" @click="fetch('next')">
+                <md-icon>chevron_right</md-icon>
+            </md-button>
+        </div>
+
+        <ul class="fm-articles-table" v-if="articles.length > 0">
+            <li v-for="article in articles" :key="article.id" class="fm-articles-table__panel">
+                <img class="fm-articles-table__panel-thumbnail" :src="article.thumbnail" :alt="article.tags">
+                <h1 class="fm-articles-table__panel-title">{{ article.title }}</h1>
+                <small class="fm-articles-table__panel-subtitle">{{ article.id }}, {{ (new Date(article.createdAt.toDate())).toLocaleDateString("fr-FR") }}</small>
+
+                <ul class="fm-options">
+                    <li class="fm-options__action">
+                        <md-switch v-model="article.published" @change="triggerItem(article.id)" class="md-primary"></md-switch>
+                        <label>Rendre l'article publique</label>
+                    </li>
+                    <li class="fm-options__action">
+                        <md-switch v-model="article.breaking" @change="triggerItem(article.id)" class="md-primary"></md-switch>
+                        <label>Mettre l'article à la une</label>
+                    </li>
+                    <li class="fm-options__action">
+                        <md-switch v-model="article.needLogin" @change="triggerItem(article.id)" class="md-primary"></md-switch>
+                        <label>Restreindre aux personnes connectées</label>
+                    </li>
+                </ul>
+            
+                <div class="fm-articles-table__panel-buttons">
+                    <md-button class="md-icon-button" @click="$router.push('/article/' + article.id)">
+                        <md-icon>visibility</md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button" @click="$router.push('/article/' + article.id + '/edit')">
+                        <md-icon>edit</md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button" @click="remove(article.id)">
+                        <md-icon>delete</md-icon>
                     </md-button>
                 </div>
 
-                <md-field md-clearable class="md-toolbar-section-end">
-                    <md-input placeholder="id:KEmKRg ou titre:Les nouveaux ..." v-model="search" @input="searchOnTable" />
-                </md-field>
-            </md-table-toolbar>
+                <md-chips class="fm-articles-table__panel-tags" v-model="article.tags" md-static></md-chips>
+            </li>
+        </ul>
 
-            <md-table-row slot="md-table-row" slot-scope="{ item }">
-                <md-table-cell md-label="ID" md-sort-by="id">{{ item.id }}</md-table-cell>
-                <md-table-cell md-label="Titre" md-sort-by="title">{{ item.title }}</md-table-cell>
-                <md-table-cell md-label="Date de publication" md-sort-by="createdAt">
-                    {{ (new Date(item.createdAt.toDate())).toLocaleDateString("fr-FR") }}
-                </md-table-cell>
-                <md-table-cell md-label="Tags">
-                    <md-chips v-model="item.tags" md-static></md-chips>
-                </md-table-cell>
-                <md-table-cell md-label="A la une ?">
-                    <md-switch v-model="item.breaking" @change="triggerItem(item.id)" class="md-primary"></md-switch>
-                </md-table-cell>
-                <md-table-cell md-label="Publié ?">
-                    <md-switch v-model="item.published" @change="triggerItem(item.id)" class="md-primary"></md-switch>
-                </md-table-cell>
-                <md-table-cell md-label="Payant ?">
-                    <md-switch v-model="item.needLogin" @change="triggerItem(item.id)" class="md-primary"></md-switch>
-                </md-table-cell>
-                <md-table-cell md-label="Actions" actions>
-                    <md-button class="md-icon-button" @click="$router.push('/article/' + item.id)">
-                        <md-icon>visibility</md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button" @click="$router.push('/article/' + item.id + '/edit')">
-                        <md-icon>edit</md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button" @click="remove(item.id)">
-                        <md-icon>delete</md-icon>
-                    </md-button>
-                </md-table-cell>
-            </md-table-row>
-        </md-table>
-
-        <md-button class="md-icon-button" @click="fetch('prev')">
-            <md-icon>chevron_left</md-icon>
-        </md-button>
-        <md-button class="md-icon-button" @click="fetch('next')">
-            <md-icon>chevron_right</md-icon>
-        </md-button>
+        <div class="fm-section fm-section--center" style="height:90vh" v-else>
+            <div class="fm-section__centered-item">
+                <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+            </div>
+        </div>
     </div>
 </template>
 
-<style lang="scss" scoped>
-[actions] button {
-    display: inline-block;
-}
-</style>
-
 <script>
-import {db} from '../../firebaseConfig'
-const articles = db.collection('articles')
+import { db } from '../../firebaseConfig'
+import { getDocs, updateDoc, deleteDoc, doc, collection, startAfter, endBefore, query, orderBy, limit } from 'firebase/firestore'
 
-const toLower = text => {
-    return text.toString().toLowerCase()
-}
+const articles = collection(db, 'articles')
 
-const searchByAny = (items, term) => {
-    if (term) {
-        let parts = term.split(':')
-        let key = parts.length > 1 ? parts[0] : 'title'
-        term = parts.length > 1 ? parts[1] : term
-        return items.filter(item => toLower(item[key]).includes(toLower(term)))
-    }
-
-    return items
-}
 export default {
     data() {
         return {
             articles: [],
-            search: null,
-            searched: [],
             lastVisible: null,
-            firstVisible: null
+            firstVisible: null,
+            lastQuery: null,
         }
     },
     methods: {
-        searchOnTable () {
-            this.searched = searchByAny(this.articles, this.search)
-        },
-        fetch(page = false) {
+        async fetch(page = false) {
             this.articles = []
-            let query = articles.orderBy('createdAt', 'desc')
-            query = page == 'next' ? query.startAfter(this.lastVisible.createdAt) : query
-            query = page == 'prev' ? query.endBefore(this.firstVisible.createdAt) : query
-            
-            query.limit(15).get().then(snapshot => {
-                if(snapshot.empty)
-                    return this.$root.$emit('toast', 'Aucun résultat après cette page')
-                snapshot.forEach(doc => {
-                    let buffer = doc.data()
-                    buffer.id = doc.id
-                    this.articles.push(buffer)
-                })
-                this.firstVisible = this.articles[0]
-                this.lastVisible = this.articles[this.articles.length - 1]
-                this.searched = this.articles
-                this.$root.$emit('toast', 'Tableau actualisé')
-            }, err => {
-                this.$root.$emit('toast', err)
-                console.error(err)
+            let constraints = []
+
+            if (page == 'next') constraints.push(startAfter(this.lastVisible.createdAt))
+            if (page == 'prev') constraints.push(endBefore(this.firstVisible.createdAt))
+
+            let q = query(articles, orderBy('createdAt', 'desc'), ...constraints, limit(15))
+
+            console.log(this.lastQuery)
+
+            if (this.lastQuery != null && page == false) q = this.lastQuery
+
+            const articlesSnapshot = await getDocs(q)
+
+            if(articlesSnapshot.empty) {
+                this.$root.$emit('toast', 'Aucun résultat après cette page')
+                return this.fetch(false)
+            }
+            articlesSnapshot.forEach(doc => {
+                let buffer = doc.data()
+                buffer.id = doc.id
+                this.articles.push(buffer)
             })
+            this.lastQuery = q
+            this.firstVisible = this.articles[0]
+            this.lastVisible = this.articles[this.articles.length - 1]
+            this.$root.$emit('toast', 'Tableau actualisé')
         },
-        triggerItem(id) {
+        async triggerItem(id) {
             let item = this.articles.find(o => o.id == id)
-            articles.doc(id).update(item).then(() => {
-                this.fetch()
-            }).catch(err => {
-                this.$root.$emit('toast', err)
-                console.error(err)
-            })
+            const articleRef = doc(articles, id)
+
+            await updateDoc(articleRef, item)
+            this.fetch()
         },
-        remove(id) {
+        async remove(id) {
             if(!(confirm('Supprimer ?'))) return
-            articles.doc(id).delete().then(() => {
-                this.fetch()
-                this.$root.$emit('toast', id + ' supprimé avec succès')
-            }).catch(err => {
-                this.$root.$emit('toast', err)
-            })
+            await deleteDoc(doc(articles, id))
+            this.fetch()
+            this.$root.$emit('toast', id + ' supprimé avec succès')
         }
     },
     created () {

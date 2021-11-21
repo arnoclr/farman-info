@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueMeta from 'vue-meta'
 import App from './App.vue'
 import router from './router'
-import {auth, analytics} from './firebaseConfig.js'
+import { auth, onAuthStateChanged, analyticsInstance, setUserId } from './firebaseConfig.js'
 
 Vue.config.productionTip = false
 Vue.use(VueMeta)
@@ -59,20 +59,20 @@ AutoAdsense()
 // console disclaimers
 console.log('%cAtttention !', 'color: #f00; background: #ff0; font-size: 24px')
 console.log('%cEn utilisant cette console, vous vous exposez au risque que des personnes malveillantes usurpent votre identité et volent vos informations par le biais d\'une attaque appelée Self-XSS.\nNe saisissez pas et ne copiez pas du code que vous ne comprenez pas.', 'font-size: 16px')
-console.log('%cLe code du site est open source → https://github.com/Aryqs-Ipsum/farman-info', 'color: #333; font-size: 16px')
+console.log('%cLe code du site est open source → https://github.com/arnoclr/farman-info', 'color: #333; font-size: 16px')
 
 let app
 
 document.getElementById('progress').value = 1
 
-auth.onAuthStateChanged(user => {
+onAuthStateChanged(auth ,user => {
     document.getElementById('progress').value = 2
     document.getElementById('load').classList.add('out')
     setTimeout(() => {
         document.getElementById('load').style.display = 'none'
     }, 500);
 
-    if(user && user.uid) analytics.setUserId(user.uid)
+    if(user && user.uid) setUserId(analyticsInstance, user.id)
     
     if(!app) {
         app = new Vue({

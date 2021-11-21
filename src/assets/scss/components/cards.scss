@@ -43,10 +43,6 @@ $card-bg-color: #f4f4f4;
             }
         }
 
-        &-content {
-
-        }
-
         &-date {
             position: absolute;
             bottom: 24px;
@@ -137,10 +133,47 @@ $card-bg-color: #f4f4f4;
         }
     }
 
+    &--unavailable {
+        .fm-card {
+            &__body {
+                cursor: default;
+                pointer-events: none;
+                user-select: none;
+                background: #fef7e0;
+                border-bottom: 2px solid #b05a00;
+                opacity: 0.3;
+    
+                &-title {
+                    color: #b05a00;
+                }
+            }
+
+            &__legend {
+                color: #b05a00;
+
+                .md-icon {
+                    color: #b05a00;
+                    font-size: 20px !important;
+                    vertical-align: sub;
+                }
+            }
+        }
+    }
+
+    &--shadow {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    &--white {
+        .fm-card__body {
+            background-color: #fff;
+        }
+    }
+
     &:hover {
         text-decoration: none !important;
 
-        img {
+        .fm-card__img img {
             transform: scale(1.05);
             opacity: 0.7;
         }

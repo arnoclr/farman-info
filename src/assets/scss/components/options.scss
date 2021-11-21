@@ -1,0 +1,47 @@
+$action_icon_size: 24px;
+
+.fm-options {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    &__action {
+        padding: 8px 32px;
+        width: 100%;
+        min-height: 56px;
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        cursor: pointer;
+
+        &:hover {
+            background: $primary-light;
+        }
+
+        &:focus, &:active {
+            outline: 1px dashed black;
+        }
+
+        &-icon {
+            width: $action_icon_size;
+            font-family: 'Material Icons Sharp';
+            font-size: $action_icon_size;
+            color: $primary-dark;
+
+            img {
+                height: $action_icon_size;
+                width: $action_icon_size;
+            }
+        }
+
+        &-label {
+            font-size: 16px;
+            color: #000;
+        }
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+}

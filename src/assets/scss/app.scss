@@ -10,20 +10,24 @@ $fonts: 'Inter', Arial, Helvetica, sans-serif;
 
 // farman components
 // fm-
+@import 'components/articlesTable.scss';
 @import 'components/banners.scss';
 @import 'components/bottomSheat.scss';
 @import 'components/box.scss';
 @import 'components/buttons.scss';
 @import 'components/cards.scss';
+@import 'components/checkmark.scss';
 @import 'components/comments.scss';
 @import 'components/dropdown.scss';
 @import 'components/footer.scss';
 @import 'components/header.scss';
+@import 'components/options.scss';
 @import 'components/textfields.scss';
 @import 'components/tiles.scss';
 
 // display
 @import 'display/grid.scss';
+@import 'display/login.scss';
 @import 'display/presentation.scss';
 @import 'display/sections.scss';
 @import 'display/spacing.scss';

@@ -58,9 +58,9 @@
                         </span>
                     </a>
                     <ul :class="'fm-dropdown ' + (dropdownOpen ? 'fm-dropdown--open' : '')">
-                        <li class="fm-dropdown__item">
+                        <!-- <li class="fm-dropdown__item">
                             <router-link class="fm-dropdown__item-text" :to="{name: 'Magazines', params: {ref: 'navbar_dropdown'}}">Magazines</router-link>
-                        </li>
+                        </li> -->
                         <li class="fm-dropdown__item" v-for="(category, index) in categories" :key="index">
                             <router-link :to="{name: 'articleListCategory', params: {category: category.id, ref: 'navbar_dropdown'}}" class="fm-dropdown__item-text">{{ category.label }}</router-link>
                         </li>
@@ -140,7 +140,8 @@
 </style>
 
 <script>
-const {firebase, db, analytics} = require('../firebaseConfig.js')
+import { analyticsInstance, logEvent, auth } from '../firebaseConfig'
+import { signOut } from 'firebase/auth'
 import { getCategories } from '../assets/js/firestore/getCategories'
 import { notificationsMixin } from '../mixins/notifications'
 
@@ -174,13 +175,13 @@ export default {
             }
         },
         login() {
-            localStorage.setItem('login-from-url', window.location.href)
+            localStorage.setItem('login-from-url', window.location.pathname)
             this.$router.push('/login')
         },
         logout() {
-            firebase.auth().signOut().then(() => {
+            signOut(auth).then(() => {
+                logEvent(analyticsInstance, 'logout')
                 this.$router.go()
-                analytics.logEvent('logout')
             }).catch(err => {
                 alert(err)
             })
@@ -189,8 +190,8 @@ export default {
             this.betaDisclaimer = false
             localStorage.setItem('disclaimer:beta', + new Date())
         },
-        fetchCategories() {
-            this.categories = getCategories()
+        async fetchCategories() {
+            this.categories = await getCategories()
         }
     },
     mounted() {

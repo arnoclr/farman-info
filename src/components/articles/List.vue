@@ -51,8 +51,10 @@
 </template>
 
 <script>
-import {db, auth} from '../../firebaseConfig'
-import {getCategories} from '../../assets/js/firestore/getCategories'
+import { db, auth, analyticsInstance } from '../../firebaseConfig'
+import { collection, query, where, orderBy, startAfter, limit, getDocs } from 'firebase/firestore'
+import { logEvent } from 'firebase/analytics'
+import { getCategories } from '../../assets/js/firestore/getCategories'
 
 export default {
     components: {
@@ -82,41 +84,42 @@ export default {
         }
     },
     methods: {
-        fetch() {
+        async fetch() {
             let category = this.$route.params.category
             let author = this.$route.params.author
             this.$root.$emit('query:loading')
-            
-            let query = db.collection('articles').orderBy('createdAt', 'desc')
+
+            let constraints = []
             if(auth.currentUser && author && auth.currentUser.uid == author) {
                 document.title = 'Mes articles'
             } else {
-                query = query.where('published', '==', true)
+                constraints.push(where('published', '==', true))
             }
-            query = category ? query.where('category', '==', category) : query
-            query = author ? query.where('uid', '==', author) : query
-            query = this.lastVisible ? query.startAfter(this.lastVisible.createdAt) : query
-            query = query.limit(15)
+            if (category) constraints.push(where('category', '==', category))
+            if (author) constraints.push(where('uid', '==', author))
+            if (this.lastVisible) {
+                constraints.push(startAfter(this.lastVisible.createdAt))
+                logEvent(analyticsInstance, 'show_more_articles')
+            }
+
+            constraints.push(limit(15))
+            let q = query(collection(db, 'articles'), orderBy('createdAt', 'desc'), ...constraints)
+            let docs = await getDocs(q)
+
+            this.$root.$emit('query:loaded')
+            this.articles = this.articles || []
             
-            query.get().then(docs => {
-                this.$root.$emit('query:loaded')
-                this.articles = this.articles ? this.articles : []
-                docs.forEach(doc => {
-                    let buffer = doc.data()
-                    buffer.id = doc.id
-                    this.articles.push(buffer)
-                })
-                this.lastVisible = this.articles[this.articles.length - 1]
+            docs.forEach(doc => {
+                let buffer = doc.data()
+                buffer.id = doc.id
+                this.articles.push(buffer)
             })
-            .catch(err => {
-                this.$root.$emit('toast', err)
-                console.log(err)
-            })
+            this.lastVisible = this.articles[this.articles.length - 1]
         }
     },
-    mounted() {
+    async mounted() {
         this.fetch()
-        this.categories = getCategories()
+        this.categories = await getCategories()
     }
 }
 </script>

@@ -50,8 +50,10 @@
 </template>
 
 <script>
-import {serverTimestamp, analytics} from '../../firebaseConfig'
-import {notificationsMixin} from '../../mixins/notifications'
+import { analyticsInstance, db } from '../../firebaseConfig'
+import { serverTimestamp, collection, query, orderBy, where, limit, startAfter, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore'
+import { logEvent } from 'firebase/analytics'
+import { notificationsMixin } from '../../mixins/notifications'
 const COLLECTION_NAME = 'comments'
 const FETCH_NUM = 5
 
@@ -63,7 +65,7 @@ export default {
     props: ['doc', 'prefilled'],
     data() {
         return {
-            collection: this.doc.collection(COLLECTION_NAME),
+            collection: collection(this.doc, COLLECTION_NAME),
             comments: null,
             allCommentsLoaded: false,
             allReplysLoaded: {},
@@ -89,38 +91,36 @@ export default {
                 : this.comments[this.comments.length - 1]
             this.fetchComments(replyId, lastComment)
         },
-        fetchComments(replyId = false, lastComment = false) {
-            let query = this.collection
-                .orderBy('createdAt', 'desc')
-                .where('replyTo', '==', replyId)
-            query = lastComment ? query.startAfter(lastComment.createdAt) : query
-            query = query.limit(FETCH_NUM)
-            query.get().then(docs => {
-                if(replyId) {
-                    if(!lastComment) {
-                        this.$set(this.replys, replyId, [])
-                    }
-                    let state = false
-                    if(docs.size < FETCH_NUM || docs.empty) {
-                        state = true
-                    }
-                    this.$set(this.allReplysLoaded, replyId, state)
-                    docs.forEach(doc => {
-                        this.replys[replyId].push({id: doc.id, ...doc.data()})
-                    })
-                } else {
-                    if(docs.size < FETCH_NUM || docs.empty) {
-                        this.allCommentsLoaded = true
-                    }
-                    if(!lastComment) {
-                        this.comments = []
-                    }
-                    docs.forEach(doc => {
-                        this.comments.push({id: doc.id, ...doc.data()})
-                    })
+        async fetchComments(replyId = false, lastComment = false) {
+            let constraints = []
+            if (lastComment) constraints.push(startAfter(lastComment.createdAt))
+            constraints.push(limit(FETCH_NUM))
+
+            let q = query(this.collection, orderBy('createdAt', 'desc'), where('replyTo', '==', replyId), ...constraints)
+            let docs = await getDocs(q)
+            if(replyId) {
+                if(!lastComment) {
+                    this.$set(this.replys, replyId, [])
                 }
-            })
-            .catch(e => console.error(e))
+                let state = false
+                if(docs.size < FETCH_NUM || docs.empty) {
+                    state = true
+                }
+                this.$set(this.allReplysLoaded, replyId, state)
+                docs.forEach(doc => {
+                    this.replys[replyId].push({id: doc.id, ...doc.data()})
+                })
+            } else {
+                if(docs.size < FETCH_NUM || docs.empty) {
+                    this.allCommentsLoaded = true
+                }
+                if(!lastComment) {
+                    this.comments = []
+                }
+                docs.forEach(doc => {
+                    this.comments.push({id: doc.id, ...doc.data()})
+                })
+            }
         },
         loadReply(id) {
             if(this.loadedReply.includes(id)) return
@@ -148,10 +148,10 @@ export default {
                 photoURL: this.$root.user.photoURL,
                 displayName: this.$root.user.displayName,
                 content: text,
-                createdAt: serverTimestamp,
+                createdAt: serverTimestamp(),
             }
-            await this.collection.add(comment)
-            analytics.logEvent('write_comment', {
+            await addDoc(this.collection, comment)
+            logEvent(analyticsInstance, 'write_comment', {
                 isReply: replyId ? true : false,
                 length: text.length
             })
@@ -159,7 +159,7 @@ export default {
         },
         async deleteComment(id, replyId = false) {
             if(!confirm('Supprimer le commentaire et les réponses associées ?')) return
-            await this.collection.doc(id).delete()
+            await deleteDoc(doc(this.collection, id))
             const commentObj = this.comments.find(o => o.id === id)
             if(commentObj) {
                 const index = this.comments.indexOf(commentObj)
